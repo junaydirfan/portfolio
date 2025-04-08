@@ -196,7 +196,7 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
           </Button>
 
           <div className="flex gap-2">
-            {project.github && (
+            {project.github && project.id !== "busrc-website" && (
               <Button variant="outline" asChild>
                 <a href={project.github} target="_blank" rel="noopener noreferrer">
                   <Github className="mr-2 h-4 w-4" />
@@ -205,7 +205,7 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
               </Button>
             )}
 
-            {project.link && (
+            {project.link && project.id !== "smartballot" && project.id !== "bulletin-board" && (
               <Button asChild>
                 <a href={project.link} target="_blank" rel="noopener noreferrer">
                   <ExternalLink className="mr-2 h-4 w-4" />

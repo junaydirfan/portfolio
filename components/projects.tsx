@@ -6,7 +6,7 @@ import { useRef, useState, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { ExternalLink, Github } from "lucide-react"
+import { ExternalLink, Github, Trophy } from "lucide-react"
 import { ProjectDetailModal } from "./project-detail-modal"
 import type { ProjectType } from "@/types/project"
 
@@ -51,8 +51,8 @@ export default function Projects() {
         "SmartBallot is a revolutionary blockchain-based voting system that achieved Runner-Up in the secureVote Hackathon at Bishop's University. It addresses the critical challenges of electronic voting by ensuring vote integrity, voter anonymity, and system transparency through advanced cryptographic techniques and blockchain technology.",
       image: "/images/smartballot.jpeg?height=400&width=600",
       tags: ["Next.js", "Nest.js", "Solidity", "Blockchain", "ZKP"],
-      link: "#",
-      github: "#",
+      link: "https://github.com/junaydirfan/smartballot",
+      github: "https://github.com/junaydirfan/smartballot",
       keyFeatures: [
         "Secure and anonymous voting through blockchain and Zero-Knowledge Proofs",
         "Real-time voter verification through integration with external government databases",
@@ -151,7 +151,7 @@ export default function Projects() {
         "The BUSRC Website is a comprehensive web platform for Bishop's University Student Representative Council. It features a modern, responsive design with custom UI components that adhere to university brand guidelines. The site handles 5000+ monthly user interactions and integrates with various university systems.",
       image: "/images/busrc1.png?height=400&width=600",
       tags: ["Next.js", "Tailwind CSS", "SQL", "UI Design"],
-      link: "https://busrc.com",
+      link: "https://busrc.com/",
       github: "#",
       keyFeatures: [
         "Responsive design optimized for all devices",
@@ -193,16 +193,16 @@ export default function Projects() {
       ],
     },
     {
-      id: "opensource-contributions",
-      title: "Open Source Contributions",
+      id: "this-website",
+      title: "This Website",
       shortDescription:
-        "Contributed to various open source projects, including React, Tailwind CSS, and Next.js.",
+        "This website is a showcase of my technical skills and creative problem-solving abilities. It's so meta, it's recursively describing itself!",
       fullDescription:
-        "I've contributed to various open source projects, including React, Tailwind CSS, and Next.js.",
+        "This website is a showcase of my technical skills and creative problem-solving abilities. It's so meta, it's recursively describing itself! Like a function that calls itself, this portfolio keeps going deeper into its own description. A true example of recursion in action - the website that describes the website that describes the website...",
       image: "/images/opensource.png?height=400&width=600",
       tags: ["Next.js", "React", "Tailwind CSS", "XML"],
-      link: "#",
-      github: "#",
+      link: "https://portfolio.10poundingpotatoes.org",
+      github: "https://github.com/junaydirfan/portfolio",
       keyFeatures: [
         "Dynamic form generation based on XML configurations",
         "Customizable UI components for different partner needs",
@@ -278,6 +278,12 @@ export default function Projects() {
                   </div>
                   <CardHeader>
                     <CardTitle>{project.title}</CardTitle>
+                    {project.id === "smartballot" && (
+                      <div className="flex items-center gap-1.5 mt-1 mb-2">
+                        <Trophy className="h-4 w-4 text-amber-500" />
+                        <span className="text-sm font-medium text-amber-500">SecureVote Hackathon 2024 Runner-up</span>
+                      </div>
+                    )}
                     <CardDescription>{project.shortDescription}</CardDescription>
                   </CardHeader>
                   <CardContent>
@@ -290,12 +296,16 @@ export default function Projects() {
                     </div>
                   </CardContent>
                   <CardFooter className="flex justify-between">
-                    <Button variant="outline" size="sm" asChild>
-                      <a href={project.github} target="_blank" rel="noopener noreferrer">
-                        <Github className="mr-2 h-4 w-4" />
-                        Code
-                      </a>
-                    </Button>
+                    <div>
+                      {project.id !== "busrc-website" && (
+                        <Button variant="outline" size="sm" asChild>
+                          <a href={project.github} target="_blank" rel="noopener noreferrer">
+                            <Github className="mr-2 h-4 w-4" />
+                            Code
+                          </a>
+                        </Button>
+                      )}
+                    </div>
                     <Button size="sm" onClick={() => handleOpenModal(project)}>
                       <ExternalLink className="mr-2 h-4 w-4" />
                       View Project

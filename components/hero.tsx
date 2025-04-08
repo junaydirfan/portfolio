@@ -12,35 +12,40 @@ const backgroundElements = [
     height: 311,
     x: 87,
     y: 53,
-    duration: 25
+    duration: 25,
+    scrollSpeed: 0.3
   },
   {
     width: 443,
     height: 579,
     x: 95,
     y: 6,
-    duration: 20
+    duration: 20,
+    scrollSpeed: 0.2
   },
   {
     width: 350,
     height: 277,
     x: 68,
     y: 66,
-    duration: 15
+    duration: 15,
+    scrollSpeed: 0.4
   },
   {
     width: 274,
     height: 518,
     x: 42,
     y: 54,
-    duration: 30
+    duration: 30,
+    scrollSpeed: 0.25
   },
   {
     width: 469,
     height: 444,
     x: 41,
     y: 22,
-    duration: 18
+    duration: 18,
+    scrollSpeed: 0.35
   }
 ]
 
@@ -74,20 +79,22 @@ export default function Hero() {
               height: `${element.height}px`,
               x: `${element.x}%`,
               y: `${element.y}%`,
-              opacity: 0.5,
+              opacity: 0.7,
             }}
             animate={{
               x: `${element.x}%`,
               y: `${element.y}%`,
-              opacity: [0.5, 0.7, 0.5],
+              opacity: [0.7, 0.9, 0.7],
+            }}
+            style={{
+              filter: "blur(100px)",
+              transform: isMounted ? `translateY(${scrollY * element.scrollSpeed}px)` : "none",
             }}
             transition={{
               duration: element.duration,
               repeat: Number.POSITIVE_INFINITY,
               repeatType: "reverse",
-            }}
-            style={{
-              filter: "blur(80px)",
+              ease: "easeInOut",
             }}
           />
         ))}
@@ -124,7 +131,7 @@ export default function Hero() {
               size="lg"
               className="rounded-full px-8"
               onClick={() => {
-                document.getElementById("about")?.scrollIntoView({ behavior: "smooth" })
+                document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })
               }}
             >
               Explore My Work
