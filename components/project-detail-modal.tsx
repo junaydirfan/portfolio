@@ -43,11 +43,21 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
 
         <div className="mt-4">
           <Tabs defaultValue="overview" className="w-full">
-            <TabsList className="grid w-full grid-cols-4">
+            <TabsList className={`grid w-full ${
+              project.id === "busrc-website" 
+                ? "grid-cols-2" 
+                : project.id === "this-website" || project.id === "bulletin-board" 
+                  ? "grid-cols-3" 
+                  : "grid-cols-4"
+            }`}>
               <TabsTrigger value="overview">Overview</TabsTrigger>
               <TabsTrigger value="technical">Technical</TabsTrigger>
-              <TabsTrigger value="gallery">Gallery</TabsTrigger>
-              <TabsTrigger value="challenges">Challenges</TabsTrigger>
+              {project.id !== "busrc-website" && project.id !== "this-website" && project.id !== "bulletin-board" && (
+                <TabsTrigger value="gallery">Gallery</TabsTrigger>
+              )}
+              {project.id !== "busrc-website" && (
+                <TabsTrigger value="challenges">Challenges</TabsTrigger>
+              )}
             </TabsList>
 
             <TabsContent value="overview" className="mt-4 space-y-4">
@@ -114,79 +124,83 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
               </div>
             </TabsContent>
 
-            <TabsContent value="gallery" className="mt-4">
-              {project.gallery && project.gallery.length > 0 ? (
-                <div className="space-y-4">
-                  <div className="relative aspect-video rounded-lg overflow-hidden bg-muted">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      {isMounted && (
-                        <Image
-                          src={project.gallery[currentImageIndex] || "/placeholder.svg"}
-                          alt={`${project.title} screenshot ${currentImageIndex + 1}`}
-                          fill
-                          className="object-contain"
-                        />
-                      )}
+            {project.id !== "busrc-website" && project.id !== "this-website" && project.id !== "bulletin-board" && (
+              <TabsContent value="gallery" className="mt-4">
+                {project.gallery && project.gallery.length > 0 ? (
+                  <div className="space-y-4">
+                    <div className="relative aspect-video rounded-lg overflow-hidden bg-muted">
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        {isMounted && (
+                          <Image
+                            src={project.gallery[currentImageIndex] || "/placeholder.svg"}
+                            alt={`${project.title} screenshot ${currentImageIndex + 1}`}
+                            fill
+                            className="object-contain"
+                          />
+                        )}
+                      </div>
+
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="absolute left-2 top-1/2 -translate-y-1/2 bg-background/80 hover:bg-background/90 rounded-full"
+                        onClick={handlePrevImage}
+                      >
+                        <ChevronLeft className="h-4 w-4" />
+                      </Button>
+
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="absolute right-2 top-1/2 -translate-y-1/2 bg-background/80 hover:bg-background/90 rounded-full"
+                        onClick={handleNextImage}
+                      >
+                        <ChevronRight className="h-4 w-4" />
+                      </Button>
                     </div>
 
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="absolute left-2 top-1/2 -translate-y-1/2 bg-background/80 hover:bg-background/90 rounded-full"
-                      onClick={handlePrevImage}
-                    >
-                      <ChevronLeft className="h-4 w-4" />
-                    </Button>
-
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="absolute right-2 top-1/2 -translate-y-1/2 bg-background/80 hover:bg-background/90 rounded-full"
-                      onClick={handleNextImage}
-                    >
-                      <ChevronRight className="h-4 w-4" />
-                    </Button>
+                    <div className="flex justify-center gap-1 mt-2">
+                      {project.gallery.map((_, index) => (
+                        <button
+                          key={index}
+                          className={`w-2 h-2 rounded-full ${
+                            index === currentImageIndex ? "bg-primary" : "bg-muted-foreground/30"
+                          }`}
+                          onClick={() => setCurrentImageIndex(index)}
+                        />
+                      ))}
+                    </div>
                   </div>
+                ) : (
+                  <div className="text-center py-8 text-muted-foreground">
+                    No gallery images available for this project.
+                  </div>
+                )}
+              </TabsContent>
+            )}
 
-                  <div className="flex justify-center gap-1 mt-2">
-                    {project.gallery.map((_, index) => (
-                      <button
-                        key={index}
-                        className={`w-2 h-2 rounded-full ${
-                          index === currentImageIndex ? "bg-primary" : "bg-muted-foreground/30"
-                        }`}
-                        onClick={() => setCurrentImageIndex(index)}
-                      />
+            {project.id !== "busrc-website" && (
+              <TabsContent value="challenges" className="mt-4 space-y-4">
+                {project.challenges && project.challenges.length > 0 ? (
+                  <div className="space-y-6">
+                    <h3 className="text-lg font-medium">Challenges & Solutions</h3>
+
+                    {project.challenges.map((challenge, index) => (
+                      <div key={index} className="space-y-2 pb-4 border-b last:border-0">
+                        <h4 className="font-medium">{challenge.title}</h4>
+                        <p className="text-muted-foreground">{challenge.description}</p>
+                        <div className="pt-2">
+                          <h5 className="text-sm font-medium">Solution:</h5>
+                          <p className="text-sm text-muted-foreground">{challenge.solution}</p>
+                        </div>
+                      </div>
                     ))}
                   </div>
-                </div>
-              ) : (
-                <div className="text-center py-8 text-muted-foreground">
-                  No gallery images available for this project.
-                </div>
-              )}
-            </TabsContent>
-
-            <TabsContent value="challenges" className="mt-4 space-y-4">
-              {project.challenges && project.challenges.length > 0 ? (
-                <div className="space-y-6">
-                  <h3 className="text-lg font-medium">Challenges & Solutions</h3>
-
-                  {project.challenges.map((challenge, index) => (
-                    <div key={index} className="space-y-2 pb-4 border-b last:border-0">
-                      <h4 className="font-medium">{challenge.title}</h4>
-                      <p className="text-muted-foreground">{challenge.description}</p>
-                      <div className="pt-2">
-                        <h5 className="text-sm font-medium">Solution:</h5>
-                        <p className="text-sm text-muted-foreground">{challenge.solution}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-8 text-muted-foreground">No challenges documented for this project.</div>
-              )}
-            </TabsContent>
+                ) : (
+                  <div className="text-center py-8 text-muted-foreground">No challenges documented for this project.</div>
+                )}
+              </TabsContent>
+            )}
           </Tabs>
         </div>
 

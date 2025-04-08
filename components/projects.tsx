@@ -46,33 +46,41 @@ export default function Projects() {
       id: "smartballot",
       title: "SmartBallot: Blockchain Voting System",
       shortDescription:
-        "A secure and anonymous e-voting application utilizing blockchain and Zero-Knowledge Proofs (ZKP) for vote integrity.",
+        "A modern, blockchain-based voting platform ensuring security, transparency, accessibility, and privacy in electoral processes.",
       fullDescription:
-        "SmartBallot is a revolutionary blockchain-based voting system that achieved Runner-Up in the secureVote Hackathon at Bishop's University. It addresses the critical challenges of electronic voting by ensuring vote integrity, voter anonymity, and system transparency through advanced cryptographic techniques and blockchain technology.",
+        "SmartBallot is a revolutionary blockchain-based voting system that achieved Runner-Up in the Eviden & Bishop's University SecureVote Hackathon 2024. It leverages modern cryptographic and blockchain tools to ensure vote integrity, voter anonymity, and system transparency while keeping the user experience simple and intuitive. The platform is designed to be secure, accessible, scalable, anonymous, and compliant with electoral regulations.",
       image: "/images/smartballot.jpeg?height=400&width=600",
-      tags: ["Next.js", "Nest.js", "Solidity", "Blockchain", "ZKP"],
+      tags: ["Next.js", "NestJS", "Solidity", "Blockchain", "ZKP", "Hardhat", "Cerbos"],
       link: "https://github.com/junaydirfan/smartballot",
       github: "https://github.com/junaydirfan/smartballot",
       keyFeatures: [
-        "Secure and anonymous voting through blockchain and Zero-Knowledge Proofs",
-        "Real-time voter verification through integration with external government databases",
-        "Role-based access control with Cerbos for enhanced security",
-        "Data encryption and anonymization to protect voter information",
-        "Transparent vote counting with cryptographic verification",
+        "User Authentication & Admin Management with Multi-Factor Authentication",
+        "Real-time Voting with blockchain integration for immutability and trust",
+        "Zero Knowledge Proofs to preserve voter privacy and verify eligibility",
+        "External Voter Verification with secure APIs to government databases",
+        "Comprehensive Accessibility Options for all eligible voters",
+        "Data Protection & Privacy with cryptographic hashing and encryption",
+        "Voter Assistance features for users needing help",
+        "Compliance with electoral regulations and data protection laws",
       ],
       technicalDetails: [
-        "Implemented Solidity smart contracts for vote storage and verification",
-        "Used Zero-Knowledge Proofs to ensure voter anonymity while maintaining verification",
-        "Built a responsive front-end with Next.js and Tailwind CSS",
-        "Developed a robust back-end API with Nest.js for data processing",
-        "Integrated with external voter databases using secure API connections",
+        "Frontend built with Next.js (App Router) for a responsive, modern UI",
+        "Backend developed with NestJS + TypeORM for robust data processing",
+        "Smart Contracts implemented with Hardhat and Solidity",
+        "SQLite database for efficient data storage and retrieval",
+        "Cerbos for Policy-Based Access Control and authorization",
+        "Zero Knowledge Proofs for voter eligibility verification without revealing identity",
+        "HTTPS/TLS for data in transit and at-rest encryption for security",
+        "Integration with external government databases for voter verification",
       ],
       architecture:
-        "SmartBallot uses a three-tier architecture with a Next.js frontend, Nest.js backend, and Ethereum blockchain for data storage. The system employs Zero-Knowledge Proofs to verify voter eligibility without revealing identity, and uses Cerbos for role-based access control.",
+        "SmartBallot uses a three-tier architecture with a Next.js frontend, NestJS backend, and Ethereum blockchain for data storage. The system employs Zero-Knowledge Proofs to verify voter eligibility without revealing identity, and uses Cerbos for role-based access control. The app flow includes voter sign-in through MFA and verification APIs, eligibility verification via ZKPs, ballot display, ZKP generation off-chain, vote casting on-chain anonymously, and real-time result tallying via blockchain.",
       gallery: [
-        "/placeholder.svg?height=400&width=600",
-        "/placeholder.svg?height=400&width=600",
-        "/placeholder.svg?height=400&width=600",
+        "/images/smartballot/tttt1.png?height=400&width=600",
+        "/images/smartballot/tttt.png?height=400&width=600",
+        "/images/smartballot/smartcontract.png?height=400&width=600",
+        "/images/smartballot/backend.png?height=400&width=600",
+        "/images/smartballot/appflow.png?height=400&width=600",
       ],
       challenges: [
         {
@@ -80,7 +88,7 @@ export default function Projects() {
           description:
             "One of the biggest challenges was ensuring that votes remained anonymous while still verifying that each voter was eligible and only voted once.",
           solution:
-            "We implemented Zero-Knowledge Proofs (ZKP) that allowed us to verify voter eligibility without revealing their identity. This cryptographic approach ensured that votes could be verified as legitimate without connecting them to specific voters.",
+            "We implemented Zero-Knowledge Proofs (ZKP) that allowed us to verify voter eligibility without revealing their identity. This cryptographic approach ensured that votes could be verified as legitimate without connecting them to specific voters. Voters generate a ZKP off-chain, which proves eligibility, and then the vote is submitted on-chain, fully anonymized.",
         },
         {
           title: "Scaling the Blockchain Solution",
@@ -94,7 +102,14 @@ export default function Projects() {
           description:
             "Electronic voting systems must be accessible to users with varying levels of technical expertise and abilities.",
           solution:
-            "We designed an intuitive user interface with accessibility in mind, following WCAG guidelines. We also implemented multiple authentication methods and provided clear instructions throughout the voting process.",
+            "We designed an intuitive user interface with accessibility in mind, following WCAG guidelines. We also implemented multiple authentication methods, provided clear instructions throughout the voting process, and added a voter assistance feature that allows users to request help via an in-app button, with trusted assistant options for physical help.",
+        },
+        {
+          title: "Data Protection and Privacy Compliance",
+          description:
+            "Protecting voter data while maintaining compliance with electoral regulations presented significant challenges.",
+          solution:
+            "We implemented a comprehensive data protection strategy that included no storage of vote-candidate relationships, cryptographic hashing (SHA-256) of voter identities, and HTTPS/TLS for data in transit plus at-rest encryption. We also ensured minimal, lawful data retrieval for identity checks and enforced one vote per eligible voter through blockchain and ZKP mechanisms.",
         },
       ],
     },
@@ -102,29 +117,35 @@ export default function Projects() {
       id: "bulletin-board",
       title: "Bulletin Board Server",
       shortDescription:
-        "A multi-threaded bulletin board server with thread pool architecture, implementing Readers-Writers lock for concurrent data access.",
+        "A multi-threaded bulletin board server implemented in C that allows clients to write and read messages while ensuring data consistency across multiple instances.",
       fullDescription:
-        "The Bulletin Board Server is a high-performance, multi-threaded server application designed to handle concurrent message posting and reading. It implements advanced synchronization techniques to ensure data integrity while maximizing throughput for multiple simultaneous users.",
+        "The Bulletin Board Server (bbserver) is a high-performance, multi-threaded server application designed to handle concurrent message posting and reading. It implements advanced synchronization techniques to ensure data integrity while maximizing throughput for multiple simultaneous users. The project provides a practical example of distributed systems and concurrent programming, with features like thread pools, readers-writers locks, and the two-phase commit protocol for distributed data synchronization.",
       image: "/images/bbserv.jpeg?height=400&width=600",
-      tags: ["C", "Multi-threading", "Socket Programming", "Two-Phase Commit"],
-      link: "#",
-      github: "#",
+      tags: ["C", "Multi-threading", "Socket Programming", "Two-Phase Commit", "POSIX", "Distributed Systems"],
+      link: "https://github.com/junaydirfan/bbserver",
+      github: "https://github.com/junaydirfan/bbserver",
       keyFeatures: [
-        "Thread pool architecture for efficient resource utilization",
+        "Multi-threaded architecture with thread pool for efficient resource utilization",
+        "Client-server communication via sockets for network connectivity",
         "Readers-Writers lock implementation for concurrent data access",
-        "Two-phase commit protocol for distributed synchronization",
-        "Socket-based client-server communication system",
-        "Configurable settings and daemon mode support",
+        "Two-phase commit protocol for distributed data synchronization",
+        "Configurable server settings through configuration files",
+        "Daemon mode support for background operation",
+        "Debug logging for troubleshooting and monitoring",
+        "Signal handling for graceful shutdown and reconfiguration",
       ],
       technicalDetails: [
-        "Implemented in C with POSIX threads for maximum performance",
+        "Implemented in C with POSIX threads (pthread.h) for maximum performance",
         "Used mutex and condition variables for thread synchronization",
         "Implemented a custom thread pool to manage worker threads efficiently",
         "Designed a socket-based communication protocol for client-server interaction",
         "Implemented the two-phase commit protocol for distributed consensus",
+        "Created a configuration management system for flexible deployment",
+        "Developed a logging system for debugging and monitoring",
+        "Implemented signal handlers for process management",
       ],
       architecture:
-        "The Bulletin Board Server uses a thread pool architecture where a fixed number of worker threads process client requests from a shared queue. It implements a Readers-Writers lock to allow multiple simultaneous readers while ensuring exclusive access for writers. The server uses a socket-based communication system and supports the two-phase commit protocol for distributed operations.",
+        "The Bulletin Board Server uses a thread pool architecture where a fixed number of worker threads process client requests from a shared queue. It implements a Readers-Writers lock to allow multiple simultaneous readers while ensuring exclusive access for writers. The server uses a socket-based communication system and supports the two-phase commit protocol for distributed operations. The system is designed with a modular approach, separating concerns between network communication, thread management, data synchronization, and configuration handling.",
       gallery: ["/images/bbserv.jpeg?height=400&width=600", "/images/bbserv.jpeg?height=400&width=600"],
       challenges: [
         {
@@ -140,85 +161,89 @@ export default function Projects() {
           solution:
             "We implemented an adaptive thread pool that could dynamically adjust the number of worker threads based on the current load. This, combined with efficient connection pooling and request batching, allowed the server to handle high loads effectively.",
         },
+        {
+          title: "Ensuring Data Consistency Across Distributed Instances",
+          description:
+            "Maintaining data consistency across multiple server instances in a distributed environment was challenging, especially with network failures and partitions.",
+          solution:
+            "We implemented a robust two-phase commit protocol with timeout mechanisms and recovery procedures. This ensured that all server instances maintained consistent data even in the presence of network issues or server failures. We also added transaction logging to enable recovery after system crashes.",
+        },
+        {
+          title: "Managing System Resources Efficiently",
+          description:
+            "The server needed to efficiently manage system resources like file handles, memory, and network connections, especially during long-running operations.",
+          solution:
+            "We implemented resource pooling and cleanup mechanisms to prevent resource leaks. We also added monitoring capabilities to track resource usage and implemented graceful degradation when resources became constrained. Additionally, we created a daemon mode that allowed the server to run in the background with proper process management.",
+        },
       ],
     },
     {
       id: "busrc-website",
       title: "BUSRC Website",
       shortDescription:
-        "Led full-stack management of SRC website using modern web stack. Implemented custom UI components aligned with university brand guidelines.",
+        "Served as webmaster for the Bishop's University SRC Website, managing content updates, site maintenance, and implementing new features.",
       fullDescription:
-        "The BUSRC Website is a comprehensive web platform for Bishop's University Student Representative Council. It features a modern, responsive design with custom UI components that adhere to university brand guidelines. The site handles 5000+ monthly user interactions and integrates with various university systems.",
+        "As the webmaster for the Bishop's University Student Representative Council (SRC) Website, I was responsible for maintaining and updating the site to ensure it effectively served the student body. This role involved collaborating with various teams to incorporate new content, revamping sections of the site, and implementing new features to enhance user experience. I managed the day-to-day operations of the website, ensuring it remained a reliable resource for students seeking information about campus events, services, and opportunities.",
       image: "/images/busrc1.png?height=400&width=600",
-      tags: ["Next.js", "Tailwind CSS", "SQL", "UI Design"],
+      tags: ["React", "JavaScript", "HTML/CSS", "Content Management", "Web Development"],
       link: "https://busrc.com/",
       github: "#",
       keyFeatures: [
-        "Responsive design optimized for all devices",
-        "Custom UI components aligned with university brand guidelines",
-        "Integration with university event calendars and reservation systems",
-        "User authentication and role-based access",
-        "Content management system for easy updates",
+        "Managed and updated website content in collaboration with various teams",
+        "Implemented new features and revamped existing sections of the site",
+        "Ensured consistent branding and user experience across all pages",
+        "Maintained site performance and reliability",
+        "Coordinated with stakeholders to align website with organizational goals",
       ],
       technicalDetails: [
-        "Built with Next.js for server-side rendering and optimal performance",
-        "Used Tailwind CSS for consistent styling and rapid development",
-        "Implemented SQL database schemas for efficient data storage and retrieval",
-        "Designed RESTful APIs for integration with other university systems",
-        "Implemented automated testing and CI/CD pipelines",
+        "Managed website content and structure",
+        "Implemented responsive design elements",
+        "Optimized site performance and user experience",
+        "Coordinated with multiple teams for content updates",
+        "Maintained site security and functionality",
       ],
       architecture:
-        "The BUSRC Website uses a modern JAMstack architecture with Next.js for server-side rendering and static site generation. It features a headless CMS for content management, SQL databases for structured data, and RESTful APIs for integration with other university systems.",
+        "The BUSRC Website serves as the central digital platform for the Bishop's University Student Representative Council, providing students with access to information about campus events, services, and opportunities. As webmaster, I managed the site's content and structure, ensuring it remained an effective communication tool for the SRC.",
       gallery: [
         "/placeholder.svg?height=400&width=600",
         "/placeholder.svg?height=400&width=600",
         "/placeholder.svg?height=400&width=600",
         "/placeholder.svg?height=400&width=600",
-      ],
-      challenges: [
-        {
-          title: "Integrating with Legacy University Systems",
-          description:
-            "The website needed to integrate with several legacy university systems that had limited API capabilities.",
-          solution:
-            "We developed custom integration adapters that could communicate with the legacy systems through their available interfaces. Where direct integration wasn't possible, we implemented scheduled data synchronization processes.",
-        },
-        {
-          title: "Ensuring Consistent Branding Across Components",
-          description:
-            "Maintaining consistent branding across all UI components while allowing for flexibility was challenging.",
-          solution:
-            "We created a design system with Tailwind CSS that encoded the university's brand guidelines into reusable components and utility classes. This ensured visual consistency while allowing for component-specific customizations.",
-        },
       ],
     },
     {
       id: "this-website",
-      title: "This Website",
+      title: "This Site",
       shortDescription:
         "This website is a showcase of my technical skills and creative problem-solving abilities. It's so meta, it's recursively describing itself!",
       fullDescription:
-        "This website is a showcase of my technical skills and creative problem-solving abilities. It's so meta, it's recursively describing itself! Like a function that calls itself, this portfolio keeps going deeper into its own description. A true example of recursion in action - the website that describes the website that describes the website...",
-      image: "/images/opensource.png?height=400&width=600",
-      tags: ["Next.js", "React", "Tailwind CSS", "XML"],
+        "This website is a showcase of my technical skills and creative problem-solving abilities. It's so meta, it's recursively describing itself! Like a function that calls itself, this portfolio keeps going deeper into its own description. A true example of recursion in action - the website that describes the website that describes the website... Built with Next.js 15 and Tailwind CSS, this modern, responsive portfolio website features static site generation for optimal performance, component-based architecture for maintainability, and smooth animations powered by Framer Motion.",
+      image: "/images/thisite.jpg?height=400&width=600",
+      tags: ["Next.js", "React", "Tailwind CSS", "Framer Motion", "Radix UI", "EmailJS", "Geist Font"],
       link: "https://portfolio.10poundingpotatoes.org",
       github: "https://github.com/junaydirfan/portfolio",
       keyFeatures: [
-        "Dynamic form generation based on XML configurations",
-        "Customizable UI components for different partner needs",
-        "Role-based access control for secure partner management",
-        "Automated validation and error handling",
-        "Integration with partner APIs and systems",
+        "Responsive Design optimized for all device sizes",
+        "Static Site Generation for fast loading times and optimal performance",
+        "Component-Based Architecture for modular and maintainable code",
+        "Modern UI with clean design and smooth animations",
+        "SEO Optimization with pre-configured metadata",
+        "Comprehensive sections: Hero, About, Skills, Infrastructure, Projects, Experience, Education, Contact",
+        "Self-hosted deployment on Proxmox with Nginx and SSL",
+        "GitHub Actions CI/CD pipeline for automated deployment",
       ],
       technicalDetails: [
-        "Built with Next.js and React for a responsive, modern UI",
-        "Implemented XML parsing and transformation for dynamic form generation",
-        "Used Tailwind CSS for consistent, customizable styling",
-        "Implemented client-side and server-side validation for data integrity",
-        "Designed a plugin architecture for extensibility",
+        "Built with Next.js 15 for modern React development and static site generation",
+        "Styled with Tailwind CSS for responsive, utility-first design",
+        "Implemented custom UI components using Radix UI primitives",
+        "Added smooth animations with Framer Motion for enhanced user experience",
+        "Used Geist Font for modern typography",
+        "Integrated EmailJS for form handling and contact functionality",
+        "Configured Nginx for production deployment with SSL security",
+        "Set up GitHub Actions workflow for continuous integration and deployment",
       ],
       architecture:
-        "The Partner Admin Portal uses a component-based architecture with Next.js and React. It features a core engine that parses XML configurations to generate dynamic forms and UI components. The system uses a modular approach with plugins for different functionality, allowing for easy extension and customization.",
+        "This portfolio website uses a modern JAMstack architecture with Next.js for static site generation. It features a component-based structure with reusable UI components built on Radix UI primitives. The site is organized into distinct sections (Hero, About, Skills, etc.) that are composed of modular components. For deployment, the site is built as a static export and served through Nginx on a self-hosted Proxmox environment, with automated deployment via GitHub Actions.",
       gallery: [
         "/placeholder.svg?height=400&width=600",
         "/placeholder.svg?height=400&width=600",
@@ -226,18 +251,25 @@ export default function Projects() {
       ],
       challenges: [
         {
-          title: "Supporting Diverse Partner Requirements",
+          title: "Creating a Self-Referential Portfolio",
           description:
-            "Different partners had vastly different requirements for their administration interfaces, making a one-size-fits-all approach impractical.",
+            "Designing a portfolio that describes itself while maintaining clarity and avoiding infinite recursion was a unique challenge.",
           solution:
-            "We designed an XML-based configuration system that allowed us to define custom forms, validation rules, and UI components for each partner without changing the codebase. This approach reduced partner onboarding time by 35%.",
+            "We embraced the meta-nature of the project by incorporating recursion-themed elements in the design and content, while ensuring the actual implementation remained clean and maintainable. This approach created an engaging user experience that highlights both technical skills and creative thinking.",
         },
         {
-          title: "Ensuring Consistent Performance with Dynamic Components",
+          title: "Optimizing Performance with Static Generation",
           description:
-            "Dynamically generated UI components based on XML configurations posed performance challenges, especially for complex forms.",
+            "Balancing rich interactive features with optimal performance required careful consideration of what to generate statically versus what to render dynamically.",
           solution:
-            "We implemented a caching system for parsed configurations and used React.memo and useMemo hooks to optimize rendering performance. We also implemented code splitting to ensure only the necessary components were loaded for each partner.",
+            "We implemented Next.js static site generation for the core content while selectively using client-side rendering for interactive elements. This hybrid approach delivered fast initial page loads while maintaining the dynamic, engaging experience we wanted to create.",
+        },
+        {
+          title: "Implementing Smooth Animations Without Compromising Performance",
+          description:
+            "Adding fluid animations to enhance the user experience without impacting performance or accessibility was challenging.",
+          solution:
+            "We used Framer Motion with careful performance optimization, implementing techniques like reduced motion preferences, lazy loading of animations, and hardware-accelerated transforms. This approach delivered smooth, engaging animations while maintaining excellent performance across devices.",
         },
       ],
     },
