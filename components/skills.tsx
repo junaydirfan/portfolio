@@ -35,6 +35,7 @@ import {
   SiAnsible,
   SiGithubactions,
   SiJenkins,
+  SiWireshark,
 } from "react-icons/si"
 import { Server } from "lucide-react"
 
@@ -94,6 +95,7 @@ export default function Skills() {
     { name: "Unreal Engine", icon: SiUnrealengine, category: "Design & 3D" },
     { name: "Unity", icon: SiUnity, category: "Design & 3D" },
     { name: "Blender", icon: SiBlender, category: "Design & 3D" },
+    { name: "Wireshark", icon: SiWireshark, category: "Cloud & DevOps" },
   ]
 
   const categories = ["Languages", "Frameworks", "Databases", "Cloud & DevOps", "Design & 3D"]

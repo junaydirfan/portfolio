@@ -212,6 +212,62 @@ export default function Projects() {
       ],
     },
     {
+      id: "socialsight",
+      title: "SocialSight",
+      shortDescription:
+        "A modern web application that allows users to preview how their images will appear across different social media platforms.",
+      fullDescription:
+        "SocialSight is a modern web application that allows users to preview how their images will appear across different social media platforms. Built with Next.js and TypeScript, it provides a sleek, responsive interface with dark mode support. The application enables users to upload images and see how they would look on various social media platforms like YouTube, Facebook, Instagram, Twitter, and Reddit, helping them optimize their content for each platform.",
+      image: "/images/socialsight.jpg?height=400&width=600",
+      tags: ["Next.js", "TypeScript", "Tailwind CSS", "Radix UI", "Responsive Design"],
+      link: "https://v0-next-js-social-sight-app.vercel.app/",
+      github: "https://github.com/junaydirfan/SocialSight",
+      keyFeatures: [
+        "Image Upload with drag and drop or click to upload (PNG, JPG, GIF)",
+        "Dark Mode support with theme toggle",
+        "Multi-Platform Previews for YouTube, Facebook, Instagram, Twitter, and Reddit",
+        "Modern UI with clean, responsive design and smooth animations",
+        "Real-time Preview updates when switching between platforms",
+      ],
+      technicalDetails: [
+        "Built with Next.js 15.3.0 for modern React development",
+        "TypeScript for type safety and better developer experience",
+        "Tailwind CSS for responsive, utility-first styling",
+        "Radix UI components for accessible and customizable UI elements",
+        "Modern architecture with component-based design",
+        "Optimized for performance and user experience",
+        "Responsive design that works across all device sizes",
+        "Dark mode implementation with system preference detection",
+      ],
+      architecture:
+        "SocialSight uses a modern Next.js architecture with TypeScript for type safety. The application is built with a component-based approach, utilizing Radix UI for accessible components and Tailwind CSS for styling. The core functionality revolves around image processing and preview generation, with a responsive design that adapts to different screen sizes. The application features a dark mode toggle and system preference detection for optimal user experience.",
+      gallery: [
+      ],
+      challenges: [
+        {
+          title: "Handling Image Processing and Preview Generation",
+          description:
+            "Processing images and generating accurate previews for different social media platforms required careful consideration of aspect ratios and platform-specific requirements.",
+          solution:
+            "We implemented a robust image processing system that handles various image formats and sizes, with platform-specific preview templates that accurately represent how images will appear on each social media platform. This included maintaining aspect ratios and implementing responsive preview containers.",
+        },
+        {
+          title: "Implementing Dark Mode with System Preference Detection",
+          description:
+            "Creating a seamless dark mode experience that respects user preferences while maintaining consistent styling across the application was challenging.",
+          solution:
+            "We implemented a theme system using CSS variables and Tailwind's dark mode utilities, with automatic system preference detection. This allowed for smooth transitions between themes and ensured consistent styling across all components.",
+        },
+        {
+          title: "Optimizing Performance for Image Processing",
+          description:
+            "Processing and previewing multiple images simultaneously could potentially impact performance, especially on lower-end devices.",
+          solution:
+            "We implemented lazy loading for images and optimized the preview generation process. We also added loading states and progressive enhancement to ensure a smooth user experience even on slower connections.",
+        },
+      ],
+    },
+    {
       id: "this-website",
       title: "This Site",
       shortDescription:

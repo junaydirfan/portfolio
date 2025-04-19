@@ -46,13 +46,13 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
             <TabsList className={`grid w-full ${
               project.id === "busrc-website" 
                 ? "grid-cols-2" 
-                : project.id === "this-website" || project.id === "bulletin-board" 
+                : project.id === "this-website" || project.id === "bulletin-board" || project.id === "socialsight"
                   ? "grid-cols-3" 
                   : "grid-cols-4"
             }`}>
               <TabsTrigger value="overview">Overview</TabsTrigger>
               <TabsTrigger value="technical">Technical</TabsTrigger>
-              {project.id !== "busrc-website" && project.id !== "this-website" && project.id !== "bulletin-board" && (
+              {project.id !== "busrc-website" && project.id !== "this-website" && project.id !== "bulletin-board" && project.id !== "socialsight" && (
                 <TabsTrigger value="gallery">Gallery</TabsTrigger>
               )}
               {project.id !== "busrc-website" && (
@@ -124,7 +124,7 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
               </div>
             </TabsContent>
 
-            {project.id !== "busrc-website" && project.id !== "this-website" && project.id !== "bulletin-board" && (
+            {project.id !== "busrc-website" && project.id !== "this-website" && project.id !== "bulletin-board" && project.id !== "socialsight" && (
               <TabsContent value="gallery" className="mt-4">
                 {project.gallery && project.gallery.length > 0 ? (
                   <div className="space-y-4">

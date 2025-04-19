@@ -50,7 +50,7 @@ export default function About() {
             </motion.h2>
             <motion.p className="text-muted-foreground mb-6" variants={itemVariants}>
               I'm a System & Web Integrator with over 2 years of experience in full-stack development and partner system
-              integrations. Just about to graduate with my Master's in Computer Science at Bishop's University. I combine
+              integrations. Just graduated my Master's in Computer Science at Bishop's University. I combine
               technical expertise with a <span className="text-primary font-medium">strong passion for design</span> and <span className="text-primary font-medium">cloud architecture</span>.
             </motion.p>
             <motion.p className="text-muted-foreground mb-6" variants={itemVariants}>
