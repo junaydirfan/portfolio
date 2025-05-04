@@ -6,12 +6,8 @@ import { Badge } from "@/components/ui/badge";
 import { motion, useInView } from "framer-motion"
 import { useRef, useState, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-// Removed Badge import
-import { Button } from "@/components/ui/button"
-// Keep specific Lucide icon imports, remove 'Icon as LucideIcon' type import
 import { Database, Palette, GitMerge, Waypoints, Blend, Plug } from "lucide-react";
-import { IconType } from "react-icons";
-import { SiNextdotjs, SiTailwindcss, SiPython, SiReact, SiSqlite, SiPostgresql, SiMysql } from "react-icons/si"; // Import specific icons used
+import { SiNextdotjs, SiTailwindcss, SiPython, SiReact } from "react-icons/si"; // Import specific icons used
 
 // --- Icon Mapping (Use ElementType) ---
 // Use React.ElementType as the value type for the map
