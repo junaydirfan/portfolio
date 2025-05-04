@@ -1,13 +1,12 @@
 "use client"
 
 import { motion, useInView } from "framer-motion"
-import { useRef, useState, useEffect } from "react"
+import React, { useRef, useState, useEffect, type ElementType } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { ExternalLink, Github, Trophy, Server, Lock, Icon as LucideIcon, Hammer } from "lucide-react" // Added Server, Lock, Icon
+import { ExternalLink, Github, Trophy, Server, Lock, Hammer } from "lucide-react"; // Removed 'Icon as LucideIcon'
 import { ProjectDetailModal } from "./project-detail-modal"
 import type { ProjectType } from "@/types/project"
-import { IconType } from "react-icons" // Import IconType
 import {
   SiNextdotjs, SiNestjs, SiSolidity, SiC, SiReact, SiJavascript,
   SiHtml5, SiCss3, SiTypescript, SiTailwindcss, SiRadixui, SiFramer, SiPython,
@@ -19,7 +18,7 @@ import {
 import Image from "next/image";
 
 // --- Icon Mapping (from Step 1) ---
-const techIconMap: Record<string, IconType | typeof LucideIcon> = {
+const techIconMap: Record<string, ElementType> = { // <-- Use ElementType
   'nextjs': SiNextdotjs,
   'nestjs': SiNestjs,
   'solidity': SiSolidity,
@@ -68,7 +67,7 @@ const techIconMap: Record<string, IconType | typeof LucideIcon> = {
   'geistfont': SiFontforge,
 };
 
-const getTechIcon = (tag: string): IconType | typeof LucideIcon | null => {
+const getTechIcon = (tag: string): ElementType | null => { // <-- Use ElementType
   const normalizedTag = tag.toLowerCase().replace(/[\s./-]/g, '');
   return techIconMap[normalizedTag] || null;
 };
