@@ -1,8 +1,10 @@
+// layout.tsx
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Nav } from "@/components/ui/nav";
 import { Availability } from "@/components/ui/availability";
+import { ThemeProvider } from "@/components/theme-provider"; // <-- Import ThemeProvider
 
 const inter = Inter({
   subsets: ["latin"],
@@ -24,17 +26,26 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
+    // Add suppressHydrationWarning to <html> as recommended by next-themes
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning> 
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
       <body
-        className={`${inter.variable} antialiased`}
-        suppressHydrationWarning={true}
+        className={`${inter.variable} font-inter antialiased bg-background text-foreground`} // font-inter added, bg/text moved here
+        // suppressHydrationWarning={true} // Moved to <html>
       >
-        <Nav />
-        {children}
-        <Availability />
+        {/* Configure ThemeProvider */}
+        <ThemeProvider
+          attribute="class" // Apply theme by adding/removing 'dark' class to <html>
+          defaultTheme="system" // Default to user's system preference
+          enableSystem // Enable system preference detection
+          disableTransitionOnChange // Optional: Prevent transitions on theme change
+        >
+          <Nav />
+          {children}
+          <Availability />
+        </ThemeProvider>
       </body>
     </html>
   );

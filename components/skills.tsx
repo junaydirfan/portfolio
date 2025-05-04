@@ -54,6 +54,7 @@ interface Category {
 }
 
 export default function Skills() {
+  // --- Refs --- (Using original RefObject<null> type as provided)
   const containerRefs: Record<CategoryId, RefObject<null>> = {
     languages: useRef(null),
     frameworks: useRef(null),
@@ -62,6 +63,7 @@ export default function Skills() {
     design: useRef(null)
   }
 
+  // --- Scroll Progress --- (Using original RefObject<null>)
   const scrollProgress: Record<CategoryId, { scrollYProgress: MotionValue<number> }> = {
     languages: useScroll({
       target: containerRefs.languages,
@@ -85,8 +87,7 @@ export default function Skills() {
     })
   }
 
-  // --- ADJUSTED TRANSFORM RANGE ---
-  // Now scrolls through 2/3 of the total width (which is 3x the original)
+  // --- Transform --- (Original calculation)
   const x: Record<CategoryId, MotionValue<string>> = {
     languages: useTransform(scrollProgress.languages.scrollYProgress, [0, 1], ["0%", "-66.666%"]),
     frameworks: useTransform(scrollProgress.frameworks.scrollYProgress, [0, 1], ["0%", "-66.666%"]),
@@ -94,8 +95,8 @@ export default function Skills() {
     cloud: useTransform(scrollProgress.cloud.scrollYProgress, [0, 1], ["0%", "-66.666%"]),
     design: useTransform(scrollProgress.design.scrollYProgress, [0, 1], ["0%", "-66.666%"])
   }
-  // ---------------------------------
 
+  // --- Skills Data --- (Original data)
   const skills: Record<CategoryId, Skill[]> = {
     languages: [
       { name: "TypeScript", icon: SiTypescript },
@@ -144,6 +145,7 @@ export default function Skills() {
     ]
   }
 
+  // --- Categories Data --- (Original data)
   const categories: Category[] = [
     { id: "languages", title: "Languages" },
     { id: "frameworks", title: "Frameworks" },
@@ -153,10 +155,12 @@ export default function Skills() {
   ]
 
   return (
+    // --- Section --- (Original classes)
     <section id="skills" className="py-20 bg-muted/30 overflow-hidden">
       <div className="container px-4 md:px-6 max-w-5xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold tracking-tighter mb-4">
+           {/* Original heading and paragraph */}
+          <h2 className="text-3xl font-bold tracking-tighter mb-4"> 
             Technical Skills
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -165,38 +169,43 @@ export default function Skills() {
           </p>
         </div>
 
+        {/* --- Categories Loop --- (Original structure) */}
         <div className="space-y-6">
           {categories.map((category) => (
             <div key={category.id} className="space-y-4">
               <h3 className="text-xl font-semibold text-center">{category.title}</h3>
-              <div className="relative overflow-hidden">
-                {/* Left fade gradient */}
-                <div className="absolute left-0 top-0 bottom-0 w-24 h-full bg-gradient-to-r from-muted/30 from-white z-10" />
+              <div className="relative overflow-hidden"> {/* Outer overflow-hidden as originally placed */}
+                
+                {/* --- GRADIENT INTENSITY INCREASED FURTHER --- */}
+                {/* Left fade gradient: Wider (w-32) and starts fade later (from-60%) */}
+                <div className="absolute left-0 top-0 bottom-0 w-32 h-full bg-gradient-to-r from-background from-20% to-transparent z-10 pointer-events-none" />
+                {/* Changed w-24 to w-32 AND from-50% to from-60% */}
 
-                {/* Right fade gradient */}
-                <div className="absolute right-0 top-0 bottom-0 w-24 h-full bg-gradient-to-l from-muted/30 from-white z-10" />
+                {/* Right fade gradient: Wider (w-32) and starts fade later (from-60%) */}
+                <div className="absolute right-0 top-0 bottom-0 w-32 h-full bg-gradient-to-l from-background from-20% to-transparent z-10 pointer-events-none" />
+                {/* Changed w-24 to w-32 AND from-50% to from-60% */}
+                {/* --- END GRADIENT CHANGE --- */}
 
-                <div ref={containerRefs[category.id]} className="relative h-[120px] overflow-hidden">
+                {/* --- Scroll Container --- (Original structure and classes) */}
+                <div ref={containerRefs[category.id]} className="relative h-[120px] overflow-hidden"> 
                   <motion.div
                     style={{ x: x[category.id] }}
-                    className="absolute flex gap-12 items-center"
+                    className="absolute flex gap-12 items-center" // Original classes
                   >
-                    {/* --- TRIPLICATED ARRAY --- */}
                     {[
                         ...skills[category.id],
                         ...skills[category.id],
-                        ...skills[category.id] // Added third repetition
+                        ...skills[category.id] 
                     ].map((skill, index) => (
-                    // ---------------------------
                       <motion.div
-                        key={`${skill.name}-${index}`}
-                        className="flex flex-col items-center gap-2"
-                        initial={{ opacity: 0, scale: 0.8 }}
+                        key={`${skill.name}-${index}`} // Original key structure
+                        className="flex flex-col items-center gap-2" // Original classes
+                        initial={{ opacity: 0, scale: 0.8 }} // Original animation
                         whileInView={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.5 }}
                         viewport={{ once: true }}
                       >
-                        {/* Remember to fix the monochrome color here if needed */}
+                         {/* Original icon rendering and classes */}
                         <skill.icon className="h-20 w-20 md:h-55 md:w-55 text-primary hover:text-primary/80 transition-colors" />
                       </motion.div>
                     ))}

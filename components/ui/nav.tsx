@@ -1,8 +1,10 @@
+// components/ui/nav.tsx
 "use client"
 
 import { useState, useEffect } from "react"
 import { motion, useScroll, AnimatePresence } from "framer-motion"
 import { cn } from "@/lib/utils"
+import { ThemeToggle } from "./theme-toggle" // <-- Import ThemeToggle
 
 export function Nav() {
   const [isVisible, setIsVisible] = useState(false)
@@ -10,7 +12,6 @@ export function Nav() {
 
   useEffect(() => {
     const unsubscribe = scrollY.on("change", (latest) => {
-      // Show nav when scrolled past hero section (100vh)
       setIsVisible(latest > window.innerHeight)
     })
     return () => unsubscribe()
@@ -28,12 +29,14 @@ export function Nav() {
         >
           <motion.nav 
             className={cn(
-              "px-8 py-4 rounded-full w-fit min-w-[600px]",
+              "px-4 md:px-8 py-3 rounded-full w-auto", // Adjusted padding/width
               "bg-background/60 backdrop-blur-xl border border-border/50",
-              "shadow-lg shadow-background/5"
+              "shadow-lg shadow-background/5",
+              "flex items-center justify-between gap-8" // Use flex to position toggle
             )}
           >
-            <ul className="flex items-center justify-center gap-12">
+            {/* Navigation Links */}
+            <ul className="flex items-center justify-center gap-6 md:gap-12"> 
               {["Skills", "Projects", "Experience", "Infrastructure", "Contact"].map((item, i) => (
                 <motion.li
                   key={item}
@@ -51,9 +54,12 @@ export function Nav() {
                 </motion.li>
               ))}
             </ul>
+
+            {/* Theme Toggle Button */}
+            <ThemeToggle /> 
           </motion.nav>
         </motion.div>
       )}
     </AnimatePresence>
   )
-} 
+}
