@@ -5,12 +5,12 @@ import { useRef, useState, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { IconType } from "react-icons"; // Import IconType
-import { SiNextdotjs, SiTailwindcss, SiPython, SiReact, SiSqlite, SiPostgresql, SiMysql } from "react-icons/si"; // Import specific icons used
+import { SiNextdotjs, SiTailwindcss, SiPython, SiReact } from "react-icons/si"; // Import specific icons used
 import { Database, Palette, GitMerge, Waypoints, Blend, Plug, Icon as LucideIcon } from "lucide-react"; // Import Lucide icons used
 
 
 // --- Icon Mapping and Helper Function (from Step 1) ---
-const techIconMap: Record<string, IconType | LucideIcon> = {
+const techIconMap: Record<string, IconType | typeof LucideIcon> = {
   'nextjs': SiNextdotjs,
   'tailwindcss': SiTailwindcss,
   'python': SiPython,
@@ -23,7 +23,7 @@ const techIconMap: Record<string, IconType | LucideIcon> = {
   'apiintegration': Plug,
 };
 
-const getTechIcon = (tag: string): IconType | LucideIcon | null => {
+const getTechIcon = (tag: string): IconType | typeof LucideIcon | null => {
   const normalizedTag = tag.toLowerCase().replace(/[\s./-]/g, '');
   return techIconMap[normalizedTag] || null;
 };
