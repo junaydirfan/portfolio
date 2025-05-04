@@ -8,7 +8,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ExternalLink, Github, ChevronLeft, ChevronRight } from "lucide-react" // Removed Icon as LucideIcon
 import type { ProjectType } from "@/types/project"
 import Image from "next/image"
-import { IconType } from "react-icons" // Import IconType
 
 interface ProjectDetailModalProps {
   project: ProjectType | null
