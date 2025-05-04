@@ -89,10 +89,10 @@ export function Availability() {
       transition={{ duration: 0.4, ease: "easeOut" }}
       className="fixed bottom-5 left-5 z-50 cursor-grab active:cursor-grabbing" // Add grab cursors
       // Prevent text selection while dragging
-      onDragStart={(event, info) => {
+      onDragStart={(_event, _info) => {
         document.body.style.userSelect = 'none';
       }}
-      onDragEnd={(event, info) => {
+      onDragEnd={(_event, _info) => {
         document.body.style.userSelect = 'auto';
       }}
     >

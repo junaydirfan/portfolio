@@ -4,7 +4,6 @@ import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useRef, useState, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { Server, Box, Shield, Cpu, Network, Layers } from "lucide-react"
 
 export default function Infrastructure() {

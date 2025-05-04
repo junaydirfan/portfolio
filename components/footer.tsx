@@ -2,7 +2,6 @@
 
 import { Github, Linkedin, Mail } from "lucide-react"
 import { useState, useEffect } from "react"
-import { motion } from "framer-motion"
 
 export default function Footer() {
   const [year, setYear] = useState("2024")

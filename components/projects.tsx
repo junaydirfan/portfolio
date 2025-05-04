@@ -3,7 +3,6 @@
 import { motion, useInView } from "framer-motion"
 import { useRef, useState, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-// Removed Badge import as we are replacing it
 import { Button } from "@/components/ui/button"
 import { ExternalLink, Github, Trophy, Server, Lock, Icon as LucideIcon, Hammer } from "lucide-react" // Added Server, Lock, Icon
 import { ProjectDetailModal } from "./project-detail-modal"
@@ -14,12 +13,12 @@ import {
   SiHtml5, SiCss3, SiTypescript, SiTailwindcss, SiRadixui, SiFramer, SiPython,
   SiPostgresql, SiMongodb, SiMysql, SiRedis, SiSqlite, SiDocker, SiAmazonwebservices,
   SiKubernetes, SiTerraform, SiAnsible, SiGithubactions, SiJenkins, SiGit, SiWireshark,
-  SiHiveBlockchain, SiGnuprivacyguard, SiCpanel, SiSocketdotio, SiApachekafka,
+  SiHiveBlockchain, SiGnuprivacyguard, SiSocketdotio, SiApachekafka,
   SiWordpress, SiCodeigniter, SiMaterialdesign, SiMinutemailer, SiFontforge, SiVuedotjs, SiSvelte, SiOpenjdk
 } from "react-icons/si"; // Keep necessary icon imports
 
 // --- Icon Mapping (from Step 1) ---
-const techIconMap: Record<string, IconType | LucideIcon> = {
+const techIconMap: Record<string, IconType | typeof LucideIcon> = {
   'nextjs': SiNextdotjs,
   'nestjs': SiNestjs,
   'solidity': SiSolidity,
@@ -68,7 +67,7 @@ const techIconMap: Record<string, IconType | LucideIcon> = {
   'geistfont': SiFontforge,
 };
 
-const getTechIcon = (tag: string): IconType | LucideIcon | null => {
+const getTechIcon = (tag: string): IconType | typeof LucideIcon | null => {
   const normalizedTag = tag.toLowerCase().replace(/[\s./-]/g, '');
   return techIconMap[normalizedTag] || null;
 };
