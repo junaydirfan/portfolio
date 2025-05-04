@@ -79,7 +79,7 @@ export default function Education() {
                   </div>
                    {/* University/Date Info */}
                    <CardDescription className="text-sm sm:text-right text-muted-foreground mt-1 sm:mt-0">
-                     Bishop's University • Sherbrooke, QC <br/>
+                     Bishop&apos;s University • Sherbrooke, QC <br/>
                      September, 2023 - April, 2025
                    </CardDescription>
                 </div>

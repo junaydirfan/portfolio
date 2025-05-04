@@ -16,6 +16,7 @@ import {
   SiHiveBlockchain, SiGnuprivacyguard, SiSocketdotio, SiApachekafka,
   SiWordpress, SiCodeigniter, SiMaterialdesign, SiMinutemailer, SiFontforge, SiVuedotjs, SiSvelte, SiOpenjdk
 } from "react-icons/si"; // Keep necessary icon imports
+import Image from "next/image";
 
 // --- Icon Mapping (from Step 1) ---
 const techIconMap: Record<string, IconType | typeof LucideIcon> = {
@@ -240,14 +241,14 @@ export default function Projects() {
                   {/* Image container */}
                   <div className="relative overflow-hidden aspect-video border-b border-border/50">
                     {isMounted ? ( // Render image only client-side
-                      <img
-                        src={project.image || "/placeholder.svg"} // Placeholder needed
-                        alt={`${project.title} preview`}
-                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                        width={600} // Add dimensions for potential optimization
-                        height={338} // Calculated from 16:9 aspect ratio
-                        loading="lazy" // Lazy load images below the fold
-                      />
+                      <Image
+                            src={project.image || "/placeholder.svg"} // Ensure placeholder exists if needed
+                            alt={`${project.title} preview`}
+                            fill // Use fill
+                            className="object-cover transition-transform duration-300 group-hover:scale-105" // Keep object-cover and transitions
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // Example sizes hint
+                            loading="lazy"
+                          />
                     ) : (
                       <div className="w-full h-full bg-muted animate-pulse"></div> // Placeholder while mounting
                     )}

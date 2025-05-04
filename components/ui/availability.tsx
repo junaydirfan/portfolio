@@ -88,14 +88,17 @@ export function Availability() {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
       className="fixed bottom-5 left-5 z-50 cursor-grab active:cursor-grabbing" // Add grab cursors
+      // components/ui/availability.tsx
       // Prevent text selection while dragging
-      onDragStart={(_event, _info) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      onDragStart={(event, info) => {
         document.body.style.userSelect = 'none';
       }}
-      onDragEnd={(_event, _info) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      onDragEnd={(event, info) => {
         document.body.style.userSelect = 'auto';
       }}
-    >
+      >
       {/* Interactive card - triggers expand/collapse but NOT drag */}
       <motion.div
         layout // Animate layout changes (padding)

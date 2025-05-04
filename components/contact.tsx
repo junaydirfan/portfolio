@@ -163,7 +163,7 @@ export default function Contact() {
                         <CheckCircle className="h-8 w-8 text-green-500" /> {/* Kept icon green */}
                       </div>
                       <h3 className="text-xl font-medium mb-2 text-foreground">Message Sent!</h3>
-                      <p className="text-muted-foreground mb-4">Thanks for reaching out. I'll reply soon.</p>
+                      <p className="text-muted-foreground mb-4">Thanks for reaching out. I&apos;ll reply soon.</p>
                       <Button
                         variant="outline"
                         onClick={resetForm} // Use reset function

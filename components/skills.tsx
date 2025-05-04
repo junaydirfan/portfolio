@@ -160,7 +160,7 @@ export default function Skills() {
             Technical Skills
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            My toolkit includes a wide range of technologies that I've mastered to create exceptional digital
+            My toolkit includes a wide range of technologies that I&apos;ve mastered to create exceptional digital
             experiences and robust cloud infrastructure.
           </p>
         </div>

@@ -4,6 +4,8 @@ import { motion, useInView } from "framer-motion"
 import { useRef, useState, useEffect } from "react"
 import { Palette, Code, Cloud, Server } from "lucide-react"
 import { TypeAnimation } from 'react-type-animation';
+import Image from "next/image"; // <-- Add this import
+
 
 export default function Hero() { // Or About
   const ref = useRef(null)
@@ -115,7 +117,13 @@ export default function Hero() { // Or About
             }}
           >
             {/* Profile picture remains in color */}
-            <img src="/images/image0.jpg" alt="Junaid Irfan Profile" className="object-cover w-full h-full" />
+            <Image
+              src="/images/image0.jpg" // Ensure path is correct
+              alt="Junaid Irfan Profile"
+              fill // Use fill to cover the container
+              className="object-cover" // Keep object-cover
+              sizes="(max-width: 768px) 50px, 100px" // Provide sizes hint
+            />
           </motion.div>
 
           {/* Typing Animation - Use gray text */}
