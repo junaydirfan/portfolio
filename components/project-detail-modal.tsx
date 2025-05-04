@@ -1,11 +1,11 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import React, { useState, useEffect, type ElementType } from "react" // <-- Use this standard import
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 // Removed Badge import
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { ExternalLink, Github, ChevronLeft, ChevronRight, Icon as LucideIcon } from "lucide-react"
+import { ExternalLink, Github, ChevronLeft, ChevronRight } from "lucide-react" // Removed Icon as LucideIcon
 import type { ProjectType } from "@/types/project"
 import Image from "next/image"
 import { IconType } from "react-icons" // Import IconType
@@ -14,7 +14,7 @@ interface ProjectDetailModalProps {
   project: ProjectType | null
   isOpen: boolean
   onClose: () => void
-  getTechIcon: (tag: string) => IconType | LucideIcon | null // Accept the helper function
+  getTechIcon: (tag: string) => ElementType | null // Use ElementType here
 }
 
 export function ProjectDetailModal({ project, isOpen, onClose, getTechIcon }: ProjectDetailModalProps) { // Added getTechIcon prop
