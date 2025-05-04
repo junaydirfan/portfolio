@@ -1,51 +1,58 @@
 "use client"
 
+// Import ElementType from React
+import type React, { ElementType } from "react" // <-- Added ElementType
+import { Badge } from "@/components/ui/badge";
 import { motion, useInView } from "framer-motion"
 import { useRef, useState, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { IconType } from "react-icons"; // Import IconType
-import { SiNextdotjs, SiTailwindcss, SiPython, SiReact } from "react-icons/si"; // Import specific icons used
-import { Database, Palette, GitMerge, Waypoints, Blend, Plug, Icon as LucideIcon } from "lucide-react"; // Import Lucide icons used
+// Removed Badge import
+import { Button } from "@/components/ui/button"
+// Keep specific Lucide icon imports, remove 'Icon as LucideIcon' type import
+import { Database, Palette, GitMerge, Waypoints, Blend, Plug } from "lucide-react";
+import { IconType } from "react-icons";
+import { SiNextdotjs, SiTailwindcss, SiPython, SiReact, SiSqlite, SiPostgresql, SiMysql } from "react-icons/si"; // Import specific icons used
 
-
-// --- Icon Mapping and Helper Function (from Step 1) ---
-const techIconMap: Record<string, IconType | typeof LucideIcon> = {
-  'nextjs': SiNextdotjs,
-  'tailwindcss': SiTailwindcss,
-  'python': SiPython,
-  'react': SiReact, // Example if needed
-  'sql': Database,
-  'uidesign': Palette,
-  'systemintegration': GitMerge,
-  'datapipelines': Waypoints,
-  'etl': Blend,
-  'apiintegration': Plug,
+// --- Icon Mapping (Use ElementType) ---
+// Use React.ElementType as the value type for the map
+const techIconMap: Record<string, ElementType> = {
+    'nextjs': SiNextdotjs,
+    'tailwindcss': SiTailwindcss,
+    'python': SiPython,
+    'react': SiReact,
+    'sql': Database,
+    'uidesign': Palette,
+    'systemintegration': GitMerge,
+    'datapipelines': Waypoints,
+    'etl': Blend,
+    'apiintegration': Plug,
+    // Add any other necessary mappings
 };
 
-const getTechIcon = (tag: string): IconType | typeof LucideIcon | null => {
-  const normalizedTag = tag.toLowerCase().replace(/[\s./-]/g, '');
-  return techIconMap[normalizedTag] || null;
+// Update the return type of the helper function
+const getTechIcon = (tag: string): ElementType | null => {
+    const normalizedTag = tag.toLowerCase().replace(/[\s./-]/g, '');
+    return techIconMap[normalizedTag] || null;
 };
 // -----------------------------------
 
 
 export default function Experience() {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, amount: 0.15 }) // Adjusted amount
+  const isInView = useInView(ref, { once: true, amount: 0.15 })
   const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
     setIsMounted(true)
   }, [])
 
-  // Animation Variants (Can add ease)
+  // Animation Variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
+        staggerChildren: 0.15,
         delayChildren: 0.1,
       },
     },
@@ -56,11 +63,11 @@ export default function Experience() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" }, // Added ease
+      transition: { duration: 0.6, ease: "easeOut" },
     },
   }
 
-  // Experience Data (Keep your data)
+  // Experience Data
   const experiences = [
     {
       title: "Webmaster",
@@ -87,9 +94,8 @@ export default function Experience() {
   ]
 
   return (
-    // Use consistent background, adjust padding
     <section id="experience" className="py-16 md:py-24 bg-background">
-      <div className="container px-4 md:px-6 max-w-5xl mx-auto"> {/* Adjusted max-width if needed */}
+      <div className="container px-4 md:px-6 max-w-5xl mx-auto">
         <motion.div
           ref={ref}
           initial="hidden"
@@ -110,47 +116,39 @@ export default function Experience() {
           <motion.div className="space-y-8 md:space-y-10" variants={containerVariants}>
             {experiences.map((exp, index) => (
               <motion.div key={index} variants={itemVariants}>
-                {/* Card Styling - Added border, shadow, increased padding */}
                 <Card className="overflow-hidden border border-border/50 shadow-md hover:shadow-lg transition-shadow duration-300 bg-card">
-                  {/* Card Header */}
-                  <CardHeader className="p-6 md:p-8 pb-4"> {/* Increased padding */}
+                  <CardHeader className="p-6 md:p-8 pb-4">
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
-                      {/* Title and Company */}
                       <div className="mb-2 sm:mb-0">
                         <CardTitle className="text-xl md:text-2xl mb-1">{exp.title}</CardTitle>
-                        {/* Company Name - Changed color */}
                         <CardDescription className="text-base font-medium text-foreground/80">{exp.company}</CardDescription>
                       </div>
-                      {/* Period Badge */}
                       <Badge variant="outline" className="whitespace-nowrap w-fit text-sm font-normal">
                         {exp.period}
                       </Badge>
                     </div>
                   </CardHeader>
-                  {/* Card Content */}
-                  <CardContent className="p-6 md:p-8 pt-0"> {/* Increased padding, removed top padding */}
-                    {/* Description List */}
-                    <ul className="list-disc pl-5 mb-5 space-y-1.5 text-muted-foreground text-sm md:text-base leading-relaxed"> {/* Improved list styling */}
+                  <CardContent className="p-6 md:p-8 pt-0">
+                    <ul className="list-disc pl-5 mb-5 space-y-1.5 text-muted-foreground text-sm md:text-base leading-relaxed">
                       {exp.description.map((item, i) => (
                         <li key={i}>{item}</li>
                       ))}
                     </ul>
-                    {/* Skills Icons */}
-                    <div className="border-t border-border/50 pt-4"> {/* Separator */}
+                    <div className="border-t border-border/50 pt-4">
                        <h4 className="text-xs font-semibold uppercase text-muted-foreground mb-3">Key Skills Used</h4>
-                        <div className="flex flex-wrap items-center gap-x-4 gap-y-3"> {/* Adjusted gap */}
+                        <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
                         {exp.skills.map((skill) => {
                             const IconComponent = getTechIcon(skill);
+                            // Check if IconComponent exists before rendering
                             if (IconComponent) {
-                            return (
+                              return (
+                                // The component rendering remains the same
                                 <div key={skill} title={skill} className="relative flex items-center justify-center">
-                                <IconComponent className="h-5 w-5 md:h-6 md:w-6 text-muted-foreground transition-colors hover:text-foreground/80" /> {/* Slightly larger icons */}
+                                  <IconComponent className="h-5 w-5 md:h-6 md:w-6 text-muted-foreground transition-colors hover:text-foreground/80" />
                                 </div>
-                            );
+                              );
                             }
-                            // Fallback for skills without icons (optional)
-                            // return <Badge key={skill} variant="secondary" className="font-normal">{skill}</Badge>;
-                            return null;
+                            return null; // Don't render anything if icon not found
                         })}
                         </div>
                     </div>
