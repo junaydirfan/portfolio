@@ -1,10 +1,9 @@
 "use client"
 
 // Import ElementType from React
-import type React, { ElementType } from "react" // <-- Added ElementType
 import { Badge } from "@/components/ui/badge";
 import { motion, useInView } from "framer-motion"
-import { useRef, useState, useEffect } from "react"
+import React, { useRef, useState, useEffect, type ElementType } from "react"; // <-- Use this consolidated line
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Database, Palette, GitMerge, Waypoints, Blend, Plug } from "lucide-react";
 import { SiNextdotjs, SiTailwindcss, SiPython, SiReact } from "react-icons/si"; // Import specific icons used
