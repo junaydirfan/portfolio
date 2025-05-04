@@ -34,7 +34,7 @@ export function Nav() {
             )}
           >
             <ul className="flex items-center justify-center gap-12">
-              {["About", "Skills", "Projects", "Experience", "Infrastructure", "Contact"].map((item, i) => (
+              {["Skills", "Projects", "Experience", "Infrastructure", "Contact"].map((item, i) => (
                 <motion.li
                   key={item}
                   initial={{ opacity: 0, y: -10 }}
