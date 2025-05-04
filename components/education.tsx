@@ -1,17 +1,16 @@
 "use client"
 
-import { motion } from "framer-motion"
-import { useInView } from "framer-motion"
+import { motion, useInView } from "framer-motion"
 import { useRef, useState, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"; // Import Badge
 import { GraduationCap, BookOpen } from "lucide-react"
 
 export default function Education() {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, amount: 0.3 })
+  const isInView = useInView(ref, { once: true, amount: 0.2 }) // Slightly adjusted amount
   const [isMounted, setIsMounted] = useState(false)
 
-  // Only enable client-side effects after hydration
   useEffect(() => {
     setIsMounted(true)
   }, [])
@@ -22,16 +21,17 @@ export default function Education() {
       opacity: 1,
       transition: {
         staggerChildren: 0.2,
+        delayChildren: 0.1, // Slight delay for children
       },
     },
   }
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 25 }, // Slightly increased distance
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6 },
+      transition: { duration: 0.6, ease: "easeOut" }, // Added ease
     },
   }
 
@@ -42,39 +42,63 @@ export default function Education() {
     "Data Visualization",
     "Software Engineering",
     "Pattern Recognition",
+    "Distributed Systems", // Added example
+    "Advanced Algorithms", // Added example
   ]
 
   return (
-    <section id="education" className="py-20 bg-muted/30">
-      <div className="container px-4 md:px-6">
-        <motion.div ref={ref} initial="hidden" animate={isMounted && isInView ? "visible" : "hidden"} variants={containerVariants}>
-          <motion.div className="text-center mb-12" variants={itemVariants}>
-            <h2 className="text-3xl font-bold tracking-tighter mb-4">Education</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              My academic journey has provided me with a strong foundation in computer science.
+    // Use consistent background, adjust padding
+    <section id="education" className="py-16 md:py-24 bg-background">
+      <div className="container px-4 md:px-6 max-w-5xl mx-auto">
+        <motion.div
+          ref={ref}
+          initial="hidden"
+          animate={isMounted && isInView ? "visible" : "hidden"}
+          variants={containerVariants}
+        >
+          {/* Section Header */}
+          <motion.div className="text-center mb-12 md:mb-16" variants={itemVariants}>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-foreground">
+                Education
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto text-base md:text-lg">
+              My academic journey providing a strong foundation in computer science theory and practice.
             </p>
           </motion.div>
 
-          <motion.div variants={itemVariants} className="max-w-3xl mx-auto">
-            <Card className="overflow-hidden border-0 shadow-md">
-              <CardHeader className="pb-2">
-                <div className="flex items-center gap-3 mb-2">
-                  <GraduationCap className="h-6 w-6 text-primary" />
-                  <CardTitle>MS in Computer Science</CardTitle>
-                </div>
-                <CardDescription className="text-base">Bishop's University | Class of 2025</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="mb-4">
-                  <div className="flex items-center gap-2 mb-3">
-                    <BookOpen className="h-5 w-5 text-primary" />
-                    <h3 className="font-medium">Relevant Coursework</h3>
+          {/* Education Card Container - Increased width */}
+          <motion.div variants={itemVariants} className="max-w-4xl mx-auto">
+            {/* Card Styling - Added border, adjusted shadow and padding */}
+            <Card className="overflow-hidden border border-border/50 shadow-lg bg-card">
+              <CardHeader className="p-6 md:p-8 pb-4"> {/* Increased padding */}
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
+                  <div className="flex items-center gap-3">
+                    {/* Icon Styling - Changed color */}
+                    <GraduationCap className="h-6 w-6 text-muted-foreground flex-shrink-0" />
+                    <CardTitle className="text-xl md:text-2xl text-foreground">M.Sc. Computer Science</CardTitle>
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                   {/* University/Date Info */}
+                   <CardDescription className="text-sm sm:text-right text-muted-foreground mt-1 sm:mt-0">
+                     Bishop's University • Sherbrooke, QC <br/>
+                     September, 2023 - April, 2025
+                   </CardDescription>
+                </div>
+              </CardHeader>
+              <CardContent className="p-6 md:p-8 pt-4"> {/* Increased padding */}
+                <div>
+                  {/* Coursework Header */}
+                  <div className="flex items-center gap-2 mb-4">
+                    {/* Icon Styling - Changed color */}
+                    <BookOpen className="h-5 w-5 text-muted-foreground" />
+                    <h3 className="font-semibold text-lg text-foreground">Relevant Coursework</h3> {/* Increased size */}
+                  </div>
+                  {/* Coursework Badges */}
+                  <div className="flex flex-wrap gap-2">
                     {courses.map((course, index) => (
-                      <div key={index} className="flex items-center p-2 rounded-md bg-background">
-                        <span className="text-sm">{course}</span>
-                      </div>
+                      // Use Badge component for styling
+                      <Badge key={index} variant="secondary" className="font-normal text-sm px-3 py-1">
+                        {course}
+                      </Badge>
                     ))}
                   </div>
                 </div>
@@ -86,4 +110,3 @@ export default function Education() {
     </section>
   )
 }
-

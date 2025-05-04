@@ -5,141 +5,68 @@ import { motion } from "framer-motion"
 import { ArrowDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
-// Predefined values for animations to prevent hydration mismatch
-const backgroundElements = [
-  {
-    width: 546,
-    height: 311,
-    x: 87,
-    y: 53,
-    duration: 25,
-    scrollSpeed: 0.3
-  },
-  {
-    width: 443,
-    height: 579,
-    x: 95,
-    y: 6,
-    duration: 20,
-    scrollSpeed: 0.2
-  },
-  {
-    width: 350,
-    height: 277,
-    x: 68,
-    y: 66,
-    duration: 15,
-    scrollSpeed: 0.4
-  },
-  {
-    width: 274,
-    height: 518,
-    x: 42,
-    y: 54,
-    duration: 30,
-    scrollSpeed: 0.25
-  },
-  {
-    width: 469,
-    height: 444,
-    x: 41,
-    y: 22,
-    duration: 18,
-    scrollSpeed: 0.35
-  }
-]
-
 export default function Hero() {
-  const [scrollY, setScrollY] = useState(0)
   const [isMounted, setIsMounted] = useState(false)
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
   useEffect(() => {
     setIsMounted(true)
     
-    const handleScroll = () => {
-      setScrollY(window.scrollY)
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({
+        x: (e.clientX / window.innerWidth - 0.5) * 20,
+        y: (e.clientY / window.innerHeight - 0.5) * 20,
+      })
     }
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
+    
+    window.addEventListener("mousemove", handleMouseMove)
+    return () => window.removeEventListener("mousemove", handleMouseMove)
   }, [])
 
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background to-background/80 z-0" />
-
-      {/* Animated background elements */}
-      <div className="absolute inset-0 z-0">
-        {backgroundElements.map((element, i) => (
-          <motion.div
-            key={i}
-            className="absolute rounded-full bg-primary/10"
-            initial={{
-              width: `${element.width}px`,
-              height: `${element.height}px`,
-              x: `${element.x}%`,
-              y: `${element.y}%`,
-              opacity: 0.7,
-            }}
-            animate={{
-              x: `${element.x}%`,
-              y: `${element.y}%`,
-              opacity: [0.7, 0.9, 0.7],
-            }}
-            style={{
-              filter: "blur(100px)",
-              transform: isMounted ? `translateY(${scrollY * element.scrollSpeed}px)` : "none",
-            }}
-            transition={{
-              duration: element.duration,
-              repeat: Number.POSITIVE_INFINITY,
-              repeatType: "reverse",
-              ease: "easeInOut",
-            }}
-          />
-        ))}
-      </div>
-
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Content */}
       <div className="container relative z-10 px-4 md:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-center"
+          className="text-center max-w-3xl mx-auto"
         >
-          <motion.h1
-            className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter mb-4"
-            style={isMounted ? {
-              transform: `translateY(${scrollY * 0.2}px)`,
-              opacity: 1 - scrollY * 0.002,
-            } : {}}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+            className="mb-8"
           >
-            <span className="text-primary">Junaid Irfan</span>
-          </motion.h1>
-          <motion.h2
-            className="text-2xl md:text-3xl lg:text-4xl font-medium text-muted-foreground mb-8"
-            style={isMounted ? {
-              transform: `translateY(${scrollY * 0.1}px)`,
-              opacity: 1 - scrollY * 0.002,
-            } : {}}
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter mb-4">
+              <span className="text-primary">Junaid Irfan</span>
+            </h1>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.4, duration: 0.5 }}
+            className="mb-8"
           >
-            Software Developer & Designer
-          </motion.h2>
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5, duration: 0.8 }}>
-            <Button
-              size="lg"
-              className="rounded-full px-8"
-              onClick={() => {
-                document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })
-              }}
-            >
-              Explore My Work
-              <ArrowDown className="ml-2 h-4 w-4" />
-            </Button>
+            <h2 className="text-2xl md:text-2xl lg:text-3xl font-regular tracking-tighter mb-">Cloud & Web Developer</h2>
           </motion.div>
         </motion.div>
       </div>
+
+      {/* Scroll indicator */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: [0, 10, 0] }}
+        transition={{
+          delay: 1,
+          duration: 1.5,
+          repeat: Infinity,
+        }}
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+      >
+        <ArrowDown className="h-6 w-6 text-muted-foreground" />
+      </motion.div>
     </section>
   )
 }

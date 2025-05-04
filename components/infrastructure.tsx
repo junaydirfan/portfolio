@@ -67,38 +67,50 @@ export default function Infrastructure() {
 
   return (
     <section id="infrastructure" className="py-20 bg-muted/30">
-      <div className="container px-4 md:px-6">
+      <div className="container px-4 md:px-6 max-w-6xl mx-auto">
         <motion.div ref={ref} initial="hidden" animate={isMounted && isInView ? "visible" : "hidden"} variants={containerVariants}>
           <motion.div className="text-center mb-12" variants={itemVariants}>
             <h2 className="text-3xl font-bold tracking-tighter mb-4">Self-Hosted Infrastructure</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-muted-foreground max-w-3xl mx-auto">
               This portfolio and other services are powered by my custom home server setup running on Proxmox, with
               Docker containers and Tailscale for secure remote access from anywhere.
             </p>
           </motion.div>
 
-          <div className="grid gap-8 md:grid-cols-3 mb-12">
+          {/* Component Cards Grid */}
+          <div className="grid gap-6 md:gap-8 md:grid-cols-3 mb-12 md:mb-16">
             {infrastructureComponents.map((component, index) => (
-              <motion.div key={index} variants={itemVariants}>
-                <Card className="h-full border-0 shadow-md hover:shadow-lg transition-all duration-300">
-                  <CardHeader className="pb-2">
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="p-2 rounded-full bg-primary/10">
-                        <component.icon className="h-5 w-5 text-primary" />
+              // Use motion on the direct child of the staggered container
+              <motion.div key={index} variants={itemVariants} className="flex"> {/* Use flex for equal height */}
+                {/* Consistent Card Styling */}
+                <Card className="h-full w-full flex flex-col border border-border/50 shadow-md hover:shadow-lg transition-shadow duration-300 bg-card">
+                  {/* Card Header with improved icon presentation */}
+                  <CardHeader className="p-6 pb-4"> {/* Adjusted padding */}
+                    <div className="flex items-start gap-4 mb-2"> {/* Increased gap */}
+                      {/* Monochrome icon background */}
+                      <div className="p-2 rounded-lg bg-muted border border-border/50 mt-1 flex-shrink-0">
+                         {/* Monochrome icon color */}
+                        <component.icon className="h-5 w-5 text-muted-foreground" />
                       </div>
-                      <CardTitle>{component.title}</CardTitle>
+                      <div>
+                        <CardTitle className="mb-1 text-lg md:text-xl">{component.title}</CardTitle> {/* Adjusted size */}
+                        <CardDescription className="text-sm justify-center">{component.description}</CardDescription> {/* Adjusted size */}
+                      </div>
                     </div>
-                    <CardDescription className="text-base">{component.description}</CardDescription>
                   </CardHeader>
-                  <CardContent>
-                    <ul className="grid grid-cols-2 gap-2">
-                      {component.details.map((detail, detailIndex) => (
-                        <li key={detailIndex} className="flex items-center gap-2">
-                          <Badge variant="outline" className="h-1.5 w-1.5 p-0 rounded-full bg-primary" />
-                          <span className="text-sm">{detail}</span>
-                        </li>
-                      ))}
-                    </ul>
+                  {/* Card Content with improved details list */}
+                  <CardContent className="p-6 pt-0 flex-grow flex flex-col"> {/* Use flex-grow */}
+                     <div className="mt-auto border-t border-border/50 pt-4"> {/* Push details to bottom */}
+                       <h4 className="text-xs font-semibold uppercase text-muted-foreground mb-3">Key Aspects</h4>
+                       <div className="flex flex-wrap gap-x-3 gap-y-1.5">
+                         {component.details.map((detail, detailIndex) => (
+                           // Use simple styled divs instead of list items
+                           <div key={detailIndex} className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded-md border border-transparent">
+                             {detail}
+                           </div>
+                         ))}
+                       </div>
+                     </div>
                   </CardContent>
                 </Card>
               </motion.div>
