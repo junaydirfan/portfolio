@@ -29,24 +29,26 @@ export function Nav() {
         >
           <motion.nav 
             className={cn(
-              "px-4 md:px-8 py-3 rounded-full w-auto", // Adjusted padding/width
+              "px-2 sm:px-4 md:px-8 py-2 sm:py-3 rounded-full w-full max-w-[95vw] sm:max-w-[90vw] md:max-w-[85vw] lg:max-w-[80vw]", // Responsive padding and width
               "bg-background/60 backdrop-blur-xl border border-border/50",
               "shadow-lg shadow-background/5",
-              "flex items-center justify-between gap-8" // Use flex to position toggle
+              "flex items-center justify-between gap-4 sm:gap-8", // Responsive gap
+              "overflow-x-auto" // Allow horizontal scrolling if needed
             )}
           >
             {/* Navigation Links */}
-            <ul className="flex items-center justify-center gap-6 md:gap-12"> 
+            <ul className="flex items-center justify-center gap-3 sm:gap-6 md:gap-12 min-w-max"> 
               {["Skills", "Projects", "Experience", "Infrastructure", "Contact"].map((item, i) => (
                 <motion.li
                   key={item}
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 * i }}
+                  className="whitespace-nowrap" // Prevent text wrapping
                 >
                   <a
                     href={`#${item.toLowerCase()}`}
-                    className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors relative group"
+                    className="text-xs sm:text-sm font-medium text-foreground/80 hover:text-primary transition-colors relative group"
                   >
                     {item}
                     <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
