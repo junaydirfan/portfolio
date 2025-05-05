@@ -91,7 +91,7 @@ export default function About() {
             transition={{ delay: 0.7, type: "spring", stiffness: 260, damping: 20 }}
           >
             <Image
-              src="/images/image0.jpg"
+              src="/images/image00.jpg"
               alt="Junaid Irfan Profile"
               fill
               className="object-cover"
