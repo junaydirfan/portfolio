@@ -40,7 +40,7 @@ export default function About() {
   };
   const textSequence = [
       "hey 👋 im junaid, but you can call me nade!", 1000,
-      "cloud & web developer...", 1000,
+      "web & cloud developer...", 1000,
       "proficient in Next.js ecosystem.", 1500
   ];
 
@@ -82,7 +82,7 @@ export default function About() {
           // Muted foreground provides good contrast without being pure white
           className="text-lg md:text-xl lg:text-2xl text-muted-foreground mb-10 font-medium" 
         >
-          cloud & web developer
+          web & cloud developer
         </motion.p>
 
         {/* Animated Bubble Introduction */}

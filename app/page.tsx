@@ -9,9 +9,9 @@ import Footer from "@/components/footer"
 import Infrastructure from "@/components/infrastructure"
 
 export const metadata: Metadata = {
-  title: "Junaid Irfan | Software Developer",
+  title: "junaid irfan | web & cloud developer",
   description:
-    "Portfolio of Junaid Irfan, a software developer specializing in web development, data science, and UI/UX design.",
+    "portfolio of junaid irfan, a software developer specializing in web development, cloud, and UI/UX design.",
 }
 
 export default function Home() {

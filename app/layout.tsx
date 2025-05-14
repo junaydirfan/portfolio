@@ -17,8 +17,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Junaid Irfan | Software Developer",
-  description: "Portfolio of Junaid Irfan, a software developer specializing in web development, data science, and UI/UX design.",
+  title: "junaid irfan | web & cloud developer",
+  description: "portfolio of junaid irfan, a software developer specializing in web development, cloud, and UI/UX design.",
   icons: {
     icon: '/favicon.ico',
     apple: '/apple-icon.png',
