@@ -41,7 +41,7 @@ import {
 } from "react-icons/si"
 import { Server } from "lucide-react"
 
-type CategoryId = 'languages' | 'frameworks' | 'databases' | 'cloud' | 'design'
+type CategoryId = 'development' | 'cloud' | 'design'
 
 interface Skill {
   name: string
@@ -54,27 +54,17 @@ interface Category {
 }
 
 export default function Skills() {
-  // --- Refs --- (Using original RefObject<null> type as provided)
+  // --- Refs ---
   const containerRefs: Record<CategoryId, RefObject<null>> = {
-    languages: useRef(null),
-    frameworks: useRef(null),
-    databases: useRef(null),
+    development: useRef(null),
     cloud: useRef(null),
     design: useRef(null)
   }
 
-  // --- Scroll Progress --- (Using original RefObject<null>)
+  // --- Scroll Progress ---
   const scrollProgress: Record<CategoryId, { scrollYProgress: MotionValue<number> }> = {
-    languages: useScroll({
-      target: containerRefs.languages,
-      offset: ["start end", "end start"]
-    }),
-    frameworks: useScroll({
-      target: containerRefs.frameworks,
-      offset: ["start end", "end start"]
-    }),
-    databases: useScroll({
-      target: containerRefs.databases,
+    development: useScroll({
+      target: containerRefs.development,
       offset: ["start end", "end start"]
     }),
     cloud: useScroll({
@@ -87,49 +77,30 @@ export default function Skills() {
     })
   }
 
-  // --- Transform --- (Original calculation)
+  // --- Transform ---
   const x: Record<CategoryId, MotionValue<string>> = {
-    languages: useTransform(scrollProgress.languages.scrollYProgress, [0, 1], ["0%", "-66.666%"]),
-    frameworks: useTransform(scrollProgress.frameworks.scrollYProgress, [0, 1], ["0%", "-66.666%"]),
-    databases: useTransform(scrollProgress.databases.scrollYProgress, [0, 1], ["0%", "-66.666%"]),
+    development: useTransform(scrollProgress.development.scrollYProgress, [0, 1], ["0%", "-66.666%"]),
     cloud: useTransform(scrollProgress.cloud.scrollYProgress, [0, 1], ["0%", "-66.666%"]),
     design: useTransform(scrollProgress.design.scrollYProgress, [0, 1], ["0%", "-66.666%"])
   }
 
-  // --- Skills Data --- (Original data)
+  // --- Skills Data ---
   const skills: Record<CategoryId, Skill[]> = {
-    languages: [
+    development: [
       { name: "TypeScript", icon: SiTypescript },
       { name: "JavaScript", icon: SiJavascript },
-      { name: "Python", icon: SiPython },
-      { name: "Java", icon: SiOpenjdk },
-      { name: "C", icon: SiC },
-      { name: "Solidity", icon: SiSolidity },
-    ],
-    frameworks: [
       { name: "React", icon: SiReact },
       { name: "Next.js", icon: SiNextdotjs },
-      { name: "Vue.js", icon: SiVuedotjs },
-      { name: "Nest.js", icon: SiNestjs },
-      { name: "Svelte", icon: SiSvelte },
       { name: "Tailwind CSS", icon: SiTailwindcss },
-    ],
-    databases: [
       { name: "PostgreSQL", icon: SiPostgresql },
       { name: "MongoDB", icon: SiMongodb },
-      { name: "MySQL", icon: SiMysql },
-      { name: "Redis", icon: SiRedis},
       { name: "SQLite", icon: SiSqlite},
     ],
     cloud: [
       { name: "Docker", icon: SiDocker },
       { name: "AWS", icon: SiAmazonwebservices },
       { name: "Proxmox", icon: Server },
-      { name: "Kubernetes", icon: SiKubernetes },
-      { name: "Terraform", icon: SiTerraform },
-      { name: "Ansible", icon: SiAnsible },
       { name: "GitHub Actions", icon: SiGithubactions },
-      { name: "Jenkins", icon: SiJenkins },
       { name: "Git", icon: SiGit },
       { name: "Wireshark", icon: SiWireshark },
     ],
@@ -139,17 +110,14 @@ export default function Skills() {
       { name: "Photoshop", icon: SiAdobephotoshop },
       { name: "Illustrator", icon: SiAdobeillustrator },
       { name: "Premiere Pro", icon: SiAdobepremierepro },
-      { name: "Unreal Engine", icon: SiUnrealengine },
       { name: "Unity", icon: SiUnity },
       { name: "Blender", icon: SiBlender },
     ]
   }
 
-  // --- Categories Data --- (Original data)
+  // --- Categories Data ---
   const categories: Category[] = [
-    { id: "languages", title: "Languages" },
-    { id: "frameworks", title: "Frameworks" },
-    { id: "databases", title: "Databases" },
+    { id: "development", title: "Development & Databases" },
     { id: "cloud", title: "Cloud & DevOps" },
     { id: "design", title: "Design & 3D" }
   ]
@@ -161,10 +129,10 @@ export default function Skills() {
         <div className="text-center mb-12">
            {/* Original heading and paragraph */}
           <h2 className="text-3xl font-bold tracking-tighter mb-4"> 
-            Technical Skills
+            technical skills
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            My toolkit includes a wide range of technologies that I&apos;ve mastered to create exceptional digital
+            my toolkit includes a wide range of technologies that i&apos;ve mastered to create exceptional digital
             experiences and robust cloud infrastructure.
           </p>
         </div>
@@ -173,7 +141,7 @@ export default function Skills() {
         <div className="space-y-6">
           {categories.map((category) => (
             <div key={category.id} className="space-y-4">
-              <h3 className="text-xl font-semibold text-center">{category.title}</h3>
+              <h3 className="text-xl font-semibold text-center">{category.title.toLowerCase()}</h3>
               <div className="relative overflow-hidden"> {/* Outer overflow-hidden as originally placed */}
                 
                 {/* --- GRADIENT INTENSITY INCREASED FURTHER --- */}

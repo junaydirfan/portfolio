@@ -59,10 +59,10 @@ export default function Education() {
           {/* Section Header */}
           <motion.div className="text-center mb-12 md:mb-16" variants={itemVariants}>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-foreground">
-                Education
+                education
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto text-base md:text-lg">
-              My academic journey providing a strong foundation in computer science theory and practice.
+              my academic journey providing a strong foundation in computer science theory and practice.
             </p>
           </motion.div>
 
@@ -75,12 +75,12 @@ export default function Education() {
                   <div className="flex items-center gap-3">
                     {/* Icon Styling - Changed color */}
                     <GraduationCap className="h-6 w-6 text-muted-foreground flex-shrink-0" />
-                    <CardTitle className="text-xl md:text-2xl text-foreground">M.Sc. Computer Science</CardTitle>
+                    <CardTitle className="text-xl md:text-2xl text-foreground">m.sc. computer science</CardTitle>
                   </div>
                    {/* University/Date Info */}
                    <CardDescription className="text-sm sm:text-right text-muted-foreground mt-1 sm:mt-0">
-                     Bishop&apos;s University • Sherbrooke, QC <br/>
-                     September, 2023 - April, 2025
+                     bishop&apos;s university • sherbrooke, qc <br/>
+                     september, 2023 - april, 2025
                    </CardDescription>
                 </div>
               </CardHeader>
@@ -90,7 +90,7 @@ export default function Education() {
                   <div className="flex items-center gap-2 mb-4">
                     {/* Icon Styling - Changed color */}
                     <BookOpen className="h-5 w-5 text-muted-foreground" />
-                    <h3 className="font-semibold text-lg text-foreground">Relevant Coursework</h3> {/* Increased size */}
+                    <h3 className="font-semibold text-lg text-foreground">relevant coursework</h3> {/* Increased size */}
                   </div>
                   {/* Coursework Badges */}
                   <div className="flex flex-wrap gap-2">

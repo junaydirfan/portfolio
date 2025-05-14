@@ -98,10 +98,10 @@ export default function Contact() {
           {/* Section Header */}
           <motion.div className="text-center mb-12 md:mb-16" variants={itemVariants}>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-foreground">
-                Get In Touch
+                get in touch
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto text-base md:text-lg">
-              Have a question or want to collaborate? Feel free to reach out using the form below or my contact details.
+              have a question or want to collaborate? feel free to reach out using the form below or my contact details.
             </p>
           </motion.div>
 
@@ -112,8 +112,8 @@ export default function Contact() {
               {/* Consistent Card Styling */}
               <Card className="h-full w-full flex flex-col border border-border/50 shadow-md bg-card">
                 <CardHeader className="p-6 md:p-8">
-                  <CardTitle className="text-xl md:text-2xl text-foreground">Contact Information</CardTitle>
-                  <CardDescription>Other ways to connect with me.</CardDescription>
+                  <CardTitle className="text-xl md:text-2xl text-foreground">contact information</CardTitle>
+                  <CardDescription>other ways to connect with me.</CardDescription>
                 </CardHeader>
                 <CardContent className="p-6 md:p-8 pt-0 space-y-5 flex-grow"> {/* Increased spacing */}
                    {/* Email */}
@@ -142,7 +142,7 @@ export default function Contact() {
                   <div className="flex items-center gap-4">
                     <MapPin className="h-5 w-5 text-muted-foreground flex-shrink-0" />
                      {/* Updated Location based on previous context */}
-                    <span className="text-muted-foreground">Sherbrooke, QC, Canada</span>
+                    <span className="text-muted-foreground">sherbrooke, qc, canada</span>
                   </div>
                 </CardContent>
               </Card>
@@ -152,8 +152,8 @@ export default function Contact() {
             <motion.div variants={itemVariants} className="flex"> {/* Added flex for equal height */}
               <Card className="h-full w-full flex flex-col border border-border/50 shadow-md bg-card">
                 <CardHeader className="p-6 md:p-8">
-                  <CardTitle className="text-xl md:text-2xl text-foreground">Send me a Message</CardTitle>
-                  <CardDescription>I usually respond within 24-48 hours.</CardDescription>
+                  <CardTitle className="text-xl md:text-2xl text-foreground">send me a message</CardTitle>
+                  <CardDescription>i usually respond within 24-48 hours.</CardDescription>
                 </CardHeader>
                 <CardContent className="p-6 md:p-8 pt-0 flex-grow flex flex-col"> {/* Use flex-grow */}
                   {isSubmitted ? (
@@ -162,29 +162,29 @@ export default function Contact() {
                       <div className="rounded-full bg-background border border-green-500/30 p-2 mb-4">
                         <CheckCircle className="h-8 w-8 text-green-500" /> {/* Kept icon green */}
                       </div>
-                      <h3 className="text-xl font-medium mb-2 text-foreground">Message Sent!</h3>
-                      <p className="text-muted-foreground mb-4">Thanks for reaching out. I&apos;ll reply soon.</p>
+                      <h3 className="text-xl font-medium mb-2 text-foreground">message sent!</h3>
+                      <p className="text-muted-foreground mb-4">thanks for reaching out. i&apos;ll reply soon.</p>
                       <Button
                         variant="outline"
-                        onClick={resetForm} // Use reset function
+                        onClick={resetForm}
                       >
-                        Send Another Message
+                        send another message
                       </Button>
                     </div>
                   ) : (
                     // Form State
                     <form ref={formRef} onSubmit={handleSubmit} className="space-y-5"> {/* Increased spacing */}
                       <div className="space-y-1.5">
-                        <Label htmlFor="name">Name</Label>
-                        <Input id="name" name="name" placeholder="Your Name" required aria-label="Your Name"/>
+                        <Label htmlFor="name">name</Label>
+                        <Input id="name" name="name" placeholder="your name" required aria-label="Your Name"/>
                       </div>
                       <div className="space-y-1.5">
-                        <Label htmlFor="email">Email</Label>
+                        <Label htmlFor="email">email</Label>
                         <Input id="email" name="email" type="email" placeholder="your.email@example.com" required aria-label="Your Email"/>
                       </div>
                       <div className="space-y-1.5">
-                        <Label htmlFor="message">Message</Label>
-                        <Textarea id="message" name="message" placeholder="Type your message here..." rows={4} required aria-label="Your Message"/>
+                        <Label htmlFor="message">message</Label>
+                        <Textarea id="message" name="message" placeholder="type your message here..." rows={4} required aria-label="Your Message"/>
                       </div>
                       {/* Improved Error Display */}
                       {error && (
@@ -197,12 +197,12 @@ export default function Contact() {
                         {isSubmitting ? (
                           <>
                             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                            Sending...
+                            sending...
                           </>
                         ) : (
                           <>
                             <Send className="mr-2 h-4 w-4" />
-                            Send Message
+                            send message
                           </>
                         )}
                       </Button>

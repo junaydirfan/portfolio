@@ -38,7 +38,7 @@ export function Nav() {
           >
             {/* Navigation Links */}
             <ul className="flex items-center justify-center gap-3 sm:gap-6 md:gap-12 min-w-max"> 
-              {["Skills", "Projects", "Experience", "Infrastructure", "Contact"].map((item, i) => (
+              {["skills", "projects", "experience", "infrastructure", "contact"].map((item, i) => (
                 <motion.li
                   key={item}
                   initial={{ opacity: 0, y: -10 }}

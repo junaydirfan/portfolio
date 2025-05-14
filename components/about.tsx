@@ -5,6 +5,7 @@ import { useRef, useState, useEffect } from "react"
 import { Palette, Code, Cloud, Server } from "lucide-react"
 import { TypeAnimation } from 'react-type-animation';
 import Image from "next/image";
+import { ThemeToggle } from "./ui/theme-toggle"
 
 export default function About() {
   const ref = useRef(null)
@@ -38,9 +39,9 @@ export default function About() {
       },
   };
   const textSequence = [
-      "Hey 👋 I'm Junaid, but you can call me Nade.", 1000,
-      "Cloud & Web developer...", 1000,
-      "Proficient in the Next.js ecosystem.", 1500
+      "hey 👋 im junaid, but you can call me nade!", 1000,
+      "cloud & web developer...", 1000,
+      "proficient in Next.js ecosystem.", 1500
   ];
 
   return (
@@ -64,8 +65,16 @@ export default function About() {
           variants={itemVariants}
           className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-2" 
         >
-          Junaid Irfan
+          junaid irfan
         </motion.h1>
+
+        {/* Theme Toggle Button */}
+        <motion.div
+          variants={itemVariants}
+          className="absolute top-6 right-6"
+        >
+          <ThemeToggle />
+        </motion.div>
 
         {/* Title */}
         <motion.p
@@ -73,7 +82,7 @@ export default function About() {
           // Muted foreground provides good contrast without being pure white
           className="text-lg md:text-xl lg:text-2xl text-muted-foreground mb-10 font-medium" 
         >
-          Cloud & Web Developer
+          cloud & web developer
         </motion.p>
 
         {/* Animated Bubble Introduction */}
@@ -122,13 +131,7 @@ export default function About() {
         >
            {/* Use muted-foreground for less emphasis than main headings */}
           <motion.p className="text-base md:text-lg text-muted-foreground" variants={itemVariants}> 
-            Seamlessly transitioning from crafting websites to developing robust web applications.
-          </motion.p>
-          <motion.p className="text-base md:text-lg text-muted-foreground" variants={itemVariants}>
-            Passionate about creative solutions and building apps from scratch, perfecting both backend and frontend.
-          </motion.p>
-          <motion.p className="text-base md:text-lg text-muted-foreground" variants={itemVariants}>
-            Currently working as a sole developer, freelancing from time-to-time and building my own products.
+            passionate about creative solutions and building apps from scratch, perfecting both backend and frontend. currently working as a sole developer, freelancing from time-to-time and building my own products.
           </motion.p>
         </motion.div>
 
@@ -139,10 +142,10 @@ export default function About() {
         >
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 max-w-3xl mx-auto">
             {[
-              { Icon: Code, title: "Web Development", desc: "Modern, responsive web apps" },
-              { Icon: Cloud, title: "Cloud Engineering", desc: "Scalable cloud infrastructure" },
-              { Icon: Server, title: "DevOps", desc: "CI/CD and automation" },
-              { Icon: Palette, title: "UI/UX Design", desc: "Intuitive, beautiful interfaces" },
+              { Icon: Code, title: "web development", desc: "modern, responsive web apps" },
+              { Icon: Cloud, title: "cloud engineering", desc: "scalable cloud infrastructure" },
+              { Icon: Server, title: "devops", desc: "ci/cd and automation" },
+              { Icon: Palette, title: "ui/ux design", desc: "intuitive, beautiful interfaces" },
             ].map((skill, index) => (
               <motion.div
                 key={index}
@@ -176,9 +179,9 @@ export default function About() {
             >
           {/* Use muted-foreground, link uses primary */}
           <p className="text-xs md:text-sm text-muted-foreground italic">
-            Psst! This website is hosted on my home server. Check out the{' '}
+            psst! this website is hosted on my home server. check out the{' '}
             <a href="#infrastructure" className="text-primary/90 underline hover:text-primary transition-colors duration-200">
-              Infrastructure
+              infrastructure
             </a>{' '}
             section below to see how!
           </p>

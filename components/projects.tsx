@@ -13,9 +13,12 @@ import {
   SiPostgresql, SiMongodb, SiMysql, SiRedis, SiSqlite, SiDocker, SiAmazonwebservices,
   SiKubernetes, SiTerraform, SiAnsible, SiGithubactions, SiJenkins, SiGit, SiWireshark,
   SiHiveBlockchain, SiGnuprivacyguard, SiSocketdotio, SiApachekafka,
-  SiWordpress, SiCodeigniter, SiMaterialdesign, SiMinutemailer, SiFontforge, SiVuedotjs, SiSvelte, SiOpenjdk
+  SiWordpress, SiCodeigniter, SiMaterialdesign, SiMinutemailer, SiFontforge, SiVuedotjs, SiSvelte, SiOpenjdk,
+  SiFigma, SiAdobeaftereffects, SiAdobephotoshop, SiAdobeillustrator, SiAdobepremierepro,
+  SiUnity, SiBlender
 } from "react-icons/si"; // Keep necessary icon imports
 import Image from "next/image";
+import { useTheme } from "next-themes" // Add useTheme import
 
 // --- Icon Mapping (from Step 1) ---
 const techIconMap: Record<string, ElementType> = { // <-- Use ElementType
@@ -65,6 +68,13 @@ const techIconMap: Record<string, ElementType> = { // <-- Use ElementType
   'wireshark': SiWireshark,
   'emailjs': SiMinutemailer,
   'geistfont': SiFontforge,
+  'figma': SiFigma,
+  'aftereffects': SiAdobeaftereffects,
+  'photoshop': SiAdobephotoshop,
+  'illustrator': SiAdobeillustrator,
+  'premierepro': SiAdobepremierepro,
+  'unity': SiUnity,
+  'blender': SiBlender,
 };
 
 const getTechIcon = (tag: string): ElementType | null => { // <-- Use ElementType
@@ -80,6 +90,7 @@ export default function Projects() {
   const [selectedProject, setSelectedProject] = useState<ProjectType | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isMounted, setIsMounted] = useState(false)
+  const { theme } = useTheme() // Add theme detection
 
   useEffect(() => {
     setIsMounted(true)
@@ -106,82 +117,97 @@ export default function Projects() {
 
   // --- Project Data (Keep your existing data here) ---
   const projects: ProjectType[] = [
-      // ... Your full projects array goes here ...
-     {
-      id: "smartballot",
-      title: "SmartBallot: Blockchain Voting System",
-      shortDescription:
-        "A modern, blockchain-based voting platform ensuring security, transparency, accessibility, and privacy in electoral processes.",
-      fullDescription:
-        "SmartBallot is a revolutionary blockchain-based voting system that achieved Runner-Up in the Eviden & Bishop's University SecureVote Hackathon 2024. It leverages modern cryptographic and blockchain tools to ensure vote integrity, voter anonymity, and system transparency while keeping the user experience simple and intuitive. The platform is designed to be secure, accessible, scalable, anonymous, and compliant with electoral regulations.",
-      image: "/images/smartballot.jpeg?height=400&width=600",
-      // Example: Ensure tags match keys in techIconMap (after normalization)
-      tags: ["Next.js", "NestJS", "Solidity", "Blockchain", "ZKP", "Hardhat", "Cerbos"],
-      link: "https://github.com/junaydirfan/smartballot",
-      github: "https://github.com/junaydirfan/smartballot",
-      // ... rest of smartballot data ...
-      gallery: [], challenges: [], keyFeatures: [], technicalDetails: [], architecture: ""
-    },
     {
-      id: "bulletin-board",
-      title: "Bulletin Board Server",
-      shortDescription:
-        "A multi-threaded bulletin board server implemented in C that allows clients to write and read messages while ensuring data consistency across multiple instances.",
-      fullDescription:
-        "The Bulletin Board Server (bbserver) is a high-performance, multi-threaded server application designed to handle concurrent message posting and reading. It implements advanced synchronization techniques to ensure data integrity while maximizing throughput for multiple simultaneous users. The project provides a practical example of distributed systems and concurrent programming, with features like thread pools, readers-writers locks, and the two-phase commit protocol for distributed data synchronization.",
-      image: "/images/bbserv.jpeg?height=400&width=600",
-      // Ensure these tags are mapped in techIconMap
-      tags: ["C", "Multi-threading", "Socket Programming", "Two-Phase Commit", "POSIX", "Distributed Systems"],
-      link: "https://github.com/junaydirfan/bbserver",
-      github: "https://github.com/junaydirfan/bbserver",
-      // ... rest of bulletin-board data ...
+      id: "smartballot",
+      title: "smartballot: blockchain voting system",
+      shortDescription:
+        "A modern, blockchain-based voting platform ensuring security, transparency, accessibility, and privacy in electoral processes.",
+      fullDescription:
+        "SmartBallot is a revolutionary blockchain-based voting system that achieved Runner-Up in the Eviden & Bishop's University SecureVote Hackathon 2024. It leverages modern cryptographic and blockchain tools to ensure vote integrity, voter anonymity, and system transparency while keeping the user experience simple and intuitive. The platform is designed to be secure, accessible, scalable, anonymous, and compliant with electoral regulations.",
+      image: "/images/smartballot.jpeg?height=400&width=600",
+      tags: ["Next.js", "NestJS", "Solidity", "Blockchain", "ZKP", "Hardhat", "Cerbos"],
+      link: "https://github.com/junaydirfan/smartballot",
+      github: "https://github.com/junaydirfan/smartballot",
       gallery: [], challenges: [], keyFeatures: [], technicalDetails: [], architecture: ""
-    },
+    },
     {
-      id: "busrc-website",
-      title: "BUSRC Website",
-      shortDescription:
-        "Served as webmaster for the Bishop's University SRC Website, managing content updates, site maintenance, and implementing new features.",
-      fullDescription:
-        "As the webmaster for the Bishop's University Student Representative Council (SRC) Website, I was responsible for maintaining and updating the site to ensure it effectively served the student body. This role involved collaborating with various teams to incorporate new content, revamping sections of the site, and implementing new features to enhance user experience. I managed the day-to-day operations of the website, ensuring it remained a reliable resource for students seeking information about campus events, services, and opportunities.",
-      image: "/images/busrc1.png?height=400&width=600",
-      // Ensure these tags are mapped
-      tags: ["React", "JavaScript", "HTML/CSS", "Content Management", "Web Development"],
-      link: "https://busrc.com/",
-      github: "#", // Indicate no github link clearly if needed
-      // ... rest of busrc-website data ...
-       gallery: [], challenges: [], keyFeatures: [], technicalDetails: [], architecture: ""
-    },
-     {
-      id: "socialsight",
-      title: "SocialSight",
-      shortDescription:
-        "A modern web application that allows users to preview how their images will appear across different social media platforms.",
-      fullDescription:
-        "SocialSight is a modern web application that allows users to preview how their images will appear across different social media platforms. Built with Next.js and TypeScript, it provides a sleek, responsive interface with dark mode support. The application enables users to upload images and see how they would look on various social media platforms like YouTube, Facebook, Instagram, Twitter, and Reddit, helping them optimize their content for each platform.",
-      image: "/images/socialsight.jpg?height=400&width=600",
-      // Ensure these tags are mapped
-      tags: ["Next.js", "TypeScript", "Tailwind CSS", "Radix UI", "Responsive Design"],
-      link: "https://v0-next-js-social-sight-app.vercel.app/",
-      github: "https://github.com/junaydirfan/SocialSight",
-      // ... rest of socialsight data ...
+      id: "bulletin-board",
+      title: "bulletin board server",
+      shortDescription:
+        "A multi-threaded bulletin board server implemented in C that allows clients to write and read messages while ensuring data consistency across multiple instances.",
+      fullDescription:
+        "The Bulletin Board Server (bbserver) is a high-performance, multi-threaded server application designed to handle concurrent message posting and reading. It implements advanced synchronization techniques to ensure data integrity while maximizing throughput for multiple simultaneous users. The project provides a practical example of distributed systems and concurrent programming, with features like thread pools, readers-writers locks, and the two-phase commit protocol for distributed data synchronization.",
+      image: "/images/bbserv.jpeg?height=400&width=600",
+      tags: ["C", "Multi-threading", "Socket Programming", "Two-Phase Commit", "POSIX", "Distributed Systems"],
+      link: "https://github.com/junaydirfan/bbserver",
+      github: "https://github.com/junaydirfan/bbserver",
       gallery: [], challenges: [], keyFeatures: [], technicalDetails: [], architecture: ""
-    },
+    },
     {
-      id: "this-website",
-      title: "This Site",
-      shortDescription:
-        "This website is a showcase of my technical skills and creative problem-solving abilities. It's so meta, it's recursively describing itself!",
-      fullDescription:
-        "This website is a showcase of my technical skills and creative problem-solving abilities. It's so meta, it's recursively describing itself! Like a function that calls itself, this portfolio keeps going deeper into its own description. A true example of recursion in action - the website that describes the website that describes the website... Built with Next.js 15 and Tailwind CSS, this modern, responsive portfolio website features static site generation for optimal performance, component-based architecture for maintainability, and smooth animations powered by Framer Motion.",
-      image: "/images/thisite.jpg?height=400&width=600",
-      // Ensure these tags are mapped
-      tags: ["Next.js", "React", "Tailwind CSS", "Framer Motion", "Radix UI", "EmailJS", "Geist Font"],
-      link: "https://portfolio.10poundingpotatoes.org",
-      github: "https://github.com/junaydirfan/portfolio",
-      // ... rest of this-website data ...
-       gallery: [], challenges: [], keyFeatures: [], technicalDetails: [], architecture: ""
-    },
+      id: "busrc-website",
+      title: "busrc website",
+      shortDescription:
+        "Served as webmaster for the Bishop's University SRC Website, managing content updates, site maintenance, and implementing new features.",
+      fullDescription:
+        "As the webmaster for the Bishop's University Student Representative Council (SRC) Website, I was responsible for maintaining and updating the site to ensure it effectively served the student body. This role involved collaborating with various teams to incorporate new content, revamping sections of the site, and implementing new features to enhance user experience. I managed the day-to-day operations of the website, ensuring it remained a reliable resource for students seeking information about campus events, services, and opportunities.",
+      image: "/images/busrc1.png?height=400&width=600",
+      tags: ["React", "JavaScript", "HTML/CSS", "Content Management", "Web Development"],
+      link: "https://busrc.com/",
+      github: "#",
+      gallery: [], challenges: [], keyFeatures: [], technicalDetails: [], architecture: ""
+    },
+    {
+      id: "socialsight",
+      title: "socialsight",
+      shortDescription:
+        "A modern web application that allows users to preview how their images will appear across different social media platforms.",
+      fullDescription:
+        "SocialSight is a modern web application that allows users to preview how their images will appear across different social media platforms. Built with Next.js and TypeScript, it provides a sleek, responsive interface with dark mode support. The application enables users to upload images and see how they would look on various social media platforms like YouTube, Facebook, Instagram, Twitter, and Reddit, helping them optimize their content for each platform.",
+      image: "/images/socialsight.jpg?height=400&width=600",
+      tags: ["Next.js", "TypeScript", "Tailwind CSS", "Radix UI", "Responsive Design"],
+      link: "https://v0-next-js-social-sight-app.vercel.app/",
+      github: "https://github.com/junaydirfan/SocialSight",
+      gallery: [], challenges: [], keyFeatures: [], technicalDetails: [], architecture: ""
+    },
+    {
+      id: "this-website",
+      title: "this site",
+      shortDescription:
+        "This website is a showcase of my technical skills and creative problem-solving abilities. It's so meta, it's recursively describing itself!",
+      fullDescription:
+        "This website is a showcase of my technical skills and creative problem-solving abilities. It's so meta, it's recursively describing itself! Like a function that calls itself, this portfolio keeps going deeper into its own description. A true example of recursion in action - the website that describes the website that describes the website... Built with Next.js 15 and Tailwind CSS, this modern, responsive portfolio website features static site generation for optimal performance, component-based architecture for maintainability, and smooth animations powered by Framer Motion.",
+      image: "/images/thisite.jpg?height=400&width=600",
+      tags: ["Next.js", "React", "Tailwind CSS", "Framer Motion", "Radix UI", "EmailJS"],
+      link: "https://portfolio.10poundingpotatoes.org",
+      github: "https://github.com/junaydirfan/portfolio",
+      gallery: [], challenges: [], keyFeatures: [], technicalDetails: [], architecture: ""
+    },
+    {
+      id: "design-showcase",
+      title: "design stuff",
+      shortDescription:
+        "Explore my creative work in motion graphics, graphic design, and cinematography. Available for freelance projects and full-time opportunities.",
+      fullDescription:
+        "I specialize in creating engaging motion graphics, stunning visual designs, and compelling cinematography. My work spans across various mediums including logo animations, brand identity design, and video production. With a keen eye for detail and a passion for storytelling, I help brands and individuals bring their vision to life through creative design solutions.",
+      image: "/images/designstuff.png?height=400&width=600",
+      tags: ["figma", "aftereffects", "photoshop", "illustrator", "premierepro", "unity", "blender"],
+      link: "https://www.behance.net/junaydirfan",
+      github: "https://www.fiverr.com/junaydirfan95",
+      keyFeatures: [
+        "Professional motion graphics and animations",
+        "Brand identity and logo design",
+        "Video editing and production",
+        "Social media content creation",
+        "Creative direction and consultation"
+      ],
+      technicalDetails: [
+        "Adobe Creative Suite (After Effects, Photoshop, Illustrator, Premiere Pro)",
+        "Motion graphics and animation techniques",
+        "Color grading and visual effects",
+        "Typography and layout design",
+        "Video production and post-production"
+      ]
+    },
   ]
   // -------------------------------------------------
 
@@ -205,6 +231,18 @@ export default function Projects() {
     };
   }, []);
 
+  // Helper function to get the appropriate image based on theme
+  const getImageSource = (imagePath: string) => {
+    if (!imagePath) return "/placeholder.svg";
+    
+    // If we're in dark mode and the image has an extension
+    if (theme === 'dark' && imagePath.includes('.')) {
+      const [path, ext] = imagePath.split('.');
+      return `${path}-darkmode.${ext}`;
+    }
+    
+    return imagePath;
+  };
 
   return (
     // Use background color consistent with theme
@@ -220,10 +258,10 @@ export default function Projects() {
           {/* Section Header */}
           <motion.div className="text-center mb-12 md:mb-16" variants={itemVariants}>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-foreground">
-                Featured Projects
+                featured projects
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto text-base md:text-lg">
-              A showcase of projects demonstrating key skills and problem-solving approaches.
+              a showcase of projects demonstrating key skills and problem-solving approaches.
             </p>
           </motion.div>
 
@@ -239,39 +277,39 @@ export default function Projects() {
                 <Card className="h-full w-full flex flex-col overflow-hidden border border-border/50 bg-card shadow-md hover:shadow-lg hover:border-border/80 transition-all duration-300"> {/* Subtle hover, ensure full height */}
                   {/* Image container */}
                   <div className="relative overflow-hidden aspect-video border-b border-border/50">
-                    {isMounted ? ( // Render image only client-side
+                    {isMounted ? (
                       <Image
-                            src={project.image || "/placeholder.svg"} // Ensure placeholder exists if needed
-                            alt={`${project.title} preview`}
-                            fill // Use fill
-                            className="object-cover transition-transform duration-300 group-hover:scale-105" // Keep object-cover and transitions
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // Example sizes hint
-                            loading="lazy"
-                          />
+                        src={getImageSource(project.image || "/placeholder.svg")}
+                        alt={`${project.title} preview`}
+                        fill
+                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        loading="lazy"
+                      />
                     ) : (
-                      <div className="w-full h-full bg-muted animate-pulse"></div> // Placeholder while mounting
+                      <div className="w-full h-full bg-muted animate-pulse"></div>
                     )}
                   </div>
 
                   {/* Content Area */}
                   <div className="flex flex-col flex-grow p-5"> {/* Use flex-grow for content */}
                     <CardHeader className="p-0 mb-3">
-                      <CardTitle className="text-xl mb-1">{project.title}</CardTitle>
+                      <CardTitle className="text-xl mb-1">{project.title.toLowerCase()}</CardTitle>
                        {/* Award/Highlight */}
                        {project.id === "smartballot" && (
-                        <div className="flex items-center gap-1.5 text-xs text-amber-600 mb-2"> {/* Adjusted color/size */}
+                        <div className="flex items-center gap-1.5 text-xs text-amber-600 mb-2">
                           <Trophy className="h-3.5 w-3.5" />
-                          <span className="font-medium">SecureVote Hackathon 2024 Runner-up</span>
+                          <span className="font-medium">securevote hackathon 2024 runner-up</span>
                         </div>
                       )}
-                      <CardDescription className="text-sm leading-relaxed"> {/* Adjusted text size/leading */}
-                          {project.shortDescription}
+                      <CardDescription className="text-sm leading-relaxed">
+                          {project.shortDescription.toLowerCase()}
                       </CardDescription>
                     </CardHeader>
 
                     {/* --- Tech Icons Section --- */}
                     <CardContent className="p-0 mt-auto pt-4"> {/* Push to bottom */}
-                       <h4 className="text-xs font-semibold uppercase text-muted-foreground mb-2">Technologies Used</h4>
+                       <h4 className="text-xs font-semibold uppercase text-muted-foreground mb-2">technologies used</h4>
                        <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
                          {project.tags.map((tag) => {
                            const IconComponent = getTechIcon(tag);
@@ -305,22 +343,36 @@ export default function Projects() {
                      <div className="flex justify-between w-full items-center">
                         {/* Github Button */}
                         <div>
-                            {project.github && project.github !== "#" ? ( // Check for valid link
+                            {project.id === "design-showcase" ? (
                                 <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground" asChild>
-                                <a href={project.github} target="_blank" rel="noopener noreferrer" aria-label={`${project.title} GitHub Repository`}>
-                                    <Github className="h-4 w-4" />
-                                </a>
+                                    <a href={project.github} target="_blank" rel="noopener noreferrer" aria-label="Fiverr Profile">
+                                        <ExternalLink className="h-4 w-4" />
+                                    </a>
+                                </Button>
+                            ) : project.github && project.github !== "#" ? (
+                                <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground" asChild>
+                                    <a href={project.github} target="_blank" rel="noopener noreferrer" aria-label={`${project.title} GitHub Repository`}>
+                                        <Github className="h-4 w-4" />
+                                    </a>
                                 </Button>
                             ) : (
-                                // Optional: Render disabled or placeholder if no link
-                                <div className="w-8 h-8"></div> // Placeholder for alignment
+                                <div className="w-8 h-8"></div>
                             )}
                         </div>
                         {/* View Project / Live Demo Button */}
-                        <Button variant="outline" size="sm" onClick={() => handleOpenModal(project)}>
-                            Details
-                            <ExternalLink className="ml-2 h-3 w-3" /> {/* Smaller icon */}
-                        </Button>
+                        {project.id === "design-showcase" ? (
+                            <Button variant="outline" size="sm" asChild>
+                                <a href={project.link} target="_blank" rel="noopener noreferrer" aria-label="Behance Portfolio">
+                                    view portfolio
+                                    <ExternalLink className="ml-2 h-3 w-3" />
+                                </a>
+                            </Button>
+                        ) : (
+                            <Button variant="outline" size="sm" onClick={() => handleOpenModal(project)}>
+                                details
+                                <ExternalLink className="ml-2 h-3 w-3" />
+                            </Button>
+                        )}
                     </div>
                   </CardFooter>
                 </Card>

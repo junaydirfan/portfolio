@@ -69,10 +69,10 @@ export default function Infrastructure() {
       <div className="container px-4 md:px-6 max-w-6xl mx-auto">
         <motion.div ref={ref} initial="hidden" animate={isMounted && isInView ? "visible" : "hidden"} variants={containerVariants}>
           <motion.div className="text-center mb-12" variants={itemVariants}>
-            <h2 className="text-3xl font-bold tracking-tighter mb-4">Self-Hosted Infrastructure</h2>
+            <h2 className="text-3xl font-bold tracking-tighter mb-4">self-hosted infrastructure</h2>
             <p className="text-muted-foreground max-w-3xl mx-auto">
-              This portfolio and other services are powered by my custom home server setup running on Proxmox, with
-              Docker containers and Tailscale for secure remote access from anywhere.
+              this portfolio and other services are powered by my custom home server setup running on proxmox, with
+              docker containers and tailscale for secure remote access from anywhere.
             </p>
           </motion.div>
 
@@ -92,15 +92,15 @@ export default function Infrastructure() {
                         <component.icon className="h-5 w-5 text-muted-foreground" />
                       </div>
                       <div>
-                        <CardTitle className="mb-1 text-lg md:text-xl">{component.title}</CardTitle> {/* Adjusted size */}
-                        <CardDescription className="text-sm justify-center">{component.description}</CardDescription> {/* Adjusted size */}
+                        <CardTitle className="mb-1 text-lg md:text-xl">{component.title.toLowerCase()}</CardTitle>
+                        <CardDescription className="text-sm justify-center">{component.description.toLowerCase()}</CardDescription>
                       </div>
                     </div>
                   </CardHeader>
                   {/* Card Content with improved details list */}
                   <CardContent className="p-6 pt-0 flex-grow flex flex-col"> {/* Use flex-grow */}
                      <div className="mt-auto border-t border-border/50 pt-4"> {/* Push details to bottom */}
-                       <h4 className="text-xs font-semibold uppercase text-muted-foreground mb-3">Key Aspects</h4>
+                       <h4 className="text-xs font-semibold uppercase text-muted-foreground mb-3">key aspects</h4>
                        <div className="flex flex-wrap gap-x-3 gap-y-1.5">
                          {component.details.map((detail, detailIndex) => (
                            // Use simple styled divs instead of list items
@@ -119,9 +119,9 @@ export default function Infrastructure() {
           <motion.div variants={itemVariants} className="mt-12">
             <Card className="border-0 shadow-md overflow-hidden">
               <CardHeader>
-                <CardTitle>Home Server Architecture</CardTitle>
+                <CardTitle>home server architecture</CardTitle>
                 <CardDescription>
-                  A simplified view of how my home server infrastructure powers this portfolio and other services
+                  a simplified view of how my home server infrastructure powers this portfolio and other services
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -137,9 +137,9 @@ export default function Infrastructure() {
                             <div className="p-3 rounded-full bg-background shadow-md mb-2">
                               <Cpu className="h-6 w-6 text-primary" />
                             </div>
-                            <h3 className="text-sm font-medium">Custom Hardware</h3>
+                            <h3 className="text-sm font-medium">custom hardware</h3>
                             <p className="text-xs text-muted-foreground mt-1">
-                              Energy-efficient server with redundant storage
+                              energy-efficient server with redundant storage
                             </p>
                           </div>
 
@@ -147,16 +147,16 @@ export default function Infrastructure() {
                             <div className="p-3 rounded-full bg-background shadow-md mb-2">
                               <Server className="h-6 w-6 text-primary" />
                             </div>
-                            <h3 className="text-sm font-medium">Proxmox VE</h3>
-                            <p className="text-xs text-muted-foreground mt-1">Virtualization platform</p>
+                            <h3 className="text-sm font-medium">proxmox ve</h3>
+                            <p className="text-xs text-muted-foreground mt-1">virtualization platform</p>
                           </div>
 
                           <div className="flex flex-col items-center text-center">
                             <div className="p-3 rounded-full bg-background shadow-md mb-2">
                               <Box className="h-6 w-6 text-primary" />
                             </div>
-                            <h3 className="text-sm font-medium">Docker Containers</h3>
-                            <p className="text-xs text-muted-foreground mt-1">Portfolio and services</p>
+                            <h3 className="text-sm font-medium">docker containers</h3>
+                            <p className="text-xs text-muted-foreground mt-1">portfolio and services</p>
                           </div>
                         </div>
 
@@ -173,16 +173,16 @@ export default function Infrastructure() {
                             <div className="p-3 rounded-full bg-background shadow-md mb-2">
                               <Network className="h-6 w-6 text-primary" />
                             </div>
-                            <h3 className="text-sm font-medium">Tailscale Network</h3>
-                            <p className="text-xs text-muted-foreground mt-1">Secure remote access</p>
+                            <h3 className="text-sm font-medium">tailscale network</h3>
+                            <p className="text-xs text-muted-foreground mt-1">secure remote access</p>
                           </div>
 
                           <div className="flex flex-col items-center text-center">
                             <div className="p-3 rounded-full bg-background shadow-md mb-2">
                               <Shield className="h-6 w-6 text-primary" />
                             </div>
-                            <h3 className="text-sm font-medium">Security Layer</h3>
-                            <p className="text-xs text-muted-foreground mt-1">Cloudflare protection and CDN</p>
+                            <h3 className="text-sm font-medium">security layer</h3>
+                            <p className="text-xs text-muted-foreground mt-1">cloudflare protection and cdn</p>
                           </div>
                         </div>
 
@@ -196,7 +196,7 @@ export default function Infrastructure() {
                       </div>
 
                       <div className="text-center mt-4">
-                        <p className="text-sm font-medium">Applications & Services</p>
+                        <p className="text-sm font-medium">applications & services</p>
                       </div>
                     </div>
                   </div>
@@ -207,10 +207,10 @@ export default function Infrastructure() {
 
           <motion.div variants={itemVariants} className="mt-12 text-center">
             <div className="bg-card border-0 shadow-md rounded-lg p-6 max-w-2xl mx-auto">
-              <h3 className="text-lg font-medium mb-4">Technical Specifications</h3>
+              <h3 className="text-lg font-medium mb-4">technical specifications</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
                 <div>
-                  <h4 className="text-sm font-medium text-primary mb-2">Hardware</h4>
+                  <h4 className="text-sm font-medium text-primary mb-2">hardware</h4>
                   <ul className="space-y-1 text-sm text-muted-foreground">
                     <li>• Custom-built server with AMD Ryzen processor</li>
                     <li>• 32GB ECC RAM for reliability</li>
@@ -219,7 +219,7 @@ export default function Infrastructure() {
                   </ul>
                 </div>
                 <div>
-                  <h4 className="text-sm font-medium text-primary mb-2">Services & Network</h4>
+                  <h4 className="text-sm font-medium text-primary mb-2">services & network</h4>
                   <ul className="space-y-1 text-sm text-muted-foreground">
                     <li>• Proxmox VE virtualization</li>
                     <li>• Docker containers for all services</li>

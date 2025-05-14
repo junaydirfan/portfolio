@@ -100,10 +100,10 @@ export default function Experience() {
           {/* Section Header */}
           <motion.div className="text-center mb-12 md:mb-16" variants={itemVariants}>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-foreground">
-                Professional Experience
+                professional experience
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto text-base md:text-lg">
-              My journey in the tech industry, highlighting key roles and accomplishments.
+              my journey in the tech industry, highlighting key roles and accomplishments.
             </p>
           </motion.div>
 
@@ -115,8 +115,8 @@ export default function Experience() {
                   <CardHeader className="p-6 md:p-8 pb-4">
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
                       <div className="mb-2 sm:mb-0">
-                        <CardTitle className="text-xl md:text-2xl mb-1">{exp.title}</CardTitle>
-                        <CardDescription className="text-base font-medium text-foreground/80">{exp.company}</CardDescription>
+                        <CardTitle className="text-xl md:text-2xl mb-1">{exp.title.toLowerCase()}</CardTitle>
+                        <CardDescription className="text-base font-medium text-foreground/80">{exp.company.toLowerCase()}</CardDescription>
                       </div>
                       <Badge variant="outline" className="whitespace-nowrap w-fit text-sm font-normal">
                         {exp.period}
@@ -130,7 +130,7 @@ export default function Experience() {
                       ))}
                     </ul>
                     <div className="border-t border-border/50 pt-4">
-                       <h4 className="text-xs font-semibold uppercase text-muted-foreground mb-3">Key Skills Used</h4>
+                       <h4 className="text-xs font-semibold uppercase text-muted-foreground mb-3">key skills used</h4>
                         <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
                         {exp.skills.map((skill) => {
                             const IconComponent = getTechIcon(skill);

@@ -4,33 +4,43 @@
 import * as React from "react" 
 import { Moon, Sun } from "lucide-react" // Assuming you use lucide-react
 import { useTheme } from "next-themes"
-
 import { Button } from "@/components/ui/button" // Assuming you have a Button component like shadcn/ui
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme()
-
-  const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark")
-  }
-
-  // Wait until mounted to render client-specific UI
   const [mounted, setMounted] = React.useState(false)
-  React.useEffect(() => setMounted(true), [])
 
+  // Ensure we only render on the client
+  React.useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  const toggleTheme = React.useCallback(() => {
+    setTheme(theme === "dark" ? "light" : "dark")
+  }, [theme, setTheme])
+
+  // Prevent hydration mismatch by not rendering until mounted
   if (!mounted) {
-    // Render a placeholder or null on the server/initial render
-    // to avoid hydration mismatch if the stored theme differs from system/default
-    return <div className="w-10 h-10"></div>; // Placeholder with button size
+    return (
+      <Button variant="ghost" size="icon" disabled>
+        <div className="h-[1.2rem] w-[1.2rem]" />
+      </Button>
+    )
   }
 
   return (
-    <Button variant="ghost" size="icon" onClick={toggleTheme} aria-label="Toggle theme">
-      {theme === 'dark' ? (
-         <Sun className="h-[1.2rem] w-[1.2rem]" />
-      ) : (
-         <Moon className="h-[1.2rem] w-[1.2rem]" />
-      )}
+    <Button 
+      variant="ghost" 
+      size="icon" 
+      onClick={toggleTheme} 
+      aria-label="Toggle theme"
+      className="focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 relative"
+    >
+      <div className="relative h-[1.2rem] w-[1.2rem]">
+        <Sun className="absolute h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+        <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+      </div>
+      <span className="sr-only">Toggle theme</span>
     </Button>
   )
 }

@@ -125,7 +125,7 @@ export function Availability() {
                        transition={{ duration: 0.2 }}
                        className="text-xs text-muted-foreground whitespace-nowrap overflow-hidden"
                      >
-                       Available for new opportunities
+                       available for new opportunities
                      </motion.span>
                  )}
                </AnimatePresence>
@@ -155,7 +155,7 @@ export function Availability() {
                   {/* Location and Time */}
                   <div className="flex items-center">
                     <span className="text-xs text-muted-foreground">
-                      {time} EST • Quebec, Canada
+                      {time} EST • quebec, canada
                     </span>
                     <button
                       onClick={handleCopyEmail}
