@@ -37,30 +37,30 @@ export default function Infrastructure() {
 
   const infrastructureComponents = [
     {
-      title: "Proxmox Virtualization",
+      title: "proxmox virtualization",
       description:
-        "Self-hosted Proxmox VE server running on custom hardware, enabling efficient resource allocation for multiple virtual machines and containers.",
+        "self-hosted proxmox server running on custom hardware, enabling efficient resource allocation for multiple virtual machines and containers.",
       icon: Server,
       details: [
-        "Bare-metal hypervisor",
-        "Resource optimization",
+        "bare-metal hypervisor",
+        "resource optimization",
         "VM & container management",
-        "High availability setup",
+        "high availability setup",
       ],
     },
     {
-      title: "Docker Ecosystem",
+      title: "docker ecosystem",
       description:
-        "Containerized applications using Docker and Docker Compose for consistent deployment, including this portfolio website and various other services.",
+        "containerized applications using Docker and Docker Compose for consistent deployment, including this portfolio website and various other services.",
       icon: Box,
-      details: ["Isolated environments", "Easy service updates", "Resource efficiency", "Simplified management"],
+      details: ["isolated environments", "easy service updates", "resource efficiency", "simplified management"],
     },
     {
-      title: "Tailscale Network",
+      title: "tilscale Network",
       description:
-        "Secure remote access to the entire infrastructure from anywhere using Tailscale's WireGuard-based mesh network with zero configuration.",
+        "secure remote access to the entire infrastructure from anywhere using Tailscale's WireGuard-based mesh network with zero configuration.",
       icon: Network,
-      details: ["End-to-end encryption", "Zero-config VPN", "Multi-device access", "Access control policies"],
+      details: ["end-to-end encryption", "zero-config VPN", "multi-device access", "access control policies"],
     },
   ]
 
@@ -212,7 +212,7 @@ export default function Infrastructure() {
                 <div>
                   <h4 className="text-sm font-medium text-primary mb-2">hardware</h4>
                   <ul className="space-y-1 text-sm text-muted-foreground">
-                    <li>• Custom-built server with AMD Ryzen processor</li>
+                    <li>• custom-built server with AMD Ryzen processor</li>
                     <li>• 32GB ECC RAM for reliability</li>
                     <li>• ZFS RAID for data redundancy</li>
                     <li>• UPS backup power system</li>

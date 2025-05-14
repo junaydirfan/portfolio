@@ -36,14 +36,14 @@ export default function Education() {
   }
 
   const courses = [
-    "Database Software Design",
-    "Web Development Patterns",
-    "Big Data Management & Analytics",
-    "Data Visualization",
-    "Software Engineering",
-    "Pattern Recognition",
-    "Distributed Systems", // Added example
-    "Advanced Algorithms", // Added example
+    "database software design",
+    "web development patterns",
+    "big data management & analytics",
+    "data visualization",
+    "software engineering",
+    "pattern recognition",
+    "distributed systems",
+    "advanced algorithms", 
   ]
 
   return (

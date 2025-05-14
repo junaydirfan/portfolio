@@ -65,24 +65,23 @@ export default function Experience() {
   // Experience Data
   const experiences = [
     {
-      title: "Webmaster",
-      company: "Bishop's University",
-      period: "September 2023 - April 2024",
+      title: "webmaster",
+      company: "bishop's University",
+      period: "september 2023 - april 2024",
       description: [
-        "Led full-stack management of SRC website (BUSRC.com) using modern web stack (Next.js + Tailwind CSS).",
-        "Implemented 15+ custom UI components aligned with university brand guidelines.",
-        "Configured SQL database schemas to handle 5000+ monthly user interactions.",
-        "Collaborated with 5 departments to integrate event calendars and reservation systems.",
+        "led management and maintainance of my university's SRC website.",
+        "implemented custom UI components aligned with university brand guidelines.",
+        "collaborated with departments to integrate events and organized systems.",
       ],
       skills: ["Next.js", "Tailwind CSS", "SQL", "UI Design", "System Integration"],
     },
     {
-      title: "Data Science Intern",
-      company: "Bytewise",
-      period: "March 2023 - June 2023",
+      title: "data science intern",
+      company: "bytewise",
+      period: "march 2023 - june 2023",
       description: [
-        "Developed JSON data pipelines processing 10K+ daily API responses.",
-        "Automated ETL workflows using Python/SQL with 98% accuracy.",
+        "developed JSON data pipelines processing API responses.",
+        "automated ETL workflows using Python/SQL.",
       ],
       skills: ["Python", "SQL", "Data Pipelines", "ETL", "API Integration"],
     },

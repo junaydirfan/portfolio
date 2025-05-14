@@ -117,9 +117,12 @@ export default function About() {
               cursor={true}
               repeat={0}
               speed={55}
-              // Use card-foreground (off-white)
-              className="text-sm md:text-base text-card-foreground" 
-              style={{ whiteSpace: 'pre-line' }}
+              className="text-sm md:text-base text-card-foreground font-mono tracking-wide" 
+              style={{ 
+                whiteSpace: 'pre-line',
+                fontFamily: 'var(--font-jetbrains-mono)',
+                letterSpacing: '0.05em'
+              }}
             />
           </div>
         </motion.div>

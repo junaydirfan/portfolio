@@ -1,6 +1,6 @@
 // layout.tsx
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Nav } from "@/components/ui/nav";
 import { Availability } from "@/components/ui/availability";
@@ -9,6 +9,11 @@ import { ThemeProvider } from "@/components/theme-provider"; // <-- Import Theme
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains-mono",
 });
 
 export const metadata: Metadata = {
@@ -32,7 +37,7 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
       <body
-        className={`${inter.variable} font-inter antialiased bg-background text-foreground`} // font-inter added, bg/text moved here
+        className={`${inter.variable} ${jetbrainsMono.variable} font-inter antialiased bg-background text-foreground`}
         // suppressHydrationWarning={true} // Moved to <html>
       >
         {/* Configure ThemeProvider */}
