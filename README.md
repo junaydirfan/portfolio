@@ -4,7 +4,7 @@ A modern, responsive portfolio website built with Next.js and Tailwind CSS, show
 
 ## 🚀 Live Demo
 
-Visit the live site: [portfolio.10poundingpotatoes.org](https://portfolio.10poundingpotatoes.org)
+Visit the live site: [junaidirfan.com](https://junaidirfan.com)
 
 ## ✨ Features
 
