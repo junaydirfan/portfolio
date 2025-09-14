@@ -28,20 +28,20 @@ export default function About() {
     hidden: { opacity: 0, y: 25 },
     visible: {
         opacity: 1, y: 0,
-        transition: { type: "spring", stiffness: 90, damping: 15, duration: 0.8 },
+        transition: { type: "spring" as const, stiffness: 90, damping: 15, duration: 0.8 },
     },
   };
   const bubbleVariants = {
       hidden: { opacity: 0, scale: 0.8, y: 30 },
       visible: {
         opacity: 1, scale: 1, y: 0,
-        transition: { type: "spring", stiffness: 150, damping: 20, duration: 0.6, delay: 0.5 },
+        transition: { type: "spring" as const, stiffness: 150, damping: 20, duration: 0.6, delay: 0.5 },
       },
   };
   const textSequence = [
-      "hey 👋 im junaid, but you can call me nade!", 1000,
+      "hey 👋 im junaid!", 1000,
       "web & cloud developer...", 1000,
-      "proficient in Next.js ecosystem.", 1500
+      "proficient in Next.js & React ecosystem.", 1500
   ];
 
   return (
@@ -100,7 +100,7 @@ export default function About() {
             transition={{ delay: 0.7, type: "spring", stiffness: 260, damping: 20 }}
           >
             <Image
-              src="/images/image1.jpg"
+              src="/images/linkedin.png"
               alt="Junaid Irfan Profile"
               fill
               className="object-cover"

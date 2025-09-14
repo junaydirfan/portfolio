@@ -30,39 +30,39 @@
 
   .dark {
     /* --- Dark Mode (Modernized) --- */
-    /* Using a very dark, slightly desaturated blue base */
-    --background: 224 71% 4%;   /* Near black */
-    --foreground: 210 20% 98%;  /* Off-white */
+    /* Using a neutral grey base instead of blue */
+    --background: 0 0% 4%;   /* Near black - neutral grey */
+    --foreground: 0 0% 98%;  /* Pure white */
     
     /* Card slightly lighter than background for depth */
-    --card: 224 71% 6%;   
-    --card-foreground: 210 20% 98%; 
+    --card: 0 0% 6%;   
+    --card-foreground: 0 0% 98%; 
     
-    --popover: 224 71% 4%; /* Same as background */
-    --popover-foreground: 210 20% 98%;
+    --popover: 0 0% 4%; /* Same as background */
+    --popover-foreground: 0 0% 98%;
     
     /* Primary remains bright for contrast */
-    --primary: 210 20% 98%;  /* Off-white */
-    --primary-foreground: 224 71% 4%; /* Near black (for text on primary bg) */
+    --primary: 0 0% 98%;  /* Pure white */
+    --primary-foreground: 0 0% 4%; /* Near black (for text on primary bg) */
 
     /* Secondary/Muted slightly lighter than card */
-    --secondary: 224 71% 8%; 
-    --secondary-foreground: 210 20% 94%; /* Slightly dimmer white */
+    --secondary: 0 0% 8%; 
+    --secondary-foreground: 0 0% 94%; /* Slightly dimmer white */
     
-    --muted: 224 71% 8%; /* Same as secondary */
-    --muted-foreground: 210 20% 65%; /* Grayer white */
+    --muted: 0 0% 8%; /* Same as secondary */
+    --muted-foreground: 0 0% 65%; /* Grayer white */
     
-    --accent: 224 71% 10%; /* Slightly lighter */
-    --accent-foreground: 210 20% 98%;
+    --accent: 0 0% 10%; /* Slightly lighter */
+    --accent-foreground: 0 0% 98%;
     
     /* Destructive remains similar, ensure enough contrast */
     --destructive: 0 63% 31%; 
-    --destructive-foreground: 210 20% 98%;
+    --destructive-foreground: 0 0% 98%;
     
     /* Border needs to be visible but not harsh */
-    --border: 224 71% 15%; 
-    --input: 224 71% 15%; 
-    --ring: 210 20% 98%; /* Use the primary off-white for rings */
+    --border: 0 0% 15%; 
+    --input: 0 0% 15%; 
+    --ring: 0 0% 98%; /* Use pure white for rings */
     
     /* --radius: 0.5rem; /* No need to repeat radius */
   }

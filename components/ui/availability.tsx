@@ -64,13 +64,13 @@ export function Availability() {
       opacity: 0,
       height: 0,
       y: -10,
-      transition: { duration: 0.2, ease: [0.3, 0, 0.8, 1] },
+      transition: { duration: 0.2, ease: [0.3, 0, 0.8, 1] as const },
     },
     expanded: {
       opacity: 1,
       height: "auto",
       y: 0,
-      transition: { duration: 0.3, ease: [0.2, 0, 0.1, 1] },
+      transition: { duration: 0.3, ease: [0.2, 0, 0.1, 1] as const },
     },
   };
 
@@ -86,7 +86,7 @@ export function Availability() {
       // ------------------
       initial={{ opacity: 0 }} // Removed y offset from initial animation
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.4, ease: "easeOut" }}
+      transition={{ duration: 0.4, ease: "easeOut" as const }}
       className="fixed bottom-5 left-5 z-50 cursor-grab active:cursor-grabbing" // Add grab cursors
       // components/ui/availability.tsx
       // Prevent text selection while dragging

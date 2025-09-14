@@ -24,6 +24,9 @@ import {
   SiGithubactions,
   SiWireshark,
   SiSqlite,
+  SiWordpress,
+  SiShopify,
+  SiWebflow,
 } from "react-icons/si"
 import { Server } from "lucide-react"
 
@@ -81,6 +84,9 @@ export default function Skills() {
       { name: "PostgreSQL", icon: SiPostgresql },
       { name: "MongoDB", icon: SiMongodb },
       { name: "SQLite", icon: SiSqlite},
+      { name: "WordPress", icon: SiWordpress },
+      { name: "Shopify", icon: SiShopify },
+      { name: "Webflow", icon: SiWebflow },
     ],
     cloud: [
       { name: "Docker", icon: SiDocker },
