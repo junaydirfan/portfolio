@@ -5,7 +5,7 @@ const nextConfig = {
     return [
       {
         source: '/:path*',
-        destination: 'https://junaidirfan.com/:path*',
+        destination: 'https://www.junaidirfan.com/:path*',
         permanent: true,
       },
     ]

@@ -81,5 +81,9 @@
   }
   html {
     scroll-behavior: smooth;
+    background-color: hsl(var(--background));
   }
+  /* Ensure overscroll background matches theme in all modes */
+  html, body { background-color: hsl(var(--background)); }
+  html.dark, .dark body { background-color: hsl(var(--background)); }
 }

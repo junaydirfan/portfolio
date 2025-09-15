@@ -1,7 +1,7 @@
 "use client"
 
 import { motion, useScroll, useTransform, MotionValue } from "framer-motion"
-import { useRef, RefObject } from "react"
+import { useRef, RefObject, useState, useMemo, useCallback, useEffect } from "react"
 import { IconType } from "react-icons"
 import {
   SiTypescript,
@@ -28,7 +28,7 @@ import {
   SiShopify,
   SiWebflow,
 } from "react-icons/si"
-import { Server } from "lucide-react"
+import { Server, ChevronLeft, ChevronRight } from "lucide-react"
 
 type CategoryId = 'development' | 'cloud' | 'design'
 
@@ -49,6 +49,84 @@ export default function Skills() {
     cloud: useRef(null),
     design: useRef(null)
   }
+
+  // --- Manual Offsets (for arrow controls) ---
+  const [manualOffsetByCategory, setManualOffsetByCategory] = useState<Record<CategoryId, number>>({
+    development: 0,
+    cloud: 0,
+    design: 0
+  })
+  const stepPx = 160 // Approx width per skill (icon + gap)
+  const hoverSpeed = 120 // px per second for hover scrolling
+
+  // RAF management for hover-based smooth scrolling per category
+  const rafIdsRef = useRef<Record<CategoryId, number | null>>({ development: null, cloud: null, design: null })
+  const lastTsRef = useRef<Record<CategoryId, number | null>>({ development: null, cloud: null, design: null })
+  const velocityRef = useRef<Record<CategoryId, number>>({ development: 0, cloud: 0, design: 0 })
+
+  const handleShift = useCallback((categoryId: CategoryId, direction: -1 | 1) => {
+    setManualOffsetByCategory((prev) => {
+      const widthPerSet = (skills[categoryId]?.length || 1) * stepPx
+      const next = prev[categoryId] + direction * -stepPx
+      // Wrap within one cycle to avoid drifting into blank space
+      const wrapped = ((next % widthPerSet) + widthPerSet) % widthPerSet
+      // Shift to negative domain [ -widthPerSet, 0 ) for intuitive left/right
+      const negativeDomain = wrapped === 0 ? 0 : wrapped - widthPerSet
+      return { ...prev, [categoryId]: negativeDomain }
+    })
+  }, [])
+
+  const applyWrappedOffset = useCallback((categoryId: CategoryId, next: number) => {
+    const widthPerSet = (skills[categoryId]?.length || 1) * stepPx
+    const wrapped = ((next % widthPerSet) + widthPerSet) % widthPerSet
+    return wrapped === 0 ? 0 : wrapped - widthPerSet
+  }, [])
+
+  const tick = useCallback((categoryId: CategoryId, ts: number) => {
+    const last = lastTsRef.current[categoryId]
+    if (last == null) {
+      lastTsRef.current[categoryId] = ts
+      rafIdsRef.current[categoryId] = requestAnimationFrame((t) => tick(categoryId, t))
+      return
+    }
+    const dt = Math.min(0.05, (ts - last) / 1000) // cap dt to avoid jumps
+    lastTsRef.current[categoryId] = ts
+    const v = velocityRef.current[categoryId]
+    if (v === 0) {
+      // stop loop
+      const id = rafIdsRef.current[categoryId]
+      if (id != null) cancelAnimationFrame(id)
+      rafIdsRef.current[categoryId] = null
+      lastTsRef.current[categoryId] = null
+      return
+    }
+    setManualOffsetByCategory((prev) => {
+      const next = prev[categoryId] + v * dt
+      return { ...prev, [categoryId]: applyWrappedOffset(categoryId, next) }
+    })
+    rafIdsRef.current[categoryId] = requestAnimationFrame((t) => tick(categoryId, t))
+  }, [applyWrappedOffset])
+
+  const startHoverScroll = useCallback((categoryId: CategoryId, direction: -1 | 1) => {
+    velocityRef.current[categoryId] = direction * -hoverSpeed
+    if (rafIdsRef.current[categoryId] == null) {
+      rafIdsRef.current[categoryId] = requestAnimationFrame((t) => tick(categoryId, t))
+    }
+  }, [tick])
+
+  const stopHoverScroll = useCallback((categoryId: CategoryId) => {
+    velocityRef.current[categoryId] = 0
+    // tick will stop itself next frame
+  }, [])
+
+  useEffect(() => {
+    return () => {
+      ;(["development","cloud","design"] as CategoryId[]).forEach((cat) => {
+        const id = rafIdsRef.current[cat]
+        if (id != null) cancelAnimationFrame(id)
+      })
+    }
+  }, [])
 
   // --- Scroll Progress ---
   const scrollProgress: Record<CategoryId, { scrollYProgress: MotionValue<number> }> = {
@@ -148,28 +226,68 @@ export default function Skills() {
 
                 {/* --- Scroll Container --- (Original structure and classes) */}
                 <div ref={containerRefs[category.id]} className="relative h-[120px] overflow-hidden"> 
-                  <motion.div
-                    style={{ x: x[category.id] }}
-                    className="absolute flex gap-12 items-center" // Original classes
-                  >
-                    {[
-                        ...skills[category.id],
-                        ...skills[category.id],
-                        ...skills[category.id] 
-                    ].map((skill, index) => (
-                      <motion.div
-                        key={`${skill.name}-${index}`} // Original key structure
-                        className="flex flex-col items-center gap-2" // Original classes
-                        initial={{ opacity: 0, scale: 0.8 }} // Original animation
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.5 }}
-                        viewport={{ once: true }}
-                      >
-                         {/* Original icon rendering and classes */}
-                        <skill.icon className="h-20 w-20 md:h-55 md:w-55 text-primary hover:text-primary/80 transition-colors" />
-                      </motion.div>
-                    ))}
+                  <motion.div style={{ x: manualOffsetByCategory[category.id] }} className="absolute">
+                    <motion.div
+                      style={{ x: x[category.id] }}
+                      className="flex gap-12 items-center" // Original classes
+                    >
+                      {[
+                          ...skills[category.id],
+                          ...skills[category.id],
+                          ...skills[category.id],
+                          ...skills[category.id],
+                          ...skills[category.id],
+                          ...skills[category.id],
+                          ...skills[category.id],
+                          ...skills[category.id]
+                      ].map((skill, index) => (
+                        <motion.div
+                          key={`${skill.name}-${index}`} // Original key structure
+                          className="group relative flex flex-col items-center gap-2" // Original classes + group for tooltip
+                          initial={{ opacity: 0, scale: 0.8 }} // Original animation
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          transition={{ duration: 0.5 }}
+                          viewport={{ once: true }}
+                        >
+                           {/* Icon with native title tooltip for hover */}
+                          <skill.icon
+                            className="h-20 w-20 md:h-55 md:w-55 text-primary hover:text-primary/80 transition-colors focus:outline-none"
+                            title={skill.name}
+                            aria-label={skill.name}
+                            tabIndex={0}
+                          />
+                          {/* Custom tooltip/label on hover or focus */}
+                          <div className="absolute -bottom-7 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md border bg-popover px-2 py-1 text-[10px] leading-none text-popover-foreground shadow opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity pointer-events-none">
+                            {skill.name}
+                          </div>
+                        </motion.div>
+                      ))}
+                    </motion.div>
                   </motion.div>
+
+                  {/* Arrow Controls */}
+                  <div className="pointer-events-none absolute inset-0 flex items-center justify-between z-20">
+                    <button
+                      type="button"
+                      aria-label={`Previous ${category.title}`}
+                      className="pointer-events-auto ml-1 md:ml-2 inline-flex h-8 w-8 items-center justify-center rounded-full border bg-background/80 shadow backdrop-blur hover:bg-background transition"
+                      onClick={() => handleShift(category.id, -1)}
+                      onMouseEnter={() => startHoverScroll(category.id, -1)}
+                      onMouseLeave={() => stopHoverScroll(category.id)}
+                    >
+                      <ChevronLeft className="h-4 w-4" />
+                    </button>
+                    <button
+                      type="button"
+                      aria-label={`Next ${category.title}`}
+                      className="pointer-events-auto mr-1 md:mr-2 inline-flex h-8 w-8 items-center justify-center rounded-full border bg-background/80 shadow backdrop-blur hover:bg-background transition"
+                      onClick={() => handleShift(category.id, 1)}
+                      onMouseEnter={() => startHoverScroll(category.id, 1)}
+                      onMouseLeave={() => stopHoverScroll(category.id)}
+                    >
+                      <ChevronRight className="h-4 w-4" />
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

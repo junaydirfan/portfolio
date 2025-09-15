@@ -35,6 +35,8 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth" suppressHydrationWarning> 
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
+        <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+        <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
         <script
           dangerouslySetInnerHTML={{
             __html: `

@@ -76,9 +76,9 @@ export default function Experience() {
       skills: ["Next.js", "Tailwind CSS", "SQL", "UI Design", "System Integration"],
     },
     {
-      title: "data science intern",
+      title: "software developer",
       company: "bytewise",
-      period: "march 2023 - june 2023",
+      period: "september 2022 - august 2023",
       description: [
         "developed JSON data pipelines processing API responses.",
         "automated ETL workflows using Python/SQL.",
