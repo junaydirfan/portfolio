@@ -21,21 +21,21 @@ export default function About() {
       hidden: { opacity: 0 },
       visible: {
         opacity: 1,
-        transition: { staggerChildren: 0.2, delayChildren: 0.1 },
+        transition: { staggerChildren: 0.12, delayChildren: 0.05 },
       },
   };
   const itemVariants = {
     hidden: { opacity: 0, y: 25 },
     visible: {
         opacity: 1, y: 0,
-        transition: { type: "spring" as const, stiffness: 90, damping: 15, duration: 0.8 },
+        transition: { type: "spring" as const, stiffness: 110, damping: 16, duration: 0.5 },
     },
   };
   const bubbleVariants = {
       hidden: { opacity: 0, scale: 0.8, y: 30 },
       visible: {
         opacity: 1, scale: 1, y: 0,
-        transition: { type: "spring" as const, stiffness: 150, damping: 20, duration: 0.6, delay: 0.5 },
+        transition: { type: "spring" as const, stiffness: 170, damping: 22, duration: 0.45, delay: 0.3 },
       },
   };
   const textSequence = [
@@ -130,7 +130,7 @@ export default function About() {
         {/* Subsequent Paragraphs */}
         <motion.div
           className="space-y-4 max-w-2xl mx-auto" 
-          variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.2, delayChildren: 1.2 } } }}
+          variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.12, delayChildren: 0.6 } } }}
         >
            {/* Use muted-foreground for less emphasis than main headings */}
           <motion.p className="text-base md:text-lg text-muted-foreground" variants={itemVariants}> 
@@ -141,7 +141,7 @@ export default function About() {
         {/* Skills Grid */}
         <motion.div
           className="mt-16" // Increased spacing
-          variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.15, delayChildren: 1.8 } } }}
+          variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.12, delayChildren: 0.9 } } }}
         >
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 max-w-3xl mx-auto">
             {[

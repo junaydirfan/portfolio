@@ -27,6 +27,7 @@ import {
   SiWordpress,
   SiShopify,
   SiWebflow,
+  SiDavinciresolve,
 } from "react-icons/si"
 import { Server, ChevronLeft, ChevronRight } from "lucide-react"
 
@@ -57,7 +58,7 @@ export default function Skills() {
     design: 0
   })
   const stepPx = 160 // Approx width per skill (icon + gap)
-  const hoverSpeed = 120 // px per second for hover scrolling
+  const hoverSpeed = 180 // px per second for hover scrolling (faster)
 
   // RAF management for hover-based smooth scrolling per category
   const rafIdsRef = useRef<Record<CategoryId, number | null>>({ development: null, cloud: null, design: null })
@@ -182,6 +183,7 @@ export default function Skills() {
       { name: "Premiere Pro", icon: SiAdobepremierepro },
       { name: "Unity", icon: SiUnity },
       { name: "Blender", icon: SiBlender },
+      { name: "DaVinci Resolve", icon: SiDavinciresolve },
     ]
   }
 

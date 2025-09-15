@@ -100,9 +100,7 @@ export default function Projects() {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
+      transition: { staggerChildren: 0.12 },
     },
   }
 
@@ -111,7 +109,7 @@ export default function Projects() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" as const }, // Added ease
+      transition: { duration: 0.45, ease: "easeOut" as const }, // Added ease
     },
   }
 

@@ -20,8 +20,8 @@ export default function Education() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.1, // Slight delay for children
+        staggerChildren: 0.12,
+        delayChildren: 0.05, // Slight delay for children
       },
     },
   }
@@ -31,7 +31,7 @@ export default function Education() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" as const }, // Added ease
+      transition: { duration: 0.45, ease: "easeOut" as const }, // Added ease
     },
   }
 
@@ -78,10 +78,13 @@ export default function Education() {
                     <CardTitle className="text-xl md:text-2xl text-foreground">m.sc. computer science</CardTitle>
                   </div>
                    {/* University/Date Info */}
-                   <CardDescription className="text-sm sm:text-right text-muted-foreground mt-1 sm:mt-0">
-                     bishop&apos;s university • sherbrooke, qc <br/>
-                     september, 2023 - april, 2025
-                   </CardDescription>
+                   <div className="flex flex-col items-start sm:items-end gap-1">
+                     <CardDescription className="text-sm sm:text-right text-muted-foreground mt-1 sm:mt-0">
+                       bishop&apos;s university • sherbrooke, qc <br/>
+                       september, 2023 - april, 2025
+                     </CardDescription>
+                     <Badge className="whitespace-nowrap text-xs font-medium bg-primary/10 text-primary border-primary/20">grade: 89.79</Badge>
+                   </div>
                 </div>
               </CardHeader>
               <CardContent className="p-6 md:p-8 pt-4"> {/* Increased padding */}
@@ -102,6 +105,27 @@ export default function Education() {
                     ))}
                   </div>
                 </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+
+          {/* Bachelor Card */}
+          <motion.div variants={itemVariants} className="max-w-4xl mx-auto mt-6">
+            <Card className="overflow-hidden border border-border/50 shadow-lg bg-card">
+              <CardHeader className="p-6 md:p-8 pb-4">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
+                  <div className="flex items-center gap-3">
+                    <GraduationCap className="h-6 w-6 text-muted-foreground flex-shrink-0" />
+                    <CardTitle className="text-xl md:text-2xl text-foreground">b.sc. computer science</CardTitle>
+                  </div>
+                  <CardDescription className="text-sm sm:text-right text-muted-foreground mt-1 sm:mt-0">
+                    comsats university islamabad • islamabad, pakistan <br/>
+                    september, 2018 - september, 2022
+                  </CardDescription>
+                </div>
+              </CardHeader>
+              <CardContent className="p-6 md:p-8 pt-4">
+                <p className="text-sm md:text-base text-muted-foreground">foundational studies in computer science with emphasis on algorithms, data structures, databases, mobile app development, and software engineering</p>
               </CardContent>
             </Card>
           </motion.div>

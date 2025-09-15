@@ -30,8 +30,8 @@ export default function Contact() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.1,
+        staggerChildren: 0.12,
+        delayChildren: 0.05,
       },
     },
   }
@@ -41,7 +41,7 @@ export default function Contact() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" as const },
+      transition: { duration: 0.45, ease: "easeOut" as const },
     },
   }
 
@@ -52,6 +52,17 @@ export default function Contact() {
     setError("")
 
     if (!formRef.current) return
+
+    // Basic email validation
+    const emailInput = (formRef.current.elements.namedItem('email') as HTMLInputElement | null)
+    const email = emailInput?.value.trim() || ""
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
+    if (!emailRegex.test(email)) {
+      setIsSubmitting(false)
+      setError("Please enter a valid email address.")
+      emailInput?.focus()
+      return
+    }
 
     // Ensure these IDs/Keys are correct and ideally stored in environment variables
     const serviceID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || 'service_hfnz2g9';
@@ -101,7 +112,7 @@ export default function Contact() {
                 get in touch
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto text-base md:text-lg">
-              have a question or want to collaborate? feel free to reach out using the form below or my contact details.
+              have a question or want to collaborate? feel free to reach out using the form below or my contact details
             </p>
           </motion.div>
 
@@ -142,7 +153,7 @@ export default function Contact() {
                   <div className="flex items-center gap-4">
                     <MapPin className="h-5 w-5 text-muted-foreground flex-shrink-0" />
                      {/* Updated Location based on previous context */}
-                    <span className="text-muted-foreground">sherbrooke, qc, canada</span>
+                    <span className="text-muted-foreground">Sherbrooke, QC, CA</span>
                   </div>
                 </CardContent>
               </Card>
@@ -163,7 +174,7 @@ export default function Contact() {
                         <CheckCircle className="h-8 w-8 text-green-500" /> {/* Kept icon green */}
                       </div>
                       <h3 className="text-xl font-medium mb-2 text-foreground">message sent!</h3>
-                      <p className="text-muted-foreground mb-4">thanks for reaching out. i&apos;ll reply soon.</p>
+                      <p className="text-muted-foreground mb-4">thanks for reaching out, i&apos;ll reply soon!</p>
                       <Button
                         variant="outline"
                         onClick={resetForm}
@@ -180,7 +191,7 @@ export default function Contact() {
                       </div>
                       <div className="space-y-1.5">
                         <Label htmlFor="email">email</Label>
-                        <Input id="email" name="email" type="email" placeholder="your.email@example.com" required aria-label="Your Email"/>
+                        <Input id="email" name="email" type="email" placeholder="your.email@example.com" required aria-label="Your Email" autoComplete="email" inputMode="email" pattern="[^\s@]+@[^\s@]+\.[^\s@]{2,}" title="Enter a valid email like name@example.com"/>
                       </div>
                       <div className="space-y-1.5">
                         <Label htmlFor="message">message</Label>

@@ -29,16 +29,22 @@ export function Nav() {
         >
           <motion.nav 
             className={cn(
-              "px-2 sm:px-4 md:px-8 py-2 sm:py-3 rounded-full w-full max-w-[95vw] sm:max-w-[90vw] md:max-w-[85vw] lg:max-w-[80vw]", // Responsive padding and width
+              "px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 rounded-full w-auto max-w-max", // Tighter padding and auto width
               "bg-background/60 backdrop-blur-xl border border-border/50",
               "shadow-lg shadow-background/5",
-              "flex items-center justify-between gap-4 sm:gap-8", // Responsive gap
+              "flex items-center justify-center gap-2 sm:gap-3", // Remove justify-between, tighter gaps
               "overflow-x-auto" // Allow horizontal scrolling if needed
             )}
           >
             {/* Navigation Links */}
-            <ul className="flex items-center justify-center gap-3 sm:gap-6 md:gap-12 min-w-max"> 
-              {["skills", "projects", "experience", "infrastructure", "contact"].map((item, i) => (
+            <ul className="flex items-center justify-center gap-4 sm:gap-5 md:gap-6 min-w-max"> 
+              {[
+                "skills",
+                "projects",
+                "experience",
+                "infrastructure",
+                "contact",
+              ].map((item, i) => (
                 <motion.li
                   key={item}
                   initial={{ opacity: 0, y: -10 }}
@@ -58,7 +64,9 @@ export function Nav() {
             </ul>
 
             {/* Theme Toggle Button */}
-            <ThemeToggle /> 
+            <div className="ml-1 sm:ml-2">
+              <ThemeToggle /> 
+            </div>
           </motion.nav>
         </motion.div>
       )}

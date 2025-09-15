@@ -6,7 +6,7 @@ import { motion, useInView } from "framer-motion"
 import React, { useRef, useState, useEffect, type ElementType } from "react"; // <-- Use this consolidated line
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Database, Palette, GitMerge, Waypoints, Blend, Plug } from "lucide-react";
-import { SiNextdotjs, SiTailwindcss, SiPython, SiReact } from "react-icons/si"; // Import specific icons used
+import { SiNextdotjs, SiTailwindcss, SiPython, SiReact, SiWordpress, SiFigma, SiAdobephotoshop, SiPostman, SiMongodb, SiTypescript } from "react-icons/si"; // Import specific icons used
 
 // --- Icon Mapping (Use ElementType) ---
 // Use React.ElementType as the value type for the map
@@ -15,12 +15,19 @@ const techIconMap: Record<string, ElementType> = {
     'tailwindcss': SiTailwindcss,
     'python': SiPython,
     'react': SiReact,
+    'typescript': SiTypescript,
+    'mernstack': SiReact,
     'sql': Database,
     'uidesign': Palette,
     'systemintegration': GitMerge,
     'datapipelines': Waypoints,
     'etl': Blend,
     'apiintegration': Plug,
+    'wordpress': SiWordpress,
+    'photoshop': SiAdobephotoshop,
+    'figma': SiFigma,
+    'postman': SiPostman,
+    'mongodb': SiMongodb,
     // Add any other necessary mappings
 };
 
@@ -47,8 +54,8 @@ export default function Experience() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.1,
+        staggerChildren: 0.12,
+        delayChildren: 0.05,
       },
     },
   }
@@ -58,7 +65,7 @@ export default function Experience() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" as const },
+      transition: { duration: 0.45, ease: "easeOut" as const },
     },
   }
 
@@ -68,22 +75,30 @@ export default function Experience() {
       title: "webmaster",
       company: "bishop's University",
       period: "september 2023 - april 2024",
+      duration: "1 yr",
       description: [
-        "led management and maintainance of my university's SRC website.",
-        "implemented custom UI components aligned with university brand guidelines.",
-        "collaborated with departments to integrate events and organized systems.",
+        "led management and maintainance of my university's SRC website",
+        "developed and maintained web application features",
+        "implemented custom UI components aligned with university brand guidelines",
+        "optimized website performance and accessibility for better user experience",
+        "collaborated with departments to integrate events and organized systems",
+        "solved complex integration challenges by designing and implementing custom solutions connecting frontend interfaces with APIs",
+        "collaborated closely with non-technical stakeholders from departments, clearly communicating technical details and solutions to ensure alignment with requirements",
       ],
-      skills: ["Next.js", "Tailwind CSS", "SQL", "UI Design", "System Integration"],
+      skills: ["Next.js", "Tailwind CSS", "SQL", "UI Design", "System Integration", "WordPress", "Photoshop", "Figma"],
     },
     {
       title: "software developer",
       company: "bytewise",
       period: "september 2022 - august 2023",
+      duration: "1 yr",
       description: [
-        "developed JSON data pipelines processing API responses.",
-        "automated ETL workflows using Python/SQL.",
+        "developed full-stack features using the MERN stack with a strong focus on TypeScript for type-safe, maintainable code",
+        "designed and integrated RESTful APIs, tested endpoints with Postman, and optimized data handling in MongoDB for performance and scalability",
+        "collaborated with cross-functional teams to deliver web applications on schedule, translating requirements into reliable technical implementations",
+        "improved user experience by building reusable React components and implementing state management solutions",
       ],
-      skills: ["Python", "SQL", "Data Pipelines", "ETL", "API Integration"],
+      skills: ["React", "TypeScript", "SQL", "Data Pipelines", "ETL", "API Integration", "Postman", "MongoDB"],
     },
   ]
 
@@ -102,7 +117,7 @@ export default function Experience() {
                 professional experience
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto text-base md:text-lg">
-              my journey in the tech industry, highlighting key roles and accomplishments.
+              my journey in the tech industry, highlighting key roles and accomplishments
             </p>
           </motion.div>
 
@@ -117,9 +132,16 @@ export default function Experience() {
                         <CardTitle className="text-xl md:text-2xl mb-1">{exp.title.toLowerCase()}</CardTitle>
                         <CardDescription className="text-base font-medium text-foreground/80">{exp.company.toLowerCase()}</CardDescription>
                       </div>
-                      <Badge variant="outline" className="whitespace-nowrap w-fit text-sm font-normal">
-                        {exp.period}
-                      </Badge>
+                      <div className="flex items-center gap-2">
+                        <Badge variant="outline" className="whitespace-nowrap w-fit text-sm font-normal">
+                          {exp.period}
+                        </Badge>
+                        {exp.duration && (
+                          <Badge className="whitespace-nowrap w-fit text-xs font-medium bg-primary/10 text-primary border-primary/20">
+                            {exp.duration}
+                          </Badge>
+                        )}
+                      </div>
                     </div>
                   </CardHeader>
                   <CardContent className="p-6 md:p-8 pt-0">

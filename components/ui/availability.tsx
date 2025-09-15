@@ -64,13 +64,13 @@ export function Availability() {
       opacity: 0,
       height: 0,
       y: -10,
-      transition: { duration: 0.2, ease: [0.3, 0, 0.8, 1] as const },
+      transition: { duration: 0.15, ease: [0.3, 0, 0.8, 1] as const },
     },
     expanded: {
       opacity: 1,
       height: "auto",
       y: 0,
-      transition: { duration: 0.3, ease: [0.2, 0, 0.1, 1] as const },
+      transition: { duration: 0.2, ease: [0.2, 0, 0.1, 1] as const },
     },
   };
 

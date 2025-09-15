@@ -72,7 +72,7 @@ export default function Infrastructure() {
             <h2 className="text-3xl font-bold tracking-tighter mb-4">self-hosted infrastructure</h2>
             <p className="text-muted-foreground max-w-3xl mx-auto">
               this portfolio and other services are powered by my custom home server setup running on proxmox, with
-              docker containers and tailscale for secure remote access from anywhere.
+              docker containers and tailscale for secure remote access from anywhere
             </p>
           </motion.div>
 
