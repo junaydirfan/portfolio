@@ -32,7 +32,7 @@ import {
 import { Server, ChevronLeft, ChevronRight } from "lucide-react"
 
 // Custom GSAP Icon Component - Official GSAP Logo
-const SiGsap = ({ className, ...props }: { className?: string; [key: string]: any }) => (
+const SiGsap = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
   <svg
     className={className}
     viewBox="0 0 82 30"
@@ -90,13 +90,13 @@ export default function Skills() {
       const negativeDomain = wrapped === 0 ? 0 : wrapped - widthPerSet
       return { ...prev, [categoryId]: negativeDomain }
     })
-  }, [])
+  }, [stepPx])
 
   const applyWrappedOffset = useCallback((categoryId: CategoryId, next: number) => {
     const widthPerSet = (skills[categoryId]?.length || 1) * stepPx
     const wrapped = ((next % widthPerSet) + widthPerSet) % widthPerSet
     return wrapped === 0 ? 0 : wrapped - widthPerSet
-  }, [])
+  }, [stepPx])
 
   const tick = useCallback((categoryId: CategoryId, ts: number) => {
     const last = lastTsRef.current[categoryId]
@@ -137,8 +137,9 @@ export default function Skills() {
 
   useEffect(() => {
     return () => {
+      const currentRafMap = rafIdsRef.current
       ;(["development","cloud","design"] as CategoryId[]).forEach((cat) => {
-        const id = rafIdsRef.current[cat]
+        const id = currentRafMap[cat]
         if (id != null) cancelAnimationFrame(id)
       })
     }
@@ -168,7 +169,7 @@ export default function Skills() {
   }
 
   // --- Skills Data ---
-  const skills: Record<CategoryId, Skill[]> = {
+  const skills: Record<CategoryId, Skill[]> = useMemo(() => ({
     development: [
       { name: "TypeScript", icon: SiTypescript },
       { name: "JavaScript", icon: SiJavascript },
@@ -201,7 +202,7 @@ export default function Skills() {
       { name: "Blender", icon: SiBlender },
       { name: "DaVinci Resolve", icon: SiDavinciresolve },
     ]
-  }
+  }), [])
 
   // --- Categories Data ---
   const categories: Category[] = [

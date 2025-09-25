@@ -50,14 +50,14 @@ export default function About() {
         transition: { type: "spring" as const, stiffness: 170, damping: 22, duration: 0.45, delay: 0.3 },
       },
   };
-  const baseSequence = [
+  const baseSequence = useMemo(() => ([
       "hey 👋 im junaid!", 1200,
       "i craft solutions that scale...", 1300,
       "proficient in Next.js & React ecosystem", 1500
-  ]
+  ]), [])
   const textSequence = useMemo(() => (
     greeting ? [greeting, 1000, ...baseSequence] : baseSequence
-  ), [greeting])
+  ), [greeting, baseSequence])
 
   return (
     <section
