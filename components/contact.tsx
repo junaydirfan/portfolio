@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
-import { Mail, Phone, MapPin, Send, Loader2, CheckCircle, AlertCircle } from "lucide-react" // Added AlertCircle
+import { Mail, Phone, MapPin, Send, Loader2, CheckCircle, AlertCircle, Download } from "lucide-react" // Added Download
 import emailjs from '@emailjs/browser'
 
 export default function Contact() {
@@ -154,6 +154,19 @@ export default function Contact() {
                     <MapPin className="h-5 w-5 text-muted-foreground flex-shrink-0" />
                      {/* Updated Location based on previous context */}
                     <span className="text-muted-foreground">Sherbrooke, QC, CA</span>
+                  </div>
+                  {/* Download Resume: Single modern button with icon */}
+                  <div>
+                    <a
+                      href="https://profile-api-prod.s3.us-west-2.amazonaws.com/1041173289_340a0d32-4c56-47fe-9452-241fda0219ca?response-content-disposition=attachment%3Bfilename%3DJunaidI_Resume.pdf&response-content-type=application%2Fpdf&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20250925T154339Z&X-Amz-SignedHeaders=host&X-Amz-Credential=AKIAZKXXDXTXZF2KYWCD%2F20250925%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Expires=300&X-Amz-Signature=4864ca86ae61cea1788eb89f9dfff7fdc51cf31e67fd4a13d707eaf1c41f8447"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      download
+                      className="inline-flex items-center gap-2 rounded-md border border-input bg-background px-4 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground transition-colors"
+                    >
+                      <Download className="h-4 w-4" />
+                      check out my resume!
+                    </a>
                   </div>
                 </CardContent>
               </Card>

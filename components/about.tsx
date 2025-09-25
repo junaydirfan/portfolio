@@ -1,7 +1,7 @@
 "use client"
 
 import { motion, useInView } from "framer-motion"
-import { useRef, useState, useEffect } from "react"
+import { useRef, useState, useEffect, useMemo } from "react"
 import { Palette, Code, Cloud, Server } from "lucide-react"
 import { TypeAnimation } from 'react-type-animation';
 import Image from "next/image";
@@ -10,10 +10,22 @@ import { ThemeToggle } from "./ui/theme-toggle"
 export default function About() {
   const ref = useRef(null)
   const [isMounted, setIsMounted] = useState(false)
+  const [greeting, setGreeting] = useState<string | null>(null)
   const isInView = useInView(ref, { once: true, amount: 0.2 }) // Slightly lower amount
 
   useEffect(() => {
     setIsMounted(true)
+  }, [])
+
+  // Compute greeting based on local visitor time (client-side only)
+  useEffect(() => {
+    const hour = new Date().getHours()
+    let g = "Hello"
+    if (hour >= 5 && hour < 12) g = "good morning! ☀️"
+    else if (hour >= 12 && hour < 17) g = "good afternoon! ⛅️"
+    else if (hour >= 17 && hour < 22) g = "good evening! 🌃"
+    else g = "good night! 🌙"
+    setGreeting(g)
   }, [])
 
   // --- Animation Variants (Keep existing variants) ---
@@ -38,21 +50,22 @@ export default function About() {
         transition: { type: "spring" as const, stiffness: 170, damping: 22, duration: 0.45, delay: 0.3 },
       },
   };
-  const textSequence = [
-      "hey 👋 im junaid!", 1000,
-      "web & cloud developer...", 1000,
-      "proficient in Next.js & React ecosystem.", 1500
-  ];
+  const baseSequence = [
+      "hey 👋 im junaid!", 1200,
+      "i craft solutions that scale...", 1300,
+      "proficient in Next.js & React ecosystem", 1500
+  ]
+  const textSequence = useMemo(() => (
+    greeting ? [greeting, 1000, ...baseSequence] : baseSequence
+  ), [greeting])
 
   return (
     <section
       id="about"
-      // Use background (near-black) for the main section
       className="relative min-h-screen flex flex-col justify-center items-center px-4 py-16 md:px-6 bg-background overflow-hidden" // Changed py, bg-secondary -> bg-background
       ref={ref}
     >
-      {/* Optional: Add subtle background elements for depth */}
-      {/* <div className="absolute inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(theme(colors.border)_/_0.5px,transparent_0.5px)] [background-size:16px_16px]"></div> */}
+      { <div className="absolute inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(theme(colors.border)_/_0.5px,transparent_0.5px)] [background-size:16px_16px]"></div>}
       
       <motion.div
         className="container max-w-4xl mx-auto text-center z-10" // Ensure content is above background elements
@@ -100,30 +113,33 @@ export default function About() {
             transition={{ delay: 0.7, type: "spring", stiffness: 260, damping: 20 }}
           >
             <Image
-              src="/images/linkedin.png"
+              src="/images/IMG_5224.jpg"
               alt="Junaid Irfan Profile"
               fill
               className="object-cover"
               sizes="(max-width: 768px) 50px, 100px"
-              priority // Prioritize loading hero image
+              priority
             />
           </motion.div>
 
           {/* Typing Animation */}
           <div className="text-left flex-1 min-w-0">
-            <TypeAnimation
-              sequence={textSequence}
-              wrapper="p"
-              cursor={true}
-              repeat={0}
-              speed={55}
-              className="text-sm md:text-base text-card-foreground font-mono tracking-wide" 
-              style={{ 
-                whiteSpace: 'pre-line',
-                fontFamily: 'var(--font-jetbrains-mono)',
-                letterSpacing: '0.05em'
-              }}
-            />
+            {greeting !== null && (
+              <TypeAnimation
+                key={`seq-${greeting}`}
+                sequence={textSequence}
+                wrapper="p"
+                cursor={true}
+                repeat={0}
+                speed={55}
+                className="text-sm md:text-base text-card-foreground font-mono tracking-wide" 
+                style={{ 
+                  whiteSpace: 'pre-line',
+                  fontFamily: 'var(--font-jetbrains-mono)',
+                  letterSpacing: '0.05em'
+                }}
+              />
+            )}
           </div>
         </motion.div>
 
@@ -134,7 +150,7 @@ export default function About() {
         >
            {/* Use muted-foreground for less emphasis than main headings */}
           <motion.p className="text-base md:text-lg text-muted-foreground" variants={itemVariants}> 
-            passionate about creative solutions and building apps from scratch, perfecting both backend and frontend. currently working as a sole developer, freelancing from time-to-time and building my own products.
+          a full-stack developer with a strong focus on front-end experiences. passionate about crafting modern web applications that look great and perform even better. beyond code, i dive into cinematography, videography, and motion design blending creativity and technology to bring visually engaging ideas to life.
           </motion.p>
         </motion.div>
 
