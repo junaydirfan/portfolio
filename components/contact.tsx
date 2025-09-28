@@ -124,7 +124,7 @@ export default function Contact() {
               <Card className="h-full w-full flex flex-col border border-border/50 shadow-md bg-card">
                 <CardHeader className="p-6 md:p-8">
                   <CardTitle className="text-xl md:text-2xl text-foreground">contact information</CardTitle>
-                  <CardDescription>other ways to connect with me.</CardDescription>
+                  <CardDescription>other ways to connect with me</CardDescription>
                 </CardHeader>
                 <CardContent className="p-6 md:p-8 pt-0 space-y-5 flex-grow"> {/* Increased spacing */}
                    {/* Email */}
@@ -158,10 +158,10 @@ export default function Contact() {
                   {/* Download Resume: Single modern button with icon */}
                   <div>
                     <a
-                      href="https://profile-api-prod.s3.us-west-2.amazonaws.com/1041173289_340a0d32-4c56-47fe-9452-241fda0219ca?response-content-disposition=attachment%3Bfilename%3DJunaidI_Resume.pdf&response-content-type=application%2Fpdf&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20250925T154339Z&X-Amz-SignedHeaders=host&X-Amz-Credential=AKIAZKXXDXTXZF2KYWCD%2F20250925%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Expires=300&X-Amz-Signature=4864ca86ae61cea1788eb89f9dfff7fdc51cf31e67fd4a13d707eaf1c41f8447"
+                      href="/JunaidI_Resume.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
-                      download
+                      download="JunaidI_Resume.pdf"
                       className="inline-flex items-center gap-2 rounded-md border border-input bg-background px-4 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground transition-colors"
                     >
                       <Download className="h-4 w-4" />

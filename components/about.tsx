@@ -95,7 +95,7 @@ export default function About() {
           // Muted foreground provides good contrast without being pure white
           className="text-lg md:text-xl lg:text-2xl text-muted-foreground mb-10 font-medium" 
         >
-          web & cloud developer
+          web developer
         </motion.p>
 
         {/* Animated Bubble Introduction */}
@@ -113,7 +113,7 @@ export default function About() {
             transition={{ delay: 0.7, type: "spring", stiffness: 260, damping: 20 }}
           >
             <Image
-              src="/images/IMG_5224.jpg"
+              src="/images/IMG_522556.jpg"
               alt="Junaid Irfan Profile"
               fill
               className="object-cover"
