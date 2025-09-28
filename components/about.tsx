@@ -23,7 +23,7 @@ export default function About() {
     let g = "Hello"
     if (hour >= 5 && hour < 12) g = "good morning! ☀️"
     else if (hour >= 12 && hour < 17) g = "good afternoon! ⛅️"
-    else if (hour >= 17 && hour < 22) g = "good evening! 🌃"
+    else if (hour >= 17 && hour < 20) g = "good evening! 🌃"
     else g = "good night! 🌙"
     setGreeting(g)
   }, [])
