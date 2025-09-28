@@ -46,6 +46,40 @@ const SiGsap = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
   </svg>
 )
 
+// Custom n8n Icon Component
+const SiN8n = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    className={className}
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    {...props}
+  >
+    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+    <path d="M8 8h8v2H8V8zm0 3h8v2H8v-2zm0 3h8v2H8v-2z"/>
+    <circle cx="6" cy="6" r="2"/>
+    <circle cx="18" cy="6" r="2"/>
+    <circle cx="6" cy="18" r="2"/>
+    <circle cx="18" cy="18" r="2"/>
+  </svg>
+)
+
+// Custom ChatGPT API Icon Component
+const SiChatgpt = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    className={className}
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    {...props}
+  >
+    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+    <path d="M8 7h8v2H8V7zm0 3h8v2H8v-2zm0 3h6v2H8v-2z"/>
+    <circle cx="6" cy="6" r="1.5"/>
+    <circle cx="18" cy="6" r="1.5"/>
+    <circle cx="6" cy="18" r="1.5"/>
+    <circle cx="18" cy="18" r="1.5"/>
+  </svg>
+)
+
 type CategoryId = 'development' | 'cloud' | 'design'
 
 interface Skill {
@@ -183,6 +217,7 @@ export default function Skills() {
       { name: "WordPress", icon: SiWordpress },
       { name: "Shopify", icon: SiShopify },
       { name: "Webflow", icon: SiWebflow },
+      { name: "n8n", icon: SiN8n },
     ],
     cloud: [
       { name: "Docker", icon: SiDocker },
@@ -191,6 +226,7 @@ export default function Skills() {
       { name: "GitHub Actions", icon: SiGithubactions },
       { name: "Git", icon: SiGit },
       { name: "Wireshark", icon: SiWireshark },
+      { name: "ChatGPT API", icon: SiChatgpt },
     ],
     design: [
       { name: "Figma", icon: SiFigma },
