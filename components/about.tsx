@@ -159,7 +159,7 @@ export default function About() {
           className="mt-16" // Increased spacing
           variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.12, delayChildren: 0.9 } } }}
         >
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 max-w-3xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 max-w-4xl mx-auto">
             {[
               { Icon: Code, title: "web development", desc: "modern, responsive web apps" },
               { Icon: Cloud, title: "cloud engineering", desc: "scalable cloud infrastructure" },

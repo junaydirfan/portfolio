@@ -29,7 +29,7 @@ import {
   SiWebflow,
   SiDavinciresolve,
 } from "react-icons/si"
-import { Server, ChevronLeft, ChevronRight } from "lucide-react"
+import { Server, ChevronLeft, ChevronRight, Workflow, Bot } from "lucide-react"
 
 // Custom GSAP Icon Component - Official GSAP Logo
 const SiGsap = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
@@ -183,6 +183,7 @@ export default function Skills() {
       { name: "WordPress", icon: SiWordpress },
       { name: "Shopify", icon: SiShopify },
       { name: "Webflow", icon: SiWebflow },
+      { name: "n8n", icon: Workflow },
     ],
     cloud: [
       { name: "Docker", icon: SiDocker },
@@ -191,6 +192,7 @@ export default function Skills() {
       { name: "GitHub Actions", icon: SiGithubactions },
       { name: "Git", icon: SiGit },
       { name: "Wireshark", icon: SiWireshark },
+      { name: "ChatGPT API", icon: Bot },
     ],
     design: [
       { name: "Figma", icon: SiFigma },
