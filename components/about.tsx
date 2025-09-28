@@ -2,7 +2,7 @@
 
 import { motion, useInView } from "framer-motion"
 import { useRef, useState, useEffect, useMemo } from "react"
-import { Palette, Code, Cloud, Server } from "lucide-react"
+import { Palette, Code, Cloud, Server, Workflow, Bot } from "lucide-react"
 import { TypeAnimation } from 'react-type-animation';
 import Image from "next/image";
 import { ThemeToggle } from "./ui/theme-toggle"
@@ -159,12 +159,14 @@ export default function About() {
           className="mt-16" // Increased spacing
           variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.12, delayChildren: 0.9 } } }}
         >
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 max-w-4xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 md:gap-8 max-w-5xl mx-auto">
             {[
               { Icon: Code, title: "web development", desc: "modern, responsive web apps" },
               { Icon: Cloud, title: "cloud engineering", desc: "scalable cloud infrastructure" },
               { Icon: Server, title: "devops", desc: "ci/cd and automation" },
               { Icon: Palette, title: "ui/ux design", desc: "intuitive, beautiful interfaces" },
+              { Icon: Workflow, title: "n8n", desc: "workflow automation" },
+              { Icon: Bot, title: "chatgpt api", desc: "ai integration" },
             ].map((skill, index) => (
               <motion.div
                 key={index}
