@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useRef, useState, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Server, Box, Shield, Cpu, Network, Layers } from "lucide-react"
+import { Server, Box, Shield, Cpu, Network, Layers, Activity, Monitor, Database, Workflow, BarChart3, Container, Globe, Zap } from "lucide-react"
 
 export default function Infrastructure() {
   const ref = useRef(null)
@@ -56,12 +56,72 @@ export default function Infrastructure() {
       details: ["isolated environments", "easy service updates", "resource efficiency", "simplified management"],
     },
     {
-      title: "tilscale Network",
+      title: "tailscale network",
       description:
         "secure remote access to the entire infrastructure from anywhere using Tailscale's WireGuard-based mesh network with zero configuration.",
       icon: Network,
       details: ["end-to-end encryption", "zero-config VPN", "multi-device access", "access control policies"],
     },
+  ]
+
+  // Live services data
+  const liveServices = [
+    {
+      name: "Grafana",
+      description: "Monitoring & analytics dashboard",
+      icon: BarChart3,
+      status: "live",
+      category: "monitoring"
+    },
+    {
+      name: "Docker Portainer",
+      description: "Container management interface",
+      icon: Container,
+      status: "live",
+      category: "management"
+    },
+    {
+      name: "n8n",
+      description: "Workflow automation platform",
+      icon: Workflow,
+      status: "live",
+      category: "automation"
+    },
+    {
+      name: "Nextcloud",
+      description: "Self-hosted file sharing",
+      icon: Database,
+      status: "live",
+      category: "storage"
+    },
+    {
+      name: "Pi-hole",
+      description: "Network-wide ad blocking",
+      icon: Shield,
+      status: "live",
+      category: "network"
+    },
+    {
+      name: "Home Assistant",
+      description: "Smart home automation",
+      icon: Zap,
+      status: "live",
+      category: "automation"
+    },
+    {
+      name: "Uptime Kuma",
+      description: "Service monitoring",
+      icon: Activity,
+      status: "live",
+      category: "monitoring"
+    },
+    {
+      name: "Portfolio Website",
+      description: "This website",
+      icon: Globe,
+      status: "live",
+      category: "web"
+    }
   ]
 
   return (
@@ -115,6 +175,62 @@ export default function Infrastructure() {
               </motion.div>
             ))}
           </div>
+
+          {/* Live Services Section */}
+          <motion.div variants={itemVariants} className="mb-12">
+            <Card className="border border-border/50 shadow-md bg-card">
+              <CardHeader className="p-6 md:p-8">
+                <CardTitle className="text-xl md:text-2xl text-foreground">live services</CardTitle>
+                <CardDescription>currently running services on my home server infrastructure</CardDescription>
+              </CardHeader>
+              <CardContent className="p-6 md:p-8 pt-0">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                  {liveServices.map((service, index) => (
+                    <motion.div
+                      key={index}
+                      variants={itemVariants}
+                      className="group relative"
+                    >
+                      <div className="flex items-center gap-3 p-4 rounded-lg border border-border/50 bg-muted/30 hover:bg-muted/50 transition-all duration-200">
+                        {/* Service Icon */}
+                        <div className="flex-shrink-0">
+                          <service.icon className="h-5 w-5 text-muted-foreground group-hover:text-foreground transition-colors" />
+                        </div>
+                        
+                        {/* Service Info */}
+                        <div className="flex-grow min-w-0">
+                          <h4 className="text-sm font-medium text-foreground truncate">{service.name}</h4>
+                          <p className="text-xs text-muted-foreground truncate">{service.description}</p>
+                        </div>
+                        
+                        {/* Live Status Indicator */}
+                        <div className="flex-shrink-0">
+                          <div className="relative">
+                            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                            <div className="absolute inset-0 w-2 h-2 bg-green-500 rounded-full animate-ping opacity-75"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+                
+                {/* Status Legend */}
+                <div className="mt-6 pt-4 border-t border-border/50">
+                  <div className="flex items-center justify-center gap-6 text-xs text-muted-foreground">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                      <span>live & operational</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-muted-foreground rounded-full"></div>
+                      <span>offline</span>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
 
           <motion.div variants={itemVariants} className="mt-12">
             <Card className="border-0 shadow-md overflow-hidden">
@@ -235,4 +351,3 @@ export default function Infrastructure() {
     </section>
   )
 }
-
