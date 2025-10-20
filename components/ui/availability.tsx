@@ -8,7 +8,7 @@ export function Availability() {
   const [time, setTime] = useState<string>("")
   const [copied, setCopied] = useState(false)
   const [isExpanded, setIsExpanded] = useState(false)
-  const email = "junaid.irfan@hotmail.com"
+  const email = "hello@junaidirfan.com"
 
   // --- Draggable State ---
   // Create motion values to control the position for dragging and resetting
