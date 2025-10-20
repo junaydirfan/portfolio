@@ -155,7 +155,7 @@ export function Availability() {
                   {/* Location and Time */}
                   <div className="flex items-center">
                     <span className="text-xs text-muted-foreground">
-                      {time} EST • quebec, canada
+                      {time} EST • ontario, canada
                     </span>
                     <button
                       onClick={handleCopyEmail}

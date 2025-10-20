@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
-import { Mail, Phone, MapPin, Send, Loader2, CheckCircle, AlertCircle, Download } from "lucide-react" // Added Download
+import { Mail, Phone, MapPin, Send, Loader2, CheckCircle, AlertCircle } from "lucide-react"
 import emailjs from '@emailjs/browser'
 
 export default function Contact() {
@@ -131,11 +131,11 @@ export default function Contact() {
                   <div className="flex items-center gap-4"> {/* Increased gap */}
                     <Mail className="h-5 w-5 text-muted-foreground flex-shrink-0" /> {/* Monochrome icon */}
                     <a
-                       href="mailto:junaid.irfan@hotmail.com"
+                       href="mailto:hello@junaidirfan.com"
                        className="text-foreground hover:text-foreground/80 transition-colors break-all" /* Monochrome link */
                        aria-label="Email Junaid Irfan"
                      >
-                      junaid.irfan@hotmail.com
+                      hello@junaidirfan.com
                     </a>
                   </div>
                    {/* Phone */}
@@ -153,21 +153,9 @@ export default function Contact() {
                   <div className="flex items-center gap-4">
                     <MapPin className="h-5 w-5 text-muted-foreground flex-shrink-0" />
                      {/* Updated Location based on previous context */}
-                    <span className="text-muted-foreground">Sherbrooke, QC, CA</span>
+                    <span className="text-muted-foreground">Greater Toronto Area, ON, CA</span>
                   </div>
-                  {/* Download Resume: Single modern button with icon */}
-                  <div>
-                    <a
-                      href="/JunaidI_Resume.pdf"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      download="JunaidI_Resume.pdf"
-                      className="inline-flex items-center gap-2 rounded-md border border-input bg-background px-4 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground transition-colors"
-                    >
-                      <Download className="h-4 w-4" />
-                      check out my resume!
-                    </a>
-                  </div>
+                  
                 </CardContent>
               </Card>
             </motion.div>
