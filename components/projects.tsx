@@ -4,7 +4,7 @@ import { motion, useInView } from "framer-motion"
 import React, { useRef, useState, useEffect, type ElementType } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { ExternalLink, Github, Trophy, Server, Lock, Hammer } from "lucide-react"; // Removed 'Icon as LucideIcon'
+import { ExternalLink, Github, Trophy, Server, Lock, Hammer, BarChart3 } from "lucide-react"; // Removed 'Icon as LucideIcon'
 import { ProjectDetailModal } from "./project-detail-modal"
 import type { ProjectType } from "@/types/project"
 import {
@@ -92,6 +92,8 @@ const techIconMap: Record<string, ElementType> = { // <-- Use ElementType
   'blender': SiBlender,
   'gsap': SiGsap,
   'githubpages': SiGithubpages,
+  'recharts': BarChart3,
+  'hooks': Hammer,
 };
 
 const getTechIcon = (tag: string): ElementType | null => { // <-- Use ElementType
@@ -132,6 +134,37 @@ export default function Projects() {
 
   // --- Project Data (Keep your existing data here) ---
   const projects: ProjectType[] = [
+    {
+      id: "campusthrive",
+      title: "campusthrive: student wellness tracker",
+      shortDescription:
+        "A comprehensive, privacy-focused student wellness tracking web application built with Next.js, TypeScript, and Tailwind CSS. CampusThrive prioritizes student privacy by storing all data locally in the browser's localStorage.",
+      fullDescription:
+        "CampusThrive is a comprehensive, privacy-focused student wellness tracking web application that prioritizes student privacy by storing all data locally in the browser's localStorage. The application features 4-dimensional mood tracking (Valence, Energy, Focus, Stress), intelligent scoring systems with 14-day baseline comparison, AI-powered coaching with 50+ contextual tips, and advanced analytics including trends dashboard, success compass, and power hours heatmap. Built as a Progressive Web App with complete offline capability, CampusThrive ensures no personal information is sent to external servers while providing powerful insights into student wellness patterns.",
+      image: "/vercel.svg?height=400&width=600",
+      tags: ["Next.js", "TypeScript", "Tailwind CSS", "Recharts", "PWA", "Privacy-First"],
+      link: "#",
+      github: "#",
+      keyFeatures: [
+        "🚧 Project in development - features being implemented",
+        "Privacy-first architecture with 100% local storage",
+        "4-Dimensional mood tracking system (planned)",
+        "AI-powered coaching with contextual tips (planned)",
+        "Advanced analytics dashboard (planned)",
+        "Progressive Web App with offline capability (planned)"
+      ],
+      technicalDetails: [
+        "🚧 Currently in development phase",
+        "Next.js 15+ with App Router and TypeScript",
+        "Tailwind CSS with custom design system",
+        "Recharts for data visualizations (planned)",
+        "Custom React hooks for state management",
+        "PWA support and responsive design (planned)"
+      ],
+      challenges: [],
+      gallery: [],
+      architecture: "Client-side architecture with localStorage persistence, no backend services required. All calculations and data processing happen in the browser for complete privacy and offline capability."
+    },
     {
       id: "smartballot",
       title: "smartballot: blockchain voting system",
@@ -278,6 +311,12 @@ export default function Projects() {
   const getImageSource = (imagePath: string) => {
     if (!imagePath) return "/placeholder.svg";
     
+    // Skip dark mode variants for certain images (logos, icons, etc.)
+    const skipDarkModeImages = ['/next.svg', '/vercel.svg', '/window.svg', '/globe.svg', '/file.svg'];
+    if (skipDarkModeImages.some(img => imagePath.includes(img))) {
+      return imagePath;
+    }
+    
     // If we're in dark mode and the image has an extension
     if (theme === 'dark' && imagePath.includes('.')) {
       const [path, ext] = imagePath.split('.');
@@ -325,7 +364,11 @@ export default function Projects() {
                         src={getImageSource(project.image || "/placeholder.svg")}
                         alt={`${project.title} preview`}
                         fill
-                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                        className={`transition-transform duration-300 group-hover:scale-105 ${
+                          project.id === "campusthrive" 
+                            ? `object-contain p-12 bg-muted/20 ${theme === 'light' ? 'brightness-0' : ''}` 
+                            : "object-cover"
+                        }`}
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         loading="lazy"
                       />
@@ -409,6 +452,10 @@ export default function Projects() {
                                     view portfolio
                                     <ExternalLink className="ml-2 h-3 w-3" />
                                 </a>
+                            </Button>
+                        ) : project.id === "campusthrive" ? (
+                            <Button variant="outline" size="sm" disabled className="opacity-60">
+                                🚧 in progress
                             </Button>
                         ) : (
                             <Button variant="outline" size="sm" onClick={() => handleOpenModal(project)}>
