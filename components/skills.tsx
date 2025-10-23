@@ -3,6 +3,7 @@
 import { motion, useScroll, useTransform, MotionValue } from "framer-motion"
 import { useRef, RefObject, useState, useMemo, useCallback, useEffect } from "react"
 import { IconType } from "react-icons"
+import { useTheme } from "next-themes"
 import {
   SiTypescript,
   SiJavascript,
@@ -30,6 +31,7 @@ import {
   SiDavinciresolve,
 } from "react-icons/si"
 import { Server, ChevronLeft, ChevronRight } from "lucide-react"
+import { N8n, OpenAI } from '@lobehub/icons'
 
 // Custom GSAP Icon Component - Official GSAP Logo
 const SiGsap = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
@@ -46,38 +48,17 @@ const SiGsap = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
   </svg>
 )
 
-// Custom n8n Icon Component
+// Custom n8n Icon Component - Using LobeHub Icons
 const SiN8n = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
-  <svg
-    className={className}
-    viewBox="0 0 24 24"
-    fill="currentColor"
-    {...props}
-  >
-    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
-    <path d="M8 8h8v2H8V8zm0 3h8v2H8v-2zm0 3h8v2H8v-2z"/>
-    <circle cx="6" cy="6" r="2"/>
-    <circle cx="18" cy="6" r="2"/>
-    <circle cx="6" cy="18" r="2"/>
-    <circle cx="18" cy="18" r="2"/>
-  </svg>
+  <N8n className={className} {...props} />
 )
 
-// Custom ChatGPT API Icon Component
+// Custom ChatGPT API Icon Component - Simple OpenAI-style logo
 const SiChatgpt = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
-  <svg
+  <OpenAI
     className={className}
-    viewBox="0 0 24 24"
-    fill="currentColor"
     {...props}
-  >
-    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
-    <path d="M8 7h8v2H8V7zm0 3h8v2H8v-2zm0 3h6v2H8v-2z"/>
-    <circle cx="6" cy="6" r="1.5"/>
-    <circle cx="18" cy="6" r="1.5"/>
-    <circle cx="6" cy="18" r="1.5"/>
-    <circle cx="18" cy="18" r="1.5"/>
-  </svg>
+  />
 )
 
 type CategoryId = 'development' | 'cloud' | 'design'
@@ -85,6 +66,7 @@ type CategoryId = 'development' | 'cloud' | 'design'
 interface Skill {
   name: string
   icon: IconType
+  brandColor: string
 }
 
 interface Category {
@@ -93,6 +75,8 @@ interface Category {
 }
 
 export default function Skills() {
+  const { theme } = useTheme()
+  
   // --- Refs ---
   const containerRefs: Record<CategoryId, RefObject<null>> = {
     development: useRef(null),
@@ -205,40 +189,40 @@ export default function Skills() {
   // --- Skills Data ---
   const skills: Record<CategoryId, Skill[]> = useMemo(() => ({
     development: [
-      { name: "TypeScript", icon: SiTypescript },
-      { name: "JavaScript", icon: SiJavascript },
-      { name: "React", icon: SiReact },
-      { name: "Next.js", icon: SiNextdotjs },
-      { name: "Tailwind CSS", icon: SiTailwindcss },
-      { name: "GSAP", icon: SiGsap },
-      { name: "PostgreSQL", icon: SiPostgresql },
-      { name: "MongoDB", icon: SiMongodb },
-      { name: "SQLite", icon: SiSqlite},
-      { name: "WordPress", icon: SiWordpress },
-      { name: "Shopify", icon: SiShopify },
-      { name: "Webflow", icon: SiWebflow },
-      { name: "n8n", icon: SiN8n },
+      { name: "TypeScript", icon: SiTypescript, brandColor: "#3178c6" },
+      { name: "JavaScript", icon: SiJavascript, brandColor: "#f7df1e" },
+      { name: "React", icon: SiReact, brandColor: "#61dafb" },
+      { name: "Next.js", icon: SiNextdotjs, brandColor: theme === 'dark' ? "#ffffff" : "#000000" },
+      { name: "Tailwind CSS", icon: SiTailwindcss, brandColor: "#06b6d4" },
+      { name: "GSAP", icon: SiGsap, brandColor: "#88ce02" },
+      { name: "PostgreSQL", icon: SiPostgresql, brandColor: "#336791" },
+      { name: "MongoDB", icon: SiMongodb, brandColor: "#47a248" },
+      { name: "SQLite", icon: SiSqlite, brandColor: "#003b57" },
+      { name: "WordPress", icon: SiWordpress, brandColor: "#21759b" },
+      { name: "Shopify", icon: SiShopify, brandColor: "#7ab55c" },
+      { name: "Webflow", icon: SiWebflow, brandColor: "#4353ff" },
+      { name: "n8n", icon: SiN8n, brandColor: "#ea4b4b" },
     ],
     cloud: [
-      { name: "Docker", icon: SiDocker },
-      { name: "AWS", icon: SiAmazonwebservices },
-      { name: "Proxmox", icon: Server },
-      { name: "GitHub Actions", icon: SiGithubactions },
-      { name: "Git", icon: SiGit },
-      { name: "Wireshark", icon: SiWireshark },
-      { name: "ChatGPT API", icon: SiChatgpt },
+      { name: "Docker", icon: SiDocker, brandColor: "#2496ed" },
+      { name: "AWS", icon: SiAmazonwebservices, brandColor: "#ff9900" },
+      { name: "Proxmox", icon: Server, brandColor: "#e57000" },
+      { name: "GitHub Actions", icon: SiGithubactions, brandColor: "#2088ff" },
+      { name: "Git", icon: SiGit, brandColor: "#f05032" },
+      { name: "Wireshark", icon: SiWireshark, brandColor: "#1679a7" },
+      { name: "ChatGPT API", icon: SiChatgpt, brandColor: "#00a67e" },
     ],
     design: [
-      { name: "Figma", icon: SiFigma },
-      { name: "After Effects", icon: SiAdobeaftereffects },
-      { name: "Photoshop", icon: SiAdobephotoshop },
-      { name: "Illustrator", icon: SiAdobeillustrator },
-      { name: "Premiere Pro", icon: SiAdobepremierepro },
-      { name: "Unity", icon: SiUnity },
-      { name: "Blender", icon: SiBlender },
-      { name: "DaVinci Resolve", icon: SiDavinciresolve },
+      { name: "Figma", icon: SiFigma, brandColor: "#f24e1e" },
+      { name: "After Effects", icon: SiAdobeaftereffects, brandColor: "#9999ff" },
+      { name: "Photoshop", icon: SiAdobephotoshop, brandColor: "#31a8ff" },
+      { name: "Illustrator", icon: SiAdobeillustrator, brandColor: "#ff9a00" },
+      { name: "Premiere Pro", icon: SiAdobepremierepro, brandColor: "#ea77ff" },
+      { name: "Unity", icon: SiUnity, brandColor: theme === 'dark' ? "#ffffff" : "#000000" },
+      { name: "Blender", icon: SiBlender, brandColor: "#f5792a" },
+      { name: "DaVinci Resolve", icon: SiDavinciresolve, brandColor: "#6b46c1" },
     ]
-  }), [])
+  }), [theme])
 
   // --- Categories Data ---
   const categories: Category[] = [
@@ -306,7 +290,8 @@ export default function Skills() {
                         >
                            {/* Icon with native title tooltip for hover */}
                           <skill.icon
-                            className="h-20 w-20 md:h-55 md:w-55 text-primary hover:text-primary/80 transition-colors focus:outline-none"
+                            className="h-20 w-20 md:h-55 md:w-55 transition-colors focus:outline-none hover:opacity-80"
+                            style={{ color: skill.brandColor }}
                             title={skill.name}
                             aria-label={skill.name}
                             tabIndex={0}

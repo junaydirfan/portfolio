@@ -4,7 +4,7 @@ import { motion, useInView } from "framer-motion"
 import React, { useRef, useState, useEffect, type ElementType } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { ExternalLink, Github, Trophy, Server, Lock, Hammer, BarChart3 } from "lucide-react"; // Removed 'Icon as LucideIcon'
+import { ExternalLink, Github, Trophy, Server, Lock, Hammer, BarChart3, Workflow, Bot } from "lucide-react"; // Removed 'Icon as LucideIcon'
 import { ProjectDetailModal } from "./project-detail-modal"
 import type { ProjectType } from "@/types/project"
 import {
@@ -94,6 +94,9 @@ const techIconMap: Record<string, ElementType> = { // <-- Use ElementType
   'githubpages': SiGithubpages,
   'recharts': BarChart3,
   'hooks': Hammer,
+  'n8n': Workflow,
+  'chatgpt': Bot,
+  'openai': Bot,
 };
 
 const getTechIcon = (tag: string): ElementType | null => { // <-- Use ElementType
@@ -109,6 +112,7 @@ export default function Projects() {
   const [selectedProject, setSelectedProject] = useState<ProjectType | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isMounted, setIsMounted] = useState(false)
+  const [minimizedCards, setMinimizedCards] = useState<Set<string>>(new Set())
   const { theme } = useTheme() // Add theme detection
 
   useEffect(() => {
@@ -161,7 +165,33 @@ export default function Projects() {
         "Custom React hooks for state management",
         "PWA support and responsive design (planned)"
       ],
-      challenges: [],
+      challenges: [
+        {
+          title: "🚧 Development challenges to be documented",
+          description: "Currently in development phase",
+          solution: "To be documented as development progresses"
+        },
+        {
+          title: "Implementing complex scoring algorithms",
+          description: "Creating z-score normalization and weighted formulas",
+          solution: "Mathematical implementation with TypeScript type safety"
+        },
+        {
+          title: "Creating intuitive mood tracking interface",
+          description: "Designing user-friendly sliders and real-time feedback",
+          solution: "Custom React components with smooth animations"
+        },
+        {
+          title: "Building analytics without external data collection",
+          description: "Generating insights while maintaining complete privacy",
+          solution: "Client-side processing with localStorage and Recharts"
+        },
+        {
+          title: "Ensuring complete privacy while maintaining functionality",
+          description: "Balancing rich features with zero external data transmission",
+          solution: "Local-first architecture with comprehensive offline capability"
+        }
+      ],
       gallery: [],
       architecture: "Client-side architecture with localStorage persistence, no backend services required. All calculations and data processing happen in the browser for complete privacy and offline capability."
     },
@@ -294,6 +324,18 @@ export default function Projects() {
     document.body.style.overflow = 'hidden'; // Prevent background scroll when modal is open
   }
 
+  const handleMinimize = (projectId: string) => {
+    setMinimizedCards(prev => {
+      const newSet = new Set(prev)
+      if (newSet.has(projectId)) {
+        newSet.delete(projectId)
+      } else {
+        newSet.add(projectId)
+      }
+      return newSet
+    })
+  }
+
   const handleCloseModal = () => {
     setIsModalOpen(false)
     setSelectedProject(null)
@@ -355,117 +397,107 @@ export default function Projects() {
             {projects.map((project) => (
               // Animate each card item
               <motion.div key={project.id} variants={itemVariants} className="group flex"> {/* Added flex for equal height cards */}
-                {/* Card Styling */}
-                <Card className="h-full w-full flex flex-col overflow-hidden border border-border/50 bg-card shadow-md hover:shadow-lg hover:border-border/80 transition-all duration-300"> {/* Subtle hover, ensure full height */}
-                  {/* Image container */}
-                  <div className="relative overflow-hidden aspect-video border-b border-border/50">
-                    {isMounted ? (
-                      <Image
-                        src={getImageSource(project.image || "/placeholder.svg")}
-                        alt={`${project.title} preview`}
-                        fill
-                        className={`transition-transform duration-300 group-hover:scale-105 ${
-                          project.id === "campusthrive" 
-                            ? `object-contain p-12 bg-muted/20 ${theme === 'light' ? 'brightness-0' : ''}` 
-                            : "object-cover"
-                        }`}
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        loading="lazy"
-                      />
-                    ) : (
-                      <div className="w-full h-full bg-muted animate-pulse"></div>
-                    )}
-                  </div>
-
-                  {/* Content Area */}
-                  <div className="flex flex-col flex-grow p-5"> {/* Use flex-grow for content */}
-                    <CardHeader className="p-0 mb-3">
-                      <CardTitle className="text-xl mb-1">{project.title.toLowerCase()}</CardTitle>
-                       {/* Award/Highlight */}
-                       {project.id === "smartballot" && (
-                        <div className="flex items-center gap-1.5 text-xs text-amber-600 mb-2">
-                          <Trophy className="h-3.5 w-3.5" />
-                          <span className="font-medium">securevote hackathon 2024 runner-up</span>
-                        </div>
-                      )}
-                      <CardDescription className="text-sm leading-relaxed">
-                          {project.shortDescription.toLowerCase()}
-                      </CardDescription>
-                    </CardHeader>
-
-                    {/* --- Tech Icons Section --- */}
-                    <CardContent className="p-0 mt-auto pt-4"> {/* Push to bottom */}
-                       <h4 className="text-xs font-semibold uppercase text-muted-foreground mb-2">technologies used</h4>
-                       <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-                         {project.tags.map((tag) => {
-                           const IconComponent = getTechIcon(tag);
-                           if (IconComponent) {
-                             return (
-                               <div key={tag} title={tag} className="relative flex items-center justify-center"> {/* Tooltip via title */}
-                                 <IconComponent className="h-5 w-5 text-muted-foreground transition-colors group-hover:text-foreground/80" />
-                                 {/* Tooltip Component (optional, requires library like Radix)
-                                 <TooltipProvider>
-                                   <Tooltip>
-                                     <TooltipTrigger asChild><span></span></TooltipTrigger>
-                                     <TooltipContent><p>{tag}</p></TooltipContent>
-                                   </Tooltip>
-                                 </TooltipProvider>
-                                 */}
-                               </div>
-                             );
-                           }
-                           // Optional Fallback for tags without icons:
-                           // return <span key={tag} className="text-xs px-1.5 py-0.5 bg-muted rounded">{tag}</span>;
-                           return null; // Or return null to show nothing
-                         })}
-                       </div>
-                    </CardContent>
-                    {/* ------------------------- */}
-                  </div>
-
-
-                  {/* Footer with Buttons */}
-                  <CardFooter className="p-5 border-t border-border/50 mt-auto bg-muted/30"> {/* Ensure footer is at bottom */}
-                     <div className="flex justify-between w-full items-center">
-                        {/* Github Button */}
-                        <div>
-                            {project.id === "design-showcase" ? (
-                                <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground" asChild>
-                                    <a href={project.github} target="_blank" rel="noopener noreferrer" aria-label="Fiverr Profile">
-                                        <ExternalLink className="h-4 w-4" />
-                                    </a>
-                                </Button>
-                            ) : project.github && project.github !== "#" ? (
-                                <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground" asChild>
-                                    <a href={project.github} target="_blank" rel="noopener noreferrer" aria-label={`${project.title} GitHub Repository`}>
-                                        <Github className="h-4 w-4" />
-                                    </a>
-                                </Button>
-                            ) : (
-                                <div className="w-8 h-8"></div>
-                            )}
-                        </div>
-                        {/* View Project / Live Demo Button */}
-                        {project.id === "design-showcase" ? (
-                            <Button variant="outline" size="sm" asChild>
-                                <a href={project.link} target="_blank" rel="noopener noreferrer" aria-label="Behance Portfolio">
-                                    view portfolio
-                                    <ExternalLink className="ml-2 h-3 w-3" />
-                                </a>
-                            </Button>
-                        ) : project.id === "campusthrive" ? (
-                            <Button variant="outline" size="sm" disabled className="opacity-60">
-                                🚧 in progress
-                            </Button>
-                        ) : (
-                            <Button variant="outline" size="sm" onClick={() => handleOpenModal(project)}>
-                                details
-                                <ExternalLink className="ml-2 h-3 w-3" />
-                            </Button>
-                        )}
+                {/* Modern Card with Theme Support */}
+                <div className="h-full w-full flex flex-col bg-card border border-border rounded-lg shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 z-10">
+                  {/* Card Header */}
+                  <div className="flex items-center justify-between px-3 py-2 bg-muted/50 border-b border-border rounded-t-lg">
+                    <div className="flex items-center space-x-1">
+                      <button 
+                        className="w-3 h-3 rounded-full bg-destructive hover:bg-destructive/80 transition-colors cursor-pointer"
+                        onClick={() => handleMinimize(project.id)}
+                        title="Minimize"
+                      ></button>
+                      <button 
+                        className="w-3 h-3 rounded-full bg-yellow-500 hover:bg-yellow-400 transition-colors"
+                        onClick={() => {/* Maximize functionality */}}
+                        title="Maximize"
+                      ></button>
+                      <button 
+                        className="w-3 h-3 rounded-full bg-green-500 hover:bg-green-400 transition-colors animate-pulse shadow-lg shadow-green-500/50"
+                        onClick={() => handleOpenModal(project)}
+                        title="Expand"
+                      ></button>
                     </div>
-                  </CardFooter>
-                </Card>
+                    <div className="ml-4 flex-1">
+                      <p className="text-card-foreground text-sm font-medium">{project.title.toLowerCase()}</p>
+                    </div>
+                  </div>
+                  
+                  {/* Minimized State - Show only header */}
+                  {minimizedCards.has(project.id) ? (
+                    <div className="p-4 bg-card rounded-b-lg">
+                      <div className="text-center text-muted-foreground text-sm">
+                        minimized - click red button to restore
+                      </div>
+                    </div>
+                  ) : (
+                    <>
+                      {/* Image/Content Area */}
+                      <div className="flex-1 p-4 bg-muted/30 rounded-b-lg">
+                        {isMounted ? (
+                          <div className="relative w-full h-48">
+                            <Image
+                              src={getImageSource(project.image || "/placeholder.svg")}
+                              alt={`${project.title} preview`}
+                              fill
+                              className={`transition-transform duration-300 group-hover:scale-105 ${
+                                project.id === "campusthrive" 
+                                  ? `object-contain p-4 ${theme === 'light' ? 'brightness-0' : ''}` 
+                                  : "object-cover rounded"
+                              }`}
+                              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                              loading="lazy"
+                            />
+                          </div>
+                        ) : (
+                          <div className="w-full h-48 bg-muted animate-pulse rounded"></div>
+                        )}
+                      </div>
+
+                      {/* Content Area */}
+                      <div className="flex flex-col flex-grow p-4 bg-card rounded-b-lg">
+                        <div className="mb-3">
+                          <h3 className="text-card-foreground text-lg font-medium mb-1">{project.title.toLowerCase()}</h3>
+                          {/* Award/Highlight */}
+                          {project.id === "smartballot" && (
+                            <div className="flex items-center gap-1.5 text-xs text-amber-400 mb-2">
+                              <Trophy className="h-3.5 w-3.5" />
+                              <span className="font-medium">securevote hackathon 2024 runner-up</span>
+                            </div>
+                          )}
+                          {project.id === "campusthrive" && (
+                            <div className="flex items-center gap-1.5 text-xs text-amber-400 mb-2">
+                              <Trophy className="h-3.5 w-3.5" />
+                              <span className="font-medium">bishop's campusthrive hackathon '25</span>
+                            </div>
+                          )}
+                          <p className="text-muted-foreground text-sm leading-relaxed">
+                            {project.shortDescription.toLowerCase()}
+                          </p>
+                        </div>
+
+                        {/* Tech Icons Section */}
+                        <div className="mt-auto pt-4">
+                          <h4 className="text-xs font-semibold uppercase text-muted-foreground mb-2">technologies used</h4>
+                          <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+                            {project.tags.map((tag) => {
+                              const IconComponent = getTechIcon(tag);
+                              if (IconComponent) {
+                                return (
+                                  <div key={tag} title={tag} className="relative flex items-center justify-center">
+                                    <IconComponent className="h-5 w-5 text-muted-foreground transition-colors group-hover:text-card-foreground" />
+                                  </div>
+                                );
+                              }
+                              return null;
+                            })}
+                          </div>
+                        </div>
+
+                      </div>
+                    </>
+                  )}
+                </div>
               </motion.div>
             ))}
           </motion.div>
