@@ -152,10 +152,10 @@ export default function Skills() {
   }, [])
 
   useEffect(() => {
+    const rafIds = rafIdsRef.current
     return () => {
-      const currentRafMap = rafIdsRef.current
       ;(["development","cloud","design"] as CategoryId[]).forEach((cat) => {
-        const id = currentRafMap[cat]
+        const id = rafIds[cat]
         if (id != null) cancelAnimationFrame(id)
       })
     }

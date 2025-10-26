@@ -2,9 +2,7 @@
 
 import { motion, useInView } from "framer-motion"
 import React, { useRef, useState, useEffect, type ElementType } from "react";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { ExternalLink, Github, Trophy, Server, Lock, Hammer, BarChart3, Workflow, Bot } from "lucide-react"; // Removed 'Icon as LucideIcon'
+import { Trophy, Server, Lock, Hammer, BarChart3, Workflow, Bot } from "lucide-react";
 import { ProjectDetailModal } from "./project-detail-modal"
 import type { ProjectType } from "@/types/project"
 import {
@@ -453,7 +451,7 @@ export default function Projects() {
                           {project.id === "campusthrive" && (
                             <div className="flex items-center gap-1.5 text-xs text-amber-400 mb-2">
                               <Trophy className="h-3.5 w-3.5" />
-                              <span className="font-medium">bishop's campusthrive hackathon '25</span>
+                              <span className="font-medium">bishop&apos;s campusthrive hackathon &apos;25</span>
                             </div>
                           )}
                           <p className="text-muted-foreground text-sm leading-relaxed">

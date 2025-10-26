@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useRef, useState, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Server, Box, Shield, Cpu, Network, Layers, Activity, Monitor, Database, Workflow, BarChart3, Container, Globe, Zap } from "lucide-react"
+import { Server, Box, Shield, Cpu, Network, Layers, Activity, Database, Workflow, BarChart3, Container, Globe, Zap } from "lucide-react"
 
 export default function Infrastructure() {
   const ref = useRef(null)
