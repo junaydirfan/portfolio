@@ -3,7 +3,6 @@
 import { motion, useScroll, useTransform, MotionValue } from "framer-motion"
 import { useRef, RefObject, useState, useMemo, useCallback, useEffect } from "react"
 import { IconType } from "react-icons"
-import { useTheme } from "next-themes"
 import {
   SiTypescript,
   SiJavascript,
@@ -75,7 +74,6 @@ interface Category {
 }
 
 export default function Skills() {
-  const { theme } = useTheme()
   
   // --- Refs ---
   const containerRefs: Record<CategoryId, RefObject<null>> = {
@@ -192,7 +190,7 @@ export default function Skills() {
       { name: "TypeScript", icon: SiTypescript, brandColor: "#3178c6" },
       { name: "JavaScript", icon: SiJavascript, brandColor: "#f7df1e" },
       { name: "React", icon: SiReact, brandColor: "#61dafb" },
-      { name: "Next.js", icon: SiNextdotjs, brandColor: theme === 'dark' ? "#ffffff" : "#000000" },
+      { name: "Next.js", icon: SiNextdotjs, brandColor: "#ffffff" },
       { name: "Tailwind CSS", icon: SiTailwindcss, brandColor: "#06b6d4" },
       { name: "GSAP", icon: SiGsap, brandColor: "#88ce02" },
       { name: "PostgreSQL", icon: SiPostgresql, brandColor: "#336791" },
@@ -218,11 +216,11 @@ export default function Skills() {
       { name: "Photoshop", icon: SiAdobephotoshop, brandColor: "#31a8ff" },
       { name: "Illustrator", icon: SiAdobeillustrator, brandColor: "#ff9a00" },
       { name: "Premiere Pro", icon: SiAdobepremierepro, brandColor: "#ea77ff" },
-      { name: "Unity", icon: SiUnity, brandColor: theme === 'dark' ? "#ffffff" : "#000000" },
+      { name: "Unity", icon: SiUnity, brandColor: "#ffffff" },
       { name: "Blender", icon: SiBlender, brandColor: "#f5792a" },
       { name: "DaVinci Resolve", icon: SiDavinciresolve, brandColor: "#6b46c1" },
     ]
-  }), [theme])
+  }), [])
 
   // --- Categories Data ---
   const categories: Category[] = [

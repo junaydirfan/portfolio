@@ -4,7 +4,6 @@
 import { useState, useEffect } from "react"
 import { motion, useScroll, AnimatePresence } from "framer-motion"
 import { cn } from "@/lib/utils"
-import { ThemeToggle } from "./theme-toggle" // <-- Import ThemeToggle
 
 export function Nav() {
   const [isVisible, setIsVisible] = useState(false)
@@ -63,10 +62,6 @@ export function Nav() {
               ))}
             </ul>
 
-            {/* Theme Toggle Button */}
-            <div className="ml-1 sm:ml-2">
-              <ThemeToggle /> 
-            </div>
           </motion.nav>
         </motion.div>
       )}

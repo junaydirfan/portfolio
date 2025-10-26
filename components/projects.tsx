@@ -18,7 +18,6 @@ import {
   SiUnity, SiBlender, SiGithubpages
 } from "react-icons/si"; // Keep necessary icon imports
 import Image from "next/image";
-import { useTheme } from "next-themes" // Add useTheme import
 
 // Custom GSAP Icon Component - Official GSAP Logo
 const SiGsap = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
@@ -113,7 +112,6 @@ export default function Projects() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isMounted, setIsMounted] = useState(false)
   const [minimizedCards, setMinimizedCards] = useState<Set<string>>(new Set())
-  const { theme } = useTheme() // Add theme detection
 
   useEffect(() => {
     setIsMounted(true)
@@ -225,9 +223,9 @@ export default function Projects() {
       id: "tayyab-portfolio",
       title: "tayyab portfolio",
       shortDescription:
-        "A clean, modern portfolio website built with Next.js and Tailwind CSS, featuring smooth animations and dark/light theme support for a friend's professional showcase.",
+        "A clean, modern portfolio website built with Next.js and Tailwind CSS, featuring smooth animations and dark theme for a friend's professional showcase.",
       fullDescription:
-        "A minimalist portfolio website created for a friend, showcasing their professional experience as a Senior Software Engineer. The site features a clean, modern design with strategic use of whitespace and the Geist font. Built with Next.js 15 and TypeScript, it includes responsive layout, seamless dark/light mode switching, and smooth scroll-triggered animations powered by GSAP. The website is deployed on GitHub Pages and demonstrates expertise in modern web development practices.",
+        "A minimalist portfolio website created for a friend, showcasing their professional experience as a Senior Software Engineer. The site features a clean, modern design with strategic use of whitespace and the Geist font. Built with Next.js 15 and TypeScript, it includes responsive layout, seamless dark mode, and smooth scroll-triggered animations powered by GSAP. The website is deployed on GitHub Pages and demonstrates expertise in modern web development practices.",
       image: "/images/tayyab.png?height=400&width=600",
       tags: ["Next.js", "TypeScript", "GSAP", "GitHub Pages", "Tailwind CSS"],
       link: "https://junaydirfan.github.io/tayyab-portfolio/",
@@ -235,7 +233,7 @@ export default function Projects() {
       keyFeatures: [
         "Minimalist design with clean typography",
         "Responsive mobile-first layout",
-        "Seamless dark/light theme switching",
+        "Seamless dark theme",
         "Smooth scroll-triggered animations",
         "Professional portfolio showcase",
         "GitHub Pages deployment"
@@ -349,22 +347,9 @@ export default function Projects() {
     };
   }, []);
 
-  // Helper function to get the appropriate image based on theme
+  // Helper function to get the appropriate image
   const getImageSource = (imagePath: string) => {
     if (!imagePath) return "/placeholder.svg";
-    
-    // Skip dark mode variants for certain images (logos, icons, etc.)
-    const skipDarkModeImages = ['/next.svg', '/vercel.svg', '/window.svg', '/globe.svg', '/file.svg'];
-    if (skipDarkModeImages.some(img => imagePath.includes(img))) {
-      return imagePath;
-    }
-    
-    // If we're in dark mode and the image has an extension
-    if (theme === 'dark' && imagePath.includes('.')) {
-      const [path, ext] = imagePath.split('.');
-      return `${path}-darkmode.${ext}`;
-    }
-    
     return imagePath;
   };
 
@@ -442,7 +427,7 @@ export default function Projects() {
                               fill
                               className={`transition-transform duration-300 group-hover:scale-105 ${
                                 project.id === "campusthrive" 
-                                  ? `object-contain p-4 ${theme === 'light' ? 'brightness-0' : ''}` 
+                                  ? "object-contain p-4" 
                                   : "object-cover rounded"
                               }`}
                               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
