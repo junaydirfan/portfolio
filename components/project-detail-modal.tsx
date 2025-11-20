@@ -60,7 +60,7 @@ export function ProjectDetailModal({ project, isOpen, onClose, getTechIcon }: Pr
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       {/* Increased max-width slightly, adjusted padding */}
-      <DialogContent className="max-w-5xl w-[95vw] md:w-[90vw] max-h-[90vh] overflow-y-auto p-6 md:p-8">
+      <DialogContent className="max-w-5xl w-[95vw] md:w-[90vw] max-h-[90vh] overflow-y-auto p-6 md:p-8 custom-scrollbar">
         <DialogHeader className="mb-4 pr-6"> {/* Added padding right for close button spacing */}
           <DialogTitle className="text-2xl md:text-3xl">{project.title}</DialogTitle>
           <DialogDescription className="text-base md:text-lg opacity-90">{project.shortDescription}</DialogDescription>

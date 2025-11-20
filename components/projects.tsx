@@ -138,28 +138,28 @@ export default function Projects() {
       id: "campusthrive",
       title: "campusthrive: student wellness tracker",
       shortDescription:
-        "A comprehensive, privacy-focused student wellness tracking web application built with Next.js, TypeScript, and Tailwind CSS. CampusThrive prioritizes student privacy by storing all data locally in the browser's localStorage.",
+        "🏆 Winner of Bishop's CampusThrive Hackathon '25. A completed, comprehensive, privacy-focused student wellness tracking web application built with Next.js, TypeScript, and Tailwind CSS. CampusThrive prioritizes student privacy by storing all data locally in the browser's localStorage.",
       fullDescription:
-        "CampusThrive is a comprehensive, privacy-focused student wellness tracking web application that prioritizes student privacy by storing all data locally in the browser's localStorage. The application features 4-dimensional mood tracking (Valence, Energy, Focus, Stress), intelligent scoring systems with 14-day baseline comparison, AI-powered coaching with 50+ contextual tips, and advanced analytics including trends dashboard, success compass, and power hours heatmap. Built as a Progressive Web App with complete offline capability, CampusThrive ensures no personal information is sent to external servers while providing powerful insights into student wellness patterns.",
+        "🏆 Winner of Bishop's CampusThrive Hackathon '25. CampusThrive is a completed, comprehensive, privacy-focused student wellness tracking web application that prioritizes student privacy by storing all data locally in the browser's localStorage. The application features 4-dimensional mood tracking (Valence, Energy, Focus, Stress), intelligent scoring systems with 14-day baseline comparison, AI-powered coaching with 50+ contextual tips, and advanced analytics including trends dashboard, success compass, and power hours heatmap. Built as a Progressive Web App with complete offline capability, CampusThrive ensures no personal information is sent to external servers while providing powerful insights into student wellness patterns.",
       image: "/vercel.svg?height=400&width=600",
       tags: ["Next.js", "TypeScript", "Tailwind CSS", "Recharts", "PWA", "Privacy-First"],
-      link: "#",
-      github: "#",
+      link: "https://junaydirfan.github.io/campus-thrive/",
+      github: "https://github.com/junaydirfan/campus-thrive",
       keyFeatures: [
-        "🚧 Project in development - features being implemented",
+        "🏆 Winner of Bishop's CampusThrive Hackathon '25",
         "Privacy-first architecture with 100% local storage",
-        "4-Dimensional mood tracking system (planned)",
-        "AI-powered coaching with contextual tips (planned)",
-        "Advanced analytics dashboard (planned)",
-        "Progressive Web App with offline capability (planned)"
+        "4-Dimensional mood tracking system (Valence, Energy, Focus, Stress)",
+        "AI-powered coaching with 50+ contextual tips",
+        "Advanced analytics dashboard with trends, success compass, and power hours heatmap",
+        "Progressive Web App with complete offline capability"
       ],
       technicalDetails: [
-        "🚧 Currently in development phase",
+        "Completed project - fully functional and deployed",
         "Next.js 15+ with App Router and TypeScript",
         "Tailwind CSS with custom design system",
-        "Recharts for data visualizations (planned)",
+        "Recharts for comprehensive data visualizations",
         "Custom React hooks for state management",
-        "PWA support and responsive design (planned)"
+        "PWA support with offline capability and responsive design"
       ],
       challenges: [
         {
@@ -381,24 +381,27 @@ export default function Projects() {
               // Animate each card item
               <motion.div key={project.id} variants={itemVariants} className="group flex"> {/* Added flex for equal height cards */}
                 {/* Modern Card with Theme Support */}
-                <div className="h-full w-full flex flex-col bg-card border border-border rounded-lg shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 z-10">
+                <div 
+                  className="h-full w-full flex flex-col bg-card border border-border rounded-lg shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 z-10 cursor-pointer"
+                  onClick={() => handleOpenModal(project)}
+                >
                   {/* Card Header */}
                   <div className="flex items-center justify-between px-3 py-2 bg-muted/50 border-b border-border rounded-t-lg">
-                    <div className="flex items-center space-x-1">
+                    <div className="flex items-center space-x-1" onClick={(e) => e.stopPropagation()}>
                       <button 
-                        className="w-3 h-3 rounded-full bg-destructive hover:bg-destructive/80 transition-colors cursor-pointer"
+                        className="w-3 h-3 rounded-full bg-red-500 cursor-pointer"
                         onClick={() => handleMinimize(project.id)}
                         title="Minimize"
                       ></button>
                       <button 
-                        className="w-3 h-3 rounded-full bg-yellow-500 hover:bg-yellow-400 transition-colors"
-                        onClick={() => {/* Maximize functionality */}}
-                        title="Maximize"
-                      ></button>
-                      <button 
-                        className="w-3 h-3 rounded-full bg-green-500 hover:bg-green-400 transition-colors animate-pulse shadow-lg shadow-green-500/50"
+                        className="w-3 h-3 rounded-full bg-yellow-500 cursor-pointer"
                         onClick={() => handleOpenModal(project)}
                         title="Expand"
+                      ></button>
+                      <button 
+                        className="w-3 h-3 rounded-full bg-green-500 cursor-pointer"
+                        onClick={() => {/* Maximize functionality */}}
+                        title="Maximize"
                       ></button>
                     </div>
                     <div className="ml-4 flex-1">

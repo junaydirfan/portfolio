@@ -34,10 +34,18 @@ export default function About() {
       },
   };
   const itemVariants = {
-    hidden: { opacity: 0, y: 25 },
+    hidden: { opacity: 0 },
     visible: {
-        opacity: 1, y: 0,
-        transition: { type: "spring" as const, stiffness: 110, damping: 16, duration: 0.5 },
+        opacity: 1,
+        transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] as const },
+    },
+  };
+  
+  const cardVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] as const },
     },
   };
   const bubbleVariants = {
@@ -59,140 +67,76 @@ export default function About() {
   return (
     <section
       id="about"
-      className="relative min-h-screen flex flex-col justify-center items-center px-4 py-16 md:px-6 overflow-hidden"
+      className="relative min-h-screen flex flex-col justify-center items-center px-4 py-16 md:px-6 overflow-hidden bg-black"
       ref={ref}
-      style={{ backgroundColor: 'transparent' }}
     >
-      {/* Rain Background */}
-      <div className="absolute inset-0 z-0">
-        <style jsx>{`
-          .rain-container::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            z-index: 1;
-            background-image: radial-gradient(
-              ellipse 1.5px 2px at 1.5px 50%,
-              #0000 0,
-              #0000 90%,
-              #000 100%
-            );
-            background-size: 25px 8px;
-          }
-
-          .rain-container {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-color: #000;
-            background-image: radial-gradient(4px 100px at 0px 235px, var(--rain-color), #0000),
-              radial-gradient(4px 100px at 300px 235px, var(--rain-color), #0000),
-              radial-gradient(1.5px 1.5px at 150px 117.5px, var(--rain-color) 100%, #0000 150%),
-              radial-gradient(4px 100px at 0px 252px, var(--rain-color), #0000),
-              radial-gradient(4px 100px at 300px 252px, var(--rain-color), #0000),
-              radial-gradient(1.5px 1.5px at 150px 126px, var(--rain-color) 100%, #0000 150%),
-              radial-gradient(4px 100px at 0px 150px, var(--rain-color), #0000),
-              radial-gradient(4px 100px at 300px 150px, var(--rain-color), #0000),
-              radial-gradient(1.5px 1.5px at 150px 75px, var(--rain-color) 100%, #0000 150%),
-              radial-gradient(4px 100px at 0px 253px, var(--rain-color), #0000),
-              radial-gradient(4px 100px at 300px 253px, var(--rain-color), #0000),
-              radial-gradient(1.5px 1.5px at 150px 126.5px, var(--rain-color) 100%, #0000 150%),
-              radial-gradient(4px 100px at 0px 204px, var(--rain-color), #0000),
-              radial-gradient(4px 100px at 300px 204px, var(--rain-color), #0000),
-              radial-gradient(1.5px 1.5px at 150px 102px, var(--rain-color) 100%, #0000 150%),
-              radial-gradient(4px 100px at 0px 134px, var(--rain-color), #0000),
-              radial-gradient(4px 100px at 300px 134px, var(--rain-color), #0000),
-              radial-gradient(1.5px 1.5px at 150px 67px, var(--rain-color) 100%, #0000 150%),
-              radial-gradient(4px 100px at 0px 179px, var(--rain-color), #0000),
-              radial-gradient(4px 100px at 300px 179px, var(--rain-color), #0000),
-              radial-gradient(1.5px 1.5px at 150px 89.5px, var(--rain-color) 100%, #0000 150%),
-              radial-gradient(4px 100px at 0px 299px, var(--rain-color), #0000),
-              radial-gradient(4px 100px at 300px 299px, var(--rain-color), #0000),
-              radial-gradient(1.5px 1.5px at 150px 149.5px, var(--rain-color) 100%, #0000 150%),
-              radial-gradient(4px 100px at 0px 215px, var(--rain-color), #0000),
-              radial-gradient(4px 100px at 300px 215px, var(--rain-color), #0000),
-              radial-gradient(1.5px 1.5px at 150px 107.5px, var(--rain-color) 100%, #0000 150%),
-              radial-gradient(4px 100px at 0px 281px, var(--rain-color), #0000),
-              radial-gradient(4px 100px at 300px 281px, var(--rain-color), #0000),
-              radial-gradient(1.5px 1.5px at 150px 140.5px, var(--rain-color) 100%, #0000 150%),
-              radial-gradient(4px 100px at 0px 158px, var(--rain-color), #0000),
-              radial-gradient(4px 100px at 300px 158px, var(--rain-color), #0000),
-              radial-gradient(1.5px 1.5px at 150px 79px, var(--rain-color) 100%, #0000 150%),
-              radial-gradient(4px 100px at 0px 210px, var(--rain-color), #0000),
-              radial-gradient(4px 100px at 300px 210px, var(--rain-color), #0000),
-              radial-gradient(1.5px 1.5px at 150px 105px, var(--rain-color) 100%, #0000 150%);
-            background-size:
-              300px 235px, 300px 235px, 300px 235px,
-              300px 252px, 300px 252px, 300px 252px,
-              300px 150px, 300px 150px, 300px 150px,
-              300px 253px, 300px 253px, 300px 253px,
-              300px 204px, 300px 204px, 300px 204px,
-              300px 134px, 300px 134px, 300px 134px,
-              300px 179px, 300px 179px, 300px 179px,
-              300px 299px, 300px 299px, 300px 299px,
-              300px 215px, 300px 215px, 300px 215px,
-              300px 281px, 300px 281px, 300px 281px,
-              300px 158px, 300px 158px, 300px 158px,
-              300px 210px, 300px 210px, 300px 210px;
-            animation: rainfall 150s linear infinite;
-          }
-
-          @keyframes rainfall {
-            0% {
-              background-position:
-                0px 220px, 3px 220px, 151.5px 337.5px,
-                25px 24px, 28px 24px, 176.5px 150px,
-                50px 16px, 53px 16px, 201.5px 91px,
-                75px 224px, 78px 224px, 226.5px 350.5px,
-                100px 19px, 103px 19px, 251.5px 121px,
-                125px 120px, 128px 120px, 276.5px 187px,
-                150px 31px, 153px 31px, 301.5px 120.5px,
-                175px 235px, 178px 235px, 326.5px 384.5px,
-                200px 121px, 203px 121px, 351.5px 228.5px,
-                225px 224px, 228px 224px, 376.5px 364.5px,
-                250px 26px, 253px 26px, 401.5px 105px,
-                275px 75px, 278px 75px, 426.5px 180px;
-            }
-            100% {
-              background-position:
-                0px 6800px, 3px 6800px, 151.5px 6917.5px,
-                25px 13632px, 28px 13632px, 176.5px 13758px,
-                50px 5416px, 53px 5416px, 201.5px 5491px,
-                75px 17175px, 78px 17175px, 226.5px 17301.5px,
-                100px 5119px, 103px 5119px, 251.5px 5221px,
-                125px 8428px, 128px 8428px, 276.5px 8495px,
-                150px 9876px, 153px 9876px, 301.5px 9965.5px,
-                175px 13391px, 178px 13391px, 326.5px 13540.5px,
-                200px 14741px, 203px 14741px, 351.5px 14848.5px,
-                225px 18770px, 228px 18770px, 376.5px 18910.5px,
-                250px 5082px, 253px 5082px, 401.5px 5161px,
-                275px 6375px, 278px 6375px, 426.5px 6480px;
-            }
-          }
-        `}</style>
-        <div 
-          className="rain-container" 
-          style={{ '--rain-color': '#fff' } as React.CSSProperties}
-        />
-        {/* Dark Overlay for Better Readability */}
-        <div 
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            backgroundColor: 'rgba(0, 0, 0, 0.6)'
-          }}
-        />
-        {/* Edge Fade Overlay */}
-        <div 
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: `
-              radial-gradient(ellipse at center, transparent 0%, transparent 40%, hsl(var(--background)) 100%),
-              linear-gradient(to bottom, hsl(var(--background)) 0%, transparent 15%, transparent 85%, hsl(var(--background)) 100%),
-              linear-gradient(to right, hsl(var(--background)) 0%, transparent 15%, transparent 85%, hsl(var(--background)) 100%)
-            `
-          }}
-        />
-      </div>
+      {/* Subtle Gradient Background */}
+      <motion.div 
+        className="absolute inset-0 z-0"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ 
+          duration: 1.5, 
+          ease: [0.25, 0.1, 0.25, 1],
+          delay: 0.2
+        }}
+        style={{
+          background: `
+            radial-gradient(ellipse 80% 50% at 50% 0%, rgba(40, 40, 70, 0.5) 0%, transparent 60%),
+            radial-gradient(ellipse 60% 80% at 50% 100%, rgba(30, 40, 60, 0.4) 0%, transparent 60%),
+            linear-gradient(180deg, rgba(15, 15, 25, 0.6) 0%, rgba(8, 8, 15, 0.8) 100%),
+            #000000
+          `
+        }}
+      />
+      
+      {/* Animated Upper Gradient */}
+      <motion.div
+        className="absolute inset-0 z-0"
+        initial={{ 
+          opacity: 0,
+          scale: 1.1,
+          y: -20
+        }}
+        animate={{ 
+          opacity: 1,
+          scale: 1,
+          y: 0
+        }}
+        transition={{ 
+          duration: 2,
+          ease: [0.25, 0.1, 0.25, 1],
+          delay: 0.3
+        }}
+        style={{
+          background: `radial-gradient(ellipse 80% 50% at 50% 0%, rgba(40, 40, 70, 0.5) 0%, transparent 60%)`,
+          pointerEvents: 'none'
+        }}
+      />
+      
+      {/* Animated Lower Gradient */}
+      <motion.div
+        className="absolute inset-0 z-0"
+        initial={{ 
+          opacity: 0,
+          scale: 1.1,
+          y: 20
+        }}
+        animate={{ 
+          opacity: 1,
+          scale: 1,
+          y: 0
+        }}
+        transition={{ 
+          duration: 2,
+          ease: [0.25, 0.1, 0.25, 1],
+          delay: 0.4
+        }}
+        style={{
+          background: `radial-gradient(ellipse 60% 80% at 50% 100%, rgba(30, 40, 60, 0.4) 0%, transparent 60%)`,
+          pointerEvents: 'none'
+        }}
+      />
       
       <motion.div
         className="container max-w-4xl mx-auto text-center relative z-20"
@@ -278,7 +222,7 @@ export default function About() {
               <motion.div
                 key={index}
                 className="flex flex-col items-center text-center p-5 bg-black/40 backdrop-blur-md rounded-xl shadow-sm hover:shadow-lg hover:shadow-white/20 transition-all duration-300 border border-white/20 hover:border-white/40"
-                variants={itemVariants}
+                variants={cardVariants}
                 whileHover={{
                   scale: 1.03,
                   y: -5, 
