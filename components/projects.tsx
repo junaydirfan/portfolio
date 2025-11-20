@@ -14,7 +14,7 @@ import {
   SiWordpress, SiCodeigniter, SiMaterialdesign, SiMinutemailer, SiFontforge, SiVuedotjs, SiSvelte, SiOpenjdk,
   SiFigma, SiAdobeaftereffects, SiAdobephotoshop, SiAdobeillustrator, SiAdobepremierepro,
   SiUnity, SiBlender, SiGithubpages
-} from "react-icons/si"; // Keep necessary icon imports
+} from "react-icons/si";
 import Image from "next/image";
 
 // Custom GSAP Icon Component - Official GSAP Logo
@@ -138,10 +138,10 @@ export default function Projects() {
       id: "campusthrive",
       title: "campusthrive: student wellness tracker",
       shortDescription:
-        "🏆 Winner of Bishop's CampusThrive Hackathon '25. A completed, comprehensive, privacy-focused student wellness tracking web application built with Next.js, TypeScript, and Tailwind CSS. CampusThrive prioritizes student privacy by storing all data locally in the browser's localStorage.",
+        "a completed, comprehensive, privacy-focused student wellness tracking web application built with Next.js, TypeScript, and Tailwind CSS. CampusThrive prioritizes student privacy by storing all data locally in the browser's localStorage.",
       fullDescription:
-        "🏆 Winner of Bishop's CampusThrive Hackathon '25. CampusThrive is a completed, comprehensive, privacy-focused student wellness tracking web application that prioritizes student privacy by storing all data locally in the browser's localStorage. The application features 4-dimensional mood tracking (Valence, Energy, Focus, Stress), intelligent scoring systems with 14-day baseline comparison, AI-powered coaching with 50+ contextual tips, and advanced analytics including trends dashboard, success compass, and power hours heatmap. Built as a Progressive Web App with complete offline capability, CampusThrive ensures no personal information is sent to external servers while providing powerful insights into student wellness patterns.",
-      image: "/vercel.svg?height=400&width=600",
+        " a completed, comprehensive, privacy-focused student wellness tracking web application that prioritizes student privacy by storing all data locally in the browser's localStorage. The application features 4-dimensional mood tracking (Valence, Energy, Focus, Stress), intelligent scoring systems with 14-day baseline comparison, AI-powered coaching with 50+ contextual tips, and advanced analytics including trends dashboard, success compass, and power hours heatmap. Built as a Progressive Web App with complete offline capability, CampusThrive ensures no personal information is sent to external servers while providing powerful insights into student wellness patterns.",
+      image: "/images/campusthrive.png?height=400&width=600",
       tags: ["Next.js", "TypeScript", "Tailwind CSS", "Recharts", "PWA", "Privacy-First"],
       link: "https://junaydirfan.github.io/campus-thrive/",
       github: "https://github.com/junaydirfan/campus-thrive",
@@ -254,7 +254,7 @@ export default function Projects() {
         "This website is a showcase of my technical skills and creative problem-solving abilities. It's so meta, it's recursively describing itself! Like a function that calls itself, this portfolio keeps going deeper into its own description. A true example of recursion in action - the website that describes the website that describes the website... Built with Next.js 15 and Tailwind CSS, this modern, responsive portfolio website features static site generation for optimal performance, component-based architecture for maintainability, and smooth animations powered by Framer Motion.",
       image: "/images/thisite.jpg?height=400&width=600",
       tags: ["Next.js", "React", "Tailwind CSS", "Framer Motion", "Radix UI", "EmailJS"],
-      link: "https://portfolio.10poundingpotatoes.org",
+      link: "https://www.junaidirfan.com",
       github: "https://github.com/junaydirfan/portfolio",
       gallery: [], challenges: [], keyFeatures: [], technicalDetails: [], architecture: ""
     },
@@ -426,11 +426,7 @@ export default function Projects() {
                               src={getImageSource(project.image || "/placeholder.svg")}
                               alt={`${project.title} preview`}
                               fill
-                              className={`transition-transform duration-300 group-hover:scale-105 ${
-                                project.id === "campusthrive" 
-                                  ? "object-contain p-4" 
-                                  : "object-cover rounded"
-                              }`}
+                              className="transition-transform duration-300 group-hover:scale-105 object-cover rounded"
                               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                               loading="lazy"
                             />
@@ -448,13 +444,13 @@ export default function Projects() {
                           {project.id === "smartballot" && (
                             <div className="flex items-center gap-1.5 text-xs text-amber-400 mb-2">
                               <Trophy className="h-3.5 w-3.5" />
-                              <span className="font-medium">securevote hackathon 2024 runner-up</span>
+                              <span className="font-medium">bu eviden securevote hackathon '24 </span>
                             </div>
                           )}
                           {project.id === "campusthrive" && (
                             <div className="flex items-center gap-1.5 text-xs text-amber-400 mb-2">
                               <Trophy className="h-3.5 w-3.5" />
-                              <span className="font-medium">bishop&apos;s campusthrive hackathon &apos;25</span>
+                              <span className="font-medium">bu campusthrive hackathon &apos;25</span>
                             </div>
                           )}
                           <p className="text-muted-foreground text-sm leading-relaxed">
