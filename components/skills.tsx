@@ -30,7 +30,6 @@ import {
   SiDavinciresolve,
 } from "react-icons/si"
 import { Server, ChevronLeft, ChevronRight } from "lucide-react"
-import { N8n, OpenAI } from '@lobehub/icons'
 
 // Custom GSAP Icon Component - Official GSAP Logo
 const SiGsap = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
@@ -47,17 +46,29 @@ const SiGsap = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
   </svg>
 )
 
-// Custom n8n Icon Component - Using LobeHub Icons
+// Custom n8n Icon Component - n8n workflow automation logo
 const SiN8n = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
-  <N8n className={className} {...props} />
+  <svg
+    className={className}
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    {...props}
+  >
+    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+    <path d="M8 8h8v8H8V8zm2 2v4h4v-4h-4z"/>
+  </svg>
 )
 
-// Custom ChatGPT API Icon Component - Simple OpenAI-style logo
+// Custom ChatGPT API Icon Component - OpenAI logo style
 const SiChatgpt = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
-  <OpenAI
+  <svg
     className={className}
+    viewBox="0 0 24 24"
+    fill="currentColor"
     {...props}
-  />
+  >
+    <path d="M21.316 4.434a9.985 9.985 0 0 0-4.162-2.448 9.985 9.985 0 0 0-5.15 0 9.985 9.985 0 0 0-4.162 2.448 9.996 9.996 0 0 0-3.033 3.033 9.985 9.985 0 0 0-2.448 4.162 9.985 9.985 0 0 0 0 5.15 9.985 9.985 0 0 0 2.448 4.162 9.996 9.996 0 0 0 3.033 3.033 9.985 9.985 0 0 0 4.162 2.448 9.985 9.985 0 0 0 5.15 0 9.985 9.985 0 0 0 4.162-2.448 9.996 9.996 0 0 0 3.033-3.033 9.985 9.985 0 0 0 2.448-4.162 9.985 9.985 0 0 0 0-5.15 9.985 9.985 0 0 0-2.448-4.162 9.996 9.996 0 0 0-3.033-3.033zM12 6.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zm0 2a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z"/>
+  </svg>
 )
 
 type CategoryId = 'development' | 'cloud' | 'design'
