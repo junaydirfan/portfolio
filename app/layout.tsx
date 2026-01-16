@@ -1,18 +1,14 @@
 // layout.tsx
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { Nav } from "@/components/ui/nav";
 import { Availability } from "@/components/ui/availability";
 
-const inter = Inter({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  variable: "--font-inter",
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-jetbrains-mono",
+  variable: "--font-space-grotesk",
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -46,7 +42,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${inter.variable} ${jetbrainsMono.variable} font-inter antialiased bg-background text-foreground`}
+        className={`${spaceGrotesk.variable} font-sans antialiased bg-background text-foreground`}
         // suppressHydrationWarning={true} // Moved to <html>
       >
         <Nav />

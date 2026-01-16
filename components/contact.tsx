@@ -30,8 +30,8 @@ export default function Contact() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.12,
-        delayChildren: 0.05,
+        staggerChildren: 0.06,
+        delayChildren: 0.02,
       },
     },
   }
@@ -41,7 +41,7 @@ export default function Contact() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.45, ease: "easeOut" as const },
+      transition: { duration: 0.3, ease: "easeOut" as const },
     },
   }
 
@@ -97,115 +97,106 @@ export default function Contact() {
   }
 
   return (
-    // Consistent background, adjusted padding
-    <section id="contact" className="py-16 md:py-24 bg-background">
-      <div className="container px-4 md:px-6 max-w-6xl mx-auto"> {/* Adjusted max-width */}
+    <section id="contact" className="py-24 md:py-32 bg-background">
+      <div className="container px-8 md:px-16 lg:px-24 max-w-7xl mx-auto">
         <motion.div
           ref={ref}
           initial="hidden"
           animate={isMounted && isInView ? "visible" : "hidden"}
           variants={containerVariants}
         >
-          {/* Section Header */}
-          <motion.div className="text-center mb-12 md:mb-16" variants={itemVariants}>
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-foreground">
-                get in touch
+          {/* Bauhaus Section Header - left aligned */}
+          <motion.div className="mb-20 md:mb-24" variants={itemVariants}>
+            <h2 className="text-5xl md:text-6xl font-bold mb-6 text-foreground">
+              get in touch
             </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto text-base md:text-lg">
+            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl leading-relaxed">
               have a question or want to collaborate? feel free to reach out using the form below or my contact details
             </p>
           </motion.div>
 
-          {/* Grid for Contact Info & Form */}
-          <div className="grid md:grid-cols-2 gap-8 md:gap-10 max-w-5xl mx-auto"> {/* Increased gap, adjusted max-width */}
-            {/* Contact Info Card */}
-            <motion.div variants={itemVariants} className="flex"> {/* Added flex for equal height */}
-              {/* Consistent Card Styling */}
-              <Card className="h-full w-full flex flex-col border border-border/50 shadow-md bg-card">
-                <CardHeader className="p-6 md:p-8">
-                  <CardTitle className="text-xl md:text-2xl text-foreground">contact information</CardTitle>
-                  <CardDescription>other ways to connect with me</CardDescription>
+          {/* Bauhaus Grid for Contact Info & Form */}
+          <div className="grid md:grid-cols-2 gap-12 md:gap-16 max-w-6xl mx-auto">
+            {/* Contact Info Card - Bauhaus style */}
+            <motion.div variants={itemVariants} className="flex">
+              <Card className="h-full w-full flex flex-col border border-border bg-card hover:border-foreground transition-colors">
+                <CardHeader className="p-8 md:p-10">
+                  <CardTitle className="text-2xl md:text-3xl text-foreground font-bold uppercase tracking-wide mb-2">contact information</CardTitle>
+                  <CardDescription className="text-base text-muted-foreground">other ways to connect with me</CardDescription>
                 </CardHeader>
-                <CardContent className="p-6 md:p-8 pt-0 space-y-5 flex-grow"> {/* Increased spacing */}
-                   {/* Email */}
-                  <div className="flex items-center gap-4"> {/* Increased gap */}
-                    <Mail className="h-5 w-5 text-muted-foreground flex-shrink-0" /> {/* Monochrome icon */}
+                <CardContent className="p-8 md:p-10 pt-0 space-y-6 flex-grow">
+                   <div className="flex items-center gap-4">
+                    <Mail className="h-6 w-6 text-foreground flex-shrink-0" />
                     <a
                        href="mailto:hello@junaidirfan.com"
-                       className="text-foreground hover:text-foreground/80 transition-colors break-all" /* Monochrome link */
+                       className="text-foreground hover:text-muted-foreground transition-colors break-all text-base font-medium"
                        aria-label="Email Junaid Irfan"
                      >
                       hello@junaidirfan.com
                     </a>
                   </div>
-                   {/* Phone */}
-                  <div className="flex items-center gap-4">
-                    <Phone className="h-5 w-5 text-muted-foreground flex-shrink-0" />
+                   <div className="flex items-center gap-4">
+                    <Phone className="h-6 w-6 text-foreground flex-shrink-0" />
                     <a
                        href="tel:+18738785419"
-                       className="text-foreground hover:text-foreground/80 transition-colors"
+                       className="text-foreground hover:text-muted-foreground transition-colors text-base font-medium"
                        aria-label="Call Junaid Irfan"
                      >
                        +1 (873) 878-5419
                     </a>
                   </div>
-                   {/* Location */}
-                  <div className="flex items-center gap-4">
-                    <MapPin className="h-5 w-5 text-muted-foreground flex-shrink-0" />
-                     {/* Updated Location based on previous context */}
-                    <span className="text-muted-foreground">Greater Toronto Area, ON, CA</span>
+                   <div className="flex items-center gap-4">
+                    <MapPin className="h-6 w-6 text-foreground flex-shrink-0" />
+                    <span className="text-muted-foreground text-base">Greater Toronto Area, ON, CA</span>
                   </div>
-                  
                 </CardContent>
               </Card>
             </motion.div>
 
-            {/* Contact Form Card */}
-            <motion.div variants={itemVariants} className="flex"> {/* Added flex for equal height */}
-              <Card className="h-full w-full flex flex-col border border-border/50 shadow-md bg-card">
-                <CardHeader className="p-6 md:p-8">
-                  <CardTitle className="text-xl md:text-2xl text-foreground">send me a message</CardTitle>
-                  <CardDescription>i usually respond within 24-48 hours.</CardDescription>
+            {/* Contact Form Card - Bauhaus style */}
+            <motion.div variants={itemVariants} className="flex">
+              <Card className="h-full w-full flex flex-col border border-border bg-card hover:border-foreground transition-colors">
+                <CardHeader className="p-8 md:p-10">
+                  <CardTitle className="text-2xl md:text-3xl text-foreground font-bold uppercase tracking-wide mb-2">send me a message</CardTitle>
+                  <CardDescription className="text-base text-muted-foreground">i usually respond within 24-48 hours.</CardDescription>
                 </CardHeader>
-                <CardContent className="p-6 md:p-8 pt-0 flex-grow flex flex-col"> {/* Use flex-grow */}
+                <CardContent className="p-8 md:p-10 pt-0 flex-grow flex flex-col">
                   {isSubmitted ? (
-                    // Improved Success State
-                    <div className="flex flex-col items-center justify-center text-center flex-grow border border-border/50 rounded-lg bg-muted/50 p-6">
-                      <div className="rounded-full bg-background border border-green-500/30 p-2 mb-4">
-                        <CheckCircle className="h-8 w-8 text-green-500" /> {/* Kept icon green */}
+                    <div className="flex flex-col items-center justify-center text-center flex-grow border border-border bg-muted/30 p-8">
+                      <div className="bg-background border border-foreground p-3 mb-6">
+                        <CheckCircle className="h-8 w-8 text-foreground" />
                       </div>
-                      <h3 className="text-xl font-medium mb-2 text-foreground">message sent!</h3>
-                      <p className="text-muted-foreground mb-4">thanks for reaching out, i&apos;ll reply soon!</p>
+                      <h3 className="text-2xl font-bold mb-3 text-foreground uppercase tracking-wide">message sent!</h3>
+                      <p className="text-muted-foreground mb-6 text-base">thanks for reaching out, i&apos;ll reply soon!</p>
                       <Button
                         variant="outline"
                         onClick={resetForm}
+                        className="border-border font-bold uppercase tracking-wide"
                       >
                         send another message
                       </Button>
                     </div>
                   ) : (
-                    // Form State
-                    <form ref={formRef} onSubmit={handleSubmit} className="space-y-5"> {/* Increased spacing */}
-                      <div className="space-y-1.5">
-                        <Label htmlFor="name">name</Label>
-                        <Input id="name" name="name" placeholder="your name" required aria-label="Your Name"/>
+                    <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
+                      <div className="space-y-2">
+                        <Label htmlFor="name" className="text-base font-bold uppercase tracking-wide">name</Label>
+                        <Input id="name" name="name" placeholder="your name" required aria-label="Your Name" className="border-border"/>
                       </div>
-                      <div className="space-y-1.5">
-                        <Label htmlFor="email">email</Label>
-                        <Input id="email" name="email" type="email" placeholder="your.email@example.com" required aria-label="Your Email" autoComplete="email" inputMode="email" pattern="[^\s@]+@[^\s@]+\.[^\s@]{2,}" title="Enter a valid email like name@example.com"/>
+                      <div className="space-y-2">
+                        <Label htmlFor="email" className="text-base font-bold uppercase tracking-wide">email</Label>
+                        <Input id="email" name="email" type="email" placeholder="your.email@example.com" required aria-label="Your Email" autoComplete="email" inputMode="email" pattern="[^\s@]+@[^\s@]+\.[^\s@]{2,}" title="Enter a valid email like name@example.com" className="border-border"/>
                       </div>
-                      <div className="space-y-1.5">
-                        <Label htmlFor="message">message</Label>
-                        <Textarea id="message" name="message" placeholder="type your message here..." rows={4} required aria-label="Your Message"/>
+                      <div className="space-y-2">
+                        <Label htmlFor="message" className="text-base font-bold uppercase tracking-wide">message</Label>
+                        <Textarea id="message" name="message" placeholder="type your message here..." rows={4} required aria-label="Your Message" className="border-border"/>
                       </div>
-                      {/* Improved Error Display */}
                       {error && (
-                         <div className="flex items-center gap-2 text-red-600 text-sm border border-red-500/20 bg-red-500/10 p-3 rounded-md">
-                            <AlertCircle className="h-4 w-4 flex-shrink-0" />
+                         <div className="flex items-center gap-3 text-foreground text-sm border border-border bg-muted/30 p-4">
+                            <AlertCircle className="h-5 w-5 flex-shrink-0" />
                             <span>{error}</span>
                          </div>
                        )}
-                      <Button type="submit" className="w-full" disabled={isSubmitting}>
+                      <Button type="submit" className="w-full border-border bg-foreground text-background hover:bg-muted-foreground font-bold uppercase tracking-wide" disabled={isSubmitting}>
                         {isSubmitting ? (
                           <>
                             <Loader2 className="mr-2 h-4 w-4 animate-spin" />

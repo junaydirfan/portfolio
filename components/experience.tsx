@@ -54,8 +54,8 @@ export default function Experience() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.12,
-        delayChildren: 0.05,
+        staggerChildren: 0.06,
+        delayChildren: 0.02,
       },
     },
   }
@@ -65,7 +65,7 @@ export default function Experience() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.45, ease: "easeOut" as const },
+      transition: { duration: 0.3, ease: "easeOut" as const },
     },
   }
 
@@ -103,68 +103,66 @@ export default function Experience() {
   ]
 
   return (
-    <section id="experience" className="py-16 md:py-24 bg-background">
-      <div className="container px-4 md:px-6 max-w-5xl mx-auto">
+    <section id="experience" className="py-24 md:py-32 bg-background">
+      <div className="container px-8 md:px-16 lg:px-24 max-w-6xl mx-auto">
         <motion.div
           ref={ref}
           initial="hidden"
           animate={isMounted && isInView ? "visible" : "hidden"}
           variants={containerVariants}
         >
-          {/* Section Header */}
-          <motion.div className="text-center mb-12 md:mb-16" variants={itemVariants}>
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-foreground">
-                professional experience
+          {/* Bauhaus Section Header - left aligned */}
+          <motion.div className="mb-20 md:mb-24" variants={itemVariants}>
+            <h2 className="text-5xl md:text-6xl font-bold mb-6 text-foreground">
+              professional experience
             </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto text-base md:text-lg">
+            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl leading-relaxed">
               my journey in the tech industry, highlighting key roles and accomplishments
             </p>
           </motion.div>
 
-          {/* Experience Cards List */}
-          <motion.div className="space-y-8 md:space-y-10" variants={containerVariants}>
+          {/* Bauhaus Experience Cards - geometric, no rounded corners */}
+          <motion.div className="space-y-12 md:space-y-16" variants={containerVariants}>
             {experiences.map((exp, index) => (
               <motion.div key={index} variants={itemVariants}>
-                <Card className="overflow-hidden border border-border/50 shadow-md hover:shadow-lg transition-shadow duration-300 bg-card">
-                  <CardHeader className="p-6 md:p-8 pb-4">
-                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
+                <Card className="overflow-hidden border border-border bg-card hover:border-foreground transition-colors">
+                  <CardHeader className="p-8 md:p-10 pb-6">
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
                       <div className="mb-2 sm:mb-0">
-                        <CardTitle className="text-xl md:text-2xl mb-1">{exp.title.toLowerCase()}</CardTitle>
-                        <CardDescription className="text-base font-medium text-foreground/80">{exp.company.toLowerCase()}</CardDescription>
+                        <CardTitle className="text-2xl md:text-3xl mb-2 font-bold uppercase tracking-wide">{exp.title.toLowerCase()}</CardTitle>
+                        <CardDescription className="text-lg font-bold text-foreground">{exp.company.toLowerCase()}</CardDescription>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <Badge variant="outline" className="whitespace-nowrap w-fit text-sm font-normal">
+                      <div className="flex items-center gap-3">
+                        <Badge variant="outline" className="whitespace-nowrap w-fit text-sm font-bold border-border">
                           {exp.period}
                         </Badge>
                         {exp.duration && (
-                          <Badge className="whitespace-nowrap w-fit text-xs font-medium bg-primary/10 text-primary border-primary/20">
+                          <Badge className="whitespace-nowrap w-fit text-xs font-bold bg-foreground text-background border-foreground">
                             {exp.duration}
                           </Badge>
                         )}
                       </div>
                     </div>
                   </CardHeader>
-                  <CardContent className="p-6 md:p-8 pt-0">
-                    <ul className="list-disc pl-5 mb-5 space-y-1.5 text-muted-foreground text-sm md:text-base leading-relaxed">
+                  <CardContent className="p-8 md:p-10 pt-0">
+                    <ul className="list-none mb-6 space-y-2 text-muted-foreground text-base md:text-lg leading-relaxed">
                       {exp.description.map((item, i) => (
-                        <li key={i}>{item}</li>
+                        <li key={i} className="before:content-['•'] before:mr-3 before:text-foreground">{item}</li>
                       ))}
                     </ul>
-                    <div className="border-t border-border/50 pt-4">
-                       <h4 className="text-xs font-semibold uppercase text-muted-foreground mb-3">key skills used</h4>
-                        <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
+                    <div className="border-t border-border pt-6">
+                       <h4 className="text-xs font-bold uppercase text-foreground mb-4 tracking-wider">key skills used</h4>
+                        <div className="flex flex-wrap items-center gap-x-6 gap-y-4">
                         {exp.skills.map((skill) => {
                             const IconComponent = getTechIcon(skill);
-                            // Check if IconComponent exists before rendering
                             if (IconComponent) {
                               return (
-                                // The component rendering remains the same
                                 <div key={skill} title={skill} className="relative flex items-center justify-center">
-                                  <IconComponent className="h-5 w-5 md:h-6 md:w-6 text-muted-foreground transition-colors hover:text-foreground/80" />
+                                  <IconComponent className="h-6 w-6 md:h-7 md:w-7 text-muted-foreground transition-colors hover:text-foreground" />
                                 </div>
                               );
                             }
-                            return null; // Don't render anything if icon not found
+                            return null;
                         })}
                         </div>
                     </div>

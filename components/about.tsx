@@ -30,14 +30,14 @@ export default function About() {
       hidden: { opacity: 0 },
       visible: {
         opacity: 1,
-        transition: { staggerChildren: 0.12, delayChildren: 0.05 },
+        transition: { staggerChildren: 0.06, delayChildren: 0.02 },
       },
   };
   const itemVariants = {
     hidden: { opacity: 0 },
     visible: {
         opacity: 1,
-        transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] as const },
+        transition: { duration: 0.3, ease: [0.25, 0.1, 0.25, 1] as const },
     },
   };
   
@@ -45,14 +45,14 @@ export default function About() {
     hidden: { opacity: 0 },
     visible: {
         opacity: 1,
-        transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] as const },
+        transition: { duration: 0.3, ease: [0.25, 0.1, 0.25, 1] as const },
     },
   };
   const bubbleVariants = {
       hidden: { opacity: 0, scale: 0.8, y: 30 },
       visible: {
         opacity: 1, scale: 1, y: 0,
-        transition: { type: "spring" as const, stiffness: 170, damping: 22, duration: 0.45, delay: 0.3 },
+        transition: { type: "spring" as const, stiffness: 200, damping: 25, duration: 0.3, delay: 0.1 },
       },
   };
   const baseSequence = useMemo(() => ([
@@ -67,104 +67,41 @@ export default function About() {
   return (
     <section
       id="about"
-      className="relative min-h-screen flex flex-col justify-center items-center px-4 py-16 md:px-6 overflow-hidden bg-black"
+      className="relative min-h-screen flex flex-col justify-center px-8 md:px-16 lg:px-24 py-24 md:py-32 overflow-hidden bg-background"
       ref={ref}
     >
-      {/* Subtle Gradient Background */}
-      <motion.div 
-        className="absolute inset-0 z-0"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ 
-          duration: 1.5, 
-          ease: [0.25, 0.1, 0.25, 1],
-          delay: 0.2
-        }}
-        style={{
-          background: `
-            radial-gradient(ellipse 80% 50% at 50% 0%, rgba(40, 40, 70, 0.5) 0%, transparent 60%),
-            radial-gradient(ellipse 60% 80% at 50% 100%, rgba(30, 40, 60, 0.4) 0%, transparent 60%),
-            linear-gradient(180deg, rgba(15, 15, 25, 0.6) 0%, rgba(8, 8, 15, 0.8) 100%),
-            #000000
-          `
-        }}
-      />
-      
-      {/* Animated Upper Gradient */}
       <motion.div
-        className="absolute inset-0 z-0"
-        initial={{ 
-          opacity: 0,
-          scale: 1.1,
-          y: -20
-        }}
-        animate={{ 
-          opacity: 1,
-          scale: 1,
-          y: 0
-        }}
-        transition={{ 
-          duration: 2,
-          ease: [0.25, 0.1, 0.25, 1],
-          delay: 0.3
-        }}
-        style={{
-          background: `radial-gradient(ellipse 80% 50% at 50% 0%, rgba(40, 40, 70, 0.5) 0%, transparent 60%)`,
-          pointerEvents: 'none'
-        }}
-      />
-      
-      {/* Animated Lower Gradient */}
-      <motion.div
-        className="absolute inset-0 z-0"
-        initial={{ 
-          opacity: 0,
-          scale: 1.1,
-          y: 20
-        }}
-        animate={{ 
-          opacity: 1,
-          scale: 1,
-          y: 0
-        }}
-        transition={{ 
-          duration: 2,
-          ease: [0.25, 0.1, 0.25, 1],
-          delay: 0.4
-        }}
-        style={{
-          background: `radial-gradient(ellipse 60% 80% at 50% 100%, rgba(30, 40, 60, 0.4) 0%, transparent 60%)`,
-          pointerEvents: 'none'
-        }}
-      />
-      
-      <motion.div
-        className="container max-w-4xl mx-auto text-center relative z-20"
+        className="max-w-5xl mx-auto w-full relative z-20"
         initial="hidden"
         animate={isMounted && isInView ? "visible" : "hidden"}
         variants={containerVariants}
       >
-        <motion.h1
-          variants={itemVariants}
-          className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-2" 
-        >
-          junaid irfan
-        </motion.h1>
-
-
-        <motion.p
-          variants={itemVariants}
-          className="text-lg md:text-xl lg:text-2xl text-gray-300 mb-10 font-medium" 
-        >
-          web developer
-        </motion.p>
-
+        {/* Bauhaus-style header - left aligned, bold, large */}
         <motion.div
-          className="flex items-center justify-center gap-4 bg-black/60 backdrop-blur-sm rounded-full px-5 py-3 max-w-lg mb-12 mx-auto shadow-lg border border-white/30"
+          className="mb-16 md:mb-24"
+          variants={itemVariants}
+        >
+          <motion.h1
+            variants={itemVariants}
+            className="text-6xl md:text-7xl lg:text-8xl font-bold text-foreground mb-4 leading-none" 
+          >
+            junaid irfan
+          </motion.h1>
+          <motion.p
+            variants={itemVariants}
+            className="text-2xl md:text-3xl lg:text-4xl text-foreground font-medium mb-12" 
+          >
+            web developer
+          </motion.p>
+        </motion.div>
+
+        {/* Profile section - simplified, left-aligned */}
+        <motion.div
+          className="mb-20 md:mb-32 flex flex-col md:flex-row items-start gap-8"
           variants={bubbleVariants}
         >
           <motion.div
-            className="relative w-12 h-12 overflow-hidden rounded-full flex-shrink-0 border-2 border-white/50"
+            className="relative w-24 h-24 md:w-32 md:h-32 flex-shrink-0 border-2 border-foreground"
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ delay: 0.7, type: "spring", stiffness: 260, damping: 20 }}
@@ -174,12 +111,12 @@ export default function About() {
               alt="Junaid Irfan Profile"
               fill
               className="object-cover"
-              sizes="(max-width: 768px) 50px, 100px"
+              sizes="(max-width: 768px) 96px, 128px"
               priority
             />
           </motion.div>
 
-          <div className="text-left flex-1 min-w-0">
+          <div className="flex-1 min-w-0">
             {greeting !== null && (
               <TypeAnimation
                 key={`seq-${greeting}`}
@@ -188,31 +125,31 @@ export default function About() {
                 cursor={true}
                 repeat={0}
                 speed={55}
-                className="text-sm md:text-base text-white font-mono tracking-wide" 
+                className="text-base md:text-lg text-foreground font-medium leading-relaxed" 
                 style={{ 
                   whiteSpace: 'pre-line',
-                  fontFamily: 'var(--font-jetbrains-mono)',
-                  letterSpacing: '0.05em'
                 }}
               />
             )}
           </div>
         </motion.div>
 
+        {/* Description - left-aligned, generous spacing */}
         <motion.div
-          className="space-y-4 max-w-2xl mx-auto" 
-          variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.12, delayChildren: 0.6 } } }}
+          className="mb-20 md:mb-32 max-w-3xl" 
+          variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.06, delayChildren: 0.2 } } }}
         >
-          <motion.p className="text-base md:text-lg text-gray-300" variants={itemVariants}> 
-          a full-stack developer with a strong focus on front-end experiences. passionate about crafting modern web applications that look great and perform even better. beyond code, i dive into cinematography, videography, and motion design blending creativity and technology to bring visually engaging ideas to life.
+          <motion.p className="text-lg md:text-xl text-foreground leading-relaxed" variants={itemVariants}> 
+            a full-stack developer with a strong focus on front-end experiences. passionate about crafting modern web applications that look great and perform even better. beyond code, i dive into cinematography, videography, and motion design blending creativity and technology to bring visually engaging ideas to life.
           </motion.p>
         </motion.div>
 
+        {/* Skills grid - simplified, geometric */}
         <motion.div
-          className="mt-16"
-          variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.12, delayChildren: 0.9 } } }}
+          className="mb-16"
+          variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.05, delayChildren: 0.3 } } }}
         >
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 max-w-5xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
             {[
               { Icon: Code, title: "web development", desc: "modern, responsive web apps" },
               { Icon: Cloud, title: "cloud engineering", desc: "scalable cloud infrastructure" },
@@ -221,31 +158,27 @@ export default function About() {
             ].map((skill, index) => (
               <motion.div
                 key={index}
-                className="flex flex-col items-center text-center p-5 bg-black/40 backdrop-blur-md rounded-xl shadow-sm hover:shadow-lg hover:shadow-white/20 transition-all duration-300 border border-white/20 hover:border-white/40"
+                className="flex flex-col border border-border p-6 hover:bg-muted/50 transition-colors"
                 variants={cardVariants}
-                whileHover={{
-                  scale: 1.03,
-                  y: -5, 
-                  transition: { type: "spring", stiffness: 300, damping: 10 }
-                }}
               >
-                <skill.Icon className="h-8 w-8 text-white mb-3" />
+                <skill.Icon className="h-8 w-8 md:h-10 md:w-10 text-foreground mb-4" />
                 <div>
-                  <h3 className="font-semibold text-sm md:text-base text-white mb-1">{skill.title}</h3>
-                  <p className="text-xs md:text-sm text-gray-400">{skill.desc}</p>
+                  <h3 className="font-bold text-sm md:text-base text-foreground mb-2 uppercase tracking-wide">{skill.title}</h3>
+                  <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">{skill.desc}</p>
                 </div>
               </motion.div>
             ))}
           </div>
         </motion.div>
 
+        {/* Footer note - minimal, left-aligned */}
         <motion.div
-            className="mt-16 max-w-2xl mx-auto"
+            className="max-w-3xl"
             variants={itemVariants} 
             >
-          <p className="text-xs md:text-sm text-gray-400 italic">
+          <p className="text-sm md:text-base text-muted-foreground">
             psst! this website is hosted on my home server. check out the{' '}
-            <a href="#infrastructure" className="text-white underline hover:text-gray-200 transition-colors duration-200">
+            <a href="#infrastructure" className="text-foreground underline hover:text-muted-foreground transition-colors">
               infrastructure
             </a>{' '}
             section below to see how!

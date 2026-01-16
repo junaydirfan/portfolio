@@ -11,40 +11,40 @@ export default function Footer() {
   }, [])
 
   return (
-    <footer className="border-t py-8 bg-muted/30">
-      <div className="container px-4 md:px-6">
-        <div className="flex flex-col md:flex-row justify-between items-center">
+    <footer className="border-t border-border py-12 bg-background">
+      <div className="container px-8 md:px-16 lg:px-24">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="mb-4 md:mb-0">
-            <p className="text-sm text-muted-foreground">
+            <p className="text-base text-muted-foreground font-medium">
               © {year} developed with{" "}
               <span>❤️</span>{" "}
               by junaid
             </p>
           </div>
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-6">
             <a
               href="https://github.com/junaydirfan"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-primary transition-colors"
+              className="text-foreground hover:text-muted-foreground transition-colors"
             >
-              <Github className="h-5 w-5" />
+              <Github className="h-6 w-6" />
               <span className="sr-only">GitHub</span>
             </a>
             <a
               href="https://linkedin.com/in/junaydirfan"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-primary transition-colors"
+              className="text-foreground hover:text-muted-foreground transition-colors"
             >
-              <Linkedin className="h-5 w-5" />
+              <Linkedin className="h-6 w-6" />
               <span className="sr-only">LinkedIn</span>
             </a>
             <a
               href="mailto:junaid.irfan@hotmail.com"
-              className="text-muted-foreground hover:text-primary transition-colors"
+              className="text-foreground hover:text-muted-foreground transition-colors"
             >
-              <Mail className="h-5 w-5" />
+              <Mail className="h-6 w-6" />
               <span className="sr-only">Email</span>
             </a>
           </div>

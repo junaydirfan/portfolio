@@ -119,7 +119,7 @@ export default function Projects() {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.12 },
+      transition: { staggerChildren: 0.06, delayChildren: 0.02 },
     },
   }
 
@@ -128,7 +128,7 @@ export default function Projects() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.45, ease: "easeOut" as const }, // Added ease
+      transition: { duration: 0.3, ease: "easeOut" as const },
     },
   }
 
@@ -352,122 +352,120 @@ export default function Projects() {
   };
 
   return (
-    // Use background color consistent with theme
-    <section id="projects" className="py-16 md:py-24 bg-background">
-      <div className="container px-4 md:px-6 max-w-6xl mx-auto"> {/* Increased max-width */}
+    // Bauhaus style section
+    <section id="projects" className="py-24 md:py-32 bg-background">
+      <div className="container px-8 md:px-16 lg:px-24 max-w-7xl mx-auto">
         <motion.div
           ref={ref}
           initial="hidden"
-          // Animate only when mounted and in view
           animate={isMounted && isInView ? "visible" : "hidden"}
           variants={containerVariants}
         >
-          {/* Section Header */}
-          <motion.div className="text-center mb-12 md:mb-16" variants={itemVariants}>
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-foreground">
+          {/* Bauhaus Section Header - left aligned */}
+          <motion.div className="mb-20 md:mb-24" variants={itemVariants}>
+            <h2 className="text-5xl md:text-6xl font-bold mb-6 text-foreground">
               featured projects
             </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto text-base md:text-lg">
+            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl leading-relaxed">
               a showcase of projects demonstrating key skills and problem-solving approaches.
             </p>
           </motion.div>
 
-          {/* Project Grid */}
+          {/* Bauhaus Project Grid - geometric, clean */}
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 md:gap-8" // Kept 2 cols, adjust gap
-            variants={containerVariants} // Stagger children within the grid
+            className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12"
+            variants={containerVariants}
           >
             {projects.map((project) => (
-              // Animate each card item
-              <motion.div key={project.id} variants={itemVariants} className="group flex"> {/* Added flex for equal height cards */}
-                {/* Modern Card with Theme Support */}
+              <motion.div key={project.id} variants={itemVariants} className="group flex">
+                {/* Bauhaus Card - no rounded corners, geometric */}
                 <div
-                  className="h-full w-full flex flex-col bg-card border border-border rounded-lg shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 z-10 cursor-pointer"
+                  className="h-full w-full flex flex-col bg-card border border-border hover:border-foreground transition-colors z-10 cursor-pointer"
                   onClick={() => handleOpenModal(project)}
                 >
-                  {/* Card Header */}
-                  <div className="flex items-center justify-between px-3 py-2 bg-muted/50 border-b border-border rounded-t-lg">
-                    <div className="flex items-center space-x-1" onClick={(e) => e.stopPropagation()}>
+                  {/* Card Header - Bauhaus style */}
+                  <div className="flex items-center justify-between px-4 py-3 bg-muted/30 border-b border-border">
+                    <div className="flex items-center space-x-2" onClick={(e) => e.stopPropagation()}>
                       <button
-                        className="w-3 h-3 rounded-full bg-red-500 cursor-pointer"
+                        className="w-3 h-3 bg-red-500 cursor-pointer"
                         onClick={() => handleMinimize(project.id)}
                         title="Minimize"
                       ></button>
                       <button
-                        className="w-3 h-3 rounded-full bg-yellow-500 cursor-pointer"
+                        className="w-3 h-3 bg-yellow-500 cursor-pointer"
                         onClick={() => handleOpenModal(project)}
                         title="Expand"
                       ></button>
                       <button
-                        className="w-3 h-3 rounded-full bg-green-500 cursor-pointer"
+                        className="w-3 h-3 bg-green-500 cursor-pointer"
                         onClick={() => {/* Maximize functionality */ }}
                         title="Maximize"
                       ></button>
                     </div>
                     <div className="ml-4 flex-1">
-                      <p className="text-card-foreground text-sm font-medium">{project.title.toLowerCase()}</p>
+                      <p className="text-card-foreground text-sm md:text-base font-bold uppercase tracking-wide">{project.title.toLowerCase()}</p>
                     </div>
                   </div>
 
-                  {/* Minimized State - Show only header */}
+                  {/* Minimized State */}
                   {minimizedCards.has(project.id) ? (
-                    <div className="p-4 bg-card rounded-b-lg">
-                      <div className="text-center text-muted-foreground text-sm">
+                    <div className="p-6 bg-card">
+                      <div className="text-muted-foreground text-sm">
                         minimized - click red button to restore
                       </div>
                     </div>
                   ) : (
                     <>
-                      {/* Image/Content Area */}
-                      <div className="flex-1 p-4 bg-muted/30 rounded-b-lg">
+                      {/* Image/Content Area - Bauhaus style */}
+                      <div className="flex-1 p-4 bg-muted/30">
                         {isMounted ? (
-                          <div className="relative w-full h-48">
+                          <div className="relative w-full h-48 border border-border">
                             <Image
                               src={getImageSource(project.image || "/placeholder.svg")}
                               alt={`${project.title} preview`}
                               fill
-                              className="transition-transform duration-300 group-hover:scale-105 object-cover rounded"
+                              className="transition-opacity duration-300 group-hover:opacity-90 object-cover"
                               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                               loading="lazy"
                             />
                           </div>
                         ) : (
-                          <div className="w-full h-48 bg-muted animate-pulse rounded"></div>
+                          <div className="w-full h-48 bg-muted animate-pulse border border-border"></div>
                         )}
                       </div>
 
-                      {/* Content Area */}
-                      <div className="flex flex-col flex-grow p-4 bg-card rounded-b-lg">
-                        <div className="mb-3">
-                          <h3 className="text-card-foreground text-lg font-medium mb-1">{project.title.toLowerCase()}</h3>
-                          {/* Award/Highlight */}
+                      {/* Content Area - Bauhaus style */}
+                      <div className="flex flex-col flex-grow p-6 bg-card">
+                        <div className="mb-4">
+                          <h3 className="text-card-foreground text-xl md:text-2xl font-bold mb-3 uppercase tracking-wide">{project.title.toLowerCase()}</h3>
+                          {/* Award/Highlight - Bauhaus style */}
                           {project.id === "smartballot" && (
-                            <div className="flex items-center gap-1.5 text-xs text-amber-400 mb-2">
-                              <Trophy className="h-3.5 w-3.5" />
-                              <span className="font-medium">bu eviden securevote hackathon &apos;24 </span>
+                            <div className="flex items-center gap-2 text-sm text-foreground mb-3 border border-border px-3 py-1.5 inline-block">
+                              <Trophy className="h-4 w-4" />
+                              <span className="font-bold uppercase tracking-wide">bu eviden securevote hackathon &apos;24</span>
                             </div>
                           )}
                           {project.id === "campusthrive" && (
-                            <div className="flex items-center gap-1.5 text-xs text-amber-400 mb-2">
-                              <Trophy className="h-3.5 w-3.5" />
-                              <span className="font-medium">bu campusthrive hackathon &apos;25</span>
+                            <div className="flex items-center gap-2 text-sm text-foreground mb-3 border border-border px-3 py-1.5 inline-block">
+                              <Trophy className="h-4 w-4" />
+                              <span className="font-bold uppercase tracking-wide">bu campusthrive hackathon &apos;25</span>
                             </div>
                           )}
-                          <p className="text-muted-foreground text-sm leading-relaxed">
+                          <p className="text-muted-foreground text-base leading-relaxed">
                             {project.shortDescription.toLowerCase()}
                           </p>
                         </div>
 
-                        {/* Tech Icons Section */}
-                        <div className="mt-auto pt-4">
-                          <h4 className="text-xs font-semibold uppercase text-muted-foreground mb-2">technologies used</h4>
-                          <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+                        {/* Tech Icons Section - Bauhaus style */}
+                        <div className="mt-auto pt-4 border-t border-border">
+                          <h4 className="text-xs font-bold uppercase text-foreground mb-3 tracking-wider">technologies used</h4>
+                          <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
                             {project.tags.map((tag) => {
                               const IconComponent = getTechIcon(tag);
                               if (IconComponent) {
                                 return (
                                   <div key={tag} title={tag} className="relative flex items-center justify-center">
-                                    <IconComponent className="h-5 w-5 text-muted-foreground transition-colors group-hover:text-card-foreground" />
+                                    <IconComponent className="h-6 w-6 text-muted-foreground transition-colors group-hover:text-foreground" />
                                   </div>
                                 );
                               }

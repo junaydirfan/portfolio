@@ -20,18 +20,18 @@ export default function Education() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.12,
-        delayChildren: 0.05, // Slight delay for children
+        staggerChildren: 0.06,
+        delayChildren: 0.02,
       },
     },
   }
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 25 }, // Slightly increased distance
+    hidden: { opacity: 0, y: 25 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.45, ease: "easeOut" as const }, // Added ease
+      transition: { duration: 0.3, ease: "easeOut" as const },
     },
   }
 
@@ -47,59 +47,51 @@ export default function Education() {
   ]
 
   return (
-    // Use consistent background, adjust padding
-    <section id="education" className="py-16 md:py-24 bg-background">
-      <div className="container px-4 md:px-6 max-w-5xl mx-auto">
+    <section id="education" className="py-24 md:py-32 bg-background">
+      <div className="container px-8 md:px-16 lg:px-24 max-w-6xl mx-auto">
         <motion.div
           ref={ref}
           initial="hidden"
           animate={isMounted && isInView ? "visible" : "hidden"}
           variants={containerVariants}
         >
-          {/* Section Header */}
-          <motion.div className="text-center mb-12 md:mb-16" variants={itemVariants}>
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-foreground">
-                education
+          {/* Bauhaus Section Header - left aligned */}
+          <motion.div className="mb-20 md:mb-24" variants={itemVariants}>
+            <h2 className="text-5xl md:text-6xl font-bold mb-6 text-foreground">
+              education
             </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto text-base md:text-lg">
+            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl leading-relaxed">
               my academic journey providing a strong foundation in computer science theory and practice.
             </p>
           </motion.div>
 
-          {/* Education Card Container - Increased width */}
-          <motion.div variants={itemVariants} className="max-w-4xl mx-auto">
-            {/* Card Styling - Added border, adjusted shadow and padding */}
-            <Card className="overflow-hidden border border-border/50 shadow-lg bg-card">
-              <CardHeader className="p-6 md:p-8 pb-4"> {/* Increased padding */}
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
-                  <div className="flex items-center gap-3">
-                    {/* Icon Styling - Changed color */}
-                    <GraduationCap className="h-6 w-6 text-muted-foreground flex-shrink-0" />
-                    <CardTitle className="text-xl md:text-2xl text-foreground">m.sc. computer science</CardTitle>
+          {/* Bauhaus Education Cards - geometric, no rounded corners */}
+          <motion.div variants={itemVariants} className="max-w-5xl">
+            <Card className="overflow-hidden border border-border bg-card hover:border-foreground transition-colors">
+              <CardHeader className="p-8 md:p-10 pb-6">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-2">
+                  <div className="flex items-center gap-4">
+                    <GraduationCap className="h-7 w-7 text-foreground flex-shrink-0" />
+                    <CardTitle className="text-2xl md:text-3xl text-foreground font-bold uppercase tracking-wide">m.sc. computer science</CardTitle>
                   </div>
-                   {/* University/Date Info */}
-                   <div className="flex flex-col items-start sm:items-end gap-1">
-                     <CardDescription className="text-sm sm:text-right text-muted-foreground mt-1 sm:mt-0">
+                   <div className="flex flex-col items-start sm:items-end gap-2">
+                     <CardDescription className="text-base sm:text-right text-foreground font-medium">
                        bishop&apos;s university • sherbrooke, qc <br/>
                        september, 2023 - april, 2025
                      </CardDescription>
-                     <Badge className="whitespace-nowrap text-xs font-medium bg-primary/10 text-primary border-primary/20">grade: 89.79</Badge>
+                     <Badge className="whitespace-nowrap text-sm font-bold bg-foreground text-background border-foreground">grade: 89.79</Badge>
                    </div>
                 </div>
               </CardHeader>
-              <CardContent className="p-6 md:p-8 pt-4"> {/* Increased padding */}
+              <CardContent className="p-8 md:p-10 pt-0">
                 <div>
-                  {/* Coursework Header */}
-                  <div className="flex items-center gap-2 mb-4">
-                    {/* Icon Styling - Changed color */}
-                    <BookOpen className="h-5 w-5 text-muted-foreground" />
-                    <h3 className="font-semibold text-lg text-foreground">relevant coursework</h3> {/* Increased size */}
+                  <div className="flex items-center gap-3 mb-6">
+                    <BookOpen className="h-6 w-6 text-foreground" />
+                    <h3 className="font-bold text-xl text-foreground uppercase tracking-wide">relevant coursework</h3>
                   </div>
-                  {/* Coursework Badges */}
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-3">
                     {courses.map((course, index) => (
-                      // Use Badge component for styling
-                      <Badge key={index} variant="secondary" className="font-normal text-sm px-3 py-1">
+                      <Badge key={index} variant="outline" className="font-medium text-sm px-4 py-2 border-border">
                         {course}
                       </Badge>
                     ))}
@@ -109,23 +101,23 @@ export default function Education() {
             </Card>
           </motion.div>
 
-          {/* Bachelor Card */}
-          <motion.div variants={itemVariants} className="max-w-4xl mx-auto mt-6">
-            <Card className="overflow-hidden border border-border/50 shadow-lg bg-card">
-              <CardHeader className="p-6 md:p-8 pb-4">
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
-                  <div className="flex items-center gap-3">
-                    <GraduationCap className="h-6 w-6 text-muted-foreground flex-shrink-0" />
-                    <CardTitle className="text-xl md:text-2xl text-foreground">b.sc. computer science</CardTitle>
+          {/* Bachelor Card - Bauhaus style */}
+          <motion.div variants={itemVariants} className="max-w-5xl mt-8">
+            <Card className="overflow-hidden border border-border bg-card hover:border-foreground transition-colors">
+              <CardHeader className="p-8 md:p-10 pb-6">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-2">
+                  <div className="flex items-center gap-4">
+                    <GraduationCap className="h-7 w-7 text-foreground flex-shrink-0" />
+                    <CardTitle className="text-2xl md:text-3xl text-foreground font-bold uppercase tracking-wide">b.sc. computer science</CardTitle>
                   </div>
-                  <CardDescription className="text-sm sm:text-right text-muted-foreground mt-1 sm:mt-0">
+                  <CardDescription className="text-base sm:text-right text-foreground font-medium">
                     comsats university islamabad • islamabad, pakistan <br/>
                     september, 2018 - september, 2022
                   </CardDescription>
                 </div>
               </CardHeader>
-              <CardContent className="p-6 md:p-8 pt-4">
-                <p className="text-sm md:text-base text-muted-foreground">foundational studies in computer science with emphasis on algorithms, data structures, databases, mobile app development, and software engineering</p>
+              <CardContent className="p-8 md:p-10 pt-0">
+                <p className="text-base md:text-lg text-muted-foreground leading-relaxed">foundational studies in computer science with emphasis on algorithms, data structures, databases, mobile app development, and software engineering</p>
               </CardContent>
             </Card>
           </motion.div>

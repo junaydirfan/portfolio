@@ -28,6 +28,7 @@ import {
   SiShopify,
   SiWebflow,
   SiDavinciresolve,
+  SiOpenai,
 } from "react-icons/si"
 import { Server, ChevronLeft, ChevronRight } from "lucide-react"
 
@@ -52,24 +53,26 @@ const SiN8n = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
     className={className}
     viewBox="0 0 24 24"
     fill="currentColor"
+    xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
-    <path d="M8 8h8v8H8V8zm2 2v4h4v-4h-4z"/>
+    {/* n8n logo - stylized "n" shape with workflow nodes */}
+    {/* Left vertical stroke */}
+    <path d="M7 6 L7 18" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
+    {/* Right vertical stroke */}
+    <path d="M17 6 L17 18" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
+    {/* Diagonal stroke forming "n" */}
+    <path d="M7 18 L17 6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
+    {/* Workflow nodes */}
+    <circle cx="7" cy="6" r="2" fill="currentColor"/>
+    <circle cx="7" cy="18" r="2" fill="currentColor"/>
+    <circle cx="17" cy="6" r="2" fill="currentColor"/>
+    <circle cx="17" cy="18" r="2" fill="currentColor"/>
   </svg>
 )
 
-// Custom ChatGPT API Icon Component - OpenAI logo style
-const SiChatgpt = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
-  <svg
-    className={className}
-    viewBox="0 0 24 24"
-    fill="currentColor"
-    {...props}
-  >
-    <path d="M21.316 4.434a9.985 9.985 0 0 0-4.162-2.448 9.985 9.985 0 0 0-5.15 0 9.985 9.985 0 0 0-4.162 2.448 9.996 9.996 0 0 0-3.033 3.033 9.985 9.985 0 0 0-2.448 4.162 9.985 9.985 0 0 0 0 5.15 9.985 9.985 0 0 0 2.448 4.162 9.996 9.996 0 0 0 3.033 3.033 9.985 9.985 0 0 0 4.162 2.448 9.985 9.985 0 0 0 5.15 0 9.985 9.985 0 0 0 4.162-2.448 9.996 9.996 0 0 0 3.033-3.033 9.985 9.985 0 0 0 2.448-4.162 9.985 9.985 0 0 0 0-5.15 9.985 9.985 0 0 0-2.448-4.162 9.996 9.996 0 0 0-3.033-3.033zM12 6.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zm0 2a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z"/>
-  </svg>
-)
+// Use OpenAI icon from react-icons for ChatGPT API
+const SiChatgpt = SiOpenai
 
 type CategoryId = 'development' | 'cloud' | 'design'
 
@@ -243,36 +246,30 @@ export default function Skills() {
   ]
 
   return (
-    // --- Section --- (Original classes)
-    <section id="skills" className="py-20 bg-muted/30 overflow-hidden">
-      <div className="container px-4 md:px-6 max-w-5xl mx-auto">
-        <div className="text-center mb-12">
-          {/* Original heading and paragraph */}
-          <h2 className="text-3xl font-bold tracking-tighter mb-4">
+    // --- Section --- Bauhaus style
+    <section id="skills" className="py-24 md:py-32 bg-background overflow-hidden">
+      <div className="container px-8 md:px-16 lg:px-24 max-w-7xl mx-auto">
+        <div className="mb-20 md:mb-24">
+          {/* Bauhaus heading - left aligned, bold */}
+          <h2 className="text-5xl md:text-6xl font-bold mb-6 text-foreground">
             technical skills
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl leading-relaxed">
             my toolkit includes a wide range of technologies that i&apos;ve mastered to create exceptional digital
             experiences and robust cloud infrastructure.
           </p>
         </div>
 
-        {/* --- Categories Loop --- (Original structure) */}
-        <div className="space-y-6">
+        {/* --- Categories Loop --- Bauhaus style */}
+        <div className="space-y-16 md:space-y-20">
           {categories.map((category) => (
-            <div key={category.id} className="space-y-4">
-              <h3 className="text-xl font-semibold text-center">{category.title.toLowerCase()}</h3>
+            <div key={category.id} className="space-y-6">
+              <h3 className="text-2xl md:text-3xl font-bold text-foreground uppercase tracking-wide">{category.title.toLowerCase()}</h3>
               <div className="relative overflow-hidden"> {/* Outer overflow-hidden as originally placed */}
 
-                {/* --- GRADIENT INTENSITY INCREASED FURTHER --- */}
-                {/* Left fade gradient: Wider (w-32) and starts fade later (from-60%) */}
-                <div className="absolute left-0 top-0 bottom-0 w-32 h-full bg-gradient-to-r from-background from-20% to-transparent z-10 pointer-events-none" />
-                {/* Changed w-24 to w-32 AND from-50% to from-60% */}
-
-                {/* Right fade gradient: Wider (w-32) and starts fade later (from-60%) */}
-                <div className="absolute right-0 top-0 bottom-0 w-32 h-full bg-gradient-to-l from-background from-20% to-transparent z-10 pointer-events-none" />
-                {/* Changed w-24 to w-32 AND from-50% to from-60% */}
-                {/* --- END GRADIENT CHANGE --- */}
+                {/* Bauhaus style - minimal gradients, cleaner look */}
+                <div className="absolute left-0 top-0 bottom-0 w-24 h-full bg-gradient-to-r from-background from-40% to-transparent z-10 pointer-events-none" />
+                <div className="absolute right-0 top-0 bottom-0 w-24 h-full bg-gradient-to-l from-background from-40% to-transparent z-10 pointer-events-none" />
 
                 {/* --- Scroll Container --- (Original structure and classes) */}
                 <div ref={containerRefs[category.id]} className="relative h-[120px] overflow-hidden">
@@ -294,9 +291,9 @@ export default function Skills() {
                         <motion.div
                           key={`${skill.name}-${index}`} // Original key structure
                           className="group relative flex flex-col items-center gap-2" // Original classes + group for tooltip
-                          initial={{ opacity: 0, scale: 0.8 }} // Original animation
+                          initial={{ opacity: 0, scale: 0.8 }}
                           whileInView={{ opacity: 1, scale: 1 }}
-                          transition={{ duration: 0.5 }}
+                          transition={{ duration: 0.3, ease: "easeOut" }}
                           viewport={{ once: true }}
                         >
                           {/* Icon with native title tooltip for hover */}
@@ -307,8 +304,8 @@ export default function Skills() {
                             aria-label={skill.name}
                             tabIndex={0}
                           />
-                          {/* Custom tooltip/label on hover or focus */}
-                          <div className="absolute -bottom-7 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md border bg-popover px-2 py-1 text-[10px] leading-none text-popover-foreground shadow opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity pointer-events-none">
+                          {/* Bauhaus style tooltip - geometric, no rounded corners */}
+                          <div className="absolute -bottom-7 left-1/2 -translate-x-1/2 whitespace-nowrap border border-border bg-background px-2 py-1 text-[10px] leading-none text-foreground opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity pointer-events-none">
                             {skill.name}
                           </div>
                         </motion.div>
@@ -316,27 +313,27 @@ export default function Skills() {
                     </motion.div>
                   </motion.div>
 
-                  {/* Arrow Controls */}
+                  {/* Bauhaus style arrow controls - geometric, no rounded corners */}
                   <div className="pointer-events-none absolute inset-0 flex items-center justify-between z-20">
                     <button
                       type="button"
                       aria-label={`Previous ${category.title}`}
-                      className="pointer-events-auto ml-1 md:ml-2 inline-flex h-8 w-8 items-center justify-center rounded-full border bg-background/80 shadow backdrop-blur hover:bg-background transition"
+                      className="pointer-events-auto ml-2 md:ml-4 inline-flex h-10 w-10 items-center justify-center border border-border bg-background hover:bg-muted transition-colors"
                       onClick={() => handleShift(category.id, -1)}
                       onMouseEnter={() => startHoverScroll(category.id, -1)}
                       onMouseLeave={() => stopHoverScroll(category.id)}
                     >
-                      <ChevronLeft className="h-4 w-4" />
+                      <ChevronLeft className="h-5 w-5 text-foreground" />
                     </button>
                     <button
                       type="button"
                       aria-label={`Next ${category.title}`}
-                      className="pointer-events-auto mr-1 md:mr-2 inline-flex h-8 w-8 items-center justify-center rounded-full border bg-background/80 shadow backdrop-blur hover:bg-background transition"
+                      className="pointer-events-auto mr-2 md:mr-4 inline-flex h-10 w-10 items-center justify-center border border-border bg-background hover:bg-muted transition-colors"
                       onClick={() => handleShift(category.id, 1)}
                       onMouseEnter={() => startHoverScroll(category.id, 1)}
                       onMouseLeave={() => stopHoverScroll(category.id)}
                     >
-                      <ChevronRight className="h-4 w-4" />
+                      <ChevronRight className="h-5 w-5 text-foreground" />
                     </button>
                   </div>
                 </div>

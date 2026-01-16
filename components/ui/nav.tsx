@@ -20,7 +20,7 @@ export function Nav() {
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          className="fixed top-6 left-0 right-0 z-50 mx-auto px-4 w-full flex justify-center"
+          className="fixed top-8 left-0 right-0 z-50 mx-auto px-8 w-full flex justify-center"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
@@ -28,15 +28,14 @@ export function Nav() {
         >
           <motion.nav 
             className={cn(
-              "px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 rounded-full w-auto max-w-max", // Tighter padding and auto width
-              "bg-background/60 backdrop-blur-xl border border-border/50",
-              "shadow-lg shadow-background/5",
-              "flex items-center justify-center gap-2 sm:gap-3", // Remove justify-between, tighter gaps
-              "overflow-x-auto" // Allow horizontal scrolling if needed
+              "px-6 py-3 w-auto max-w-max", // Bauhaus: no rounded corners
+              "bg-background border border-border",
+              "flex items-center justify-center gap-6 md:gap-8",
+              "overflow-x-auto"
             )}
           >
-            {/* Navigation Links */}
-            <ul className="flex items-center justify-center gap-4 sm:gap-5 md:gap-6 min-w-max"> 
+            {/* Navigation Links - Bauhaus style */}
+            <ul className="flex items-center justify-center gap-6 md:gap-8 min-w-max"> 
               {[
                 "skills",
                 "projects",
@@ -49,14 +48,14 @@ export function Nav() {
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 * i }}
-                  className="whitespace-nowrap" // Prevent text wrapping
+                  className="whitespace-nowrap"
                 >
                   <a
                     href={`#${item.toLowerCase()}`}
-                    className="text-xs sm:text-sm font-medium text-foreground/80 hover:text-primary transition-colors relative group"
+                    className="text-sm md:text-base font-bold text-foreground hover:text-muted-foreground transition-colors uppercase tracking-wide relative group"
                   >
                     {item}
-                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
+                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-foreground transition-all group-hover:w-full" />
                   </a>
                 </motion.li>
               ))}
