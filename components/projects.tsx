@@ -210,7 +210,7 @@ export default function Projects() {
     },
     {
       id: "hoor-charms",
-      title: "hoor charms — modern e-commerce for a small brand",
+      title: "hoor charms: modern e-commerce for a small brand",
       shortDescription:
         "a production-ready e-commerce storefront for a small handmade jewellery brand, focused on fast shopping, simple admin workflows, and a lean, low-cost architecture.",
       fullDescription:
