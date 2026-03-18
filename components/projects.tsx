@@ -13,7 +13,7 @@ import {
   SiHiveBlockchain, SiGnuprivacyguard, SiSocketdotio, SiApachekafka,
   SiWordpress, SiCodeigniter, SiMaterialdesign, SiMinutemailer, SiFontforge, SiVuedotjs, SiSvelte, SiOpenjdk,
   SiFigma, SiAdobeaftereffects, SiAdobephotoshop, SiAdobeillustrator, SiAdobepremierepro,
-  SiUnity, SiBlender, SiGithubpages
+  SiUnity, SiBlender, SiGithubpages, SiVercel, SiSanity, SiWhatsapp, SiResend
 } from "react-icons/si";
 import Image from "next/image";
 
@@ -94,6 +94,10 @@ const techIconMap: Record<string, ElementType> = { // <-- Use ElementType
   'n8n': Workflow,
   'chatgpt': Bot,
   'openai': Bot,
+  'vercel': SiVercel,
+  'sanity': SiSanity,
+  'whatsapp': SiWhatsapp,
+  'resend': SiResend,
 };
 
 const getTechIcon = (tag: string): ElementType | null => { // <-- Use ElementType
@@ -203,6 +207,48 @@ export default function Projects() {
       link: "https://github.com/junaydirfan/smartballot",
       github: "https://github.com/junaydirfan/smartballot",
       gallery: [], challenges: [], keyFeatures: [], technicalDetails: [], architecture: ""
+    },
+    {
+      id: "hoor-charms",
+      title: "hoor charms — modern e-commerce for a small brand",
+      shortDescription:
+        "a production-ready e-commerce storefront for a small handmade jewellery brand, focused on fast shopping, simple admin workflows, and a lean, low-cost architecture.",
+      fullDescription:
+        "Hoor Charms is a modern, production-ready e-commerce storefront designed for a small handmade crafts and jewellery business. The goal was to deliver a fast shopping experience, a simple admin workflow, and a zero/low-cost operating model that still feels premium. The storefront is powered by Sanity CMS for products and orders, with Next.js handling the cart, checkout, and order pipeline. Orders are written back into Sanity so the admin has a clean back-office view of every purchase, including uploaded payment proofs. Resend handles transactional emails for both customers and the store owner, and WhatsApp click-to-chat links provide an instant handoff for payment confirmation and order updates. The architecture is intentionally lean and free-tier friendly, combining Vercel hosting, Sanity CDN-backed content, Resend emails, and WhatsApp to deliver a complete small-business solution without heavy infrastructure.",
+      image: "/images/hoorcharms.jpg?height=400&width=600",
+      tags: [
+        "Next.js",
+        "React",
+        "Tailwind CSS",
+        "Vercel",
+        "Sanity",
+        "GROQ",
+        "Resend",
+        "WhatsApp",
+        "CDN"
+      ],
+      link: "https://www.hoorcharms.com",
+      github: "#",
+      keyFeatures: [
+        "Product catalog with variants and image sets managed in Sanity CMS",
+        "Cart and checkout flow in Next.js with shipping calculations and multiple payment paths",
+        "Orders stored in Sanity for a clean back-office view of every purchase",
+        "Support for uploading payment proof files (screenshots or PDFs) attached directly to orders",
+        "Automated transactional emails via Resend for customer confirmations and owner notifications",
+        "Instant WhatsApp handoff using wa.me deep links for payment proof and order updates",
+        "Lean, free-tier friendly stack ideal for small e-commerce brands"
+      ],
+      technicalDetails: [
+        "Next.js App Router with a mix of server and client components for storefront pages and interactive cart/checkout flows",
+        "Sanity CMS with structured content models for products, variants, and orders",
+        "GROQ queries via next-sanity with Sanity CDN enabled for fast, cached reads",
+        "Integration with Resend for reliable transactional email delivery without custom mail servers",
+        "WhatsApp click-to-chat deep links to avoid building a custom messaging backend",
+        "Tailwind CSS-driven design aligned with a modern, premium dark theme",
+        "Vercel deployment pipeline for simple CI/CD and optimized Next.js hosting"
+      ],
+      architecture:
+        "Lean, free-tier optimized architecture using Vercel for hosting, Sanity CMS + CDN for product and order data, Resend for transactional emails, and WhatsApp click-to-chat for customer communication. The storefront reads published content via next-sanity with CDN caching for fast, low-cost reads and writes orders back into Sanity, including attached payment proofs, giving the admin a single, friendly back-office surface."
     },
     {
       id: "bulletin-board",
