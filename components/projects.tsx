@@ -265,7 +265,7 @@ export default function Projects() {
     },
     {
       id: "tayyab-portfolio",
-      title: "tayyab portfolio",
+      title: "GSAP highlight site",
       shortDescription:
         "A clean, modern portfolio website built with Next.js and Tailwind CSS, featuring smooth animations and dark theme for a friend's professional showcase.",
       fullDescription:
