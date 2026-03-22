@@ -1,8 +1,8 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { motion, AnimatePresence, useMotionValue } from "framer-motion" // Import useMotionValue
-import { Copy, Check, ChevronUp } from "lucide-react"
+import { motion, AnimatePresence, useMotionValue } from "framer-motion"
+import { Copy, Check, ChevronUp, MapPin, Clock } from "lucide-react"
 
 export function Availability() {
   const [time, setTime] = useState<string>("")
@@ -10,11 +10,8 @@ export function Availability() {
   const [isExpanded, setIsExpanded] = useState(false)
   const email = "hello@junaidirfan.com"
 
-  // --- Draggable State ---
-  // Create motion values to control the position for dragging and resetting
   const x = useMotionValue(0)
   const y = useMotionValue(0)
-  // ---------------------
 
   useEffect(() => {
     const updateTime = () => {
@@ -44,103 +41,85 @@ export function Availability() {
     }
   }
 
-  // --- Toggle Expand and Reset Position ---
   const handleToggleExpand = () => {
-    const nextExpanded = !isExpanded;
+    const nextExpanded = !isExpanded
     if (nextExpanded) {
-      // If expanding, reset the dragged position
-      x.set(0);
-      y.set(0);
+      x.set(0)
+      y.set(0)
     }
-    setIsExpanded(nextExpanded);
-  };
-  // -------------------------------------
-
-  const buttonClasses = "flex items-center justify-center p-1.5 rounded-md bg-muted hover:bg-input transition-colors duration-150"
+    setIsExpanded(nextExpanded)
+  }
 
   const contentVariants = {
-    // ... (variants remain the same)
     collapsed: {
       opacity: 0,
       height: 0,
-      y: -10,
-      transition: { duration: 0.15, ease: [0.3, 0, 0.8, 1] as const },
+      transition: { duration: 0.2, ease: [0.3, 0, 0.8, 1] as const },
     },
     expanded: {
       opacity: 1,
       height: "auto",
-      y: 0,
-      transition: { duration: 0.2, ease: [0.2, 0, 0.1, 1] as const },
+      transition: { duration: 0.25, ease: [0.2, 0, 0.1, 1] as const },
     },
-  };
+  }
 
   return (
-    // Outermost container handles dragging and positioning
     <motion.div
-      // --- Drag Props ---
-      drag={!isExpanded ? true : false} // Enable dragging only when collapsed (true enables both x and y)
-      dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }} // Basic constraints relative to parent (viewport for fixed)
-      dragElastic={0.1} // Allows slight overdrag
-      dragMomentum={false} // Stops immediately on drag end
-      style={{ x, y }} // Apply motion values to control position
-      // ------------------
-      initial={{ opacity: 0 }} // Removed y offset from initial animation
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.4, ease: "easeOut" as const }}
-      className="fixed bottom-5 left-5 z-50 cursor-grab active:cursor-grabbing" // Add grab cursors
-      // components/ui/availability.tsx
-      // Prevent text selection while dragging
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      onDragStart={(event, info) => {
-        document.body.style.userSelect = 'none';
-      }}
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      onDragEnd={(event, info) => {
-        document.body.style.userSelect = 'auto';
-      }}
-      >
-      {/* Interactive card - triggers expand/collapse but NOT drag */}
+      drag={!isExpanded}
+      dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+      dragElastic={0.1}
+      dragMomentum={false}
+      style={{ x, y }}
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: "easeOut", delay: 1 }}
+      className="fixed bottom-5 left-5 z-50 cursor-grab active:cursor-grabbing"
+      onDragStart={() => { document.body.style.userSelect = 'none' }}
+      onDragEnd={() => { document.body.style.userSelect = 'auto' }}
+    >
       <motion.div
-        layout // Animate layout changes (padding)
-        onClick={handleToggleExpand} // Use the handler that resets position
-        className={`bg-card/80 backdrop-blur-md border border-border/40 rounded-xl shadow-md
-          transition-colors duration-200 hover:border-border/60
-          ${!isExpanded ? 'cursor-grab' : 'cursor-pointer'}`} // Grab cursor only when draggable
-        style={{ padding: isExpanded ? '1rem' : '0.75rem' }}
-        transition={{ duration: 0.3, ease: [0.2, 0, 0.1, 1] }}
+        layout
+        onClick={handleToggleExpand}
+        className={`
+          bg-card/90 backdrop-blur-xl border border-border/60 rounded-2xl shadow-lg shadow-black/30
+          hover:border-border transition-colors duration-200
+          ${!isExpanded ? 'cursor-grab' : 'cursor-pointer'}
+        `}
+        style={{ padding: isExpanded ? '1rem' : '0.625rem 0.875rem' }}
+        transition={{ duration: 0.25, ease: [0.2, 0, 0.1, 1] }}
       >
-        {/* Inner content structure remains largely the same */}
         <div className="flex flex-col gap-2.5">
           {/* Top row */}
           <div className="flex items-center justify-between gap-3">
-            {/* Status dot & Text */}
             <div className="flex items-center gap-2 flex-shrink min-w-0">
-               <div className="w-2 h-2 rounded-full bg-green-500 flex-shrink-0 animate-pulse" />
-               <AnimatePresence>
-                 {isExpanded && (
-                    <motion.span
-                       initial={{ opacity: 0, width: 0 }}
-                       animate={{ opacity: 1, width: 'auto' }}
-                       exit={{ opacity: 0, width: 0 }}
-                       transition={{ duration: 0.2 }}
-                       className="text-xs text-muted-foreground whitespace-nowrap overflow-hidden"
-                     >
-                       available for new opportunities
-                     </motion.span>
-                 )}
-               </AnimatePresence>
-             </div>
-             {/* Chevron */}
-             <motion.div
-               animate={{ rotate: isExpanded ? 180 : 0 }}
-               transition={{ duration: 0.3 }}
-               className="flex-shrink-0"
-             >
-               <ChevronUp className="w-4 h-4 text-muted-foreground" />
-             </motion.div>
-           </div>
+              <div className="relative flex-shrink-0">
+                <div className="w-2 h-2 rounded-full bg-emerald-400" />
+                <div className="absolute inset-0 w-2 h-2 rounded-full bg-emerald-400 animate-ping opacity-60" />
+              </div>
+              <AnimatePresence>
+                {isExpanded && (
+                  <motion.span
+                    initial={{ opacity: 0, width: 0 }}
+                    animate={{ opacity: 1, width: 'auto' }}
+                    exit={{ opacity: 0, width: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="text-xs font-medium text-foreground whitespace-nowrap overflow-hidden"
+                  >
+                    available for work
+                  </motion.span>
+                )}
+              </AnimatePresence>
+            </div>
+            <motion.div
+              animate={{ rotate: isExpanded ? 180 : 0 }}
+              transition={{ duration: 0.25 }}
+              className="flex-shrink-0"
+            >
+              <ChevronUp className="w-3.5 h-3.5 text-muted-foreground" />
+            </motion.div>
+          </div>
 
-          {/* Expanded Content Area */}
+          {/* Expanded Content */}
           <AnimatePresence initial={false}>
             {isExpanded && (
               <motion.div
@@ -151,24 +130,29 @@ export function Availability() {
                 exit="collapsed"
                 className="overflow-hidden"
               >
-                <div className="flex flex-col gap-2 pt-1.5">
-                  {/* Location and Time */}
-                  <div className="flex items-center">
-                    <span className="text-xs text-muted-foreground">
-                      {time} EST • ontario, canada
-                    </span>
+                <div className="flex flex-col gap-2.5 pt-1">
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                    <MapPin className="w-3.5 h-3.5 flex-shrink-0" />
+                    <span>Ontario, Canada</span>
+                  </div>
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                      <Clock className="w-3.5 h-3.5 flex-shrink-0" />
+                      <span>{time} EST</span>
+                    </div>
                     <button
                       onClick={handleCopyEmail}
-                      className={buttonClasses}
-                      title="Copy Email"
+                      className="flex items-center justify-center p-1.5 rounded-md bg-muted hover:bg-border transition-colors duration-150"
+                      title="Copy email"
                     >
                       {copied ? (
-                        <Check className="w-4 h-4 text-green-500" />
+                        <Check className="w-3.5 h-3.5 text-emerald-400" />
                       ) : (
-                        <Copy className="w-4 h-4 text-muted-foreground" />
+                        <Copy className="w-3.5 h-3.5 text-muted-foreground" />
                       )}
                     </button>
                   </div>
+                  <p className="text-xs text-muted-foreground truncate max-w-[160px]">{email}</p>
                 </div>
               </motion.div>
             )}

@@ -5,42 +5,44 @@
 
 @layer base {
   :root {
-    /* --- Bauhaus Dark Theme --- */
-    /* High contrast black and white */
-    --background: 0 0% 0%;   /* Pure black */
-    --foreground: 0 0% 100%;  /* Pure white */
-    
-    /* Card slightly lighter than background for depth */
-    --card: 0 0% 2%;   
-    --card-foreground: 0 0% 100%; 
-    
-    --popover: 0 0% 0%; /* Same as background */
-    --popover-foreground: 0 0% 100%;
-    
-    /* Primary remains bright for contrast */
-    --primary: 0 0% 100%;  /* Pure white */
-    --primary-foreground: 0 0% 0%; /* Pure black (for text on primary bg) */
+    /* --- Premium Dark Theme --- */
+    --background: 240 10% 4%;     /* #09090f - rich dark charcoal */
+    --foreground: 0 0% 93%;       /* #ededed - soft white */
 
-    /* Secondary/Muted slightly lighter than card */
-    --secondary: 0 0% 5%; 
-    --secondary-foreground: 0 0% 90%; /* Slightly dimmer white */
-    
-    --muted: 0 0% 5%; /* Same as secondary */
-    --muted-foreground: 0 0% 60%; /* Medium gray */
-    
-    --accent: 0 0% 8%; /* Slightly lighter */
+    --card: 240 7% 7%;            /* #101018 - elevated surface */
+    --card-foreground: 0 0% 93%;
+
+    --popover: 240 7% 7%;
+    --popover-foreground: 0 0% 93%;
+
+    /* Violet accent — signature color */
+    --primary: 258 60% 68%;       /* #9a85e8 - soft violet */
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 240 5% 9%;
+    --secondary-foreground: 0 0% 85%;
+
+    --muted: 240 5% 9%;
+    --muted-foreground: 240 4% 46%;  /* #6f6f80 */
+
+    --accent: 258 60% 68%;
     --accent-foreground: 0 0% 100%;
-    
-    /* Destructive remains similar, ensure enough contrast */
-    --destructive: 0 63% 31%; 
+
+    --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
-    
-    /* Border needs to be visible but not harsh */
-    --border: 0 0% 20%; 
-    --input: 0 0% 20%; 
-    --ring: 0 0% 100%; /* Use pure white for rings */
-    
-    --radius: 0rem; /* No border radius for Bauhaus geometric look */
+
+    --border: 240 5% 13%;         /* #1c1c28 */
+    --input: 240 5% 11%;
+    --ring: 258 60% 68%;
+
+    --radius: 0.5rem;
+
+    /* Chart */
+    --chart-1: 258 60% 68%;
+    --chart-2: 220 70% 65%;
+    --chart-3: 160 55% 55%;
+    --chart-4: 38 90% 65%;
+    --chart-5: 0 65% 65%;
   }
 }
 
@@ -48,76 +50,119 @@
   * {
     @apply border-border;
   }
+
   body {
-    /* Apply base background and text color */
     @apply bg-background text-foreground;
-    /* Add font-smoothing for better text rendering */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-family: var(--font-space-grotesk), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   }
+
   html {
     scroll-behavior: smooth;
     background-color: hsl(var(--background));
   }
-  /* Ensure overscroll background matches dark theme */
-  html, body { background-color: hsl(var(--background)); }
-  
-  /* Bauhaus Typography Styles */
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-bold tracking-tight;
-    letter-spacing: -0.02em;
+
+  html, body {
+    background-color: hsl(var(--background));
   }
-  
+
+  /* Refined typography */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+  }
+
   h1 {
     @apply text-5xl md:text-6xl lg:text-7xl;
     font-weight: 700;
-    line-height: 1.1;
   }
-  
+
   h2 {
     @apply text-4xl md:text-5xl;
     font-weight: 700;
-    line-height: 1.2;
   }
-  
+
   h3 {
     @apply text-2xl md:text-3xl;
     font-weight: 600;
-    line-height: 1.3;
   }
-  
+
   p {
     @apply leading-relaxed;
     line-height: 1.7;
   }
+
+  ::selection {
+    background: hsl(258 60% 68% / 0.25);
+    color: hsl(var(--foreground));
+  }
 }
 
-/* Custom Scrollbar Styling */
+/* Custom Scrollbar */
 @layer utilities {
   .custom-scrollbar {
     scrollbar-width: thin;
-    scrollbar-color: hsl(var(--muted-foreground) / 0.3) transparent;
+    scrollbar-color: hsl(var(--border)) transparent;
   }
 
   .custom-scrollbar::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
   }
 
   .custom-scrollbar::-webkit-scrollbar-track {
     background: transparent;
-    border-radius: 4px;
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: hsl(var(--muted-foreground) / 0.3);
-    border-radius: 4px;
-    border: 2px solid transparent;
-    background-clip: padding-box;
+    background: hsl(var(--border));
+    border-radius: 3px;
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: hsl(var(--muted-foreground) / 0.5);
-    background-clip: padding-box;
+    background: hsl(var(--muted-foreground) / 0.4);
   }
+
+  /* Accent gradient text utility */
+  .text-gradient {
+    background: linear-gradient(135deg, hsl(var(--foreground)) 0%, hsl(var(--foreground) / 0.7) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Glow utility */
+  .glow-accent {
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.15), 0 0 40px hsl(var(--primary) / 0.05);
+  }
+
+  /* Subtle card gradient */
+  .card-gradient {
+    background: linear-gradient(135deg, hsl(var(--card)) 0%, hsl(240 6% 9%) 100%);
+  }
+
+  /* Section divider */
+  .section-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, hsl(var(--border)), transparent);
+  }
+}
+
+/* Scrollbar for whole page */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.5);
 }

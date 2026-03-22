@@ -13,10 +13,11 @@ interface ProjectDetailModalProps {
   project: ProjectType | null
   isOpen: boolean
   onClose: () => void
-  getTechIcon: (tag: string) => ElementType | null // Use ElementType here
+  getTechIcon: (tag: string) => ElementType | null
+  getTechColor?: (tag: string) => string
 }
 
-export function ProjectDetailModal({ project, isOpen, onClose, getTechIcon }: ProjectDetailModalProps) { // Added getTechIcon prop
+export function ProjectDetailModal({ project, isOpen, onClose, getTechIcon, getTechColor }: ProjectDetailModalProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [isMounted, setIsMounted] = useState(false)
 
@@ -126,15 +127,18 @@ export function ProjectDetailModal({ project, isOpen, onClose, getTechIcon }: Pr
                    {/* Replaced Badges with Icons */}
                    <div className="flex flex-wrap items-center gap-x-4 gap-y-3 mt-2">
                      {project.tags.map((tag) => {
-                       const IconComponent = getTechIcon(tag); // Use passed function
+                       const IconComponent = getTechIcon(tag);
                        if (IconComponent) {
                          return (
                            <div key={tag} title={tag} className="relative flex items-center justify-center">
-                             <IconComponent className="h-6 w-6 text-muted-foreground transition-colors hover:text-foreground/90" />
+                             <IconComponent
+                               className="h-6 w-6 transition-opacity opacity-80 hover:opacity-100"
+                               style={{ color: getTechColor ? getTechColor(tag) : undefined }}
+                             />
                            </div>
                          );
                        }
-                       return null; // Or render tag text as fallback
+                       return null;
                      })}
                    </div>
                  </div>

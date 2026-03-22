@@ -57,8 +57,17 @@ export default {
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
-  			sm: 'calc(var(--radius) - 4px)'
-  		}
+  			sm: 'calc(var(--radius) - 4px)',
+  			xl: 'calc(var(--radius) + 4px)',
+  			'2xl': 'calc(var(--radius) + 8px)',
+  			full: '9999px',
+  		},
+      boxShadow: {
+        'glow-sm': '0 0 12px hsl(var(--primary) / 0.15)',
+        'glow': '0 0 24px hsl(var(--primary) / 0.15), 0 0 48px hsl(var(--primary) / 0.05)',
+        'card': '0 1px 3px hsl(0 0% 0% / 0.4), 0 1px 2px hsl(0 0% 0% / 0.3)',
+        'card-hover': '0 4px 16px hsl(0 0% 0% / 0.5), 0 2px 4px hsl(0 0% 0% / 0.3)',
+      },
   	}
   },
   plugins: [require("tailwindcss-animate")],

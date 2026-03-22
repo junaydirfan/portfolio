@@ -246,37 +246,35 @@ export default function Skills() {
   ]
 
   return (
-    // --- Section --- Bauhaus style
     <section id="skills" className="py-24 md:py-32 bg-background overflow-hidden">
       <div className="container px-8 md:px-16 lg:px-24 max-w-7xl mx-auto">
         <div className="mb-20 md:mb-24">
-          {/* Bauhaus heading - left aligned, bold */}
-          <h2 className="text-5xl md:text-6xl font-bold mb-6 text-foreground">
+          <h2 className="text-5xl md:text-6xl font-bold mb-5 text-foreground">
             technical skills
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl leading-relaxed">
-            my toolkit includes a wide range of technologies that i&apos;ve mastered to create exceptional digital
-            experiences and robust cloud infrastructure.
+            my toolkit spans a wide range of technologies — from modern web frameworks to cloud infrastructure and creative tools.
           </p>
         </div>
 
-        {/* --- Categories Loop --- Bauhaus style */}
-        <div className="space-y-16 md:space-y-20">
+        <div className="space-y-14 md:space-y-18">
           {categories.map((category) => (
-            <div key={category.id} className="space-y-6">
-              <h3 className="text-2xl md:text-3xl font-bold text-foreground uppercase tracking-wide">{category.title.toLowerCase()}</h3>
-              <div className="relative overflow-hidden"> {/* Outer overflow-hidden as originally placed */}
+            <div key={category.id} className="space-y-5">
+              <div className="flex items-center gap-3">
+                <div className="h-px flex-1 bg-border" />
+                <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-widest px-2">{category.title}</h3>
+                <div className="h-px flex-1 bg-border" />
+              </div>
 
-                {/* Bauhaus style - minimal gradients, cleaner look */}
-                <div className="absolute left-0 top-0 bottom-0 w-24 h-full bg-gradient-to-r from-background from-40% to-transparent z-10 pointer-events-none" />
-                <div className="absolute right-0 top-0 bottom-0 w-24 h-full bg-gradient-to-l from-background from-40% to-transparent z-10 pointer-events-none" />
+              <div className="relative overflow-hidden">
+                <div className="absolute left-0 top-0 bottom-0 w-20 h-full bg-gradient-to-r from-background from-40% to-transparent z-10 pointer-events-none" />
+                <div className="absolute right-0 top-0 bottom-0 w-20 h-full bg-gradient-to-l from-background from-40% to-transparent z-10 pointer-events-none" />
 
-                {/* --- Scroll Container --- (Original structure and classes) */}
-                <div ref={containerRefs[category.id]} className="relative h-[120px] overflow-hidden">
+                <div ref={containerRefs[category.id]} className="relative h-[110px] overflow-hidden">
                   <motion.div style={{ x: manualOffsetByCategory[category.id] }} className="absolute">
                     <motion.div
                       style={{ x: x[category.id] }}
-                      className="flex gap-12 items-center" // Original classes
+                      className="flex gap-10 items-center py-4"
                     >
                       {[
                         ...skills[category.id],
@@ -289,23 +287,21 @@ export default function Skills() {
                         ...skills[category.id]
                       ].map((skill, index) => (
                         <motion.div
-                          key={`${skill.name}-${index}`} // Original key structure
-                          className="group relative flex flex-col items-center gap-2" // Original classes + group for tooltip
-                          initial={{ opacity: 0, scale: 0.8 }}
+                          key={`${skill.name}-${index}`}
+                          className="group relative flex flex-col items-center gap-2"
+                          initial={{ opacity: 0, scale: 0.85 }}
                           whileInView={{ opacity: 1, scale: 1 }}
                           transition={{ duration: 0.3, ease: "easeOut" }}
                           viewport={{ once: true }}
                         >
-                          {/* Icon with native title tooltip for hover */}
                           <skill.icon
-                            className="h-20 w-20 md:h-55 md:w-55 transition-colors focus:outline-none hover:opacity-80"
+                            className="h-10 w-10 md:h-12 md:w-12 transition-all duration-200 focus:outline-none hover:opacity-100 opacity-60 group-hover:scale-110"
                             style={{ color: skill.brandColor }}
                             title={skill.name}
                             aria-label={skill.name}
                             tabIndex={0}
                           />
-                          {/* Bauhaus style tooltip - geometric, no rounded corners */}
-                          <div className="absolute -bottom-7 left-1/2 -translate-x-1/2 whitespace-nowrap border border-border bg-background px-2 py-1 text-[10px] leading-none text-foreground opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity pointer-events-none">
+                          <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md border border-border bg-card/90 backdrop-blur-sm px-2 py-1 text-[10px] leading-none text-foreground opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity pointer-events-none shadow-sm">
                             {skill.name}
                           </div>
                         </motion.div>
@@ -313,27 +309,26 @@ export default function Skills() {
                     </motion.div>
                   </motion.div>
 
-                  {/* Bauhaus style arrow controls - geometric, no rounded corners */}
                   <div className="pointer-events-none absolute inset-0 flex items-center justify-between z-20">
                     <button
                       type="button"
                       aria-label={`Previous ${category.title}`}
-                      className="pointer-events-auto ml-2 md:ml-4 inline-flex h-10 w-10 items-center justify-center border border-border bg-background hover:bg-muted transition-colors"
+                      className="pointer-events-auto ml-2 md:ml-4 inline-flex h-9 w-9 items-center justify-center rounded-full border border-border bg-card/80 backdrop-blur-sm hover:bg-card hover:border-border/80 transition-all shadow-sm"
                       onClick={() => handleShift(category.id, -1)}
                       onMouseEnter={() => startHoverScroll(category.id, -1)}
                       onMouseLeave={() => stopHoverScroll(category.id)}
                     >
-                      <ChevronLeft className="h-5 w-5 text-foreground" />
+                      <ChevronLeft className="h-4 w-4 text-muted-foreground" />
                     </button>
                     <button
                       type="button"
                       aria-label={`Next ${category.title}`}
-                      className="pointer-events-auto mr-2 md:mr-4 inline-flex h-10 w-10 items-center justify-center border border-border bg-background hover:bg-muted transition-colors"
+                      className="pointer-events-auto mr-2 md:mr-4 inline-flex h-9 w-9 items-center justify-center rounded-full border border-border bg-card/80 backdrop-blur-sm hover:bg-card hover:border-border/80 transition-all shadow-sm"
                       onClick={() => handleShift(category.id, 1)}
                       onMouseEnter={() => startHoverScroll(category.id, 1)}
                       onMouseLeave={() => stopHoverScroll(category.id)}
                     >
-                      <ChevronRight className="h-5 w-5 text-foreground" />
+                      <ChevronRight className="h-4 w-4 text-muted-foreground" />
                     </button>
                   </div>
                 </div>

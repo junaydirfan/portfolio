@@ -5,62 +5,95 @@ import { useState, useEffect } from "react"
 import { motion, useScroll, AnimatePresence } from "framer-motion"
 import { cn } from "@/lib/utils"
 
+const navItems = [
+  { label: "skills", href: "#skills" },
+  { label: "projects", href: "#projects" },
+  { label: "experience", href: "#experience" },
+  { label: "infrastructure", href: "#infrastructure" },
+  { label: "contact", href: "#contact" },
+]
+
 export function Nav() {
   const [isVisible, setIsVisible] = useState(false)
+  const [activeSection, setActiveSection] = useState("")
   const { scrollY } = useScroll()
 
   useEffect(() => {
     const unsubscribe = scrollY.on("change", (latest) => {
-      setIsVisible(latest > window.innerHeight)
+      setIsVisible(latest > window.innerHeight * 0.6)
     })
     return () => unsubscribe()
   }, [scrollY])
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id)
+          }
+        })
+      },
+      { threshold: 0.3, rootMargin: "-20% 0px -60% 0px" }
+    )
+
+    navItems.forEach(({ href }) => {
+      const el = document.getElementById(href.replace("#", ""))
+      if (el) observer.observe(el)
+    })
+
+    return () => observer.disconnect()
+  }, [])
 
   return (
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          className="fixed top-8 left-0 right-0 z-50 mx-auto px-8 w-full flex justify-center"
-          initial={{ opacity: 0, y: -20 }}
+          className="fixed top-6 left-0 right-0 z-50 mx-auto px-8 w-full flex justify-center pointer-events-none"
+          initial={{ opacity: 0, y: -16 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.2 }}
+          exit={{ opacity: 0, y: -16 }}
+          transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
         >
-          <motion.nav 
+          <motion.nav
             className={cn(
-              "px-6 py-3 w-auto max-w-max", // Bauhaus: no rounded corners
-              "bg-background border border-border",
-              "flex items-center justify-center gap-6 md:gap-8",
-              "overflow-x-auto"
+              "pointer-events-auto",
+              "px-2 py-2",
+              "bg-background/70 backdrop-blur-xl",
+              "border border-border/50",
+              "rounded-full",
+              "shadow-lg shadow-black/30",
+              "flex items-center gap-1"
             )}
           >
-            {/* Navigation Links - Bauhaus style */}
-            <ul className="flex items-center justify-center gap-6 md:gap-8 min-w-max"> 
-              {[
-                "skills",
-                "projects",
-                "experience",
-                "infrastructure",
-                "contact",
-              ].map((item, i) => (
-                <motion.li
-                  key={item}
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 * i }}
-                  className="whitespace-nowrap"
+            {navItems.map((item, i) => {
+              const isActive = activeSection === item.href.replace("#", "")
+              return (
+                <motion.a
+                  key={item.href}
+                  href={item.href}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.05 * i, duration: 0.2 }}
+                  className={cn(
+                    "relative px-4 py-2 text-sm font-medium rounded-full transition-all duration-200",
+                    "hover:text-foreground",
+                    isActive
+                      ? "text-foreground bg-primary/15"
+                      : "text-muted-foreground"
+                  )}
                 >
-                  <a
-                    href={`#${item.toLowerCase()}`}
-                    className="text-sm md:text-base font-bold text-foreground hover:text-muted-foreground transition-colors uppercase tracking-wide relative group"
-                  >
-                    {item}
-                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-foreground transition-all group-hover:w-full" />
-                  </a>
-                </motion.li>
-              ))}
-            </ul>
-
+                  {isActive && (
+                    <motion.div
+                      layoutId="nav-pill"
+                      className="absolute inset-0 rounded-full bg-primary/15"
+                      transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
+                    />
+                  )}
+                  <span className="relative z-10">{item.label}</span>
+                </motion.a>
+              )
+            })}
           </motion.nav>
         </motion.div>
       )}

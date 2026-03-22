@@ -2,7 +2,7 @@
 
 import { motion, useInView } from "framer-motion"
 import React, { useRef, useState, useEffect, type ElementType } from "react";
-import { Trophy, Server, Lock, Hammer, BarChart3, Workflow, Bot } from "lucide-react";
+import { Trophy, Server, Lock, Hammer, BarChart3, Workflow, Cpu, Database, Network, Smartphone, Mail, Type, ShieldCheck } from "lucide-react";
 import { ProjectDetailModal } from "./project-detail-modal"
 import type { ProjectType } from "@/types/project"
 import {
@@ -10,10 +10,10 @@ import {
   SiHtml5, SiCss3, SiTypescript, SiTailwindcss, SiRadixui, SiFramer, SiPython,
   SiPostgresql, SiMongodb, SiMysql, SiRedis, SiSqlite, SiDocker, SiAmazonwebservices,
   SiKubernetes, SiTerraform, SiAnsible, SiGithubactions, SiJenkins, SiGit, SiWireshark,
-  SiHiveBlockchain, SiGnuprivacyguard, SiSocketdotio, SiApachekafka,
-  SiWordpress, SiCodeigniter, SiMaterialdesign, SiMinutemailer, SiFontforge, SiVuedotjs, SiSvelte, SiOpenjdk,
+  SiSocketdotio, SiWordpress, SiVuedotjs, SiSvelte, SiOpenjdk,
   SiFigma, SiAdobeaftereffects, SiAdobephotoshop, SiAdobeillustrator, SiAdobepremierepro,
-  SiUnity, SiBlender, SiGithubpages, SiVercel, SiSanity, SiWhatsapp, SiResend
+  SiUnity, SiBlender, SiGithubpages, SiVercel, SiSanity, SiWhatsapp, SiResend,
+  SiEthereum, SiLinux, SiCloudflare, SiOpenai,
 } from "react-icons/si";
 import Image from "next/image";
 
@@ -32,42 +32,54 @@ const SiGsap = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
   </svg>
 )
 
-// --- Icon Mapping (from Step 1) ---
-const techIconMap: Record<string, ElementType> = { // <-- Use ElementType
+// --- Icon Mapping ---
+const techIconMap: Record<string, ElementType> = {
+  // --- Web Frameworks ---
   'nextjs': SiNextdotjs,
   'nestjs': SiNestjs,
-  'solidity': SiSolidity,
-  'blockchain': SiHiveBlockchain,
-  'zkp': SiGnuprivacyguard,
-  'hardhat': Hammer,
-  'cerbos': Lock,
-  'c': SiC,
-  'multithreading': SiCodeigniter,
-  'socketprogramming': SiSocketdotio,
-  'twophasecommit': SiGit,
-  'posix': SiCodeigniter,
-  'distributedsystems': SiApachekafka,
   'react': SiReact,
-  'javascript': SiJavascript,
-  'htmlcss': SiHtml5, // Combined key example
-  'html': SiHtml5,   // Separate keys if needed
-  'css': SiCss3,
-  'contentmanagement': SiWordpress,
-  'webdevelopment': SiCodeigniter,
-  'typescript': SiTypescript,
-  'tailwindcss': SiTailwindcss,
-  'radixui': SiRadixui,
-  'responsivedesign': SiMaterialdesign,
-  'framermotion': SiFramer,
-  'python': SiPython,
-  'java': SiOpenjdk,
   'vuejs': SiVuedotjs,
   'svelte': SiSvelte,
+
+  // --- Languages ---
+  'typescript': SiTypescript,
+  'javascript': SiJavascript,
+  'python': SiPython,
+  'java': SiOpenjdk,
+  'c': SiC,
+  'solidity': SiSolidity,
+
+  // --- Styling ---
+  'tailwindcss': SiTailwindcss,
+  'html': SiHtml5,
+  'htmlcss': SiHtml5,
+  'css': SiCss3,
+  'responsivedesign': Smartphone,       // was SiMaterialdesign (Google's design system ≠ responsive design)
+  'framermotion': SiFramer,
+  'radixui': SiRadixui,
+  'gsap': SiGsap,
+
+  // --- Blockchain / Smart Contracts ---
+  'blockchain': SiEthereum,             // was SiHiveBlockchain (Hive ≠ Ethereum ecosystem)
+  'zkp': ShieldCheck,                   // was SiGnuprivacyguard (GnuPG is email encryption, not ZKP)
+  'hardhat': Hammer,                    // Hardhat = build tool, hammer metaphor is intentional
+  'cerbos': Lock,                       // authorization engine — lock is appropriate
+
+  // --- Systems Programming ---
+  'multithreading': Cpu,                // was SiCodeigniter (CodeIgniter is a PHP framework!)
+  'socketprogramming': SiSocketdotio,
+  'twophasecommit': Database,           // was SiGit (Git is VCS, not a DB commit protocol)
+  'posix': SiLinux,                     // was SiCodeigniter; POSIX = Unix/Linux standard
+  'distributedsystems': Network,        // was SiApachekafka; Kafka is one tool, not the concept
+
+  // --- Databases ---
   'postgresql': SiPostgresql,
   'mongodb': SiMongodb,
   'mysql': SiMysql,
   'redis': SiRedis,
   'sqlite': SiSqlite,
+
+  // --- Infrastructure / DevOps ---
   'docker': SiDocker,
   'aws': SiAmazonwebservices,
   'proxmox': Server,
@@ -78,8 +90,31 @@ const techIconMap: Record<string, ElementType> = { // <-- Use ElementType
   'jenkins': SiJenkins,
   'git': SiGit,
   'wireshark': SiWireshark,
-  'emailjs': SiMinutemailer,
-  'geistfont': SiFontforge,
+  'cdn': SiCloudflare,                  // they use Cloudflare CDN
+
+  // --- CMS / Commerce / Hosting ---
+  'contentmanagement': SiWordpress,
+  'webdevelopment': SiHtml5,            // was SiCodeigniter (CodeIgniter is a PHP framework!)
+  'wordpress': SiWordpress,
+  'vercel': SiVercel,
+  'sanity': SiSanity,
+  'groq': SiSanity,                     // GROQ is Sanity's query language
+  'githubpages': SiGithubpages,
+
+  // --- Communication / Email ---
+  'whatsapp': SiWhatsapp,
+  'resend': SiResend,
+  'emailjs': Mail,                      // was SiMinutemailer (Minutemailer is a different product)
+
+  // --- AI ---
+  'openai': SiOpenai,                   // was Bot (generic)
+  'chatgpt': SiOpenai,                  // was Bot (generic)
+
+  // --- PWA / Privacy ---
+  'pwa': Smartphone,
+  'privacyfirst': ShieldCheck,
+
+  // --- Design Tools ---
   'figma': SiFigma,
   'aftereffects': SiAdobeaftereffects,
   'photoshop': SiAdobephotoshop,
@@ -87,24 +122,108 @@ const techIconMap: Record<string, ElementType> = { // <-- Use ElementType
   'premierepro': SiAdobepremierepro,
   'unity': SiUnity,
   'blender': SiBlender,
-  'gsap': SiGsap,
-  'githubpages': SiGithubpages,
+  'geistfont': Type,                    // was SiFontforge (FontForge is font editing software, not Geist)
+
+  // --- Misc ---
   'recharts': BarChart3,
-  'hooks': Hammer,
+  'hooks': SiReact,                     // was Hammer; React hooks are a React feature
   'n8n': Workflow,
-  'chatgpt': Bot,
-  'openai': Bot,
-  'vercel': SiVercel,
-  'sanity': SiSanity,
-  'whatsapp': SiWhatsapp,
-  'resend': SiResend,
 };
 
-const getTechIcon = (tag: string): ElementType | null => { // <-- Use ElementType
+const techColorMap: Record<string, string> = {
+  // Web Frameworks
+  'nextjs': '#ffffff',
+  'nestjs': '#e0234e',
+  'react': '#61dafb',
+  'vuejs': '#42b883',
+  'svelte': '#ff3e00',
+  // Languages
+  'typescript': '#3178c6',
+  'javascript': '#f7df1e',
+  'python': '#3776ab',
+  'java': '#f89820',
+  'c': '#a8b9cc',
+  'solidity': '#627eea',
+  // Styling
+  'tailwindcss': '#06b6d4',
+  'html': '#e34f26',
+  'htmlcss': '#e34f26',
+  'css': '#1572b6',
+  'responsivedesign': '#8b5cf6',
+  'framermotion': '#0055ff',
+  'radixui': '#b0b0b0',
+  'gsap': '#88ce02',
+  // Blockchain
+  'blockchain': '#627eea',
+  'zkp': '#818cf8',
+  'hardhat': '#ffd02b',
+  'cerbos': '#818cf8',
+  // Systems
+  'multithreading': '#a78bfa',
+  'socketprogramming': '#ffffff',
+  'twophasecommit': '#336791',
+  'posix': '#fcc624',
+  'distributedsystems': '#38bdf8',
+  // Databases
+  'postgresql': '#336791',
+  'mongodb': '#47a248',
+  'mysql': '#4479a1',
+  'redis': '#dc382d',
+  'sqlite': '#0f80cc',
+  // Infrastructure
+  'docker': '#2496ed',
+  'aws': '#ff9900',
+  'proxmox': '#e57000',
+  'kubernetes': '#326ce5',
+  'terraform': '#7b42bc',
+  'ansible': '#ee0000',
+  'githubactions': '#2088ff',
+  'jenkins': '#d33833',
+  'git': '#f05032',
+  'wireshark': '#1679a7',
+  'cdn': '#f48120',
+  // CMS / Hosting
+  'contentmanagement': '#21759b',
+  'webdevelopment': '#e34f26',
+  'wordpress': '#21759b',
+  'vercel': '#ffffff',
+  'sanity': '#f03e2f',
+  'groq': '#f03e2f',
+  'githubpages': '#c9d1d9',
+  // Comms / Email
+  'whatsapp': '#25d366',
+  'resend': '#c0c0c0',
+  'emailjs': '#818cf8',
+  // AI
+  'openai': '#00a67e',
+  'chatgpt': '#00a67e',
+  // PWA / Privacy
+  'pwa': '#5a0fc8',
+  'privacyfirst': '#22c55e',
+  // Design
+  'figma': '#f24e1e',
+  'aftereffects': '#cf96fd',
+  'photoshop': '#31a8ff',
+  'illustrator': '#ff7c00',
+  'premierepro': '#9999ff',
+  'unity': '#cccccc',
+  'blender': '#f5792a',
+  'geistfont': '#c0c0c0',
+  // Misc
+  'recharts': '#22c55e',
+  'hooks': '#61dafb',
+  'n8n': '#ea4b4b',
+};
+
+const getTechIcon = (tag: string): ElementType | null => {
   const normalizedTag = tag.toLowerCase().replace(/[\s./-]/g, '');
   return techIconMap[normalizedTag] || null;
 };
-// -----------------------------------
+
+const getTechColor = (tag: string): string => {
+  const normalizedTag = tag.toLowerCase().replace(/[\s./-]/g, '');
+  return techColorMap[normalizedTag] || 'currentColor';
+};
 
 
 export default function Projects() {
@@ -222,7 +341,6 @@ export default function Projects() {
         "Tailwind CSS",
         "Vercel",
         "Sanity",
-        "GROQ",
         "Resend",
         "WhatsApp",
         "CDN"
@@ -398,7 +516,6 @@ export default function Projects() {
   };
 
   return (
-    // Bauhaus style section
     <section id="projects" className="py-24 md:py-32 bg-background">
       <div className="container px-8 md:px-16 lg:px-24 max-w-7xl mx-auto">
         <motion.div
@@ -407,9 +524,8 @@ export default function Projects() {
           animate={isMounted && isInView ? "visible" : "hidden"}
           variants={containerVariants}
         >
-          {/* Bauhaus Section Header - left aligned */}
           <motion.div className="mb-20 md:mb-24" variants={itemVariants}>
-            <h2 className="text-5xl md:text-6xl font-bold mb-6 text-foreground">
+            <h2 className="text-5xl md:text-6xl font-bold mb-5 text-foreground">
               featured projects
             </h2>
             <p className="text-lg md:text-xl text-muted-foreground max-w-3xl leading-relaxed">
@@ -417,109 +533,109 @@ export default function Projects() {
             </p>
           </motion.div>
 
-          {/* Bauhaus Project Grid - geometric, clean */}
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12"
+            className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8"
             variants={containerVariants}
           >
             {projects.map((project) => (
               <motion.div key={project.id} variants={itemVariants} className="group flex">
-                {/* Bauhaus Card - no rounded corners, geometric */}
                 <div
-                  className="h-full w-full flex flex-col bg-card border border-border hover:border-foreground transition-colors z-10 cursor-pointer"
+                  className="h-full w-full flex flex-col rounded-xl bg-card border border-border hover:border-primary/40 transition-all duration-300 z-10 cursor-pointer hover:shadow-card-hover overflow-hidden"
                   onClick={() => handleOpenModal(project)}
                 >
-                  {/* Card Header - Bauhaus style */}
-                  <div className="flex items-center justify-between px-4 py-3 bg-muted/30 border-b border-border">
-                    <div className="flex items-center space-x-2" onClick={(e) => e.stopPropagation()}>
+                  {/* Window chrome header */}
+                  <div className="flex items-center justify-between px-4 py-3 bg-muted/40 border-b border-border">
+                    <div className="flex items-center space-x-1.5" onClick={(e) => e.stopPropagation()}>
                       <button
-                        className="w-3 h-3 bg-red-500 cursor-pointer"
+                        className="w-3 h-3 rounded-full bg-red-500/80 hover:bg-red-500 cursor-pointer transition-colors"
                         onClick={() => handleMinimize(project.id)}
                         title="Minimize"
-                      ></button>
+                      />
                       <button
-                        className="w-3 h-3 bg-yellow-500 cursor-pointer"
+                        className="w-3 h-3 rounded-full bg-yellow-500/80 hover:bg-yellow-500 cursor-pointer transition-colors"
                         onClick={() => handleOpenModal(project)}
                         title="Expand"
-                      ></button>
+                      />
                       <button
-                        className="w-3 h-3 bg-green-500 cursor-pointer"
-                        onClick={() => {/* Maximize functionality */ }}
+                        className="w-3 h-3 rounded-full bg-green-500/80 hover:bg-green-500 cursor-pointer transition-colors"
+                        onClick={() => {}}
                         title="Maximize"
-                      ></button>
+                      />
                     </div>
                     <div className="ml-4 flex-1">
-                      <p className="text-card-foreground text-sm md:text-base font-bold uppercase tracking-wide">{project.title.toLowerCase()}</p>
+                      <p className="text-muted-foreground text-xs font-medium truncate">{project.title.toLowerCase()}</p>
                     </div>
                   </div>
 
                   {/* Minimized State */}
                   {minimizedCards.has(project.id) ? (
-                    <div className="p-6 bg-card">
-                      <div className="text-muted-foreground text-sm">
-                        minimized - click red button to restore
-                      </div>
+                    <div className="p-6">
+                      <p className="text-muted-foreground text-sm">minimized — click red button to restore</p>
                     </div>
                   ) : (
                     <>
-                      {/* Image/Content Area - Bauhaus style */}
-                      <div className="flex-1 p-4 bg-muted/30">
+                      {/* Image */}
+                      <div className="relative">
                         {isMounted ? (
-                          <div className="relative w-full h-48 border border-border">
+                          <div className="relative w-full h-44 overflow-hidden">
                             <Image
                               src={getImageSource(project.image || "/placeholder.svg")}
                               alt={`${project.title} preview`}
                               fill
-                              className="transition-opacity duration-300 group-hover:opacity-90 object-cover"
+                              className="transition-transform duration-500 group-hover:scale-105 object-cover"
                               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                               loading="lazy"
                             />
+                            <div className="absolute inset-0 bg-gradient-to-t from-card/60 to-transparent" />
                           </div>
                         ) : (
-                          <div className="w-full h-48 bg-muted animate-pulse border border-border"></div>
+                          <div className="w-full h-44 bg-muted animate-pulse" />
                         )}
                       </div>
 
-                      {/* Content Area - Bauhaus style */}
-                      <div className="flex flex-col flex-grow p-6 bg-card">
+                      {/* Content */}
+                      <div className="flex flex-col flex-grow p-5">
                         <div className="mb-4">
-                          <h3 className="text-card-foreground text-xl md:text-2xl font-bold mb-3 uppercase tracking-wide">{project.title.toLowerCase()}</h3>
-                          {/* Award/Highlight - Bauhaus style */}
+                          <h3 className="text-foreground text-lg font-bold mb-2 leading-snug">{project.title.toLowerCase()}</h3>
+
                           {project.id === "smartballot" && (
-                            <div className="flex items-center gap-2 text-sm text-foreground mb-3 border border-border px-3 py-1.5 inline-block">
-                              <Trophy className="h-4 w-4" />
-                              <span className="font-bold uppercase tracking-wide">bu eviden securevote hackathon &apos;24</span>
+                            <div className="flex items-center gap-1.5 text-xs text-primary mb-3 bg-primary/10 border border-primary/20 rounded-md px-2.5 py-1.5 w-fit">
+                              <Trophy className="h-3.5 w-3.5 flex-shrink-0" />
+                              <span className="font-semibold">BU Eviden SecureVote Hackathon &apos;24</span>
                             </div>
                           )}
                           {project.id === "campusthrive" && (
-                            <div className="flex items-center gap-2 text-sm text-foreground mb-3 border border-border px-3 py-1.5 inline-block">
-                              <Trophy className="h-4 w-4" />
-                              <span className="font-bold uppercase tracking-wide">bu campusthrive hackathon &apos;25</span>
+                            <div className="flex items-center gap-1.5 text-xs text-primary mb-3 bg-primary/10 border border-primary/20 rounded-md px-2.5 py-1.5 w-fit">
+                              <Trophy className="h-3.5 w-3.5 flex-shrink-0" />
+                              <span className="font-semibold">BU CampusThrive Hackathon &apos;25</span>
                             </div>
                           )}
-                          <p className="text-muted-foreground text-base leading-relaxed">
-                            {project.shortDescription.toLowerCase()}
+
+                          <p className="text-muted-foreground text-sm leading-relaxed line-clamp-3">
+                            {project.shortDescription}
                           </p>
                         </div>
 
-                        {/* Tech Icons Section - Bauhaus style */}
+                        {/* Tech icons */}
                         <div className="mt-auto pt-4 border-t border-border">
-                          <h4 className="text-xs font-bold uppercase text-foreground mb-3 tracking-wider">technologies used</h4>
-                          <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
+                          <p className="text-xs font-medium text-muted-foreground mb-2.5 uppercase tracking-wider">stack</p>
+                          <div className="flex flex-wrap items-center gap-3">
                             {project.tags.map((tag) => {
-                              const IconComponent = getTechIcon(tag);
+                              const IconComponent = getTechIcon(tag)
                               if (IconComponent) {
                                 return (
                                   <div key={tag} title={tag} className="relative flex items-center justify-center">
-                                    <IconComponent className="h-6 w-6 text-muted-foreground transition-colors group-hover:text-foreground" />
+                                    <IconComponent
+                                      className="h-5 w-5 transition-opacity opacity-75 hover:opacity-100"
+                                      style={{ color: getTechColor(tag) }}
+                                    />
                                   </div>
-                                );
+                                )
                               }
-                              return null;
+                              return null
                             })}
                           </div>
                         </div>
-
                       </div>
                     </>
                   )}
@@ -530,12 +646,12 @@ export default function Projects() {
         </motion.div>
       </div>
 
-      {/* Modal remains the same, but will use the updated getTechIcon function */}
       <ProjectDetailModal
         project={selectedProject}
         isOpen={isModalOpen}
         onClose={handleCloseModal}
-        getTechIcon={getTechIcon} // Pass the helper function to the modal
+        getTechIcon={getTechIcon}
+        getTechColor={getTechColor}
       />
     </section>
   )

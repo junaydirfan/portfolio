@@ -5,38 +5,58 @@ import { Badge } from "@/components/ui/badge";
 import { motion, useInView } from "framer-motion"
 import React, { useRef, useState, useEffect, type ElementType } from "react"; // <-- Use this consolidated line
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Database, Palette, GitMerge, Waypoints, Blend, Plug } from "lucide-react";
+import { Database, Plug, ArrowRightLeft } from "lucide-react";
 import { SiNextdotjs, SiTailwindcss, SiPython, SiReact, SiWordpress, SiFigma, SiAdobephotoshop, SiPostman, SiMongodb, SiTypescript } from "react-icons/si"; // Import specific icons used
 
-// --- Icon Mapping (Use ElementType) ---
-// Use React.ElementType as the value type for the map
 const techIconMap: Record<string, ElementType> = {
-    'nextjs': SiNextdotjs,
-    'tailwindcss': SiTailwindcss,
-    'python': SiPython,
-    'react': SiReact,
-    'typescript': SiTypescript,
-    'mernstack': SiReact,
-    'sql': Database,
-    'uidesign': Palette,
-    'systemintegration': GitMerge,
-    'datapipelines': Waypoints,
-    'etl': Blend,
-    'apiintegration': Plug,
-    'wordpress': SiWordpress,
-    'photoshop': SiAdobephotoshop,
-    'figma': SiFigma,
-    'postman': SiPostman,
-    'mongodb': SiMongodb,
-    // Add any other necessary mappings
+  'nextjs': SiNextdotjs,
+  'tailwindcss': SiTailwindcss,
+  'python': SiPython,
+  'react': SiReact,
+  'typescript': SiTypescript,
+  'mernstack': SiReact,
+  'sql': Database,
+  'uidesign': SiFigma,
+  'systemintegration': Plug,
+  'datapipelines': ArrowRightLeft,
+  'etl': Database,
+  'apiintegration': SiPostman,
+  'wordpress': SiWordpress,
+  'photoshop': SiAdobephotoshop,
+  'figma': SiFigma,
+  'postman': SiPostman,
+  'mongodb': SiMongodb,
 };
 
-// Update the return type of the helper function
-const getTechIcon = (tag: string): ElementType | null => {
-    const normalizedTag = tag.toLowerCase().replace(/[\s./-]/g, '');
-    return techIconMap[normalizedTag] || null;
+const techColorMap: Record<string, string> = {
+  'nextjs': '#ffffff',
+  'tailwindcss': '#06b6d4',
+  'python': '#3776ab',
+  'react': '#61dafb',
+  'typescript': '#3178c6',
+  'mernstack': '#61dafb',
+  'sql': '#336791',
+  'uidesign': '#f24e1e',
+  'systemintegration': '#a78bfa',
+  'datapipelines': '#38bdf8',
+  'etl': '#336791',
+  'apiintegration': '#ef5b25',
+  'wordpress': '#21759b',
+  'photoshop': '#31a8ff',
+  'figma': '#f24e1e',
+  'postman': '#ef5b25',
+  'mongodb': '#47a248',
 };
-// -----------------------------------
+
+const getTechIcon = (tag: string): ElementType | null => {
+  const normalizedTag = tag.toLowerCase().replace(/[\s./-]/g, '');
+  return techIconMap[normalizedTag] || null;
+};
+
+const getTechColor = (tag: string): string => {
+  const normalizedTag = tag.toLowerCase().replace(/[\s./-]/g, '');
+  return techColorMap[normalizedTag] || 'currentColor';
+};
 
 
 export default function Experience() {
@@ -111,60 +131,64 @@ export default function Experience() {
           animate={isMounted && isInView ? "visible" : "hidden"}
           variants={containerVariants}
         >
-          {/* Bauhaus Section Header - left aligned */}
           <motion.div className="mb-20 md:mb-24" variants={itemVariants}>
-            <h2 className="text-5xl md:text-6xl font-bold mb-6 text-foreground">
-              professional experience
+            <h2 className="text-5xl md:text-6xl font-bold mb-5 text-foreground">
+              experience
             </h2>
             <p className="text-lg md:text-xl text-muted-foreground max-w-3xl leading-relaxed">
               my journey in the tech industry, highlighting key roles and accomplishments
             </p>
           </motion.div>
 
-          {/* Bauhaus Experience Cards - geometric, no rounded corners */}
-          <motion.div className="space-y-12 md:space-y-16" variants={containerVariants}>
+          <motion.div className="space-y-6 md:space-y-8" variants={containerVariants}>
             {experiences.map((exp, index) => (
               <motion.div key={index} variants={itemVariants}>
-                <Card className="overflow-hidden border border-border bg-card hover:border-foreground transition-colors">
-                  <CardHeader className="p-8 md:p-10 pb-6">
+                <Card className="overflow-hidden border border-border bg-card hover:border-primary/30 hover:shadow-card-hover transition-all duration-300">
+                  <CardHeader className="p-6 md:p-8 pb-4">
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
-                      <div className="mb-2 sm:mb-0">
-                        <CardTitle className="text-2xl md:text-3xl mb-2 font-bold uppercase tracking-wide">{exp.title.toLowerCase()}</CardTitle>
-                        <CardDescription className="text-lg font-bold text-foreground">{exp.company.toLowerCase()}</CardDescription>
+                      <div>
+                        <CardTitle className="text-xl md:text-2xl mb-1 font-bold">{exp.title}</CardTitle>
+                        <CardDescription className="text-base font-semibold text-foreground/70">{exp.company}</CardDescription>
                       </div>
-                      <div className="flex items-center gap-3">
-                        <Badge variant="outline" className="whitespace-nowrap w-fit text-sm font-bold border-border">
+                      <div className="flex items-center gap-2 flex-shrink-0">
+                        <Badge variant="outline" className="whitespace-nowrap text-xs font-medium border-border text-muted-foreground">
                           {exp.period}
                         </Badge>
                         {exp.duration && (
-                          <Badge className="whitespace-nowrap w-fit text-xs font-bold bg-foreground text-background border-foreground">
+                          <Badge className="whitespace-nowrap text-xs font-semibold bg-primary/15 text-primary border-primary/20">
                             {exp.duration}
                           </Badge>
                         )}
                       </div>
                     </div>
                   </CardHeader>
-                  <CardContent className="p-8 md:p-10 pt-0">
-                    <ul className="list-none mb-6 space-y-2 text-muted-foreground text-base md:text-lg leading-relaxed">
+                  <CardContent className="p-6 md:p-8 pt-0">
+                    <ul className="mb-6 space-y-2 text-muted-foreground text-sm md:text-base leading-relaxed">
                       {exp.description.map((item, i) => (
-                        <li key={i} className="before:content-['•'] before:mr-3 before:text-foreground">{item}</li>
+                        <li key={i} className="flex items-start gap-2.5">
+                          <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary/60 flex-shrink-0" />
+                          {item}
+                        </li>
                       ))}
                     </ul>
-                    <div className="border-t border-border pt-6">
-                       <h4 className="text-xs font-bold uppercase text-foreground mb-4 tracking-wider">key skills used</h4>
-                        <div className="flex flex-wrap items-center gap-x-6 gap-y-4">
+                    <div className="border-t border-border pt-5">
+                      <p className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wider">stack</p>
+                      <div className="flex flex-wrap items-center gap-4">
                         {exp.skills.map((skill) => {
-                            const IconComponent = getTechIcon(skill);
-                            if (IconComponent) {
-                              return (
-                                <div key={skill} title={skill} className="relative flex items-center justify-center">
-                                  <IconComponent className="h-6 w-6 md:h-7 md:w-7 text-muted-foreground transition-colors hover:text-foreground" />
-                                </div>
-                              );
-                            }
-                            return null;
+                          const IconComponent = getTechIcon(skill)
+                          if (IconComponent) {
+                            return (
+                              <div key={skill} title={skill} className="flex items-center justify-center">
+                                <IconComponent
+                                  className="h-5 w-5 transition-opacity opacity-75 hover:opacity-100"
+                                  style={{ color: getTechColor(skill) }}
+                                />
+                              </div>
+                            )
+                          }
+                          return null
                         })}
-                        </div>
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
