@@ -110,7 +110,7 @@ export default function About() {
             transition={{ delay: 0.6, type: "spring", stiffness: 260, damping: 20 }}
           >
             <Image
-              src="/images/IMG_522556.jpg"
+              src="/images/IMG_522556.webp"
               alt="Junaid Irfan"
               fill
               className="object-cover"
@@ -162,7 +162,7 @@ export default function About() {
                 <div className="mb-3 p-2 w-fit rounded-lg bg-primary/10">
                   <skill.Icon className="h-5 w-5 text-primary" />
                 </div>
-                <h3 className="font-semibold text-sm text-foreground mb-1">{skill.title}</h3>
+                <p className="font-semibold text-sm text-foreground mb-1">{skill.title}</p>
                 <p className="text-xs text-muted-foreground leading-relaxed">{skill.desc}</p>
               </motion.div>
             ))}

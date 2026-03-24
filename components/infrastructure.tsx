@@ -271,7 +271,7 @@ export default function Infrastructure() {
                           <service.icon className="h-4 w-4 text-primary" />
                         </div>
                         <div className="flex-grow min-w-0 overflow-hidden">
-                          <h4 className="text-xs font-semibold text-foreground truncate">{service.name}</h4>
+                          <p className="text-xs font-semibold text-foreground truncate">{service.name}</p>
                           <p className="text-xs text-muted-foreground truncate">{service.description}</p>
                         </div>
                         <div className="flex-shrink-0 relative">

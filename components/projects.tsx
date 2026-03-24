@@ -264,7 +264,7 @@ export default function Projects() {
         "a completed, comprehensive, privacy-focused student wellness tracking web application built with Next.js, TypeScript, and Tailwind CSS. CampusThrive prioritizes student privacy by storing all data locally in the browser's localStorage.",
       fullDescription:
         " a completed, comprehensive, privacy-focused student wellness tracking web application that prioritizes student privacy by storing all data locally in the browser's localStorage. The application features 4-dimensional mood tracking (Valence, Energy, Focus, Stress), intelligent scoring systems with 14-day baseline comparison, AI-powered coaching with 50+ contextual tips, and advanced analytics including trends dashboard, success compass, and power hours heatmap. Built as a Progressive Web App with complete offline capability, CampusThrive ensures no personal information is sent to external servers while providing powerful insights into student wellness patterns.",
-      image: "/images/campusthrive.png?height=400&width=600",
+      image: "/images/campusthrive.webp",
       tags: ["Next.js", "TypeScript", "Tailwind CSS", "Recharts", "PWA", "Privacy-First"],
       link: "https://junaydirfan.github.io/campus-thrive/",
       github: "https://github.com/junaydirfan/campus-thrive",
@@ -321,7 +321,7 @@ export default function Projects() {
         "A modern, blockchain-based voting platform ensuring security, transparency, accessibility, and privacy in electoral processes.",
       fullDescription:
         "SmartBallot is a revolutionary blockchain-based voting system that achieved Runner-Up in the Eviden & Bishop's University SecureVote Hackathon 2024. It leverages modern cryptographic and blockchain tools to ensure vote integrity, voter anonymity, and system transparency while keeping the user experience simple and intuitive. The platform is designed to be secure, accessible, scalable, anonymous, and compliant with electoral regulations.",
-      image: "/images/smartballot.jpeg?height=400&width=600",
+      image: "/images/smartballot.webp",
       tags: ["Next.js", "NestJS", "Solidity", "Blockchain", "ZKP", "Hardhat", "Cerbos"],
       link: "https://github.com/junaydirfan/smartballot",
       github: "https://github.com/junaydirfan/smartballot",
@@ -334,7 +334,7 @@ export default function Projects() {
         "a production-ready e-commerce storefront for a small handmade jewellery brand, focused on fast shopping, simple admin workflows, and a lean, low-cost architecture.",
       fullDescription:
         "Hoor Charms is a modern, production-ready e-commerce storefront designed for a small handmade crafts and jewellery business. The goal was to deliver a fast shopping experience, a simple admin workflow, and a zero/low-cost operating model that still feels premium. The storefront is powered by Sanity CMS for products and orders, with Next.js handling the cart, checkout, and order pipeline. Orders are written back into Sanity so the admin has a clean back-office view of every purchase, including uploaded payment proofs. Resend handles transactional emails for both customers and the store owner, and WhatsApp click-to-chat links provide an instant handoff for payment confirmation and order updates. The architecture is intentionally lean and free-tier friendly, combining Vercel hosting, Sanity CDN-backed content, Resend emails, and WhatsApp to deliver a complete small-business solution without heavy infrastructure.",
-      image: "/images/hoorcharms.jpg?height=400&width=600",
+      image: "/images/hoorcharms.webp",
       tags: [
         "Next.js",
         "React",
@@ -375,7 +375,7 @@ export default function Projects() {
         "A multi-threaded bulletin board server implemented in C that allows clients to write and read messages while ensuring data consistency across multiple instances.",
       fullDescription:
         "The Bulletin Board Server (bbserver) is a high-performance, multi-threaded server application designed to handle concurrent message posting and reading. It implements advanced synchronization techniques to ensure data integrity while maximizing throughput for multiple simultaneous users. The project provides a practical example of distributed systems and concurrent programming, with features like thread pools, readers-writers locks, and the two-phase commit protocol for distributed data synchronization.",
-      image: "/images/bbserv.jpeg?height=400&width=600",
+      image: "/images/bbserv.webp",
       tags: ["C", "Multi-threading", "Socket Programming", "Two-Phase Commit", "POSIX", "Distributed Systems"],
       link: "https://github.com/junaydirfan/bbserver",
       github: "https://github.com/junaydirfan/bbserver",
@@ -388,7 +388,7 @@ export default function Projects() {
         "A clean, modern portfolio website built with Next.js and Tailwind CSS, featuring smooth animations and dark theme for a friend's professional showcase.",
       fullDescription:
         "A minimalist portfolio website created for a friend, showcasing their professional experience as a Senior Software Engineer. The site features a clean, modern design with strategic use of whitespace and the Geist font. Built with Next.js 15 and TypeScript, it includes responsive layout, seamless dark mode, and smooth scroll-triggered animations powered by GSAP. The website is deployed on GitHub Pages and demonstrates expertise in modern web development practices.",
-      image: "/images/tayyab.png?height=400&width=600",
+      image: "/images/tayyab.webp",
       tags: ["Next.js", "TypeScript", "GSAP", "GitHub Pages", "Tailwind CSS"],
       link: "https://junaydirfan.github.io/tayyab-portfolio/",
       github: "https://github.com/junaydirfan/tayyab-portfolio",
@@ -416,7 +416,7 @@ export default function Projects() {
         "This website is a showcase of my technical skills and creative problem-solving abilities. It's so meta, it's recursively describing itself!",
       fullDescription:
         "This website is a showcase of my technical skills and creative problem-solving abilities. It's so meta, it's recursively describing itself! Like a function that calls itself, this portfolio keeps going deeper into its own description. A true example of recursion in action - the website that describes the website that describes the website... Built with Next.js 15 and Tailwind CSS, this modern, responsive portfolio website features static site generation for optimal performance, component-based architecture for maintainability, and smooth animations powered by Framer Motion.",
-      image: "/images/thisite.jpg?height=400&width=600",
+      image: "/images/thisite.webp",
       tags: ["Next.js", "React", "Tailwind CSS", "Framer Motion", "Radix UI", "EmailJS"],
       link: "https://www.junaidirfan.com",
       github: "https://github.com/junaydirfan/portfolio",
@@ -429,7 +429,7 @@ export default function Projects() {
         "Served as webmaster for the Bishop's University SRC Website, managing content updates, site maintenance, and implementing new features.",
       fullDescription:
         "As the webmaster for the Bishop's University Student Representative Council (SRC) Website, I was responsible for maintaining and updating the site to ensure it effectively served the student body. This role involved collaborating with various teams to incorporate new content, revamping sections of the site, and implementing new features to enhance user experience. I managed the day-to-day operations of the website, ensuring it remained a reliable resource for students seeking information about campus events, services, and opportunities.",
-      image: "/images/busrc1.png?height=400&width=600",
+      image: "/images/busrc1.webp",
       tags: ["React", "JavaScript", "HTML/CSS", "Content Management", "Web Development"],
       link: "https://busrc.com/",
       github: "#",
@@ -442,7 +442,7 @@ export default function Projects() {
         "A modern web application that allows users to preview how their images will appear across different social media platforms.",
       fullDescription:
         "SocialSight is a modern web application that allows users to preview how their images will appear across different social media platforms. Built with Next.js and TypeScript, it provides a sleek, responsive interface with dark mode support. The application enables users to upload images and see how they would look on various social media platforms like YouTube, Facebook, Instagram, Twitter, and Reddit, helping them optimize their content for each platform.",
-      image: "/images/socialsight.jpg?height=400&width=600",
+      image: "/images/socialsight.webp",
       tags: ["Next.js", "TypeScript", "Tailwind CSS", "Radix UI", "Responsive Design"],
       link: "https://v0-next-js-social-sight-app.vercel.app/",
       github: "https://github.com/junaydirfan/SocialSight",
@@ -455,7 +455,7 @@ export default function Projects() {
         "Explore my creative work in motion graphics, graphic design, and cinematography. Available for freelance projects and full-time opportunities.",
       fullDescription:
         "I specialize in creating engaging motion graphics, stunning visual designs, and compelling cinematography. My work spans across various mediums including logo animations, brand identity design, and video production. With a keen eye for detail and a passion for storytelling, I help brands and individuals bring their vision to life through creative design solutions.",
-      image: "/images/designstuff.png?height=400&width=600",
+      image: "/images/designstuff.webp",
       tags: ["figma", "aftereffects", "photoshop", "illustrator", "premierepro", "unity", "blender"],
       link: "https://www.behance.net/junaydirfan",
       github: "https://www.fiverr.com/junaydirfan95",
