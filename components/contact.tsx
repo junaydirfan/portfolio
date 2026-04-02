@@ -136,7 +136,7 @@ export default function Contact() {
                       <Phone className="h-4 w-4 text-primary flex-shrink-0" />
                     </div>
                     <span className="text-sm text-foreground/80 group-hover:text-foreground transition-colors">
-                      +1 (873) 878-5419
+                      +1 (473) 707-0535
                     </span>
                   </a>
                   <div className="flex items-center gap-3">
