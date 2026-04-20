@@ -6,7 +6,7 @@ import { motion, useInView } from "framer-motion"
 import React, { useRef, useState, useEffect, type ElementType } from "react"; // <-- Use this consolidated line
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Database, Plug, ArrowRightLeft } from "lucide-react";
-import { SiNextdotjs, SiTailwindcss, SiPython, SiReact, SiWordpress, SiFigma, SiAdobephotoshop, SiPostman, SiMongodb, SiTypescript } from "react-icons/si"; // Import specific icons used
+import { SiNextdotjs, SiTailwindcss, SiPython, SiReact, SiWordpress, SiFigma, SiAdobephotoshop, SiPostman, SiMongodb, SiTypescript, SiAmazon, SiDocker, SiGithubactions, SiLinux, SiRedhat } from "react-icons/si"; // Import specific icons used
 
 const techIconMap: Record<string, ElementType> = {
   'nextjs': SiNextdotjs,
@@ -21,6 +21,18 @@ const techIconMap: Record<string, ElementType> = {
   'datapipelines': ArrowRightLeft,
   'etl': Database,
   'apiintegration': SiPostman,
+  'aws': SiAmazon,
+  'ec2': SiAmazon,
+  's3': SiAmazon,
+  'rds': SiAmazon,
+  'cloudwatch': SiAmazon,
+  'docker': SiDocker,
+  'githubactions': SiGithubactions,
+  'cicd': SiGithubactions,
+  'linux': SiLinux,
+  'unixlinux': SiLinux,
+  'unix': SiLinux,
+  'redhat': SiRedhat,
   'wordpress': SiWordpress,
   'photoshop': SiAdobephotoshop,
   'figma': SiFigma,
@@ -41,6 +53,18 @@ const techColorMap: Record<string, string> = {
   'datapipelines': '#38bdf8',
   'etl': '#336791',
   'apiintegration': '#ef5b25',
+  'aws': '#ff9900',
+  'ec2': '#ff9900',
+  's3': '#ff9900',
+  'rds': '#ff9900',
+  'cloudwatch': '#ff9900',
+  'docker': '#2496ed',
+  'githubactions': '#2088ff',
+  'cicd': '#2088ff',
+  'linux': '#fcc624',
+  'unixlinux': '#fcc624',
+  'unix': '#fcc624',
+  'redhat': '#ee0000',
   'wordpress': '#21759b',
   'photoshop': '#31a8ff',
   'figma': '#f24e1e',
@@ -92,8 +116,37 @@ export default function Experience() {
   // Experience Data
   const experiences = [
     {
+      title: "it operations practice",
+      company: "fdm group",
+      location: "toronto, on",
+      period: "april 2026 - present",
+      duration: "",
+      description: [
+        "engaging in intensive technical training focused on enterprise-level it infrastructure, unix/linux administration, and itil frameworks",
+        "collaborating on simulated production environments to streamline system deployments and operational workflows",
+        "troubleshooting complex networking and hardware-software integration issues within a high-standard corporate environment",
+        "enhancing technical documentation for system configurations to ensure consistency across cross-functional teams",
+      ],
+      skills: ["Linux", "Unix/Linux", "System Integration"],
+    },
+    {
+      title: "devops intern",
+      company: "adventure triangle",
+      location: "toronto, on",
+      period: "january 2026 - april 2026",
+      duration: "4 mo",
+      description: [
+        "leveraged aws (ec2, s3, rds) to manage and scale cloud infrastructure, ensuring 99.9% application uptime",
+        "built and optimized ci/cd pipelines using github actions to automate testing and deployment for microservices",
+        "containerized legacy applications using docker, reducing deployment overhead and improving environment consistency across development and staging",
+        "monitored system health and performance using cloudwatch and integrated automated alerts for proactive incident response",
+      ],
+      skills: ["AWS", "Docker", "GitHub Actions", "CI/CD", "CloudWatch"],
+    },
+    {
       title: "webmaster",
-      company: "bishop's University",
+      company: "bishop's university",
+      location: "sherbrooke, qc",
       period: "september 2023 - april 2024",
       duration: "1 yr",
       description: [
@@ -110,6 +163,7 @@ export default function Experience() {
     {
       title: "software developer",
       company: "bytewise",
+      location: "remote, pk",
       period: "september 2022 - august 2023",
       duration: "1 yr",
       description: [
@@ -148,17 +202,26 @@ export default function Experience() {
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
                       <div>
                         <CardTitle className="text-xl md:text-2xl mb-1 font-bold">{exp.title}</CardTitle>
-                        <CardDescription className="text-base font-semibold text-foreground/70">{exp.company}</CardDescription>
+                        <CardDescription className="text-base font-semibold text-foreground/70">
+                          {exp.company}
+                        </CardDescription>
                       </div>
-                      <div className="flex items-center gap-2 flex-shrink-0">
-                        <Badge variant="outline" className="whitespace-nowrap text-xs font-medium border-border text-muted-foreground">
-                          {exp.period}
-                        </Badge>
-                        {exp.duration && (
-                          <Badge className="whitespace-nowrap text-xs font-semibold bg-primary/15 text-primary border-primary/20">
-                            {exp.duration}
-                          </Badge>
+                      <div className="flex flex-col items-start sm:items-end gap-2 flex-shrink-0">
+                        {exp.location && (
+                          <CardDescription className="text-sm sm:text-right text-muted-foreground sm:pr-2.0">
+                            {exp.location}
+                          </CardDescription>
                         )}
+                        <div className="flex items-center gap-2">
+                          <Badge variant="outline" className="whitespace-nowrap text-xs font-medium border-border text-muted-foreground">
+                            {exp.period}
+                          </Badge>
+                          {exp.duration && (
+                            <Badge className="whitespace-nowrap text-xs font-semibold bg-primary/15 text-primary border-primary/20">
+                              {exp.duration}
+                            </Badge>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </CardHeader>
