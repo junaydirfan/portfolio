@@ -29,7 +29,10 @@ import {
   SiWebflow,
   SiDavinciresolve,
   SiOpenai,
+  SiDynatrace,
+  SiKubernetes,
 } from "react-icons/si"
+import { VscAzure } from "react-icons/vsc"
 import { Server, ChevronLeft, ChevronRight } from "lucide-react"
 import { FloatingIconsBackground } from "./floating-icons-background"
 
@@ -131,7 +134,10 @@ export default function Skills() {
     cloud: [
       { name: "Docker", icon: SiDocker, brandColor: "#2496ed" },
       { name: "AWS", icon: SiAmazonwebservices, brandColor: "#ff9900" },
+      { name: "Azure", icon: VscAzure, brandColor: "#0078d4" },
+      { name: "Kubernetes", icon: SiKubernetes, brandColor: "#326ce5" },
       { name: "Proxmox", icon: Server, brandColor: "#e57000" },
+      { name: "Dynatrace", icon: SiDynatrace, brandColor: "#1496ff" },
       { name: "GitHub Actions", icon: SiGithubactions, brandColor: "#2088ff" },
       { name: "Git", icon: SiGit, brandColor: "#f05032" },
       { name: "Wireshark", icon: SiWireshark, brandColor: "#1679a7" },

@@ -6,7 +6,8 @@ import { motion, useInView } from "framer-motion"
 import React, { useRef, useState, useEffect, type ElementType } from "react"; // <-- Use this consolidated line
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Database, Plug, ArrowRightLeft, Briefcase, Calendar, Clock, Building2, MapPin, Award, CheckCircle } from "lucide-react";
-import { SiNextdotjs, SiTailwindcss, SiPython, SiReact, SiWordpress, SiFigma, SiAdobephotoshop, SiPostman, SiMongodb, SiTypescript, SiAmazon, SiDocker, SiGithubactions, SiLinux, SiRedhat } from "react-icons/si"; // Import specific icons used
+import { SiNextdotjs, SiTailwindcss, SiPython, SiReact, SiWordpress, SiFigma, SiAdobephotoshop, SiPostman, SiMongodb, SiTypescript, SiAmazon, SiDocker, SiGithubactions, SiLinux, SiRedhat, SiDynatrace, SiKubernetes } from "react-icons/si"; // Import specific icons used
+import { VscAzure } from "react-icons/vsc";
 
 const techIconMap: Record<string, ElementType> = {
   'nextjs': SiNextdotjs,
@@ -38,6 +39,9 @@ const techIconMap: Record<string, ElementType> = {
   'figma': SiFigma,
   'postman': SiPostman,
   'mongodb': SiMongodb,
+  'dynatrace': SiDynatrace,
+  'azure': VscAzure,
+  'kubernetes': SiKubernetes,
 };
 
 const techColorMap: Record<string, string> = {
@@ -70,6 +74,9 @@ const techColorMap: Record<string, string> = {
   'figma': '#f24e1e',
   'postman': '#ef5b25',
   'mongodb': '#47a248',
+  'dynatrace': '#1496ff',
+  'azure': '#0078d4',
+  'kubernetes': '#326ce5',
 };
 
 const getTechIcon = (tag: string): ElementType | null => {
@@ -117,7 +124,7 @@ export default function Experience() {
   // Experience Data
   const experiences = [
     {
-      title: "it operations practice",
+      title: "it operations consultant",
       company: "fdm group",
       location: "toronto, on",
       period: "april 2026 - present",
@@ -128,7 +135,7 @@ export default function Experience() {
         "troubleshooting complex networking and hardware-software integration issues within a high-standard corporate environment",
         "enhancing technical documentation for system configurations to ensure consistency across cross-functional teams",
       ],
-      skills: ["Linux", "Unix/Linux", "System Integration"],
+      skills: ["Linux", "Unix/Linux", "System Integration", "Dynatrace", "Azure", "Kubernetes"],
     },
     {
       title: "devops intern",

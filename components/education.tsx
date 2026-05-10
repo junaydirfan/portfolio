@@ -4,7 +4,8 @@ import { motion, useInView } from "framer-motion"
 import { useRef, useState, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"; // Import Badge
-import { GraduationCap, BookOpen } from "lucide-react"
+import { GraduationCap, BookOpen, Medal, Library, PencilRuler } from "lucide-react"
+import { FloatingIconsBackground } from "./floating-icons-background"
 
 export default function Education() {
   const ref = useRef(null)
@@ -46,9 +47,18 @@ export default function Education() {
     "advanced algorithms", 
   ]
 
+  const educationIcons = [
+    { icon: GraduationCap, color: "#f59e0b" },
+    { icon: BookOpen, color: "#f59e0b" },
+    { icon: Medal, color: "#f59e0b" },
+    { icon: Library, color: "#f59e0b" },
+    { icon: PencilRuler, color: "#f59e0b" },
+  ];
+
   return (
-    <section id="education" className="py-24 md:py-32 bg-background">
-      <div className="container px-8 md:px-16 lg:px-24 max-w-6xl mx-auto">
+    <section id="education" className="py-24 md:py-32 bg-background relative overflow-hidden">
+      <FloatingIconsBackground icons={educationIcons} count={15} />
+      <div className="container px-8 md:px-16 lg:px-24 max-w-6xl mx-auto relative z-10">
         <motion.div
           ref={ref}
           initial="hidden"
