@@ -5,6 +5,9 @@ import "./globals.css";
 import { Nav } from "@/components/ui/nav";
 import { Availability } from "@/components/ui/availability";
 import { Analytics } from "@vercel/analytics/next";
+import SmoothScrolling from "@/components/smooth-scrolling";
+import CustomCursor from "@/components/custom-cursor";
+import AmbientTechBackground from "@/components/ambient-tech-background";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -20,6 +23,8 @@ export const metadata: Metadata = {
     apple: '/apple-icon.png',
   },
 };
+
+import LastFmStatus from "@/components/lastfm-status";
 
 export default function RootLayout({
   children,
@@ -43,12 +48,16 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${spaceGrotesk.variable} font-sans antialiased bg-background text-foreground`}
-        // suppressHydrationWarning={true} // Moved to <html>
+        className={`${spaceGrotesk.variable} font-sans antialiased bg-transparent text-foreground min-h-screen`}
       >
-        <Nav />
-        {children}
-        <Availability />
+        <SmoothScrolling>
+          <CustomCursor />
+          <Nav />
+          <LastFmStatus />
+          {children}
+          <Availability />
+          <Analytics />
+        </SmoothScrolling>
       </body>
     </html>
   );

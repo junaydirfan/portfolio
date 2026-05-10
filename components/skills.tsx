@@ -31,6 +31,7 @@ import {
   SiOpenai,
 } from "react-icons/si"
 import { Server, ChevronLeft, ChevronRight } from "lucide-react"
+import { FloatingIconsBackground } from "./floating-icons-background"
 
 // Custom GSAP Icon Component - Official GSAP Logo
 const SiGsap = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
@@ -245,9 +246,20 @@ export default function Skills() {
     { id: "design", title: "Design & 3D" }
   ]
 
+  // Flatten all skills to pass to the background
+  const allSkills = useMemo(() => {
+    return [...skills.development, ...skills.cloud, ...skills.design].map(s => ({
+      icon: s.icon,
+      color: s.brandColor
+    }))
+  }, [skills])
+
   return (
-    <section id="skills" className="py-24 md:py-32 bg-background overflow-hidden">
-      <div className="container px-8 md:px-16 lg:px-24 max-w-7xl mx-auto">
+    <section id="skills" className="py-24 md:py-32 bg-background overflow-hidden relative">
+      {/* Floating Tech Background */}
+      <FloatingIconsBackground icons={allSkills} count={24} />
+      
+      <div className="container px-8 md:px-16 lg:px-24 max-w-7xl mx-auto relative z-10">
         <div className="mb-20 md:mb-24">
           <h2 className="text-5xl md:text-6xl font-bold mb-5 text-foreground">
             technical skills

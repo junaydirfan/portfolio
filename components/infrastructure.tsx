@@ -4,8 +4,9 @@ import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useRef, useState, useEffect, type ElementType } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Server, Box, Shield, Cpu, Network, Layers, Activity, Database, Workflow, BarChart3, Container, Globe, Zap, Image, FileText, Brain } from "lucide-react"
+import { Server, Box, Shield, Cpu, Network, Layers, Activity, Database, Workflow, BarChart3, Container, Globe, Zap, Image as LucideImage, FileText, Brain } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { FloatingIconsBackground } from "./floating-icons-background"
 
 // ── Diagram primitives ──────────────────────────────────────────────────────
 
@@ -188,16 +189,16 @@ export default function Infrastructure() {
       category: "web"
     },
     {
-      name: "Immich",
-      description: "Self-hosted photo management",
-      icon: Image,
+      name: "Paperless-ngx",
+      description: "Document management system",
+      icon: FileText,
       status: "live",
       category: "storage"
     },
     {
-      name: "Paperless-ngx",
-      description: "Document management system",
-      icon: FileText,
+      name: "Immich",
+      description: "Self-hosted photo management",
+      icon: LucideImage,
       status: "live",
       category: "storage"
     },
@@ -210,9 +211,24 @@ export default function Infrastructure() {
     }
   ]
 
+  const infrastructureIcons = [
+    { icon: Server, color: "#38bdf8" },
+    { icon: Box, color: "#38bdf8" },
+    { icon: Shield, color: "#38bdf8" },
+    { icon: Cpu, color: "#38bdf8" },
+    { icon: Network, color: "#38bdf8" },
+    { icon: Layers, color: "#38bdf8" },
+    { icon: Activity, color: "#38bdf8" },
+    { icon: Database, color: "#38bdf8" },
+    { icon: Container, color: "#38bdf8" },
+    { icon: Zap, color: "#38bdf8" },
+    { icon: Brain, color: "#38bdf8" },
+  ];
+
   return (
-    <section id="infrastructure" className="py-24 md:py-32 bg-background">
-      <div className="container px-8 md:px-16 lg:px-24 max-w-7xl mx-auto">
+    <section id="infrastructure" className="py-24 md:py-32 bg-background relative overflow-hidden">
+      <FloatingIconsBackground icons={infrastructureIcons} count={20} />
+      <div className="container px-8 md:px-16 lg:px-24 max-w-7xl mx-auto relative z-10">
         <motion.div ref={ref} initial="hidden" animate={isMounted && isInView ? "visible" : "hidden"} variants={containerVariants}>
           <motion.div className="mb-20 md:mb-24" variants={itemVariants}>
             <h2 className="text-5xl md:text-6xl font-bold mb-5 text-foreground">self-hosted infrastructure</h2>

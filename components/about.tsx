@@ -1,29 +1,18 @@
 "use client"
 
 import { motion, useInView } from "framer-motion"
-import { useRef, useState, useEffect, useMemo } from "react"
-import { Palette, Code, Cloud, Server } from "lucide-react"
-import { TypeAnimation } from 'react-type-animation';
-import Image from "next/image";
-
+import { useRef, useState, useEffect } from "react"
+import { Code, MapPin, Briefcase, ChevronRight } from "lucide-react"
+import Image from "next/image"
+import LastFmStatus from "./lastfm-status"
+import InstagramFeed from "./instagram-feed"
 export default function About() {
   const ref = useRef(null)
   const [isMounted, setIsMounted] = useState(false)
-  const [greeting, setGreeting] = useState<string | null>(null)
   const isInView = useInView(ref, { once: true, amount: 0.15 })
 
   useEffect(() => {
     setIsMounted(true)
-  }, [])
-
-  useEffect(() => {
-    const hour = new Date().getHours()
-    let g = "Hello"
-    if (hour >= 5 && hour < 12) g = "good morning ☀️"
-    else if (hour >= 12 && hour < 17) g = "good afternoon ⛅️"
-    else if (hour >= 17 && hour < 20) g = "good evening 🌃"
-    else g = "good night 🌙"
-    setGreeting(g)
   }, [])
 
   const containerVariants = {
@@ -32,7 +21,7 @@ export default function About() {
       opacity: 1,
       transition: { staggerChildren: 0.08, delayChildren: 0.05 },
     },
-  };
+  }
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -41,145 +30,129 @@ export default function About() {
       y: 0,
       transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] as const },
     },
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0, y: 16 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] as const },
-    },
-  };
-
-  const baseSequence = useMemo(() => ([
-    "hey 👋 i'm junaid!", 1200,
-    "i craft solutions that scale...", 1300,
-    "proficient in Next.js & React ecosystem", 1500
-  ]), [])
-
-  const textSequence = useMemo(() => (
-    greeting ? [greeting, 1000, ...baseSequence] : baseSequence
-  ), [greeting, baseSequence])
+  }
 
   return (
     <section
       id="about"
-      className="relative min-h-screen flex flex-col justify-center px-8 md:px-16 lg:px-24 py-24 md:py-32 overflow-hidden bg-background"
+      className="relative min-h-screen flex flex-col justify-center px-6 md:px-16 lg:px-24 py-24 md:py-32 overflow-hidden"
       ref={ref}
     >
-      {/* Subtle radial glow in top-left */}
-      <div
-        className="pointer-events-none absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full"
-        style={{
-          background: "radial-gradient(circle, hsl(258 60% 68% / 0.06) 0%, transparent 70%)"
-        }}
-      />
-
       <motion.div
-        className="max-w-5xl mx-auto w-full relative z-20"
+        className="max-w-6xl mx-auto w-full relative z-20 flex flex-col gap-12 lg:gap-20"
         initial="hidden"
         animate={isMounted && isInView ? "visible" : "hidden"}
         variants={containerVariants}
       >
-        {/* Name + title */}
-        <motion.div className="mb-16 md:mb-20" variants={itemVariants}>
-          <motion.h1
-            variants={itemVariants}
-            className="text-6xl md:text-7xl lg:text-8xl font-bold text-foreground mb-3 leading-none"
-          >
-            junaid irfan
-          </motion.h1>
-          <motion.p
-            variants={itemVariants}
-            className="text-xl md:text-2xl text-muted-foreground font-medium"
-          >
-            web developer &amp; cloud engineer
-          </motion.p>
+        {/* --- Top Section: Typography --- */}
+        <motion.div className="flex flex-col gap-8" variants={itemVariants}>
+
+          <div className="flex flex-col gap-4">
+            <div className="flex items-center flex-wrap gap-x-4 gap-y-2 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-tight tracking-tight">
+              <span>Hi, <span className="text-muted-foreground">I&apos;m</span></span>
+              <div className="relative h-12 w-12 sm:h-16 sm:w-16 md:h-20 md:w-20 rounded-2xl overflow-hidden shadow-lg ring-2 ring-primary/20 inline-block align-middle transform -translate-y-1">
+                <Image
+                  src="/images/IMG_522556.webp"
+                  alt="Junaid Irfan"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 80px, 112px"
+                  priority
+                />
+              </div>
+              <span>Junaid Irfan!</span>
+            </div>
+
+            <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium text-muted-foreground leading-tight tracking-tight">
+              I&apos;m a <span className="text-foreground font-semibold">Full-Stack Developer</span> <br className="hidden sm:block" />
+              specializing in <span className="text-primary font-bold">DevOps.</span>
+            </div>
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 mt-4">
+            <a
+              href="#contact"
+              className="group relative inline-flex items-center justify-center gap-2 rounded-full bg-foreground text-background px-8 py-4 text-sm font-semibold transition-all hover:scale-105 hover:shadow-[0_8px_30px_hsl(var(--primary)/0.2)] focus-visible:outline-none"
+            >
+              <span>Book a call</span>
+              <div className="absolute inset-0 rounded-full ring-1 ring-white/20 group-hover:ring-white/40 transition-all pointer-events-none" />
+            </a>
+            <p className="text-base text-muted-foreground font-medium max-w-sm">
+              Feel free to explore my portfolio and reach out! I&apos;d love to connect
+            </p>
+          </div>
         </motion.div>
 
-        {/* Profile + greeting */}
+        {/* --- Bottom Section: Bento Grid --- */}
         <motion.div
-          className="mb-20 md:mb-28 flex flex-col md:flex-row items-start gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
           variants={itemVariants}
         >
-          <motion.div
-            className="relative w-20 h-20 md:w-28 md:h-28 flex-shrink-0 rounded-xl overflow-hidden ring-1 ring-border"
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.6, type: "spring", stiffness: 260, damping: 20 }}
-          >
-            <Image
-              src="/images/IMG_522556.webp"
-              alt="Junaid Irfan"
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 80px, 112px"
-              priority
-            />
-          </motion.div>
+          {/* Box 1: Experience */}
+          <div className="rounded-3xl border border-border bg-card/50 backdrop-blur-sm p-6 lg:p-8 flex flex-col gap-6 hover:border-primary/50 transition-colors shadow-sm min-h-[300px]">
+            <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
+              <Briefcase className="w-4 h-4" />
+              <span>Experience</span>
+            </div>
+            <div className="flex flex-col gap-6 flex-1 relative mt-2">
+              {/* Vertical line */}
+              <div className="absolute left-[7px] top-2 bottom-4 w-[2px] bg-border rounded-full" />
 
-          <div className="flex-1 min-w-0">
-            {greeting !== null && (
-              <TypeAnimation
-                key={`seq-${greeting}`}
-                sequence={textSequence}
-                wrapper="p"
-                cursor={true}
-                repeat={0}
-                speed={55}
-                className="text-base md:text-lg text-muted-foreground font-medium leading-relaxed"
-                style={{ whiteSpace: 'pre-line' }}
-              />
-            )}
+              <div className="relative pl-6">
+                <div className="absolute left-0 top-1.5 w-4 h-4 rounded-full bg-primary ring-4 ring-background shadow-[0_0_10px_hsl(var(--primary))]" />
+                <h4 className="text-sm font-bold text-foreground">IT Operations Practice</h4>
+                <p className="text-xs text-muted-foreground mt-1">FDM Group • 2026 - Present</p>
+              </div>
+              <div className="relative pl-6">
+                <div className="absolute left-1 top-1.5 w-2 h-2 rounded-full bg-muted-foreground ring-4 ring-background" />
+                <h4 className="text-sm font-bold text-foreground">DevOps Intern</h4>
+                <p className="text-xs text-muted-foreground mt-1">Adventure Triangle • 2026</p>
+              </div>
+              <div className="relative pl-6">
+                <div className="absolute left-1 top-1.5 w-2 h-2 rounded-full bg-muted-foreground ring-4 ring-background" />
+                <h4 className="text-sm font-bold text-foreground">Webmaster</h4>
+                <p className="text-xs text-muted-foreground mt-1">Bishop's University • 2023 - 2024</p>
+              </div>
+            </div>
+            <a href="#experience" className="text-xs font-semibold text-primary flex items-center gap-1 hover:gap-2 transition-all w-fit mt-auto pt-4">
+              View full experience <ChevronRight className="w-3 h-3" />
+            </a>
           </div>
-        </motion.div>
 
-        {/* Description */}
-        <motion.div className="mb-20 md:mb-28 max-w-3xl" variants={itemVariants}>
-          <p className="text-lg md:text-xl text-foreground/80 leading-relaxed">
-            a full-stack developer with a strong focus on front-end experiences. passionate about crafting modern web applications that look great and perform even better. beyond code, i dive into cinematography, videography, and motion design. blending creativity and technology to bring visually engaging ideas to life.
-          </p>
-        </motion.div>
+          {/* Box 2: Currently Learning */}
+          <div className="rounded-3xl border border-border bg-card/50 backdrop-blur-sm p-6 lg:p-8 flex flex-col relative overflow-hidden hover:border-primary/50 transition-colors shadow-sm min-h-[300px] group">
+            <div className="relative z-10 flex items-center gap-2 text-sm font-medium text-muted-foreground mb-6">
+              <Code className="w-4 h-4" />
+              <span>Currently Learning</span>
+            </div>
 
-        {/* Skill cards */}
-        <motion.div
-          className="mb-16"
-          variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.07, delayChildren: 0.2 } } }}
-        >
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5">
-            {[
-              { Icon: Code, title: "Web Development", desc: "Modern, responsive web apps" },
-              { Icon: Cloud, title: "Cloud Engineering", desc: "Scalable cloud infrastructure" },
-              { Icon: Server, title: "DevOps", desc: "CI/CD and automation" },
-              { Icon: Palette, title: "UI/UX Design", desc: "Intuitive, beautiful interfaces" },
-            ].map((skill, index) => (
-              <motion.div
-                key={index}
-                className="group flex flex-col rounded-xl border border-border bg-card p-5 hover:border-primary/40 hover:bg-card/80 transition-all duration-300 hover:shadow-card-hover"
-                variants={cardVariants}
-              >
-                <div className="mb-3 p-2 w-fit rounded-lg bg-primary/10">
-                  <skill.Icon className="h-5 w-5 text-primary" />
-                </div>
-                <p className="font-semibold text-sm text-foreground mb-1">{skill.title}</p>
-                <p className="text-xs text-muted-foreground leading-relaxed">{skill.desc}</p>
-              </motion.div>
-            ))}
+            <div className="relative z-10 flex flex-col gap-4 flex-1">
+              <div className="flex flex-col gap-1">
+                <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">Dynatrace</h3>
+                <p className="text-xs text-muted-foreground">Advanced observability & application performance monitoring.</p>
+              </div>
+
+              <div className="flex flex-col gap-1">
+                <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors delay-75">LLM Training</h3>
+                <p className="text-xs text-muted-foreground">Fine-tuning, prompt engineering, and deploying language models.</p>
+              </div>
+
+              <div className="flex flex-col gap-1">
+                <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors delay-150">Infrastructures</h3>
+                <p className="text-xs text-muted-foreground">Scaling cloud architectures, CI/CD pipelines, and DevOps automation.</p>
+              </div>
+            </div>
+
+            {/* Subtle background glow */}
+            <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-primary/10 rounded-full blur-3xl group-hover:bg-primary/20 transition-colors" />
           </div>
+
+          {/* Box 3: Instagram Feed (Life & Lens) */}
+          <InstagramFeed />
         </motion.div>
 
-        {/* Footer note */}
-        <motion.div className="max-w-3xl" variants={itemVariants}>
-          <p className="text-sm text-muted-foreground">
-            psst! this website is hosted on my home server — check out the{' '}
-            <a href="#infrastructure" className="text-foreground underline underline-offset-4 hover:text-primary transition-colors">
-              infrastructure
-            </a>{' '}
-            section below to see how!
-          </p>
-        </motion.div>
       </motion.div>
     </section>
   )
 }
+

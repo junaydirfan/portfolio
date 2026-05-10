@@ -133,7 +133,7 @@ export function Availability() {
                 <div className="flex flex-col gap-2.5 pt-1">
                   <div className="flex items-center gap-2 text-xs text-muted-foreground">
                     <MapPin className="w-3.5 h-3.5 flex-shrink-0" />
-                    <span>Ontario, Canada</span>
+                    <span>Toronto, Canada</span>
                   </div>
                   <div className="flex items-center justify-between gap-2">
                     <div className="flex items-center gap-2 text-xs text-muted-foreground">

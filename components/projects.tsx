@@ -16,6 +16,7 @@ import {
   SiEthereum, SiLinux, SiCloudflare, SiOpenai,
 } from "react-icons/si";
 import Image from "next/image";
+import { FloatingCodeBackground } from "./floating-code-background"
 
 // Custom GSAP Icon Component - Official GSAP Logo
 const SiGsap = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
@@ -516,8 +517,9 @@ export default function Projects() {
   };
 
   return (
-    <section id="projects" className="py-24 md:py-32 bg-background">
-      <div className="container px-8 md:px-16 lg:px-24 max-w-7xl mx-auto">
+    <section id="projects" className="py-24 md:py-32 bg-background relative overflow-hidden">
+      <FloatingCodeBackground />
+      <div className="container px-8 md:px-16 lg:px-24 max-w-7xl mx-auto relative z-10">
         <motion.div
           ref={ref}
           initial="hidden"

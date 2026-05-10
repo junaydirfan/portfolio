@@ -8,8 +8,9 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
-import { Mail, Phone, MapPin, Send, Loader2, CheckCircle, AlertCircle } from "lucide-react"
+import { Mail, Phone, MapPin, Send, Loader2, CheckCircle, AlertCircle, MessageSquare } from "lucide-react"
 import emailjs from '@emailjs/browser'
+import { FloatingIconsBackground } from "./floating-icons-background"
 
 export default function Contact() {
   const ref = useRef(null)
@@ -96,9 +97,18 @@ export default function Contact() {
     setError("");
   }
 
+  const contactIcons = [
+    { icon: Mail, color: "#10b981" },
+    { icon: Phone, color: "#10b981" },
+    { icon: MapPin, color: "#10b981" },
+    { icon: Send, color: "#10b981" },
+    { icon: MessageSquare, color: "#10b981" },
+  ];
+
   return (
-    <section id="contact" className="py-24 md:py-32 bg-background">
-      <div className="container px-8 md:px-16 lg:px-24 max-w-7xl mx-auto">
+    <section id="contact" className="py-24 md:py-32 bg-background relative overflow-hidden">
+      <FloatingIconsBackground icons={contactIcons} count={15} />
+      <div className="container px-8 md:px-16 lg:px-24 max-w-7xl mx-auto relative z-10">
         <motion.div
           ref={ref}
           initial="hidden"

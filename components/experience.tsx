@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { motion, useInView } from "framer-motion"
 import React, { useRef, useState, useEffect, type ElementType } from "react"; // <-- Use this consolidated line
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Database, Plug, ArrowRightLeft } from "lucide-react";
+import { Database, Plug, ArrowRightLeft, Briefcase, Calendar, Clock, Building2, MapPin, Award, CheckCircle } from "lucide-react";
 import { SiNextdotjs, SiTailwindcss, SiPython, SiReact, SiWordpress, SiFigma, SiAdobephotoshop, SiPostman, SiMongodb, SiTypescript, SiAmazon, SiDocker, SiGithubactions, SiLinux, SiRedhat } from "react-icons/si"; // Import specific icons used
 
 const techIconMap: Record<string, ElementType> = {
@@ -82,6 +82,7 @@ const getTechColor = (tag: string): string => {
   return techColorMap[normalizedTag] || 'currentColor';
 };
 
+import { FloatingIconsBackground } from "./floating-icons-background"
 
 export default function Experience() {
   const ref = useRef(null)
@@ -176,9 +177,20 @@ export default function Experience() {
     },
   ]
 
+  const experienceIcons = [
+    { icon: Briefcase, color: "#a8b9cc" },
+    { icon: Calendar, color: "#a8b9cc" },
+    { icon: Clock, color: "#a8b9cc" },
+    { icon: Building2, color: "#a8b9cc" },
+    { icon: MapPin, color: "#a8b9cc" },
+    { icon: Award, color: "#a8b9cc" },
+    { icon: CheckCircle, color: "#a8b9cc" },
+  ];
+
   return (
-    <section id="experience" className="py-24 md:py-32 bg-background">
-      <div className="container px-8 md:px-16 lg:px-24 max-w-6xl mx-auto">
+    <section id="experience" className="py-24 md:py-32 bg-background relative overflow-hidden">
+      <FloatingIconsBackground icons={experienceIcons} count={20} />
+      <div className="container px-8 md:px-16 lg:px-24 max-w-6xl mx-auto relative z-10">
         <motion.div
           ref={ref}
           initial="hidden"
