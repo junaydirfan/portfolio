@@ -8,6 +8,7 @@ import Image from "next/image";
 interface LastFmTrack {
   name: string;
   artist: string;
+  album?: string;
   url: string;
   image: string | null;
 }
