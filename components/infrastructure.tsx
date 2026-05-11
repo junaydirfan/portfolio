@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useRef, useState, useEffect, type ElementType } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Server, Box, Shield, Cpu, Network, Layers, Activity, Database, Workflow, BarChart3, Container, Globe, Zap, Image as LucideImage, FileText, Brain } from "lucide-react"
+import { Server, Box, Shield, Cpu, Network, Layers, Activity, Database, Workflow, BarChart3, Container, Globe, Zap, Image as LucideImage, FileText, Brain, Key, Gamepad2 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { FloatingIconsBackground } from "./floating-icons-background"
 
@@ -140,6 +140,13 @@ export default function Infrastructure() {
       category: "monitoring"
     },
     {
+      name: "Nginx Proxy Manager",
+      description: "Reverse proxy for managing services",
+      icon: Network,
+      status: "live",
+      category: "proxy"
+    },
+    {
       name: "Docker Portainer",
       description: "Container management interface",
       icon: Container,
@@ -175,11 +182,25 @@ export default function Infrastructure() {
       category: "automation"
     },
     {
+      name: "Vaultwarden",
+      description: "Self-hosted password manager",
+      icon: Key,
+      status: "live",
+      category: "security"
+    },
+    {
       name: "Uptime Kuma",
       description: "Service monitoring",
       icon: Activity,
       status: "live",
       category: "monitoring"
+    },
+    {
+      name: "Tailscale",
+      description: "Secure remote access",
+      icon: Network,
+      status: "live",
+      category: "network"
     },
     {
       name: "Portfolio Website",
@@ -208,6 +229,13 @@ export default function Infrastructure() {
       icon: Brain,
       status: "live",
       category: "ai"
+    },
+    {
+      name: "RomM",
+      description: "Retro Games Management",
+      icon: Gamepad2,
+      status: "live",
+      category: "gaming"
     }
   ]
 
