@@ -31,7 +31,9 @@ export default function LastFmStatus() {
           return;
         }
 
-        const res = await fetch(`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${username}&api_key=${apiKey}&format=json&limit=1`);
+        const res = await fetch(`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${username}&api_key=${apiKey}&format=json&limit=1&t=${Date.now()}`, {
+          cache: "no-store",
+        });
         
         if (res.ok) {
           const data = await res.json();

@@ -22,7 +22,9 @@ export default function InstagramFeed() {
   useEffect(() => {
     const fetchInstagram = async () => {
       try {
-        const res = await fetch("https://feeds.behold.so/Iog7BHYnPsWKbKpJwkAX");
+        const res = await fetch("https://feeds.behold.so/Iog7BHYnPsWKbKpJwkAX?t=" + Date.now(), {
+          cache: "no-store",
+        });
         if (res.ok) {
           const data = await res.json();
           // We only need the first 4 posts to fill the 2x2 grid
