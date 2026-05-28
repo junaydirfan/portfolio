@@ -5,7 +5,8 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 // Removed Badge import
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { ExternalLink, Github, ChevronLeft, ChevronRight } from "lucide-react" // Removed Icon as LucideIcon
+import { ExternalLink, ChevronLeft, ChevronRight } from "lucide-react" // Removed Icon as LucideIcon
+import { FaGithub } from "react-icons/fa"
 import type { ProjectType } from "@/types/project"
 import Image from "next/image"
 
@@ -259,7 +260,7 @@ export function ProjectDetailModal({ project, isOpen, onClose, getTechIcon, getT
             {project.github && project.github !== "#" && (
               <Button variant="outline" className="flex-1 sm:flex-none" asChild>
                 <a href={project.github} target="_blank" rel="noopener noreferrer" aria-label={`${project.title} GitHub Repository`}>
-                  <Github className="mr-2 h-4 w-4" />
+                  <FaGithub className="mr-2 h-4 w-4" />
                   View Code
                 </a>
               </Button>

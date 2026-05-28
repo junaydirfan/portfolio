@@ -107,7 +107,7 @@ export default function Contact() {
 
   return (
     <section id="contact" className="py-24 md:py-32 bg-background relative overflow-hidden">
-      <FloatingIconsBackground icons={contactIcons} count={15} />
+      <FloatingIconsBackground icons={contactIcons} count={15} accentColor="#10b981" />
       <div className="container px-8 md:px-16 lg:px-24 max-w-7xl mx-auto relative z-10">
         <motion.div
           ref={ref}

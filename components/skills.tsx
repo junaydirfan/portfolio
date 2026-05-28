@@ -1,7 +1,7 @@
 "use client"
 
-import { motion, useScroll, useTransform, MotionValue } from "framer-motion"
-import { useRef, RefObject, useState, useMemo, useCallback, useEffect } from "react"
+import { motion, useMotionValue, useReducedMotion, useScroll, useTransform, MotionValue } from "framer-motion"
+import { useRef, RefObject, useMemo, useCallback, useEffect } from "react"
 import { IconType } from "react-icons"
 import {
   SiTypescript,
@@ -13,14 +13,9 @@ import {
   SiMongodb,
   SiGit,
   SiFigma,
-  SiAdobeaftereffects,
-  SiAdobephotoshop,
-  SiAdobeillustrator,
-  SiAdobepremierepro,
   SiUnity,
   SiBlender,
   SiDocker,
-  SiAmazonwebservices,
   SiGithubactions,
   SiWireshark,
   SiSqlite,
@@ -32,6 +27,8 @@ import {
   SiDynatrace,
   SiKubernetes,
 } from "react-icons/si"
+import { FaAws } from "react-icons/fa"
+import { TbBrandAdobeAfterEffect, TbBrandAdobeIllustrator, TbBrandAdobePhotoshop, TbBrandAdobePremier } from "react-icons/tb"
 import { VscAzure } from "react-icons/vsc"
 import { Server, ChevronLeft, ChevronRight } from "lucide-react"
 import { FloatingIconsBackground } from "./floating-icons-background"
@@ -100,14 +97,18 @@ export default function Skills() {
     design: useRef(null)
   }
 
-  // --- Manual Offsets (for arrow controls) ---
-  const [manualOffsetByCategory, setManualOffsetByCategory] = useState<Record<CategoryId, number>>({
-    development: 0,
-    cloud: 0,
-    design: 0
-  })
-  const stepPx = 160 // Approx width per skill (icon + gap)
-  const hoverSpeed = 180 // px per second for hover scrolling (faster)
+  const prefersReducedMotion = useReducedMotion()
+  const developmentOffset = useMotionValue(0)
+  const cloudOffset = useMotionValue(0)
+  const designOffset = useMotionValue(0)
+  const manualOffsetByCategory = useMemo<Record<CategoryId, MotionValue<number>>>(() => ({
+    development: developmentOffset,
+    cloud: cloudOffset,
+    design: designOffset,
+  }), [cloudOffset, designOffset, developmentOffset])
+
+  const stepPx = 144
+  const hoverSpeed = 72
 
   // RAF management for hover-based smooth scrolling per category
   const rafIdsRef = useRef<Record<CategoryId, number | null>>({ development: null, cloud: null, design: null })
@@ -133,7 +134,7 @@ export default function Skills() {
     ],
     cloud: [
       { name: "Docker", icon: SiDocker, brandColor: "#2496ed" },
-      { name: "AWS", icon: SiAmazonwebservices, brandColor: "#ff9900" },
+      { name: "AWS", icon: FaAws, brandColor: "#ff9900" },
       { name: "Azure", icon: VscAzure, brandColor: "#0078d4" },
       { name: "Kubernetes", icon: SiKubernetes, brandColor: "#326ce5" },
       { name: "Proxmox", icon: Server, brandColor: "#e57000" },
@@ -145,39 +146,32 @@ export default function Skills() {
     ],
     design: [
       { name: "Figma", icon: SiFigma, brandColor: "#f24e1e" },
-      { name: "After Effects", icon: SiAdobeaftereffects, brandColor: "#CF96FD" },
-      { name: "Photoshop", icon: SiAdobephotoshop, brandColor: "#31A8FF" },
-      { name: "Illustrator", icon: SiAdobeillustrator, brandColor: "#FF7C00" },
-      { name: "Premiere Pro", icon: SiAdobepremierepro, brandColor: "#9999FF" },
+      { name: "After Effects", icon: TbBrandAdobeAfterEffect, brandColor: "#CF96FD" },
+      { name: "Photoshop", icon: TbBrandAdobePhotoshop, brandColor: "#31A8FF" },
+      { name: "Illustrator", icon: TbBrandAdobeIllustrator, brandColor: "#FF7C00" },
+      { name: "Premiere Pro", icon: TbBrandAdobePremier, brandColor: "#9999FF" },
       { name: "Unity", icon: SiUnity, brandColor: "#ffffff" },
       { name: "Blender", icon: SiBlender, brandColor: "#f5792a" },
       { name: "DaVinci Resolve", icon: SiDavinciresolve, brandColor: "#6b46c1" },
     ]
   }), [])
 
-  const handleShift = useCallback((categoryId: CategoryId, direction: -1 | 1) => {
-    setManualOffsetByCategory((prev) => {
-      const widthPerSet = (skills[categoryId]?.length || 1) * stepPx
-      const next = prev[categoryId] + direction * -stepPx
-      // Wrap within one cycle to avoid drifting into blank space
-      const wrapped = ((next % widthPerSet) + widthPerSet) % widthPerSet
-      // Shift to negative domain [ -widthPerSet, 0 ) for intuitive left/right
-      const negativeDomain = wrapped === 0 ? 0 : wrapped - widthPerSet
-      return { ...prev, [categoryId]: negativeDomain }
-    })
-  }, [stepPx, skills])
-
   const applyWrappedOffset = useCallback((categoryId: CategoryId, next: number) => {
-    const widthPerSet = (skills[categoryId]?.length || 1) * stepPx
+    const widthPerSet = Math.max(1, (skills[categoryId]?.length || 1) * stepPx)
     const wrapped = ((next % widthPerSet) + widthPerSet) % widthPerSet
     return wrapped === 0 ? 0 : wrapped - widthPerSet
   }, [stepPx, skills])
 
-  const tick = useCallback((categoryId: CategoryId, ts: number) => {
+  const handleShift = useCallback((categoryId: CategoryId, direction: -1 | 1) => {
+    const current = manualOffsetByCategory[categoryId].get()
+    manualOffsetByCategory[categoryId].set(applyWrappedOffset(categoryId, current + direction * -stepPx))
+  }, [applyWrappedOffset, manualOffsetByCategory, stepPx])
+
+  const tick = useCallback(function tickFrame(categoryId: CategoryId, ts: number) {
     const last = lastTsRef.current[categoryId]
     if (last == null) {
       lastTsRef.current[categoryId] = ts
-      rafIdsRef.current[categoryId] = requestAnimationFrame((t) => tick(categoryId, t))
+      rafIdsRef.current[categoryId] = requestAnimationFrame((t) => tickFrame(categoryId, t))
       return
     }
     const dt = Math.min(0.05, (ts - last) / 1000) // cap dt to avoid jumps
@@ -191,19 +185,18 @@ export default function Skills() {
       lastTsRef.current[categoryId] = null
       return
     }
-    setManualOffsetByCategory((prev) => {
-      const next = prev[categoryId] + v * dt
-      return { ...prev, [categoryId]: applyWrappedOffset(categoryId, next) }
-    })
-    rafIdsRef.current[categoryId] = requestAnimationFrame((t) => tick(categoryId, t))
-  }, [applyWrappedOffset])
+    const next = manualOffsetByCategory[categoryId].get() + v * dt
+    manualOffsetByCategory[categoryId].set(applyWrappedOffset(categoryId, next))
+    rafIdsRef.current[categoryId] = requestAnimationFrame((t) => tickFrame(categoryId, t))
+  }, [applyWrappedOffset, manualOffsetByCategory])
 
   const startHoverScroll = useCallback((categoryId: CategoryId, direction: -1 | 1) => {
+    if (prefersReducedMotion) return
     velocityRef.current[categoryId] = direction * -hoverSpeed
     if (rafIdsRef.current[categoryId] == null) {
       rafIdsRef.current[categoryId] = requestAnimationFrame((t) => tick(categoryId, t))
     }
-  }, [tick])
+  }, [hoverSpeed, prefersReducedMotion, tick])
 
   const stopHoverScroll = useCallback((categoryId: CategoryId) => {
     velocityRef.current[categoryId] = 0
@@ -238,9 +231,9 @@ export default function Skills() {
 
   // --- Transform ---
   const x: Record<CategoryId, MotionValue<string>> = {
-    development: useTransform(scrollProgress.development.scrollYProgress, [0, 1], ["0%", "-66.666%"]),
-    cloud: useTransform(scrollProgress.cloud.scrollYProgress, [0, 1], ["-66.666%", "0%"]), // Reverse direction for cloud
-    design: useTransform(scrollProgress.design.scrollYProgress, [0, 1], ["0%", "-66.666%"])
+    development: useTransform(scrollProgress.development.scrollYProgress, [0, 1], prefersReducedMotion ? ["0%", "0%"] : ["0%", "-24%"]),
+    cloud: useTransform(scrollProgress.cloud.scrollYProgress, [0, 1], prefersReducedMotion ? ["0%", "0%"] : ["-24%", "0%"]),
+    design: useTransform(scrollProgress.design.scrollYProgress, [0, 1], prefersReducedMotion ? ["0%", "0%"] : ["0%", "-24%"])
   }
 
 
@@ -260,10 +253,19 @@ export default function Skills() {
     }))
   }, [skills])
 
+  const repeatedSkillsByCategory = useMemo<Record<CategoryId, Skill[]>>(() => {
+    const repeat = 4
+    return {
+      development: Array.from({ length: repeat }, () => skills.development).flat(),
+      cloud: Array.from({ length: repeat }, () => skills.cloud).flat(),
+      design: Array.from({ length: repeat }, () => skills.design).flat(),
+    }
+  }, [skills])
+
   return (
     <section id="skills" className="py-24 md:py-32 bg-background overflow-hidden relative">
       {/* Floating Tech Background */}
-      <FloatingIconsBackground icons={allSkills} count={24} />
+      <FloatingIconsBackground icons={allSkills} count={24} accentColor="#8b5cf6" />
       
       <div className="container px-8 md:px-16 lg:px-24 max-w-7xl mx-auto relative z-10">
         <div className="mb-20 md:mb-24">
@@ -289,40 +291,26 @@ export default function Skills() {
                 <div className="absolute right-0 top-0 bottom-0 w-20 h-full bg-gradient-to-l from-background from-40% to-transparent z-10 pointer-events-none" />
 
                 <div ref={containerRefs[category.id]} className="relative h-[110px] overflow-hidden">
-                  <motion.div style={{ x: manualOffsetByCategory[category.id] }} className="absolute">
+                  <motion.div style={{ x: manualOffsetByCategory[category.id] }} className="absolute will-change-transform transform-gpu">
                     <motion.div
                       style={{ x: x[category.id] }}
-                      className="flex gap-10 items-center py-4"
+                      className="flex gap-8 md:gap-10 items-center py-4 will-change-transform transform-gpu"
                     >
-                      {[
-                        ...skills[category.id],
-                        ...skills[category.id],
-                        ...skills[category.id],
-                        ...skills[category.id],
-                        ...skills[category.id],
-                        ...skills[category.id],
-                        ...skills[category.id],
-                        ...skills[category.id]
-                      ].map((skill, index) => (
-                        <motion.div
+                      {repeatedSkillsByCategory[category.id].map((skill, index) => (
+                        <div
                           key={`${skill.name}-${index}`}
                           className="group relative flex flex-col items-center gap-2"
-                          initial={{ opacity: 0, scale: 0.85 }}
-                          whileInView={{ opacity: 1, scale: 1 }}
-                          transition={{ duration: 0.3, ease: "easeOut" }}
-                          viewport={{ once: true }}
                         >
                           <skill.icon
-                            className="h-10 w-10 md:h-12 md:w-12 transition-all duration-200 focus:outline-none hover:opacity-100 opacity-60 group-hover:scale-110"
+                            className="h-10 w-10 md:h-12 md:w-12 opacity-65 transition-[opacity,transform,filter] duration-200 hover:opacity-100 group-hover:scale-105"
                             style={{ color: skill.brandColor }}
                             title={skill.name}
                             aria-label={skill.name}
-                            tabIndex={0}
                           />
                           <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md border border-border bg-card/90 backdrop-blur-sm px-2 py-1 text-[10px] leading-none text-foreground opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity pointer-events-none shadow-sm">
                             {skill.name}
                           </div>
-                        </motion.div>
+                        </div>
                       ))}
                     </motion.div>
                   </motion.div>

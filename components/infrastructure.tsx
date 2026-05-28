@@ -255,7 +255,7 @@ export default function Infrastructure() {
 
   return (
     <section id="infrastructure" className="py-24 md:py-32 bg-background relative overflow-hidden">
-      <FloatingIconsBackground icons={infrastructureIcons} count={20} />
+      <FloatingIconsBackground icons={infrastructureIcons} count={20} accentColor="#38bdf8" />
       <div className="container px-8 md:px-16 lg:px-24 max-w-7xl mx-auto relative z-10">
         <motion.div ref={ref} initial="hidden" animate={isMounted && isInView ? "visible" : "hidden"} variants={containerVariants}>
           <motion.div className="mb-20 md:mb-24" variants={itemVariants}>

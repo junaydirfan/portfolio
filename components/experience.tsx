@@ -6,7 +6,9 @@ import { motion, useInView } from "framer-motion"
 import React, { useRef, useState, useEffect, type ElementType } from "react"; // <-- Use this consolidated line
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Database, Plug, ArrowRightLeft, Briefcase, Calendar, Clock, Building2, MapPin, Award, CheckCircle } from "lucide-react";
-import { SiNextdotjs, SiTailwindcss, SiPython, SiReact, SiWordpress, SiFigma, SiAdobephotoshop, SiPostman, SiMongodb, SiTypescript, SiAmazon, SiDocker, SiGithubactions, SiLinux, SiRedhat, SiDynatrace, SiKubernetes } from "react-icons/si"; // Import specific icons used
+import { SiNextdotjs, SiTailwindcss, SiPython, SiReact, SiWordpress, SiFigma, SiPostman, SiMongodb, SiTypescript, SiDocker, SiGithubactions, SiLinux, SiRedhat, SiDynatrace, SiKubernetes } from "react-icons/si"; // Import specific icons used
+import { FaAws } from "react-icons/fa";
+import { TbBrandAdobePhotoshop } from "react-icons/tb";
 import { VscAzure } from "react-icons/vsc";
 
 const techIconMap: Record<string, ElementType> = {
@@ -22,11 +24,11 @@ const techIconMap: Record<string, ElementType> = {
   'datapipelines': ArrowRightLeft,
   'etl': Database,
   'apiintegration': SiPostman,
-  'aws': SiAmazon,
-  'ec2': SiAmazon,
-  's3': SiAmazon,
-  'rds': SiAmazon,
-  'cloudwatch': SiAmazon,
+  'aws': FaAws,
+  'ec2': FaAws,
+  's3': FaAws,
+  'rds': FaAws,
+  'cloudwatch': FaAws,
   'docker': SiDocker,
   'githubactions': SiGithubactions,
   'cicd': SiGithubactions,
@@ -35,7 +37,7 @@ const techIconMap: Record<string, ElementType> = {
   'unix': SiLinux,
   'redhat': SiRedhat,
   'wordpress': SiWordpress,
-  'photoshop': SiAdobephotoshop,
+  'photoshop': TbBrandAdobePhotoshop,
   'figma': SiFigma,
   'postman': SiPostman,
   'mongodb': SiMongodb,
@@ -196,7 +198,7 @@ export default function Experience() {
 
   return (
     <section id="experience" className="py-24 md:py-32 bg-background relative overflow-hidden">
-      <FloatingIconsBackground icons={experienceIcons} count={20} />
+      <FloatingIconsBackground icons={experienceIcons} count={20} accentColor="#94a3b8" />
       <div className="container px-8 md:px-16 lg:px-24 max-w-6xl mx-auto relative z-10">
         <motion.div
           ref={ref}

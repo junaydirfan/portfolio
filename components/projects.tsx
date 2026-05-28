@@ -7,14 +7,16 @@ import { ProjectDetailModal } from "./project-detail-modal"
 import type { ProjectType } from "@/types/project"
 import {
   SiNextdotjs, SiNestjs, SiSolidity, SiC, SiReact, SiJavascript,
-  SiHtml5, SiCss3, SiTypescript, SiTailwindcss, SiRadixui, SiFramer, SiPython,
-  SiPostgresql, SiMongodb, SiMysql, SiRedis, SiSqlite, SiDocker, SiAmazonwebservices,
+  SiHtml5, SiTypescript, SiTailwindcss, SiRadixui, SiFramer, SiPython,
+  SiPostgresql, SiMongodb, SiMysql, SiRedis, SiSqlite, SiDocker,
   SiKubernetes, SiTerraform, SiAnsible, SiGithubactions, SiJenkins, SiGit, SiWireshark,
   SiSocketdotio, SiWordpress, SiVuedotjs, SiSvelte, SiOpenjdk,
-  SiFigma, SiAdobeaftereffects, SiAdobephotoshop, SiAdobeillustrator, SiAdobepremierepro,
+  SiFigma,
   SiUnity, SiBlender, SiGithubpages, SiVercel, SiSanity, SiWhatsapp, SiResend,
   SiEthereum, SiLinux, SiCloudflare, SiOpenai,
 } from "react-icons/si";
+import { FaAws, FaCss3Alt } from "react-icons/fa";
+import { TbBrandAdobeAfterEffect, TbBrandAdobeIllustrator, TbBrandAdobePhotoshop, TbBrandAdobePremier } from "react-icons/tb";
 import Image from "next/image";
 import { FloatingCodeBackground } from "./floating-code-background"
 
@@ -54,7 +56,7 @@ const techIconMap: Record<string, ElementType> = {
   'tailwindcss': SiTailwindcss,
   'html': SiHtml5,
   'htmlcss': SiHtml5,
-  'css': SiCss3,
+  'css': FaCss3Alt,
   'responsivedesign': Smartphone,       // was SiMaterialdesign (Google's design system ≠ responsive design)
   'framermotion': SiFramer,
   'radixui': SiRadixui,
@@ -82,7 +84,7 @@ const techIconMap: Record<string, ElementType> = {
 
   // --- Infrastructure / DevOps ---
   'docker': SiDocker,
-  'aws': SiAmazonwebservices,
+  'aws': FaAws,
   'proxmox': Server,
   'kubernetes': SiKubernetes,
   'terraform': SiTerraform,
@@ -117,10 +119,10 @@ const techIconMap: Record<string, ElementType> = {
 
   // --- Design Tools ---
   'figma': SiFigma,
-  'aftereffects': SiAdobeaftereffects,
-  'photoshop': SiAdobephotoshop,
-  'illustrator': SiAdobeillustrator,
-  'premierepro': SiAdobepremierepro,
+  'aftereffects': TbBrandAdobeAfterEffect,
+  'photoshop': TbBrandAdobePhotoshop,
+  'illustrator': TbBrandAdobeIllustrator,
+  'premierepro': TbBrandAdobePremier,
   'unity': SiUnity,
   'blender': SiBlender,
   'geistfont': Type,                    // was SiFontforge (FontForge is font editing software, not Geist)

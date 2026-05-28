@@ -79,6 +79,8 @@ export default function InstagramFeed() {
                   i === 1 ? 'delay-75' : i === 2 ? 'delay-100' : i === 3 ? 'delay-150' : ''
                 }`}
                 unoptimized // External images
+                loading={i === 0 ? "eager" : "lazy"}
+                fetchPriority={i === 0 ? "high" : "auto"}
               />
             </div>
           ))
@@ -86,16 +88,16 @@ export default function InstagramFeed() {
           // Fallback if fetch fails or is empty
           <>
             <div className="relative w-full h-full rounded-xl overflow-hidden group-hover:opacity-90 transition-opacity">
-              <Image src="/images/tayyab.webp" alt="Instagram Post 1" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
+              <Image src="/images/tayyab.webp" alt="Instagram Post 1" fill className="object-cover transition-transform duration-700 group-hover:scale-110" loading="eager" fetchPriority="high" />
             </div>
             <div className="relative w-full h-full rounded-xl overflow-hidden group-hover:opacity-90 transition-opacity">
-              <Image src="/images/campusthrive.webp" alt="Instagram Post 2" fill className="object-cover transition-transform duration-700 group-hover:scale-110 delay-75" />
+              <Image src="/images/campusthrive.webp" alt="Instagram Post 2" fill className="object-cover transition-transform duration-700 group-hover:scale-110 delay-75" loading="lazy" />
             </div>
             <div className="relative w-full h-full rounded-xl overflow-hidden group-hover:opacity-90 transition-opacity">
-              <Image src="/images/socialsight.webp" alt="Instagram Post 3" fill className="object-cover transition-transform duration-700 group-hover:scale-110 delay-100" />
+              <Image src="/images/socialsight.webp" alt="Instagram Post 3" fill className="object-cover transition-transform duration-700 group-hover:scale-110 delay-100" loading="lazy" />
             </div>
             <div className="relative w-full h-full rounded-xl overflow-hidden group-hover:opacity-90 transition-opacity">
-              <Image src="/images/hoorcharms.webp" alt="Instagram Post 4" fill className="object-cover transition-transform duration-700 group-hover:scale-110 delay-150" />
+              <Image src="/images/hoorcharms.webp" alt="Instagram Post 4" fill className="object-cover transition-transform duration-700 group-hover:scale-110 delay-150" loading="lazy" />
             </div>
           </>
         )}

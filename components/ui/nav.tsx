@@ -172,7 +172,7 @@ export function Nav() {
             >
               <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Say Hello</span>
               <a href="mailto:junaid.irfan@example.com" className="text-base text-foreground font-medium hover:text-primary transition-colors">
-                Let's work together
+                Let&apos;s work together
               </a>
             </motion.div>
           </motion.div>

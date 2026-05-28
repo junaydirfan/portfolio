@@ -9,8 +9,9 @@ export default function AmbientTechBackground() {
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const canHoverPrecisely = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
-    // Sleek grid
     const grid = document.createElement("div");
     grid.className = "absolute inset-0 pointer-events-none opacity-[0.04]";
     grid.style.backgroundImage = `
@@ -20,42 +21,49 @@ export default function AmbientTechBackground() {
     grid.style.backgroundSize = "64px 64px";
     grid.style.maskImage = "linear-gradient(to bottom, black 20%, transparent 80%)";
     grid.style.webkitMaskImage = "linear-gradient(to bottom, black 20%, transparent 80%)";
+    grid.style.willChange = "transform";
     container.appendChild(grid);
 
-    // Spotlight effect
     const spotlight = document.createElement("div");
     spotlight.className = "absolute pointer-events-none rounded-full blur-[100px] opacity-20 mix-blend-screen";
     spotlight.style.width = "400px";
     spotlight.style.height = "400px";
     spotlight.style.background = "radial-gradient(circle, hsl(var(--primary)) 0%, transparent 70%)";
-    // Center initially
-    gsap.set(spotlight, { xPercent: -50, yPercent: -50, top: "50%", left: "50%" });
+    spotlight.style.willChange = "transform";
+    gsap.set(spotlight, {
+      xPercent: -50,
+      yPercent: -50,
+      x: window.innerWidth / 2,
+      y: window.innerHeight / 2,
+      force3D: true,
+    });
     container.appendChild(spotlight);
 
-    const onMouseMove = (e: MouseEvent) => {
-      // Move spotlight
-      gsap.to(spotlight, {
-        top: e.clientY,
-        left: e.clientX,
-        duration: 0.8,
-        ease: "power2.out",
-      });
+    if (prefersReducedMotion || !canHoverPrecisely) {
+      return () => {
+        grid.remove();
+        spotlight.remove();
+      };
+    }
 
-      // Subtle grid parallax
+    const moveSpotlightX = gsap.quickTo(spotlight, "x", { duration: 0.7, ease: "power3.out" });
+    const moveSpotlightY = gsap.quickTo(spotlight, "y", { duration: 0.7, ease: "power3.out" });
+    const moveGridX = gsap.quickTo(grid, "x", { duration: 1.2, ease: "power3.out" });
+    const moveGridY = gsap.quickTo(grid, "y", { duration: 1.2, ease: "power3.out" });
+
+    const onPointerMove = (e: PointerEvent) => {
+      moveSpotlightX(e.clientX);
+      moveSpotlightY(e.clientY);
       const x = (e.clientX / window.innerWidth - 0.5) * 20;
       const y = (e.clientY / window.innerHeight - 0.5) * 20;
-      gsap.to(grid, {
-        x: -x,
-        y: -y,
-        duration: 1.5,
-        ease: "power2.out"
-      });
+      moveGridX(-x);
+      moveGridY(-y);
     };
 
-    window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("pointermove", onPointerMove, { passive: true });
 
     return () => {
-      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("pointermove", onPointerMove);
       gsap.killTweensOf(grid);
       gsap.killTweensOf(spotlight);
       grid.remove();

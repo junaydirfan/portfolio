@@ -57,7 +57,7 @@ export default function Education() {
 
   return (
     <section id="education" className="py-24 md:py-32 bg-background relative overflow-hidden">
-      <FloatingIconsBackground icons={educationIcons} count={15} />
+      <FloatingIconsBackground icons={educationIcons} count={15} accentColor="#f59e0b" />
       <div className="container px-8 md:px-16 lg:px-24 max-w-6xl mx-auto relative z-10">
         <motion.div
           ref={ref}

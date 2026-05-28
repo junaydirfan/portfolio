@@ -111,7 +111,7 @@ export default function About() {
               <div className="relative pl-6">
                 <div className="absolute left-1 top-1.5 w-2 h-2 rounded-full bg-muted-foreground ring-4 ring-background" />
                 <h4 className="text-sm font-bold text-foreground">Webmaster</h4>
-                <p className="text-xs text-muted-foreground mt-1">Bishop's University • 2023 - 2024</p>
+                <p className="text-xs text-muted-foreground mt-1">Bishop&apos;s University • 2023 - 2024</p>
               </div>
             </div>
             <a href="#experience" className="text-xs font-semibold text-primary flex items-center gap-1 hover:gap-2 transition-all w-fit mt-auto pt-4">
@@ -155,4 +155,3 @@ export default function About() {
     </section>
   )
 }
-

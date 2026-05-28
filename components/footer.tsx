@@ -1,6 +1,7 @@
 "use client"
 
-import { Github, Linkedin, Mail } from "lucide-react"
+import { Mail } from "lucide-react"
+import { FaGithub, FaLinkedin } from "react-icons/fa"
 import { useState, useEffect } from "react"
 
 export default function Footer() {
@@ -20,8 +21,8 @@ export default function Footer() {
 
           <div className="flex items-center gap-1">
             {[
-              { href: "https://github.com/junaydirfan", Icon: Github, label: "GitHub" },
-              { href: "https://linkedin.com/in/junaydirfan", Icon: Linkedin, label: "LinkedIn" },
+              { href: "https://github.com/junaydirfan", Icon: FaGithub, label: "GitHub" },
+              { href: "https://linkedin.com/in/junaydirfan", Icon: FaLinkedin, label: "LinkedIn" },
               { href: "mailto:hello@junaidirfan.com", Icon: Mail, label: "Email" },
             ].map(({ href, Icon, label }) => (
               <a
