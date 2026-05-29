@@ -1,7 +1,7 @@
 "use client"
 
 import { motion, useInView } from "framer-motion"
-import React, { useRef, useState, useEffect, type ElementType } from "react";
+import React, { useRef, useState, useEffect, useCallback, type ElementType } from "react";
 import { Trophy, Server, Lock, Hammer, BarChart3, Workflow, Cpu, Database, Network, Smartphone, Mail, Type, ShieldCheck, Sparkles } from "lucide-react";
 import { ProjectDetailModal } from "./project-detail-modal"
 import type { ProjectType } from "@/types/project"
@@ -255,6 +255,7 @@ export default function Projects() {
   const [minimizedCards, setMinimizedCards] = useState<Set<string>>(new Set())
   const [dialogOrigin, setDialogOrigin] = useState({ x: "50%", y: "50%" })
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const scrollLockRef = useRef<{ bodyOverflow: string; htmlOverflow: string } | null>(null)
 
   useEffect(() => {
     setIsMounted(true)
@@ -548,6 +549,41 @@ export default function Projects() {
   // -------------------------------------------------
 
 
+  const setProjectModalScrollLock = useCallback((locked: boolean) => {
+    if (typeof window === "undefined") return
+
+    const html = document.documentElement
+    const body = document.body
+
+    if (locked) {
+      if (!scrollLockRef.current) {
+        scrollLockRef.current = {
+          bodyOverflow: body.style.overflow,
+          htmlOverflow: html.style.overflow,
+        }
+      }
+
+      html.dataset.projectModalOpen = "true"
+      body.style.overflow = "hidden"
+      html.style.overflow = "hidden"
+      window.dispatchEvent(new CustomEvent("project-modal-scroll-lock", { detail: { open: true } }))
+      return
+    }
+
+    delete html.dataset.projectModalOpen
+
+    if (scrollLockRef.current) {
+      body.style.overflow = scrollLockRef.current.bodyOverflow
+      html.style.overflow = scrollLockRef.current.htmlOverflow
+      scrollLockRef.current = null
+    } else {
+      body.style.overflow = ""
+      html.style.overflow = ""
+    }
+
+    window.dispatchEvent(new CustomEvent("project-modal-scroll-lock", { detail: { open: false } }))
+  }, [])
+
   const handleOpenModal = (project: ProjectType, originElement?: HTMLElement) => {
     if (closeTimerRef.current) {
       clearTimeout(closeTimerRef.current)
@@ -566,7 +602,7 @@ export default function Projects() {
 
     setSelectedProject(project)
     setIsModalOpen(true)
-    document.body.style.overflow = 'hidden'; // Prevent background scroll when modal is open
+    setProjectModalScrollLock(true)
   }
 
   const handleMinimize = (projectId: string) => {
@@ -583,22 +619,24 @@ export default function Projects() {
 
   const handleCloseModal = () => {
     setIsModalOpen(false)
-    document.body.style.overflow = 'auto'; // Restore background scroll
+    if (closeTimerRef.current) {
+      clearTimeout(closeTimerRef.current)
+    }
     closeTimerRef.current = setTimeout(() => {
       setSelectedProject(null)
       closeTimerRef.current = null
+      setProjectModalScrollLock(false)
     }, 360)
   }
 
-  // Add effect to handle potential overflow issues if modal unmounts unexpectedly
   useEffect(() => {
     return () => {
       if (closeTimerRef.current) {
         clearTimeout(closeTimerRef.current)
       }
-      document.body.style.overflow = 'auto'; // Ensure scroll is restored on unmount
+      setProjectModalScrollLock(false)
     };
-  }, []);
+  }, [setProjectModalScrollLock]);
 
   // Helper function to get the appropriate image
   const getImageSource = (imagePath: string) => {

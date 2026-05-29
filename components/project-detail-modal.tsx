@@ -64,10 +64,15 @@ export function ProjectDetailModal({ project, isOpen, onClose, getTechIcon, getT
 
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog open={isOpen} onOpenChange={(open) => {
+      if (!open) onClose()
+    }}>
       {/* Increased max-width slightly, adjusted padding */}
       <DialogContent
-        className="project-detail-dialog max-w-5xl w-[95vw] md:w-[90vw] max-h-[90vh] overflow-y-auto p-6 md:p-8 custom-scrollbar"
+        data-lenis-prevent
+        data-lenis-prevent-wheel
+        data-project-dialog-scroll
+        className="project-detail-dialog max-w-5xl w-[95vw] md:w-[90vw] max-h-[90vh] overflow-y-auto overscroll-contain p-6 md:p-8 custom-scrollbar"
         style={{
           "--project-dialog-origin-x": dialogOrigin?.x ?? "50%",
           "--project-dialog-origin-y": dialogOrigin?.y ?? "50%",

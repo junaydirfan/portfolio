@@ -24,6 +24,8 @@ export default function SmoothScrolling({ children }: { children: React.ReactNod
       gestureOrientation: 'vertical',
       smoothWheel: true,
       wheelMultiplier: 0.85,
+      prevent: (node) => Boolean(node.closest("[data-lenis-prevent], [data-project-dialog-scroll]")),
+      virtualScroll: () => document.documentElement.dataset.projectModalOpen !== "true",
     });
 
     lenis.on('scroll', ScrollTrigger.update);
@@ -36,7 +38,19 @@ export default function SmoothScrolling({ children }: { children: React.ReactNod
 
     gsap.ticker.lagSmoothing(0);
 
+    const handleProjectModalScrollLock = (event: Event) => {
+      const isOpen = event instanceof CustomEvent && Boolean(event.detail?.open);
+      if (isOpen) {
+        lenis.stop();
+      } else {
+        lenis.start();
+      }
+    };
+
+    window.addEventListener("project-modal-scroll-lock", handleProjectModalScrollLock);
+
     return () => {
+      window.removeEventListener("project-modal-scroll-lock", handleProjectModalScrollLock);
       gsap.ticker.remove(updateLenis);
       lenis.destroy();
     };
