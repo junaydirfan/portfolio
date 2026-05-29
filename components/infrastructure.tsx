@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useRef, useState, useEffect, type ElementType } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Server, Box, Shield, Cpu, Network, Layers, Activity, Database, Workflow, BarChart3, Container, Globe, Zap, Image as LucideImage, FileText, Brain, Key, Gamepad2 } from "lucide-react"
+import { Server, Box, Shield, Cpu, Network, Layers, Activity, Database, Workflow, BarChart3, Container, Globe, Zap, Image as LucideImage, FileText, Brain, Key, Gamepad2, ExternalLink } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { FloatingIconsBackground } from "./floating-icons-background"
 
@@ -298,6 +298,32 @@ export default function Infrastructure() {
               </motion.div>
             ))}
           </div>
+
+          <motion.div variants={itemVariants} className="mb-12 md:mb-16">
+            <a
+              href="https://github.com/junaydirfan/ultimate-selfhosted-homelab"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex flex-col gap-4 rounded-lg border border-sky-400/15 bg-card/70 p-5 transition-all duration-300 hover:border-sky-300/35 hover:bg-card hover:shadow-card-hover md:flex-row md:items-center md:justify-between"
+              aria-label="Open ultimate self-hosted homelab documentation on GitHub"
+            >
+              <div className="flex min-w-0 items-start gap-4">
+                <div className="flex-shrink-0 rounded-lg bg-sky-400/10 p-2.5">
+                  <FileText className="h-5 w-5 text-sky-300" />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-sm font-semibold text-foreground">homelab setup documentation</p>
+                  <p className="mt-1 max-w-3xl text-sm leading-relaxed text-muted-foreground">
+                    a living GitHub repo documenting the self-hosted stack, service setup, and operational notes behind this home server.
+                  </p>
+                </div>
+              </div>
+              <span className="inline-flex w-fit items-center gap-2 rounded-md border border-border bg-muted/50 px-3 py-2 text-xs font-semibold text-foreground transition-colors group-hover:border-sky-300/35 group-hover:bg-sky-400/10 group-hover:text-sky-100">
+                view repo
+                <ExternalLink className="h-3.5 w-3.5" />
+              </span>
+            </a>
+          </motion.div>
 
           {/* Live Services */}
           <motion.div variants={itemVariants} className="mb-12">

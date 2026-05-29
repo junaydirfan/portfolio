@@ -2,7 +2,7 @@
 
 import { motion, useInView } from "framer-motion"
 import React, { useRef, useState, useEffect, type ElementType } from "react";
-import { Trophy, Server, Lock, Hammer, BarChart3, Workflow, Cpu, Database, Network, Smartphone, Mail, Type, ShieldCheck } from "lucide-react";
+import { Trophy, Server, Lock, Hammer, BarChart3, Workflow, Cpu, Database, Network, Smartphone, Mail, Type, ShieldCheck, Sparkles } from "lucide-react";
 import { ProjectDetailModal } from "./project-detail-modal"
 import type { ProjectType } from "@/types/project"
 import {
@@ -13,7 +13,7 @@ import {
   SiSocketdotio, SiWordpress, SiVuedotjs, SiSvelte, SiOpenjdk,
   SiFigma,
   SiUnity, SiBlender, SiGithubpages, SiVercel, SiSanity, SiWhatsapp, SiResend,
-  SiEthereum, SiLinux, SiCloudflare, SiOpenai,
+  SiEthereum, SiLinux, SiCloudflare, SiOpenai, SiStripe, SiGooglegemini,
 } from "react-icons/si";
 import { FaAws, FaCss3Alt } from "react-icons/fa";
 import { TbBrandAdobeAfterEffect, TbBrandAdobeIllustrator, TbBrandAdobePhotoshop, TbBrandAdobePremier } from "react-icons/tb";
@@ -112,10 +112,19 @@ const techIconMap: Record<string, ElementType> = {
   // --- AI ---
   'openai': SiOpenai,                   // was Bot (generic)
   'chatgpt': SiOpenai,                  // was Bot (generic)
+  'gemini': SiGooglegemini,
+  'openrouter': Network,
+  'llmapis': SiOpenai,
+  'ats': BarChart3,
+  'jobboard': Workflow,
+  'outreach': Mail,
 
   // --- PWA / Privacy ---
   'pwa': Smartphone,
   'privacyfirst': ShieldCheck,
+
+  // --- Payments ---
+  'stripe': SiStripe,
 
   // --- Design Tools ---
   'figma': SiFigma,
@@ -200,9 +209,17 @@ const techColorMap: Record<string, string> = {
   // AI
   'openai': '#00a67e',
   'chatgpt': '#00a67e',
+  'gemini': '#8ab4f8',
+  'openrouter': '#c4b5fd',
+  'llmapis': '#00a67e',
+  'ats': '#22c55e',
+  'jobboard': '#38bdf8',
+  'outreach': '#f97316',
   // PWA / Privacy
   'pwa': '#5a0fc8',
   'privacyfirst': '#22c55e',
+  // Payments
+  'stripe': '#635bff',
   // Design
   'figma': '#f24e1e',
   'aftereffects': '#cf96fd',
@@ -236,6 +253,8 @@ export default function Projects() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isMounted, setIsMounted] = useState(false)
   const [minimizedCards, setMinimizedCards] = useState<Set<string>>(new Set())
+  const [dialogOrigin, setDialogOrigin] = useState({ x: "50%", y: "50%" })
+  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
     setIsMounted(true)
@@ -260,6 +279,54 @@ export default function Projects() {
 
   // --- Project Data (Keep your existing data here) ---
   const projects: ProjectType[] = [
+    {
+      id: "pimpmycv",
+      title: "PimpMyCV: AI resume tailoring SaaS",
+      shortDescription:
+        "an AI-powered SaaS that turns a master resume and job posting links into tailored, ATS-friendly resumes, cover letters, job matches, outreach drafts, and ATS score insights.",
+      fullDescription:
+        "PimpMyCV is a full-stack SaaS app built to make job applications feel dramatically faster and more targeted. Users add their master resume and job description links, then generate a tailored, ATS-friendly resume and matching cover letter for that exact role with one click. The product also includes a tailored jobs board, outreach workflows for finding decision makers and drafting personalized messages, an ATS score analyzer, monthly Stripe subscription support, and multiple LLM models connected through APIs with fallback behavior for reliability.",
+      image: "/images/pimpmycv.png",
+      tags: ["Next.js", "TypeScript", "Stripe", "Gemini", "OpenRouter", "LLM APIs", "Tailwind CSS", "ATS", "Job Board", "Outreach"],
+      link: "https://pimpmycv.junaidirfan.com",
+      keyFeatures: [
+        "One-click resume tailoring from a master resume and job description links",
+        "ATS-friendly resume generation tuned to each specific job posting",
+        "Role-specific cover letter generation",
+        "Built-in tailored jobs board for matched opportunities",
+        "Outreach tools for finding decision makers and drafting personalized messages",
+        "ATS score analysis to highlight resume fit and improvement areas",
+        "Monthly subscription billing through Stripe",
+        "Multiple LLM providers with API-level fallbacks"
+      ],
+      technicalDetails: [
+        "Full-stack Next.js SaaS application with dashboard-driven application workflows",
+        "Stripe integration for monthly subscription payment support",
+        "Gemini and OpenRouter integrations for multi-model generation and fallbacks",
+        "AI orchestration for resume tailoring, cover letters, ATS analysis, and outreach copy",
+        "Tailored jobs board flow that connects saved resume context to job opportunities",
+        "Responsive, production-focused UI optimized for repeat usage across desktop and mobile"
+      ],
+      architecture:
+        "Full-stack Next.js SaaS architecture organized around payment-gated career workflows. Stripe handles monthly subscriptions, while Gemini and OpenRouter power the AI layer for document tailoring, ATS analysis, job matching, and outreach generation. The product keeps the core application loop fast by turning resume context and job posting inputs into structured outputs in a single dashboard flow.",
+      challenges: [
+        {
+          title: "Turning unstructured job posts into useful resume changes",
+          description: "Job descriptions vary wildly in format, detail, and quality, which makes direct resume tailoring inconsistent.",
+          solution: "Built an AI workflow that extracts role signals, maps them against the master resume, and generates targeted resume and cover letter outputs."
+        },
+        {
+          title: "Keeping LLM generation reliable",
+          description: "A production SaaS cannot depend on a single model path when providers can rate limit, fail, or return weaker output.",
+          solution: "Connected multiple LLM models through APIs with fallback behavior so generation can recover gracefully."
+        },
+        {
+          title: "Combining several job-search tools without slowing users down",
+          description: "Resume tailoring, ATS scoring, jobs, and outreach can easily become separate chores.",
+          solution: "Designed the app around a dashboard flow where each feature builds on the same resume and job context."
+        }
+      ]
+    },
     {
       id: "campusthrive",
       title: "campusthrive: student wellness tracker",
@@ -481,7 +548,22 @@ export default function Projects() {
   // -------------------------------------------------
 
 
-  const handleOpenModal = (project: ProjectType) => {
+  const handleOpenModal = (project: ProjectType, originElement?: HTMLElement) => {
+    if (closeTimerRef.current) {
+      clearTimeout(closeTimerRef.current)
+      closeTimerRef.current = null
+    }
+
+    if (originElement && typeof window !== "undefined") {
+      const rect = originElement.getBoundingClientRect()
+      setDialogOrigin({
+        x: `${((rect.left + rect.width / 2) / window.innerWidth) * 100}%`,
+        y: `${((rect.top + rect.height / 2) / window.innerHeight) * 100}%`,
+      })
+    } else {
+      setDialogOrigin({ x: "50%", y: "50%" })
+    }
+
     setSelectedProject(project)
     setIsModalOpen(true)
     document.body.style.overflow = 'hidden'; // Prevent background scroll when modal is open
@@ -501,13 +583,19 @@ export default function Projects() {
 
   const handleCloseModal = () => {
     setIsModalOpen(false)
-    setSelectedProject(null)
     document.body.style.overflow = 'auto'; // Restore background scroll
+    closeTimerRef.current = setTimeout(() => {
+      setSelectedProject(null)
+      closeTimerRef.current = null
+    }, 360)
   }
 
   // Add effect to handle potential overflow issues if modal unmounts unexpectedly
   useEffect(() => {
     return () => {
+      if (closeTimerRef.current) {
+        clearTimeout(closeTimerRef.current)
+      }
       document.body.style.overflow = 'auto'; // Ensure scroll is restored on unmount
     };
   }, []);
@@ -544,8 +632,9 @@ export default function Projects() {
             {projects.map((project) => (
               <motion.div key={project.id} variants={itemVariants} className="group flex">
                 <div
-                  className="h-full w-full flex flex-col rounded-xl bg-card border border-border hover:border-primary/40 transition-all duration-300 z-10 cursor-pointer hover:shadow-card-hover overflow-hidden"
-                  onClick={() => handleOpenModal(project)}
+                  data-project-card
+                  className="h-full w-full flex flex-col rounded-xl bg-card border border-border hover:border-primary/40 transition-all duration-300 z-10 cursor-pointer hover:shadow-card-hover overflow-hidden motion-safe:active:scale-[0.992]"
+                  onClick={(event) => handleOpenModal(project, event.currentTarget)}
                 >
                   {/* Window chrome header */}
                   <div className="flex items-center justify-between px-4 py-3 bg-muted/40 border-b border-border">
@@ -557,7 +646,9 @@ export default function Projects() {
                       />
                       <button
                         className="w-3 h-3 rounded-full bg-yellow-500/80 hover:bg-yellow-500 cursor-pointer transition-colors"
-                        onClick={() => handleOpenModal(project)}
+                        onClick={(event) => {
+                          handleOpenModal(project, event.currentTarget.closest("[data-project-card]") as HTMLElement | undefined)
+                        }}
                         title="Expand"
                       />
                       <button
@@ -614,6 +705,12 @@ export default function Projects() {
                               <span className="font-semibold">BU CampusThrive Hackathon &apos;25</span>
                             </div>
                           )}
+                          {project.id === "pimpmycv" && (
+                            <div className="flex items-center gap-1.5 text-xs text-violet-200 mb-3 bg-violet-500/10 border border-violet-400/20 rounded-md px-2.5 py-1.5 w-fit">
+                              <Sparkles className="h-3.5 w-3.5 flex-shrink-0" />
+                              <span className="font-semibold">AI SaaS product</span>
+                            </div>
+                          )}
 
                           <p className="text-muted-foreground text-sm leading-relaxed line-clamp-3">
                             {project.shortDescription}
@@ -656,6 +753,7 @@ export default function Projects() {
         onClose={handleCloseModal}
         getTechIcon={getTechIcon}
         getTechColor={getTechColor}
+        dialogOrigin={dialogOrigin}
       />
     </section>
   )

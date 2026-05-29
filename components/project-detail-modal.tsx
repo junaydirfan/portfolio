@@ -16,9 +16,13 @@ interface ProjectDetailModalProps {
   onClose: () => void
   getTechIcon: (tag: string) => ElementType | null
   getTechColor?: (tag: string) => string
+  dialogOrigin?: {
+    x: string
+    y: string
+  }
 }
 
-export function ProjectDetailModal({ project, isOpen, onClose, getTechIcon, getTechColor }: ProjectDetailModalProps) {
+export function ProjectDetailModal({ project, isOpen, onClose, getTechIcon, getTechColor, dialogOrigin }: ProjectDetailModalProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [isMounted, setIsMounted] = useState(false)
 
@@ -62,13 +66,19 @@ export function ProjectDetailModal({ project, isOpen, onClose, getTechIcon, getT
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       {/* Increased max-width slightly, adjusted padding */}
-      <DialogContent className="max-w-5xl w-[95vw] md:w-[90vw] max-h-[90vh] overflow-y-auto p-6 md:p-8 custom-scrollbar">
-        <DialogHeader className="mb-4 pr-6"> {/* Added padding right for close button spacing */}
+      <DialogContent
+        className="project-detail-dialog max-w-5xl w-[95vw] md:w-[90vw] max-h-[90vh] overflow-y-auto p-6 md:p-8 custom-scrollbar"
+        style={{
+          "--project-dialog-origin-x": dialogOrigin?.x ?? "50%",
+          "--project-dialog-origin-y": dialogOrigin?.y ?? "50%",
+        } as React.CSSProperties}
+      >
+        <DialogHeader className="project-dialog-reveal mb-4 pr-6"> {/* Added padding right for close button spacing */}
           <DialogTitle className="text-2xl md:text-3xl">{project.title}</DialogTitle>
           <DialogDescription className="text-base md:text-lg opacity-90">{project.shortDescription}</DialogDescription>
         </DialogHeader>
 
-        <div className="mt-2"> {/* Reduced margin top */}
+        <div className="project-dialog-reveal project-dialog-reveal-1 mt-2"> {/* Reduced margin top */}
           <Tabs defaultValue="overview" className="w-full">
             {/* Simplified TabsList - let it wrap naturally or use scroll area if too many */}
             <TabsList className={`grid w-full ${getTabCols()}`}>
@@ -87,7 +97,7 @@ export function ProjectDetailModal({ project, isOpen, onClose, getTechIcon, getT
             {/* --- Overview Tab --- */}
             <TabsContent value="overview" className="mt-6 space-y-6"> {/* Increased spacing */}
                 {/* Image */}
-                <div className="relative aspect-video rounded-lg overflow-hidden bg-muted border border-border/50">
+                <div className="project-dialog-media relative aspect-video rounded-lg overflow-hidden bg-muted border border-border/50">
                  {isMounted && project.image ? (
                    <Image
                      src={project.image}
@@ -168,7 +178,7 @@ export function ProjectDetailModal({ project, isOpen, onClose, getTechIcon, getT
              {project.gallery && project.gallery.length > 0 && project.id !== "busrc-website" && project.id !== "this-website" && project.id !== "bulletin-board" && project.id !== "socialsight" && (
                 <TabsContent value="gallery" className="mt-6">
                   <div className="space-y-4">
-                    <div className="relative aspect-video rounded-lg overflow-hidden bg-muted border border-border/50">
+                    <div className="project-dialog-media relative aspect-video rounded-lg overflow-hidden bg-muted border border-border/50">
                        {/* Image Display */}
                        <div className="absolute inset-0 flex items-center justify-center">
                           {isMounted && project.gallery[currentImageIndex] ? (
@@ -252,7 +262,7 @@ export function ProjectDetailModal({ project, isOpen, onClose, getTechIcon, getT
         </div>
 
         {/* Modal Footer Buttons */}
-        <div className="flex flex-col-reverse sm:flex-row sm:justify-between items-center mt-6 sm:mt-8 pt-6 border-t border-border/50 gap-3">
+        <div className="project-dialog-reveal project-dialog-reveal-2 flex flex-col-reverse sm:flex-row sm:justify-between items-center mt-6 sm:mt-8 pt-6 border-t border-border/50 gap-3">
           <Button variant="outline" onClick={onClose} className="w-full sm:w-auto">
             Close
           </Button>
