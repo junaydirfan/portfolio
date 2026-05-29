@@ -288,12 +288,17 @@ export default function Skills() {
                 <div className="h-px flex-1 bg-border" />
               </div>
 
-              <div className="relative overflow-hidden rounded-xl border border-border/35 bg-[#040409]/95 shadow-[inset_0_1px_0_rgba(255,255,255,0.025),inset_0_0_46px_rgba(0,0,0,0.34)]">
-                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_22%_50%,rgba(139,92,246,0.055),transparent_34%),radial-gradient(circle_at_78%_50%,rgba(56,189,248,0.035),transparent_32%)]" />
-                <div className="absolute left-0 top-0 bottom-0 w-24 h-full bg-gradient-to-r from-[#040409] from-45% via-[#040409]/80 to-transparent z-10 pointer-events-none" />
-                <div className="absolute right-0 top-0 bottom-0 w-24 h-full bg-gradient-to-l from-[#040409] from-45% via-[#040409]/80 to-transparent z-10 pointer-events-none" />
+              <div className="relative overflow-visible py-2">
+                <div className="pointer-events-none absolute inset-x-8 top-1/2 h-28 -translate-y-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(139,92,246,0.055),rgba(56,189,248,0.024)_42%,transparent_72%)] blur-2xl" />
 
-                <div ref={containerRefs[category.id]} className="relative h-[110px] overflow-hidden">
+                <div
+                  ref={containerRefs[category.id]}
+                  className="relative h-[110px] overflow-hidden"
+                  style={{
+                    WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)",
+                    maskImage: "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)",
+                  }}
+                >
                   <motion.div style={{ x: manualOffsetByCategory[category.id] }} className="absolute will-change-transform transform-gpu">
                     <motion.div
                       style={{ x: x[category.id] }}
@@ -322,7 +327,7 @@ export default function Skills() {
                     <button
                       type="button"
                       aria-label={`Previous ${category.title}`}
-                      className="pointer-events-auto ml-2 md:ml-4 inline-flex h-9 w-9 items-center justify-center rounded-full border border-border/70 bg-[#080810]/85 backdrop-blur-sm hover:bg-card hover:border-border/80 transition-all shadow-sm"
+                      className="pointer-events-auto ml-2 md:ml-4 inline-flex h-9 w-9 items-center justify-center rounded-full border border-border/70 bg-background/70 backdrop-blur-sm hover:bg-card hover:border-border/80 transition-all shadow-sm"
                       onClick={() => handleShift(category.id, -1)}
                       onMouseEnter={() => startHoverScroll(category.id, -1)}
                       onMouseLeave={() => stopHoverScroll(category.id)}
@@ -332,7 +337,7 @@ export default function Skills() {
                     <button
                       type="button"
                       aria-label={`Next ${category.title}`}
-                      className="pointer-events-auto mr-2 md:mr-4 inline-flex h-9 w-9 items-center justify-center rounded-full border border-border/70 bg-[#080810]/85 backdrop-blur-sm hover:bg-card hover:border-border/80 transition-all shadow-sm"
+                      className="pointer-events-auto mr-2 md:mr-4 inline-flex h-9 w-9 items-center justify-center rounded-full border border-border/70 bg-background/70 backdrop-blur-sm hover:bg-card hover:border-border/80 transition-all shadow-sm"
                       onClick={() => handleShift(category.id, 1)}
                       onMouseEnter={() => startHoverScroll(category.id, 1)}
                       onMouseLeave={() => stopHoverScroll(category.id)}
