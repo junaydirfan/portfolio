@@ -25,6 +25,14 @@ export default function Certifications() {
       status: "verified",
       focus: "network defense, threat analysis, security operations",
     },
+    {
+      title: "Developing Secure Software (LFD121)",
+      issuer: "The Linux Foundation",
+      image: "/images/LFD121-Course-Badge-1-300x300.avif",
+      credentialUrl: "https://ti-user-certificates.s3.amazonaws.com/e0df7fbf-a057-42af-8a1f-590912be5460/f7d5af97-0c46-4c29-abe6-348cc64a3d7c-junaid-junaid-ccefaea3-05f2-4844-bc7e-2ede2add37a7-certificate.pdf",
+      status: "verified",
+      focus: "secure coding practices, software risk reduction, vulnerability prevention",
+    },
   ]
 
   const containerVariants = {
@@ -74,7 +82,7 @@ export default function Certifications() {
                     href={cert.credentialUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label={`View ${cert.title} credential on Credly`}
+                    aria-label={`View ${cert.title} credential`}
                     className="group mx-auto flex h-32 w-32 items-center justify-center overflow-hidden rounded-xl border border-border bg-background/70 p-2 transition-colors hover:border-sky-300/45 sm:mx-0"
                   >
                     <Image
