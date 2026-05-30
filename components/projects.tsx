@@ -107,7 +107,7 @@ const techIconMap: Record<string, ElementType> = {
   // --- Communication / Email ---
   'whatsapp': SiWhatsapp,
   'resend': SiResend,
-  'emailjs': Mail,                      // was SiMinutemailer (Minutemailer is a different product)
+  'web3forms': Mail,
 
   // --- AI ---
   'openai': SiOpenai,                   // was Bot (generic)
@@ -205,7 +205,7 @@ const techColorMap: Record<string, string> = {
   // Comms / Email
   'whatsapp': '#25d366',
   'resend': '#c0c0c0',
-  'emailjs': '#818cf8',
+  'web3forms': '#22c55e',
   // AI
   'openai': '#00a67e',
   'chatgpt': '#00a67e',
@@ -488,7 +488,7 @@ export default function Projects() {
       fullDescription:
         "This website is a showcase of my technical skills and creative problem-solving abilities. It's so meta, it's recursively describing itself! Like a function that calls itself, this portfolio keeps going deeper into its own description. A true example of recursion in action - the website that describes the website that describes the website... Built with Next.js 15 and Tailwind CSS, this modern, responsive portfolio website features static site generation for optimal performance, component-based architecture for maintainability, and smooth animations powered by Framer Motion.",
       image: "/images/thisite.webp",
-      tags: ["Next.js", "React", "Tailwind CSS", "Framer Motion", "Radix UI", "EmailJS"],
+      tags: ["Next.js", "React", "Tailwind CSS", "Framer Motion", "Radix UI", "Web3Forms"],
       link: "https://www.junaidirfan.com",
       github: "https://github.com/junaydirfan/portfolio",
       gallery: [], challenges: [], keyFeatures: [], technicalDetails: [], architecture: ""

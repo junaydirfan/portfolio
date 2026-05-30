@@ -6,8 +6,7 @@ import { Nav } from "@/components/ui/nav";
 import { Availability } from "@/components/ui/availability";
 import { Analytics } from "@vercel/analytics/next";
 import SmoothScrolling from "@/components/smooth-scrolling";
-import CustomCursor from "@/components/custom-cursor";
-import AmbientTechBackground from "@/components/ambient-tech-background";
+import LastFmStatus from "@/components/lastfm-status";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -23,8 +22,6 @@ export const metadata: Metadata = {
     apple: '/apple-icon.png',
   },
 };
-
-import LastFmStatus from "@/components/lastfm-status";
 
 export default function RootLayout({
   children,
@@ -51,7 +48,6 @@ export default function RootLayout({
         className={`${spaceGrotesk.variable} font-sans antialiased bg-transparent text-foreground min-h-screen`}
       >
         <SmoothScrolling>
-          <CustomCursor />
           <Nav />
           <LastFmStatus />
           {children}

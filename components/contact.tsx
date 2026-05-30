@@ -8,13 +8,14 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
-import { Mail, Phone, MapPin, Send, Loader2, CheckCircle, AlertCircle, MessageSquare } from "lucide-react"
-import emailjs from '@emailjs/browser'
+import { Mail, MapPin, Send, Loader2, CheckCircle, AlertCircle, MessageSquare, ShieldCheck } from "lucide-react"
 import { FloatingIconsBackground } from "./floating-icons-background"
 
 export default function Contact() {
   const ref = useRef(null)
   const formRef = useRef<HTMLFormElement>(null)
+  const contactEmail = "hello@junaidirfan.com"
+  const isFormConfigured = Boolean(process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY)
   const isInView = useInView(ref, { once: true, amount: 0.2 }) // Adjusted amount
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -46,8 +47,8 @@ export default function Contact() {
     },
   }
 
-  // EmailJS Submit Handler
-  const handleSubmit = (e: React.FormEvent) => {
+  // Static-site contact handler backed by Web3Forms.
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
     setError("")
@@ -65,30 +66,59 @@ export default function Contact() {
       return
     }
 
-    // Ensure these IDs/Keys are correct and ideally stored in environment variables
-    const serviceID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || 'service_hfnz2g9';
-    const templateID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || 'template_12986mm';
-    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || 'XlhxDPXVWT_qlb0bg';
+    const nameInput = formRef.current.elements.namedItem('name') as HTMLInputElement | null
+    const messageInput = formRef.current.elements.namedItem('message') as HTMLTextAreaElement | null
+    const botcheckInput = formRef.current.elements.namedItem('botcheck') as HTMLInputElement | null
 
-    if (!serviceID || !templateID || !publicKey) {
-      setError("Email service configuration is missing.");
+    if (botcheckInput?.value) {
+      setIsSubmitting(false)
+      setIsSubmitted(true)
+      formRef.current.reset()
+      return
+    }
+
+    const name = nameInput?.value.trim() || ""
+    const message = messageInput?.value.trim() || ""
+    const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY
+
+    if (!accessKey) {
+      setError(`The contact form is not configured yet. Please email me directly at ${contactEmail}.`)
       setIsSubmitting(false);
-      console.error("EmailJS environment variables missing");
       return;
     }
 
-    emailjs.sendForm(serviceID, templateID, formRef.current, publicKey)
-      .then(() => {
-        setIsSubmitting(false)
-        setIsSubmitted(true)
-        formRef.current?.reset(); // Reset form fields on success
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: accessKey,
+          subject: `New portfolio message from ${name || email}`,
+          from_name: "junaidirfan.com portfolio",
+          name,
+          email,
+          replyto: email,
+          message,
+        }),
       })
-      .catch((error: unknown) => { // Catch unknown type
-        console.error('Email sending failed:', error)
-        setIsSubmitting(false)
-        // Provide a user-friendly error message
-        setError("Sorry, the message could not be sent. Please try again later or contact me directly via email.");
-      })
+
+      const result = await response.json()
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || "Message delivery failed")
+      }
+
+      setIsSubmitted(true)
+      formRef.current.reset()
+    } catch (error) {
+      console.error('Contact form failed:', error)
+      setError(`Sorry, the message could not be sent. Please email me directly at ${contactEmail}.`)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   // Reset form view function
@@ -99,10 +129,10 @@ export default function Contact() {
 
   const contactIcons = [
     { icon: Mail, color: "#10b981" },
-    { icon: Phone, color: "#10b981" },
     { icon: MapPin, color: "#10b981" },
     { icon: Send, color: "#10b981" },
     { icon: MessageSquare, color: "#10b981" },
+    { icon: ShieldCheck, color: "#10b981" },
   ];
 
   return (
@@ -120,7 +150,7 @@ export default function Contact() {
               get in touch
             </h2>
             <p className="text-lg md:text-xl text-muted-foreground max-w-3xl leading-relaxed">
-              have a question or want to collaborate? reach out via the form or my contact details.
+              have a question or want to collaborate? send a message or reach out by email.
             </p>
           </motion.div>
 
@@ -133,27 +163,19 @@ export default function Contact() {
                   <CardDescription className="text-sm text-muted-foreground">other ways to reach me</CardDescription>
                 </CardHeader>
                 <CardContent className="p-6 md:p-8 pt-0 space-y-5 flex-grow">
-                  <a href="mailto:hello@junaidirfan.com" className="flex items-center gap-3 group" aria-label="Email Junaid Irfan">
+                  <a href={`mailto:${contactEmail}`} className="flex items-center gap-3 group" aria-label="Email Junaid Irfan">
                     <div className="p-2 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
                       <Mail className="h-4 w-4 text-primary flex-shrink-0" />
                     </div>
                     <span className="text-sm text-foreground/80 group-hover:text-foreground transition-colors break-all">
-                      hello@junaidirfan.com
-                    </span>
-                  </a>
-                  <a href="tel:+18738785419" className="flex items-center gap-3 group" aria-label="Call Junaid Irfan">
-                    <div className="p-2 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
-                      <Phone className="h-4 w-4 text-primary flex-shrink-0" />
-                    </div>
-                    <span className="text-sm text-foreground/80 group-hover:text-foreground transition-colors">
-                      +1 (473) 707-0535
+                      {contactEmail}
                     </span>
                   </a>
                   <div className="flex items-center gap-3">
                     <div className="p-2 rounded-lg bg-muted">
                       <MapPin className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                     </div>
-                    <span className="text-sm text-muted-foreground">Greater Toronto Area, ON, CA</span>
+                    <span className="text-sm text-muted-foreground">Toronto, CA</span>
                   </div>
                 </CardContent>
               </Card>
@@ -179,7 +201,23 @@ export default function Contact() {
                       </Button>
                     </div>
                   ) : (
-                    <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
+                    <form
+                      ref={formRef}
+                      onSubmit={handleSubmit}
+                      action="https://api.web3forms.com/submit"
+                      method="POST"
+                      className="space-y-5"
+                    >
+                      <input type="hidden" name="access_key" value={process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || ""} readOnly />
+                      <input type="hidden" name="subject" value="New portfolio message from junaidirfan.com" readOnly />
+                      <input type="hidden" name="from_name" value="junaidirfan.com portfolio" readOnly />
+                      <input type="checkbox" name="botcheck" className="hidden" tabIndex={-1} autoComplete="off" aria-hidden="true" />
+                      {!isFormConfigured && (
+                        <div className="flex items-start gap-2.5 rounded-lg border border-yellow-500/30 bg-yellow-500/10 p-3 text-sm text-yellow-100">
+                          <AlertCircle className="mt-0.5 h-4 w-4 flex-shrink-0" />
+                          <span>Form delivery needs a Web3Forms access key. Email me directly at {contactEmail} for now.</span>
+                        </div>
+                      )}
                       <div className="space-y-1.5">
                         <Label htmlFor="name" className="text-sm font-medium text-muted-foreground">Name</Label>
                         <Input id="name" name="name" placeholder="Your name" required aria-label="Your Name" className="border-border bg-input/50 focus:border-primary/50 transition-colors" />

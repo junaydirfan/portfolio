@@ -3,10 +3,6 @@
 import { useEffect } from 'react';
 import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function SmoothScrolling({ children }: { children: React.ReactNode }) {
   useEffect(() => {
@@ -18,40 +14,68 @@ export default function SmoothScrolling({ children }: { children: React.ReactNod
     }
 
     const lenis = new Lenis({
-      duration: 1,
+      duration: 0.62,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 0.85,
+      wheelMultiplier: 1,
       prevent: (node) => Boolean(node.closest("[data-lenis-prevent], [data-project-dialog-scroll]")),
       virtualScroll: () => document.documentElement.dataset.projectModalOpen !== "true",
     });
 
-    lenis.on('scroll', ScrollTrigger.update);
-
-    const updateLenis = (time: number) => {
-      lenis.raf(time * 1000);
+    let rafId: number | null = null;
+    const raf = (time: number) => {
+      lenis.raf(time);
+      rafId = requestAnimationFrame(raf);
     };
 
-    gsap.ticker.add(updateLenis);
+    const startRaf = () => {
+      if (rafId == null) {
+        rafId = requestAnimationFrame(raf);
+      }
+    };
 
-    gsap.ticker.lagSmoothing(0);
+    const stopRaf = () => {
+      if (rafId != null) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+      }
+    };
+
+    startRaf();
+
+    const resumeIfAllowed = () => {
+      if (document.hidden || document.documentElement.dataset.projectModalOpen === "true") {
+        lenis.stop();
+        stopRaf();
+        return;
+      }
+      lenis.start();
+      startRaf();
+    };
 
     const handleProjectModalScrollLock = (event: Event) => {
       const isOpen = event instanceof CustomEvent && Boolean(event.detail?.open);
       if (isOpen) {
         lenis.stop();
+        stopRaf();
       } else {
-        lenis.start();
+        resumeIfAllowed();
       }
     };
 
+    const handleVisibilityChange = () => {
+      resumeIfAllowed();
+    };
+
     window.addEventListener("project-modal-scroll-lock", handleProjectModalScrollLock);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
 
     return () => {
       window.removeEventListener("project-modal-scroll-lock", handleProjectModalScrollLock);
-      gsap.ticker.remove(updateLenis);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      stopRaf();
       lenis.destroy();
     };
   }, []);

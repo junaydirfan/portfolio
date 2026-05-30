@@ -20,7 +20,9 @@ export default function LastFmStatus() {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    const fetchTrack = async () => {
+    const fetchTrack = async (force = false) => {
+      if (!force && document.hidden) return;
+
       try {
         const apiKey = process.env.NEXT_PUBLIC_LASTFM_API_KEY;
         const username = process.env.NEXT_PUBLIC_LASTFM_USERNAME;
@@ -67,9 +69,16 @@ export default function LastFmStatus() {
       }
     };
 
-    fetchTrack();
-    const interval = setInterval(fetchTrack, 30000); // Polling every 30 seconds
-    return () => clearInterval(interval);
+    fetchTrack(true);
+    const interval = setInterval(() => fetchTrack(), 120000);
+    const handleVisibilityChange = () => {
+      if (!document.hidden) void fetchTrack(true);
+    };
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => {
+      clearInterval(interval);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
   }, []);
 
   if (loading || error || !data?.track) {

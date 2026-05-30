@@ -45,6 +45,7 @@ export function FloatingIconsBackground({ icons, count = 20, accentColor = "#9a8
   const isInView = useInView(containerRef, { amount: 0.05, margin: "200px" });
   const prefersReducedMotion = useReducedMotion();
   const [mounted, setMounted] = useState(false);
+  const [canAnimate, setCanAnimate] = useState(false);
   const [elements, setElements] = useState<FloatingIconElement[]>([]);
 
   useEffect(() => {
@@ -52,8 +53,9 @@ export function FloatingIconsBackground({ icons, count = 20, accentColor = "#9a8
 
     const isMobile = window.matchMedia("(max-width: 768px)").matches;
     const effectiveCount = prefersReducedMotion
-      ? Math.min(count, 6)
-      : Math.min(count, isMobile ? 8 : 18);
+      ? Math.min(count, 5)
+      : Math.min(count, isMobile ? 6 : 12);
+    setCanAnimate(!isMobile && !prefersReducedMotion);
 
     const generated = Array.from({ length: effectiveCount }).map((_, i) => {
       const iconData = icons[Math.floor(Math.random() * icons.length)];
@@ -77,16 +79,16 @@ export function FloatingIconsBackground({ icons, count = 20, accentColor = "#9a8
 
   if (!mounted) return null;
 
-  const shouldAnimate = isInView && !prefersReducedMotion;
+  const shouldAnimate = isInView && canAnimate;
   const softAccent = hexToRgba(accentColor, 0.055);
   const faintAccent = hexToRgba(accentColor, 0.032);
-  const iconGlow = hexToRgba(accentColor, 0.18);
   const sharedViolet = "rgb(154 133 232 / 0.035)";
   const sharedBlue = "rgb(56 189 248 / 0.024)";
 
   return (
     <div
       ref={containerRef}
+      aria-hidden="true"
       className="absolute inset-0 overflow-hidden pointer-events-none z-0"
       style={{
         maskImage: "linear-gradient(to bottom, transparent 0%, black 16%, black 84%, transparent 100%)",
@@ -114,7 +116,6 @@ export function FloatingIconsBackground({ icons, count = 20, accentColor = "#9a8
             style={{
               left: el.left,
               top: el.top,
-              filter: `drop-shadow(0 0 18px ${iconGlow})`,
               willChange: shouldAnimate ? "transform" : "auto",
             }}
             animate={shouldAnimate

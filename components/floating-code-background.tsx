@@ -28,10 +28,12 @@ export function FloatingCodeBackground() {
   const isInView = useInView(containerRef, { amount: 0.05, margin: "200px" });
   const prefersReducedMotion = useReducedMotion();
   const [symbols, setSymbols] = useState<CodeSymbolElement[]>([]);
+  const [canAnimate, setCanAnimate] = useState(false);
 
   useEffect(() => {
     const isMobile = window.matchMedia("(max-width: 768px)").matches;
-    const count = prefersReducedMotion ? 8 : isMobile ? 12 : 24;
+    const count = prefersReducedMotion ? 6 : isMobile ? 8 : 16;
+    setCanAnimate(!isMobile && !prefersReducedMotion);
 
     setSymbols(Array.from({ length: count }).map((_, index) => ({
       id: index,
@@ -48,11 +50,12 @@ export function FloatingCodeBackground() {
     })));
   }, [prefersReducedMotion]);
 
-  const shouldAnimate = isInView && !prefersReducedMotion;
+  const shouldAnimate = isInView && canAnimate;
 
   return (
     <div
       ref={containerRef}
+      aria-hidden="true"
       className="absolute inset-0 overflow-hidden pointer-events-none z-0"
       style={{
         maskImage: "linear-gradient(to bottom, transparent 0%, black 16%, black 84%, transparent 100%)",
@@ -80,7 +83,6 @@ export function FloatingCodeBackground() {
               top: item.top,
               opacity: item.opacity,
               scale: item.scale,
-              filter: "drop-shadow(0 0 18px rgb(139 92 246 / 0.18))",
               willChange: shouldAnimate ? "transform" : "auto",
             }}
             animate={shouldAnimate

@@ -267,7 +267,7 @@ export default function Skills() {
       <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-background to-transparent" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background to-transparent" />
       {/* Floating Tech Background */}
-      <FloatingIconsBackground icons={allSkills} count={24} accentColor="#8b5cf6" />
+      <FloatingIconsBackground icons={allSkills} count={14} accentColor="#8b5cf6" />
       
       <div className="container px-8 md:px-16 lg:px-24 max-w-7xl mx-auto relative z-10">
         <div className="mb-20 md:mb-24">
@@ -295,6 +295,7 @@ export default function Skills() {
                   ref={containerRefs[category.id]}
                   className="relative h-[110px] overflow-hidden"
                   style={{
+                    contain: "layout paint",
                     WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)",
                     maskImage: "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)",
                   }}
@@ -310,7 +311,7 @@ export default function Skills() {
                           className="group relative flex flex-col items-center gap-2"
                         >
                           <skill.icon
-                            className="h-10 w-10 md:h-12 md:w-12 opacity-65 transition-[opacity,transform,filter] duration-200 hover:opacity-100 group-hover:scale-105"
+                            className="h-10 w-10 md:h-12 md:w-12 opacity-65 transition-[opacity,transform] duration-200 hover:opacity-100 group-hover:scale-105"
                             style={{ color: skill.brandColor }}
                             title={skill.name}
                             aria-label={skill.name}
