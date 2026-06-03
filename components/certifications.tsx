@@ -33,6 +33,14 @@ export default function Certifications() {
       status: "verified",
       focus: "secure coding practices, software risk reduction, vulnerability prevention",
     },
+    {
+      title: "Introduction to DevOps and Site Reliability Engineering (LFS162)",
+      issuer: "The Linux Foundation",
+      image: "/images/LFS162-Course-Badge-1-300x300.avif",
+      credentialUrl: "https://ti-user-certificates.s3.amazonaws.com/e0df7fbf-a057-42af-8a1f-590912be5460/f7d5af97-0c46-4c29-abe6-348cc64a3d7c-junaid-irfan-f80f498b-c6a5-41ac-b76c-99ba5cfd2d68-certificate.pdf",
+      status: "verified",
+      focus: "DevOps culture, reliability practices, incident-aware systems thinking",
+    },
   ]
 
   const containerVariants = {
