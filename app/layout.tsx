@@ -7,6 +7,7 @@ import { Availability } from "@/components/ui/availability";
 import { Analytics } from "@vercel/analytics/next";
 import SmoothScrolling from "@/components/smooth-scrolling";
 import LastFmStatus from "@/components/lastfm-status";
+import { PostHogProvider } from "@/components/posthog-provider";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -47,13 +48,15 @@ export default function RootLayout({
       <body
         className={`${spaceGrotesk.variable} font-sans antialiased bg-transparent text-foreground min-h-screen`}
       >
-        <SmoothScrolling>
-          <Nav />
-          <LastFmStatus />
-          {children}
-          <Availability />
-          <Analytics />
-        </SmoothScrolling>
+        <PostHogProvider>
+          <SmoothScrolling>
+            <Nav />
+            <LastFmStatus />
+            {children}
+            <Availability />
+            <Analytics />
+          </SmoothScrolling>
+        </PostHogProvider>
       </body>
     </html>
   );
