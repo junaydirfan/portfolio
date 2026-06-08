@@ -26,11 +26,15 @@ import {
   SiOpenai,
   SiDynatrace,
   SiKubernetes,
+  SiTerraform,
+  SiJenkins,
+  SiGooglecloud,
+  SiDrizzle,
 } from "react-icons/si"
 import { FaAws } from "react-icons/fa"
 import { TbBrandAdobeAfterEffect, TbBrandAdobeIllustrator, TbBrandAdobePhotoshop, TbBrandAdobePremier } from "react-icons/tb"
 import { VscAzure } from "react-icons/vsc"
-import { Server, ChevronLeft, ChevronRight } from "lucide-react"
+import { Server, Database, ChevronLeft, ChevronRight } from "lucide-react"
 import { FloatingIconsBackground } from "./floating-icons-background"
 
 // Custom GSAP Icon Component - Official GSAP Logo
@@ -125,6 +129,8 @@ export default function Skills() {
       { name: "Tailwind CSS", icon: SiTailwindcss, brandColor: "#06b6d4" },
       { name: "GSAP", icon: SiGsap, brandColor: "#88ce02" },
       { name: "PostgreSQL", icon: SiPostgresql, brandColor: "#336791" },
+      { name: "Neon DB", icon: Database, brandColor: "#00e699" },
+      { name: "Drizzle ORM", icon: SiDrizzle, brandColor: "#c5f74f" },
       { name: "MongoDB", icon: SiMongodb, brandColor: "#47a248" },
       { name: "SQLite", icon: SiSqlite, brandColor: "#003b57" },
       { name: "WordPress", icon: SiWordpress, brandColor: "#21759b" },
@@ -136,10 +142,13 @@ export default function Skills() {
       { name: "Docker", icon: SiDocker, brandColor: "#2496ed" },
       { name: "AWS", icon: FaAws, brandColor: "#ff9900" },
       { name: "Azure", icon: VscAzure, brandColor: "#0078d4" },
+      { name: "Google Cloud", icon: SiGooglecloud, brandColor: "#4285f4" },
       { name: "Kubernetes", icon: SiKubernetes, brandColor: "#326ce5" },
+      { name: "Terraform", icon: SiTerraform, brandColor: "#844fba" },
       { name: "Proxmox", icon: Server, brandColor: "#e57000" },
       { name: "Dynatrace", icon: SiDynatrace, brandColor: "#1496ff" },
       { name: "GitHub Actions", icon: SiGithubactions, brandColor: "#2088ff" },
+      { name: "Jenkins", icon: SiJenkins, brandColor: "#d24939" },
       { name: "Git", icon: SiGit, brandColor: "#f05032" },
       { name: "Wireshark", icon: SiWireshark, brandColor: "#1679a7" },
       { name: "ChatGPT API", icon: SiChatgpt, brandColor: "#00a67e" },
@@ -263,7 +272,7 @@ export default function Skills() {
   }, [skills])
 
   return (
-    <section id="skills" className="py-24 md:py-32 bg-[#05050a] overflow-hidden relative">
+    <section id="skills" className="py-24 md:py-32 bg-[#030306] overflow-hidden relative">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-background to-transparent" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background to-transparent" />
       {/* Floating Tech Background */}
