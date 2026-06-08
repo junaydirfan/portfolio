@@ -70,6 +70,17 @@ yarn build
 ```
 This generates a static export in the `/out` directory.
 
+### Analytics environment variables
+
+PostHog runs in the browser, so the public analytics values must be available when the production bundle is built. Keep local values in `.env.local`, then add the same keys to the production build environment before deploying:
+
+```bash
+NEXT_PUBLIC_POSTHOG_KEY=your_project_key
+NEXT_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com
+```
+
+For static exports, committing the code is not enough. Rebuild after setting those values and deploy the regenerated `/out` directory.
+
 ## 🌐 Deployment
 ### Self-Hosting on Proxmox
 1. Set up a VM or LXC container with Debian/Ubuntu
