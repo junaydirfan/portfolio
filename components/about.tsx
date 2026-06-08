@@ -68,7 +68,7 @@ export default function About() {
   ]
 
   const terminalProducts = [
-    "PimpMyCV — AI resume tailoring, ATS analysis, cover letters, jobs, and outreach.",
+    "OneApply - LaTeX resume generation, management, ATS analysis, and browser-assisted applications.",
     "CampusThrive — privacy-first student wellness tracker.",
     "ultimate-selfhosted-homelab — documented home server stack and services.",
   ]

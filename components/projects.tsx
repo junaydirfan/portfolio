@@ -14,6 +14,7 @@ import {
   SiFigma,
   SiUnity, SiBlender, SiGithubpages, SiVercel, SiSanity, SiWhatsapp, SiResend,
   SiEthereum, SiLinux, SiCloudflare, SiOpenai, SiStripe, SiGooglegemini,
+  SiDrizzle, SiLatex, SiGooglechrome, SiFirefoxbrowser, SiChromewebstore,
 } from "react-icons/si";
 import { FaAws, FaCss3Alt } from "react-icons/fa";
 import { TbBrandAdobeAfterEffect, TbBrandAdobeIllustrator, TbBrandAdobePhotoshop, TbBrandAdobePremier } from "react-icons/tb";
@@ -77,6 +78,9 @@ const techIconMap: Record<string, ElementType> = {
 
   // --- Databases ---
   'postgresql': SiPostgresql,
+  'neon': Database,
+  'neondatabase': Database,
+  'drizzleorm': SiDrizzle,
   'mongodb': SiMongodb,
   'mysql': SiMysql,
   'redis': SiRedis,
@@ -115,9 +119,14 @@ const techIconMap: Record<string, ElementType> = {
   'gemini': SiGooglegemini,
   'openrouter': Network,
   'llmapis': SiOpenai,
+  'latex': SiLatex,
   'ats': BarChart3,
   'jobboard': Workflow,
   'outreach': Mail,
+  'manifestv3': SiChromewebstore,
+  'browserextensions': SiChromewebstore,
+  'chromiumextension': SiGooglechrome,
+  'firefoxextension': SiFirefoxbrowser,
 
   // --- PWA / Privacy ---
   'pwa': Smartphone,
@@ -178,6 +187,9 @@ const techColorMap: Record<string, string> = {
   'distributedsystems': '#38bdf8',
   // Databases
   'postgresql': '#336791',
+  'neon': '#00e699',
+  'neondatabase': '#00e699',
+  'drizzleorm': '#c5f74f',
   'mongodb': '#47a248',
   'mysql': '#4479a1',
   'redis': '#dc382d',
@@ -212,9 +224,14 @@ const techColorMap: Record<string, string> = {
   'gemini': '#8ab4f8',
   'openrouter': '#c4b5fd',
   'llmapis': '#00a67e',
+  'latex': '#008080',
   'ats': '#22c55e',
   'jobboard': '#38bdf8',
   'outreach': '#f97316',
+  'manifestv3': '#4285f4',
+  'browserextensions': '#4285f4',
+  'chromiumextension': '#4285f4',
+  'firefoxextension': '#ff7139',
   // PWA / Privacy
   'pwa': '#5a0fc8',
   'privacyfirst': '#22c55e',
@@ -282,49 +299,52 @@ export default function Projects() {
   const projects: ProjectType[] = [
     {
       id: "pimpmycv",
-      title: "PimpMyCV: AI resume tailoring SaaS",
+      title: "OneApply: LaTeX-powered resume SaaS",
       shortDescription:
-        "an AI-powered SaaS that turns a master resume and job posting links into tailored, ATS-friendly resumes, cover letters, job matches, outreach drafts, and ATS score insights.",
+        "a LaTeX-powered SaaS for resume generation, resume management, ATS analysis, job workflows, and browser-assisted applications in one tool.",
       fullDescription:
-        "PimpMyCV is a full-stack SaaS app built to make job applications feel dramatically faster and more targeted. Users add their master resume and job description links, then generate a tailored, ATS-friendly resume and matching cover letter for that exact role with one click. The product also includes a tailored jobs board, outreach workflows for finding decision makers and drafting personalized messages, an ATS score analyzer, monthly Stripe subscription support, and multiple LLM models connected through APIs with fallback behavior for reliability.",
-      image: "/images/pimpmycv.png",
-      tags: ["Next.js", "TypeScript", "Stripe", "Gemini", "OpenRouter", "LLM APIs", "Tailwind CSS", "ATS", "Job Board", "Outreach"],
-      link: "https://pimpmycv.junaidirfan.com",
+        "OneApply is a full-stack SaaS app built to make job applications faster, cleaner, and easier to manage. Users maintain a master resume, save role-specific versions, and generate polished LaTeX-powered resumes that are tailored to each job posting. The platform brings resume generation, resume management, ATS scoring, cover letters, job tracking, and outreach workflows into one dashboard. It uses Neon Postgres with Drizzle ORM for structured application data, Stripe for subscriptions, and multiple LLM providers for reliable generation. OneApply also includes Manifest V3 browser extensions for Chromium and Firefox so users can capture job details and start tailoring directly from the pages where they find roles.",
+      image: "/oneapply.webp",
+      tags: ["Next.js", "TypeScript", "LaTeX", "Neon", "Drizzle ORM", "Manifest V3", "Chromium Extension", "Firefox Extension", "Stripe", "Gemini", "OpenRouter", "LLM APIs", "Tailwind CSS", "ATS"],
+      link: "https://www.oneapply.app",
       keyFeatures: [
-        "One-click resume tailoring from a master resume and job description links",
-        "ATS-friendly resume generation tuned to each specific job posting",
-        "Role-specific cover letter generation",
-        "Built-in tailored jobs board for matched opportunities",
-        "Outreach tools for finding decision makers and drafting personalized messages",
-        "ATS score analysis to highlight resume fit and improvement areas",
+        "LaTeX-powered resume generation for polished, consistent application documents",
+        "Resume management for master resumes, role-specific versions, and generated outputs",
+        "One-click tailoring from a saved resume and job description",
+        "ATS score analysis to highlight role fit and improvement areas",
+        "Role-specific cover letter generation and outreach copy",
+        "Application and job workflow tracking in one dashboard",
+        "Manifest V3 browser extensions for Chromium and Firefox job capture flows",
         "Monthly subscription billing through Stripe",
         "Multiple LLM providers with API-level fallbacks"
       ],
       technicalDetails: [
-        "Full-stack Next.js SaaS application with dashboard-driven application workflows",
-        "Stripe integration for monthly subscription payment support",
+        "Full-stack Next.js SaaS application with dashboard-driven resume and application workflows",
+        "Neon Postgres data layer modeled with Drizzle ORM instead of Sanity",
+        "LaTeX generation pipeline for clean resume layouts and export-ready documents",
+        "Manifest V3 extension architecture with Chromium support and a Firefox-compatible build path",
         "Gemini and OpenRouter integrations for multi-model generation and fallbacks",
+        "Stripe integration for monthly subscription payment support",
         "AI orchestration for resume tailoring, cover letters, ATS analysis, and outreach copy",
-        "Tailored jobs board flow that connects saved resume context to job opportunities",
         "Responsive, production-focused UI optimized for repeat usage across desktop and mobile"
       ],
       architecture:
-        "Full-stack Next.js SaaS architecture organized around payment-gated career workflows. Stripe handles monthly subscriptions, while Gemini and OpenRouter power the AI layer for document tailoring, ATS analysis, job matching, and outreach generation. The product keeps the core application loop fast by turning resume context and job posting inputs into structured outputs in a single dashboard flow.",
+        "Full-stack Next.js SaaS architecture organized around payment-gated career workflows. Neon Postgres and Drizzle ORM model resumes, generated versions, jobs, extension captures, and billing-related application state. Stripe handles monthly subscriptions, while Gemini and OpenRouter power the AI layer for LaTeX resume generation, document tailoring, ATS analysis, job matching, and outreach generation. Manifest V3 browser extensions for Chromium and Firefox connect job pages back into the OneApply dashboard so the core application loop stays fast from discovery to tailored output.",
       challenges: [
         {
-          title: "Turning unstructured job posts into useful resume changes",
-          description: "Job descriptions vary wildly in format, detail, and quality, which makes direct resume tailoring inconsistent.",
-          solution: "Built an AI workflow that extracts role signals, maps them against the master resume, and generates targeted resume and cover letter outputs."
+          title: "Producing precise LaTeX resumes from messy inputs",
+          description: "Raw job descriptions and resume notes vary in quality, while LaTeX output needs strict structure to compile cleanly.",
+          solution: "Built a generation workflow that separates role-signal extraction, content tailoring, and LaTeX document assembly into distinct steps."
         },
         {
-          title: "Keeping LLM generation reliable",
-          description: "A production SaaS cannot depend on a single model path when providers can rate limit, fail, or return weaker output.",
-          solution: "Connected multiple LLM models through APIs with fallback behavior so generation can recover gracefully."
+          title: "Replacing document-style storage with relational workflows",
+          description: "Resume versions, applications, jobs, and extension captures need relationships that are awkward to manage in a CMS-style data model.",
+          solution: "Moved the product data model to Neon Postgres with Drizzle ORM so resume history, generated files, and application state can stay queryable and consistent."
         },
         {
-          title: "Combining several job-search tools without slowing users down",
-          description: "Resume tailoring, ATS scoring, jobs, and outreach can easily become separate chores.",
-          solution: "Designed the app around a dashboard flow where each feature builds on the same resume and job context."
+          title: "Connecting job boards to the SaaS dashboard",
+          description: "Users discover roles across many sites, so forcing every job description through manual copy and paste slows down the workflow.",
+          solution: "Added Manifest V3 browser extension flows for Chromium and Firefox so job details can be captured and sent into OneApply from the browser."
         }
       ]
     },
