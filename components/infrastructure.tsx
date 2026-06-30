@@ -5,6 +5,7 @@ import { useInView } from "framer-motion"
 import { useRef, useState, useEffect, type ElementType } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Server, Box, Shield, Cpu, Network, Layers, Activity, Database, Workflow, BarChart3, Container, Globe, Zap, Image as LucideImage, FileText, Brain, Key, Gamepad2, ExternalLink } from "lucide-react"
+import { SiJenkins, SiPterodactyl } from "react-icons/si"
 import { cn } from "@/lib/utils"
 import { FloatingIconsBackground } from "./floating-icons-background"
 
@@ -161,6 +162,13 @@ export default function Infrastructure() {
       category: "automation"
     },
     {
+      name: "Jenkins",
+      description: "CI/CD automation server",
+      icon: SiJenkins,
+      status: "live",
+      category: "ci/cd"
+    },
+    {
       name: "Nextcloud",
       description: "Self-hosted file sharing",
       icon: Database,
@@ -229,6 +237,13 @@ export default function Infrastructure() {
       icon: Brain,
       status: "live",
       category: "ai"
+    },
+    {
+      name: "Pterodactyl",
+      description: "Game server management panel",
+      icon: SiPterodactyl,
+      status: "live",
+      category: "gaming"
     },
     {
       name: "RomM",
