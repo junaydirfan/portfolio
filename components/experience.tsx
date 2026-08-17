@@ -1,6 +1,6 @@
 "use client"
 
-// Import ElementType from React
+import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { motion, useInView } from "framer-motion"
 import React, { useRef, useState, useEffect, type ElementType } from "react";
@@ -161,6 +161,7 @@ interface RoleItem {
 
 interface ExperienceItem {
   company: string
+  logo?: string
   location?: string
   period?: string
   duration?: string
@@ -206,6 +207,7 @@ export default function Experience() {
   const experiences: ExperienceItem[] = [
     {
       company: "fdm group",
+      logo: "/images/fdm-logo.png",
       location: "toronto, on",
       roles: [
         {
@@ -329,9 +331,21 @@ export default function Experience() {
                       <CardHeader className="p-6 md:p-8 pb-5 border-b border-border/50 bg-secondary/5">
                         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
                           <div className="flex items-center gap-3.5">
-                            <div className="h-10 w-10 sm:h-11 sm:w-11 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary font-bold text-lg flex-shrink-0 shadow-inner">
-                              <Building2 className="w-5 h-5" />
-                            </div>
+                            {exp.logo ? (
+                              <div className="h-11 w-11 sm:h-12 sm:w-12 rounded-xl overflow-hidden flex-shrink-0 shadow-md border border-[#c5ff00]/40 relative flex items-center justify-center bg-[#c5ff00] p-1.5 sm:p-2">
+                                <Image
+                                  src={exp.logo}
+                                  alt={exp.company}
+                                  width={48}
+                                  height={48}
+                                  className="h-full w-full object-contain brightness-0"
+                                />
+                              </div>
+                            ) : (
+                              <div className="h-10 w-10 sm:h-11 sm:w-11 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary font-bold text-lg flex-shrink-0 shadow-inner">
+                                <Building2 className="w-5 h-5" />
+                              </div>
+                            )}
                             <div>
                               <CardTitle className="text-2xl md:text-3xl font-bold tracking-tight">
                                 {exp.company}
