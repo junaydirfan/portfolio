@@ -124,7 +124,7 @@ export default function About() {
 
             <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium text-muted-foreground leading-tight tracking-tight">
               I&apos;m a <span className="text-foreground font-semibold">Full-Stack Developer</span> <br className="hidden sm:block" />
-              specializing in <span className="text-primary font-bold">DevOps.</span>
+              specializing in <span className="text-primary font-bold">DevSecOps.</span>
             </div>
           </div>
 
