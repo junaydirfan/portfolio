@@ -279,7 +279,7 @@ export default function About() {
 
               <div className="relative pl-6">
                 <div className="absolute left-0 top-1.5 w-4 h-4 rounded-full bg-primary ring-4 ring-background shadow-[0_0_10px_hsl(var(--primary))]" />
-                <h4 className="text-sm font-bold text-foreground">DevSecOps Engineer</h4>
+                <h4 className="text-sm font-bold text-foreground">DevSecOps Engineer & Scrum Master</h4>
                 <p className="text-xs text-muted-foreground mt-1">FDM Group • 2026 - Present</p>
               </div>
               <div className="relative pl-6">

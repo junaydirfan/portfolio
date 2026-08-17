@@ -209,7 +209,7 @@ export default function Experience() {
       location: "toronto, on",
       roles: [
         {
-          title: "devsecops engineer",
+          title: "devsecops engineer & scrum master",
           employmentType: "Permanent Full-time",
           period: "jul 2026 - present",
           duration: "2 mos",
