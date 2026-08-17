@@ -30,8 +30,16 @@ import {
   SiJenkins,
   SiGooglecloud,
   SiDrizzle,
+  SiPython,
+  SiFastapi,
+  SiFlask,
+  SiSpringboot,
+  SiHuggingface,
+  SiAnthropic,
+  SiPosthog,
+  SiJira,
 } from "react-icons/si"
-import { FaAws } from "react-icons/fa"
+import { FaAws, FaJava } from "react-icons/fa"
 import { TbBrandAdobeAfterEffect, TbBrandAdobeIllustrator, TbBrandAdobePhotoshop, TbBrandAdobePremier } from "react-icons/tb"
 import { VscAzure } from "react-icons/vsc"
 import { Server, Database, ChevronLeft, ChevronRight } from "lucide-react"
@@ -61,18 +69,52 @@ const SiN8n = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    {/* n8n logo - stylized "n" shape with workflow nodes */}
-    {/* Left vertical stroke */}
     <path d="M7 6 L7 18" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
-    {/* Right vertical stroke */}
     <path d="M17 6 L17 18" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
-    {/* Diagonal stroke forming "n" */}
     <path d="M7 18 L17 6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
-    {/* Workflow nodes */}
     <circle cx="7" cy="6" r="2" fill="currentColor"/>
     <circle cx="7" cy="18" r="2" fill="currentColor"/>
     <circle cx="17" cy="6" r="2" fill="currentColor"/>
     <circle cx="17" cy="18" r="2" fill="currentColor"/>
+  </svg>
+)
+
+// Custom NetBird Icon Component
+const SiNetbird = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    className={className}
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path d="M12 2L2 7l10 5 10-5-10-5zm0 8.5L4.5 7 12 3.5 19.5 7 12 10.5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+)
+
+// Custom OpenBird Icon Component
+const SiOpenbird = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    className={className}
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" />
+  </svg>
+)
+
+// Custom ServiceNow Icon Component
+const SiServicenow = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    className={className}
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path d="M12 0C5.373 0 0 5.373 0 12c0 4.14 2.1 7.79 5.31 9.94l2.42-3.13C5.69 17.37 4.5 14.83 4.5 12c0-4.14 3.36-7.5 7.5-7.5s7.5 3.36 7.5 7.5c0 2.83-1.19 5.37-3.23 6.81l2.42 3.13C21.9 19.79 24 16.14 24 12 0-6.63-5.37-12-12-12zm-3.5 12c0-1.93 1.57-3.5 3.5-3.5s3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5-3.5-1.57-3.5-3.5z" />
   </svg>
 )
 
@@ -124,8 +166,13 @@ export default function Skills() {
     development: [
       { name: "TypeScript", icon: SiTypescript, brandColor: "#3178c6" },
       { name: "JavaScript", icon: SiJavascript, brandColor: "#f7df1e" },
+      { name: "Python", icon: SiPython, brandColor: "#3776ab" },
+      { name: "Java", icon: FaJava, brandColor: "#007396" },
       { name: "React", icon: SiReact, brandColor: "#61dafb" },
       { name: "Next.js", icon: SiNextdotjs, brandColor: "#ffffff" },
+      { name: "FastAPI", icon: SiFastapi, brandColor: "#009688" },
+      { name: "Flask", icon: SiFlask, brandColor: "#ffffff" },
+      { name: "Spring Boot", icon: SiSpringboot, brandColor: "#6db33f" },
       { name: "Tailwind CSS", icon: SiTailwindcss, brandColor: "#06b6d4" },
       { name: "GSAP", icon: SiGsap, brandColor: "#88ce02" },
       { name: "PostgreSQL", icon: SiPostgresql, brandColor: "#336791" },
@@ -150,8 +197,15 @@ export default function Skills() {
       { name: "GitHub Actions", icon: SiGithubactions, brandColor: "#2088ff" },
       { name: "Jenkins", icon: SiJenkins, brandColor: "#d24939" },
       { name: "Git", icon: SiGit, brandColor: "#f05032" },
-      { name: "Wireshark", icon: SiWireshark, brandColor: "#1679a7" },
+      { name: "Claude Code", icon: SiAnthropic, brandColor: "#d97757" },
+      { name: "HuggingFace", icon: SiHuggingface, brandColor: "#ffd21e" },
       { name: "ChatGPT API", icon: SiChatgpt, brandColor: "#00a67e" },
+      { name: "ServiceNow", icon: SiServicenow, brandColor: "#81b5a1" },
+      { name: "NetBird", icon: SiNetbird, brandColor: "#ff7900" },
+      { name: "OpenBird", icon: SiOpenbird, brandColor: "#38bdf8" },
+      { name: "PostHog", icon: SiPosthog, brandColor: "#f54e00" },
+      { name: "Jira", icon: SiJira, brandColor: "#0052cc" },
+      { name: "Wireshark", icon: SiWireshark, brandColor: "#1679a7" },
     ],
     design: [
       { name: "Figma", icon: SiFigma, brandColor: "#f24e1e" },
