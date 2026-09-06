@@ -1,5 +1,7 @@
 "use client"
 
+import { TechIcon } from "@/components/tech-icon"
+
 interface ExperienceEntry {
   company: string
   role: string
@@ -144,9 +146,10 @@ export default function Experience() {
                 {exp.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="font-mono text-[11px] px-2 py-0.5 rounded bg-zinc-950 text-zinc-400 border border-zinc-800/80"
+                    className="inline-flex items-center gap-1 font-mono text-[11px] px-2 py-0.5 rounded bg-zinc-950 text-zinc-400 border border-zinc-800/80"
                   >
-                    {tag}
+                    <TechIcon name={tag} className="h-3 w-3 text-zinc-500 shrink-0" />
+                    <span>{tag}</span>
                   </span>
                 ))}
               </div>

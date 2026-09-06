@@ -1,5 +1,7 @@
 "use client"
 
+import { TechIcon } from "@/components/tech-icon"
+
 interface SkillGroup {
   category: string
   skills: string[]
@@ -127,9 +129,13 @@ export default function Skills() {
                 {group.skills.map((skill) => (
                   <span
                     key={skill}
-                    className="font-mono text-xs px-2.5 py-1 rounded bg-zinc-900 text-zinc-300 border border-zinc-800/80 hover:border-zinc-700 transition-colors"
+                    className="group inline-flex items-center gap-1.5 font-mono text-xs px-2.5 py-1 rounded bg-zinc-900/90 text-zinc-300 border border-zinc-800/80 hover:border-zinc-700 hover:text-white transition-colors"
                   >
-                    {skill}
+                    <TechIcon
+                      name={skill}
+                      className="h-3.5 w-3.5 text-zinc-400 group-hover:text-zinc-200 shrink-0 transition-colors"
+                    />
+                    <span>{skill}</span>
                   </span>
                 ))}
               </div>

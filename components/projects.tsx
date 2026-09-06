@@ -1,6 +1,7 @@
 "use client"
 
 import { ArrowUpRight } from "lucide-react"
+import { TechIcon } from "@/components/tech-icon"
 
 interface ProjectItem {
   title: string
@@ -155,9 +156,10 @@ export default function Projects() {
                 {project.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="font-mono text-xs px-2 py-0.5 rounded bg-zinc-950 text-zinc-400 border border-zinc-800"
+                    className="inline-flex items-center gap-1 font-mono text-xs px-2 py-0.5 rounded bg-zinc-950 text-zinc-400 border border-zinc-800"
                   >
-                    {tag}
+                    <TechIcon name={tag} className="h-3 w-3 text-zinc-500 shrink-0" />
+                    <span>{tag}</span>
                   </span>
                 ))}
               </div>
