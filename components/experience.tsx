@@ -92,7 +92,7 @@ const experiences: ExperienceEntry[] = [
 
 export default function Experience() {
   return (
-    <section id="experience" className="py-16 sm:py-20 border-t border-zinc-800/60">
+    <section id="experience" className="py-16 sm:py-20">
       <div className="flex flex-col gap-10">
         {/* Section Header */}
         <div className="flex flex-col gap-2">
