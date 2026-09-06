@@ -98,15 +98,9 @@ export default function Experience() {
       <div className="flex flex-col gap-10">
         {/* Section Header */}
         <div className="flex flex-col gap-2">
-          <div className="font-mono text-xs text-zinc-500 uppercase tracking-widest">
-            // 01. experience
-          </div>
           <h2 className="font-pixel text-lg sm:text-xl font-bold tracking-wide text-white uppercase">
-            Work Experience
+            // Experience
           </h2>
-          <p className="text-sm sm:text-base text-zinc-400">
-            A track record in DevSecOps, cloud engineering, and full-stack software development.
-          </p>
         </div>
 
         {/* Experience List - Clean, line-free modern layout */}

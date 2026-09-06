@@ -46,15 +46,9 @@ export default function Education() {
       <div className="flex flex-col gap-8">
         {/* Header */}
         <div className="flex flex-col gap-2">
-          <div className="font-mono text-xs text-zinc-500 uppercase tracking-widest">
-            // 04. education
-          </div>
           <h2 className="font-pixel text-lg sm:text-xl font-bold tracking-wide text-white uppercase">
-            Academic Background
+            // Academics
           </h2>
-          <p className="text-sm sm:text-base text-zinc-400">
-            Graduate and undergraduate foundations in computer science theory, systems, and security.
-          </p>
         </div>
 
         {/* Education List */}

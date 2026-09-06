@@ -83,15 +83,9 @@ export default function Projects() {
       <div className="flex flex-col gap-10">
         {/* Header */}
         <div className="flex flex-col gap-2">
-          <div className="font-mono text-xs text-zinc-500 uppercase tracking-widest">
-            // 02. projects
-          </div>
           <h2 className="font-pixel text-lg sm:text-xl font-bold tracking-wide text-white uppercase">
-            Selected Work
+            // Projects
           </h2>
-          <p className="text-sm sm:text-base text-zinc-400">
-            Systems engineering, SaaS products, hackathon winners, and open-source infrastructure.
-          </p>
         </div>
 
         {/* Project List (Text-first, no images) */}

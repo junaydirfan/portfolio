@@ -104,15 +104,9 @@ export default function Skills() {
       <div className="flex flex-col gap-8">
         {/* Section Header */}
         <div className="flex flex-col gap-2">
-          <div className="font-mono text-xs text-zinc-500 uppercase tracking-widest">
-            // 03. skills
-          </div>
           <h2 className="font-pixel text-lg sm:text-xl font-bold tracking-wide text-white uppercase">
-            Core Competencies
+            // Skills
           </h2>
-          <p className="text-sm sm:text-base text-zinc-400">
-            A comprehensive overview of frameworks, cloud technologies, languages, and operational tooling.
-          </p>
         </div>
 
         {/* Skills Matrix */}

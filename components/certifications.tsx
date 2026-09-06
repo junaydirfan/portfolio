@@ -46,15 +46,9 @@ export default function Certifications() {
       <div className="flex flex-col gap-8">
         {/* Header */}
         <div className="flex flex-col gap-2">
-          <div className="font-mono text-xs text-zinc-500 uppercase tracking-widest">
-            // 05. credentials
-          </div>
           <h2 className="font-pixel text-lg sm:text-xl font-bold tracking-wide text-white uppercase">
-            Licenses &amp; Credentials
+            // Credentials
           </h2>
-          <p className="text-sm sm:text-base text-zinc-400">
-            Industry credentials and verified learning paths in cybersecurity, SRE, and cloud architecture.
-          </p>
         </div>
 
         {/* Credentials Grid */}
@@ -70,9 +64,8 @@ export default function Certifications() {
                     {cert.issuer}
                   </span>
                   <span
-                    className={`font-mono text-xs ${
-                      cert.status === "Verified" ? "text-emerald-400" : "text-amber-400"
-                    }`}
+                    className={`font-mono text-xs ${cert.status === "Verified" ? "text-emerald-400" : "text-amber-400"
+                      }`}
                   >
                     ● {cert.status}
                   </span>
