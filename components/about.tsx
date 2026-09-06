@@ -71,6 +71,70 @@ export default function About() {
             <span className="text-zinc-600">↓</span>
           </a>
         </div>
+
+        {/* Minimal Retro Terminal & GitHub Contribution Activity */}
+        <div className="rounded-lg border border-zinc-800/90 bg-zinc-950/80 overflow-hidden mt-1">
+          {/* Terminal Title Bar */}
+          <div className="flex items-center justify-between px-4 py-2 border-b border-zinc-800/80 bg-zinc-900/40 text-xs font-mono text-zinc-500">
+            <div className="flex items-center gap-1.5">
+              <span className="h-2 w-2 rounded-full bg-zinc-700" />
+              <span className="h-2 w-2 rounded-full bg-zinc-700" />
+              <span className="h-2 w-2 rounded-full bg-zinc-700" />
+            </div>
+            <span className="text-[11px] text-zinc-400">junaid@system:~</span>
+            <span className="text-[10px] text-emerald-400/80">bash</span>
+          </div>
+
+          <div className="p-4 sm:p-5 space-y-3.5 font-mono text-xs">
+            {/* Terminal Commands */}
+            <div className="space-y-1">
+              <p className="text-zinc-400">
+                <span className="text-emerald-400">$</span> whoami
+              </p>
+              <p className="text-zinc-300 pl-3">
+                Full-stack developer specializing in DevSecOps, platform engineering, and AI systems.
+              </p>
+            </div>
+
+            <div className="space-y-1">
+              <p className="text-zinc-400">
+                <span className="text-emerald-400">$</span> cat /etc/tech-stack.conf
+              </p>
+              <p className="text-zinc-300 pl-3">
+                Kubernetes · Docker · AWS · GCP · Terraform · TypeScript · Next.js · Python · AI/MCP
+              </p>
+            </div>
+
+            {/* GitHub Contributions */}
+            <div className="pt-2 border-t border-zinc-800/60 space-y-2">
+              <div className="flex items-center justify-between text-[11px]">
+                <div className="flex items-center gap-1.5 text-zinc-400">
+                  <span className="text-emerald-400">$</span>
+                  <span>git log --activity</span>
+                </div>
+                <a
+                  href="https://github.com/junaydirfan"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-zinc-500 hover:text-zinc-200 transition-colors"
+                >
+                  <span>github.com/junaydirfan</span>
+                  <ArrowUpRight className="h-3 w-3" />
+                </a>
+              </div>
+
+              <div className="overflow-x-auto custom-scrollbar p-1.5 rounded bg-black/40 border border-zinc-900">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="https://ghchart.rshah.org/4ade80/junaydirfan"
+                  alt="GitHub contribution heatmap for junaydirfan"
+                  loading="lazy"
+                  className="block h-auto w-full min-w-[500px] opacity-80 hover:opacity-100 transition-opacity"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   )
