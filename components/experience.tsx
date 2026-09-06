@@ -107,24 +107,21 @@ export default function Experience() {
           </p>
         </div>
 
-        {/* Experience List */}
-        <div className="space-y-12">
+        {/* Experience List - Clean, line-free modern layout */}
+        <div className="space-y-10">
           {experiences.map((exp, idx) => (
             <article
               key={`${exp.company}-${exp.role}-${idx}`}
-              className="flex flex-col gap-4 border-l border-zinc-800 pl-4 sm:pl-6 relative"
+              className="flex flex-col gap-3"
             >
-              {/* Subtle indicator pip */}
-              <div className="absolute -left-[4.5px] top-1.5 h-2 w-2 rounded-full bg-zinc-600 border border-background" />
-
               {/* Title and Metadata */}
               <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
                 <div>
-                  <h3 className="text-lg sm:text-xl font-semibold text-zinc-100">
+                  <h3 className="text-base sm:text-lg font-semibold text-zinc-100">
                     {exp.role}
                   </h3>
-                  <div className="text-sm font-medium text-zinc-400">
-                    {exp.company} <span className="text-zinc-600">·</span> {exp.location}
+                  <div className="text-xs sm:text-sm font-mono text-zinc-400">
+                    {exp.company} <span className="text-zinc-600">//</span> {exp.location}
                   </div>
                 </div>
                 <div className="font-mono text-xs text-zinc-500 whitespace-nowrap pt-1 sm:pt-0">
@@ -132,10 +129,13 @@ export default function Experience() {
                 </div>
               </div>
 
-              {/* Bullet Points */}
-              <ul className="space-y-2 text-sm sm:text-base text-zinc-400 leading-relaxed list-disc list-outside ml-4 marker:text-zinc-600">
+              {/* Bullet Points with minimal prompt marker */}
+              <ul className="space-y-2 text-xs sm:text-sm text-zinc-400 leading-relaxed">
                 {exp.bullets.map((bullet, bIdx) => (
-                  <li key={bIdx}>{bullet}</li>
+                  <li key={bIdx} className="flex items-start gap-2.5">
+                    <span className="text-zinc-600 select-none pt-0.5 font-mono">&gt;</span>
+                    <span>{bullet}</span>
+                  </li>
                 ))}
               </ul>
 
@@ -144,7 +144,7 @@ export default function Experience() {
                 {exp.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="font-mono text-xs px-2 py-0.5 rounded bg-zinc-900 text-zinc-400 border border-zinc-800/80"
+                    className="font-mono text-[11px] px-2 py-0.5 rounded bg-zinc-950 text-zinc-400 border border-zinc-800/80"
                   >
                     {tag}
                   </span>
