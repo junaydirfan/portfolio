@@ -30,6 +30,46 @@ export default function About() {
   return (
     <section id="about" className="pt-20 sm:pt-28 pb-14 sm:pb-18">
       <div className="flex flex-col gap-6">
+        {/* Top Centered Quick Bar & Location */}
+        <div className="flex flex-wrap items-center justify-center gap-x-5 sm:gap-x-6 gap-y-2 font-mono text-xs sm:text-[13px] text-zinc-400 text-center">
+          <a
+            href="mailto:hello@junaidirfan.com"
+            className="group inline-flex items-center gap-1 text-zinc-300 hover:text-white transition-colors"
+          >
+            <span>hello@junaidirfan.com</span>
+            <ArrowUpRight className="h-3.5 w-3.5 text-zinc-500 group-hover:text-white transition-colors" />
+          </a>
+          <a
+            href="https://github.com/junaydirfan"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-1 text-zinc-300 hover:text-white transition-colors"
+          >
+            <span>GitHub</span>
+            <ArrowUpRight className="h-3.5 w-3.5 text-zinc-500 group-hover:text-white transition-colors" />
+          </a>
+          <a
+            href="https://linkedin.com/in/junaydirfan"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-1 text-zinc-300 hover:text-white transition-colors"
+          >
+            <span>LinkedIn</span>
+            <ArrowUpRight className="h-3.5 w-3.5 text-zinc-500 group-hover:text-white transition-colors" />
+          </a>
+          <span className="inline-flex items-center gap-1 text-zinc-400">
+            <MapPin className="h-3.5 w-3.5 text-zinc-400" />
+            <span>Toronto</span>
+          </span>
+          <a
+            href="#experience"
+            className="group inline-flex items-center gap-1 text-zinc-400 hover:text-zinc-200 transition-colors"
+          >
+            <span>View Experience</span>
+            <span className="text-zinc-600">&darr;</span>
+          </a>
+        </div>
+
         {/* Central Terminal Window */}
         <div className="rounded-lg border border-zinc-800 bg-zinc-950/95 shadow-2xl overflow-hidden">
           {/* Terminal Window Controls Bar */}
@@ -145,48 +185,6 @@ export default function About() {
             </div>
           </div>
         </div>
-
-        {/* Quick Links Row */}
-        <div className="flex flex-wrap items-center gap-x-6 gap-y-3 pt-2 font-mono text-xs sm:text-sm border-t border-zinc-800/60">
-          <a
-            href="mailto:hello@junaidirfan.com"
-            className="group inline-flex items-center gap-1 text-zinc-300 hover:text-white transition-colors"
-          >
-            <span>hello@junaidirfan.com</span>
-            <ArrowUpRight className="h-3.5 w-3.5 text-zinc-500 group-hover:text-white transition-colors" />
-          </a>
-          <a
-            href="https://github.com/junaydirfan"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group inline-flex items-center gap-1 text-zinc-300 hover:text-white transition-colors"
-          >
-            <span>GitHub</span>
-            <ArrowUpRight className="h-3.5 w-3.5 text-zinc-500 group-hover:text-white transition-colors" />
-          </a>
-          <a
-            href="https://linkedin.com/in/junaydirfan"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group inline-flex items-center gap-1 text-zinc-300 hover:text-white transition-colors"
-          >
-            <span>LinkedIn</span>
-            <ArrowUpRight className="h-3.5 w-3.5 text-zinc-500 group-hover:text-white transition-colors" />
-          </a>
-          <a
-            href="#experience"
-            className="group inline-flex items-center gap-1 text-zinc-400 hover:text-zinc-200 transition-colors"
-          >
-            <span>View Experience</span>
-            <span className="text-zinc-600">&darr;</span>
-          </a>
-        </div>
-
-        {/* Location line */}
-        <p className="flex items-center gap-2 text-xs text-zinc-500 font-mono -mt-2">
-          <MapPin className="h-3.5 w-3.5 text-zinc-400" />
-          <span>Based in Toronto, ON</span>
-        </p>
       </div>
     </section>
   )
