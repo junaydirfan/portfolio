@@ -1,30 +1,28 @@
 import type { Metadata } from "next"
 import About from "@/components/about"
-import Skills from "@/components/skills"
-import Projects from "@/components/projects"
 import Experience from "@/components/experience"
+import Projects from "@/components/projects"
+import Skills from "@/components/skills"
 import Education from "@/components/education"
 import Certifications from "@/components/certifications"
 import Contact from "@/components/contact"
 import Footer from "@/components/footer"
-import Infrastructure from "@/components/infrastructure"
 
 export const metadata: Metadata = {
-  title: "junaid's site",
+  title: "Junaid Irfan — Full-Stack & DevSecOps Engineer",
   description:
-    "portfolio of junaid irfan, a software developer specializing in web development, cloud, and UI/UX design.",
+    "Portfolio of Junaid Irfan, Full-Stack & DevSecOps Engineer specializing in cloud infrastructure, Kubernetes, platform engineering, and AI operations.",
 }
 
 export default function Home() {
   return (
-    <main className="min-h-screen relative z-10">
+    <main className="mx-auto max-w-3xl px-6 sm:px-8">
       <About />
-      <Skills />
-      <Projects />
       <Experience />
+      <Projects />
+      <Skills />
       <Education />
       <Certifications />
-      <Infrastructure />
       <Contact />
       <Footer />
     </main>

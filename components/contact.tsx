@@ -1,261 +1,68 @@
 "use client"
 
-import type React from "react"
-import { motion, useInView } from "framer-motion"
-import { useRef, useState, useEffect } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Button } from "@/components/ui/button"
-import { Label } from "@/components/ui/label"
-import { Mail, MapPin, Send, Loader2, CheckCircle, AlertCircle, MessageSquare, ShieldCheck } from "lucide-react"
-import { FloatingIconsBackground } from "./floating-icons-background"
+import { ArrowUpRight, Mail, MapPin, Calendar } from "lucide-react"
 
 export default function Contact() {
-  const ref = useRef(null)
-  const formRef = useRef<HTMLFormElement>(null)
-  const contactEmail = "hello@junaidirfan.com"
-  const isFormConfigured = Boolean(process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY)
-  const isInView = useInView(ref, { once: true, amount: 0.2 }) // Adjusted amount
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSubmitted, setIsSubmitted] = useState(false)
-  const [isMounted, setIsMounted] = useState(false)
-  const [error, setError] = useState("")
-
-  useEffect(() => {
-    setIsMounted(true)
-  }, [])
-
-  // Animation Variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.06,
-        delayChildren: 0.02,
-      },
-    },
-  }
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 25 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.3, ease: "easeOut" as const },
-    },
-  }
-
-  // Static-site contact handler backed by Web3Forms.
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    setError("")
-
-    if (!formRef.current) return
-
-    // Basic email validation
-    const emailInput = (formRef.current.elements.namedItem('email') as HTMLInputElement | null)
-    const email = emailInput?.value.trim() || ""
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
-    if (!emailRegex.test(email)) {
-      setIsSubmitting(false)
-      setError("Please enter a valid email address.")
-      emailInput?.focus()
-      return
-    }
-
-    const nameInput = formRef.current.elements.namedItem('name') as HTMLInputElement | null
-    const messageInput = formRef.current.elements.namedItem('message') as HTMLTextAreaElement | null
-    const botcheckInput = formRef.current.elements.namedItem('botcheck') as HTMLInputElement | null
-
-    if (botcheckInput?.value) {
-      setIsSubmitting(false)
-      setIsSubmitted(true)
-      formRef.current.reset()
-      return
-    }
-
-    const name = nameInput?.value.trim() || ""
-    const message = messageInput?.value.trim() || ""
-    const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY
-
-    if (!accessKey) {
-      setError(`The contact form is not configured yet. Please email me directly at ${contactEmail}.`)
-      setIsSubmitting(false);
-      return;
-    }
-
-    try {
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          access_key: accessKey,
-          subject: `New portfolio message from ${name || email}`,
-          from_name: "junaidirfan.com portfolio",
-          name,
-          email,
-          replyto: email,
-          message,
-        }),
-      })
-
-      const result = await response.json()
-
-      if (!response.ok || !result.success) {
-        throw new Error(result.message || "Message delivery failed")
-      }
-
-      setIsSubmitted(true)
-      formRef.current.reset()
-    } catch (error) {
-      console.error('Contact form failed:', error)
-      setError(`Sorry, the message could not be sent. Please email me directly at ${contactEmail}.`)
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
-
-  // Reset form view function
-  const resetForm = () => {
-    setIsSubmitted(false);
-    setError("");
-  }
-
-  const contactIcons = [
-    { icon: Mail, color: "#10b981" },
-    { icon: MapPin, color: "#10b981" },
-    { icon: Send, color: "#10b981" },
-    { icon: MessageSquare, color: "#10b981" },
-    { icon: ShieldCheck, color: "#10b981" },
-  ];
-
   return (
-    <section id="contact" className="py-24 md:py-32 bg-background relative overflow-hidden">
-      <FloatingIconsBackground icons={contactIcons} count={15} accentColor="#10b981" />
-      <div className="container px-8 md:px-16 lg:px-24 max-w-7xl mx-auto relative z-10">
-        <motion.div
-          ref={ref}
-          initial="hidden"
-          animate={isMounted && isInView ? "visible" : "hidden"}
-          variants={containerVariants}
-        >
-          <motion.div className="mb-20 md:mb-24" variants={itemVariants}>
-            <h2 className="text-5xl md:text-6xl font-bold mb-5 text-foreground">
-              get in touch
-            </h2>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl leading-relaxed">
-              have a question or want to collaborate? send a message or reach out by email.
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 gap-8 md:gap-10 max-w-6xl mx-auto">
-            {/* Contact Info */}
-            <motion.div variants={itemVariants} className="flex">
-              <Card className="h-full w-full flex flex-col border border-border bg-card hover:border-primary/30 hover:shadow-card-hover transition-all duration-300">
-                <CardHeader className="p-6 md:p-8">
-                  <CardTitle className="text-xl md:text-2xl text-foreground font-bold mb-1">contact information</CardTitle>
-                  <CardDescription className="text-sm text-muted-foreground">other ways to reach me</CardDescription>
-                </CardHeader>
-                <CardContent className="p-6 md:p-8 pt-0 space-y-5 flex-grow">
-                  <a href={`mailto:${contactEmail}`} className="flex items-center gap-3 group" aria-label="Email Junaid Irfan">
-                    <div className="p-2 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
-                      <Mail className="h-4 w-4 text-primary flex-shrink-0" />
-                    </div>
-                    <span className="text-sm text-foreground/80 group-hover:text-foreground transition-colors break-all">
-                      {contactEmail}
-                    </span>
-                  </a>
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-lg bg-muted">
-                      <MapPin className="h-4 w-4 text-muted-foreground flex-shrink-0" />
-                    </div>
-                    <span className="text-sm text-muted-foreground">Toronto, CA</span>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-
-            {/* Contact Form */}
-            <motion.div variants={itemVariants} className="flex">
-              <Card className="h-full w-full flex flex-col border border-border bg-card hover:border-primary/30 hover:shadow-card-hover transition-all duration-300">
-                <CardHeader className="p-6 md:p-8">
-                  <CardTitle className="text-xl md:text-2xl text-foreground font-bold mb-1">send a message</CardTitle>
-                  <CardDescription className="text-sm text-muted-foreground">i usually respond within 24–48 hours.</CardDescription>
-                </CardHeader>
-                <CardContent className="p-6 md:p-8 pt-0 flex-grow flex flex-col">
-                  {isSubmitted ? (
-                    <div className="flex flex-col items-center justify-center text-center flex-grow rounded-lg border border-border bg-muted/20 p-8">
-                      <div className="p-3 rounded-full bg-primary/15 mb-5">
-                        <CheckCircle className="h-7 w-7 text-primary" />
-                      </div>
-                      <h3 className="text-xl font-bold mb-2 text-foreground">Message sent!</h3>
-                      <p className="text-muted-foreground mb-6 text-sm">thanks for reaching out — i&apos;ll reply soon!</p>
-                      <Button variant="outline" onClick={resetForm} className="text-sm">
-                        send another message
-                      </Button>
-                    </div>
-                  ) : (
-                    <form
-                      ref={formRef}
-                      onSubmit={handleSubmit}
-                      action="https://api.web3forms.com/submit"
-                      method="POST"
-                      className="space-y-5"
-                    >
-                      <input type="hidden" name="access_key" value={process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || ""} readOnly />
-                      <input type="hidden" name="subject" value="New portfolio message from junaidirfan.com" readOnly />
-                      <input type="hidden" name="from_name" value="junaidirfan.com portfolio" readOnly />
-                      <input type="checkbox" name="botcheck" className="hidden" tabIndex={-1} autoComplete="off" aria-hidden="true" />
-                      {!isFormConfigured && (
-                        <div className="flex items-start gap-2.5 rounded-lg border border-yellow-500/30 bg-yellow-500/10 p-3 text-sm text-yellow-100">
-                          <AlertCircle className="mt-0.5 h-4 w-4 flex-shrink-0" />
-                          <span>Form delivery needs a Web3Forms access key. Email me directly at {contactEmail} for now.</span>
-                        </div>
-                      )}
-                      <div className="space-y-1.5">
-                        <Label htmlFor="name" className="text-sm font-medium text-muted-foreground">Name</Label>
-                        <Input id="name" name="name" placeholder="Your name" required aria-label="Your Name" className="border-border bg-input/50 focus:border-primary/50 transition-colors" />
-                      </div>
-                      <div className="space-y-1.5">
-                        <Label htmlFor="email" className="text-sm font-medium text-muted-foreground">Email</Label>
-                        <Input id="email" name="email" type="email" placeholder="your@email.com" required aria-label="Your Email" autoComplete="email" inputMode="email" pattern="[^\s@]+@[^\s@]+\.[^\s@]{2,}" title="Enter a valid email like name@example.com" className="border-border bg-input/50 focus:border-primary/50 transition-colors" />
-                      </div>
-                      <div className="space-y-1.5">
-                        <Label htmlFor="message" className="text-sm font-medium text-muted-foreground">Message</Label>
-                        <Textarea id="message" name="message" placeholder="Type your message here..." rows={4} required aria-label="Your Message" className="border-border bg-input/50 focus:border-primary/50 transition-colors resize-none" />
-                      </div>
-                      {error && (
-                        <div className="flex items-center gap-2.5 text-sm text-destructive border border-destructive/30 bg-destructive/10 rounded-lg p-3">
-                          <AlertCircle className="h-4 w-4 flex-shrink-0" />
-                          <span>{error}</span>
-                        </div>
-                      )}
-                      <Button type="submit" className="w-full bg-primary text-primary-foreground hover:bg-primary/90" disabled={isSubmitting}>
-                        {isSubmitting ? (
-                          <>
-                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                            sending...
-                          </>
-                        ) : (
-                          <>
-                            <Send className="mr-2 h-4 w-4" />
-                            send message
-                          </>
-                        )}
-                      </Button>
-                    </form>
-                  )}
-                </CardContent>
-              </Card>
-            </motion.div>
+    <section id="contact" className="py-16 sm:py-24 border-t border-zinc-800/60">
+      <div className="flex flex-col gap-8">
+        {/* Header */}
+        <div className="flex flex-col gap-2">
+          <div className="font-mono text-xs text-zinc-500 uppercase tracking-widest">
+            // 06. connect
           </div>
-        </motion.div>
+          <h2 className="font-pixel text-lg sm:text-xl font-bold tracking-wide text-white uppercase">
+            Get in Touch
+          </h2>
+          <p className="text-sm sm:text-base text-zinc-400 max-w-xl leading-relaxed">
+            I am always open to discussing new engineering opportunities, infrastructure challenges, AI platform architecture, or consulting projects.
+          </p>
+        </div>
+
+        {/* Minimal Connect Links (Alex Murashko / Alessandro Agozar style) */}
+        <div className="flex flex-col gap-3 font-mono text-sm">
+          <div className="flex items-center justify-between border-b border-zinc-800/60 py-3">
+            <span className="text-zinc-500">Email</span>
+            <a
+              href="mailto:hello@junaidirfan.com"
+              className="inline-flex items-center gap-1 text-zinc-200 hover:text-white transition-colors"
+            >
+              <span>hello@junaidirfan.com</span>
+              <ArrowUpRight className="h-3.5 w-3.5 text-zinc-500" />
+            </a>
+          </div>
+
+          <div className="flex items-center justify-between border-b border-zinc-800/60 py-3">
+            <span className="text-zinc-500">LinkedIn</span>
+            <a
+              href="https://linkedin.com/in/junaydirfan"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-zinc-200 hover:text-white transition-colors"
+            >
+              <span>linkedin.com/in/junaydirfan</span>
+              <ArrowUpRight className="h-3.5 w-3.5 text-zinc-500" />
+            </a>
+          </div>
+
+          <div className="flex items-center justify-between border-b border-zinc-800/60 py-3">
+            <span className="text-zinc-500">GitHub</span>
+            <a
+              href="https://github.com/junaydirfan"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-zinc-200 hover:text-white transition-colors"
+            >
+              <span>github.com/junaydirfan</span>
+              <ArrowUpRight className="h-3.5 w-3.5 text-zinc-500" />
+            </a>
+          </div>
+
+          <div className="flex items-center justify-between py-3 text-xs text-zinc-500">
+            <span>Location &amp; Timezone</span>
+            <span className="text-zinc-400">Toronto, ON (UTC-4 / EST)</span>
+          </div>
+        </div>
       </div>
     </section>
   )

@@ -1,23 +1,12 @@
-// layout.tsx
 import type { Metadata } from "next";
-import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
-import { Nav } from "@/components/ui/nav";
-import { Availability } from "@/components/ui/availability";
 import { Analytics } from "@vercel/analytics/next";
 import SmoothScrolling from "@/components/smooth-scrolling";
-import LastFmStatus from "@/components/lastfm-status";
 import { PostHogProvider } from "@/components/posthog-provider";
 
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-space-grotesk",
-  weight: ["300", "400", "500", "600", "700"],
-});
-
 export const metadata: Metadata = {
-  title: "junaid irfan | web & cloud developer",
-  description: "portfolio of junaid irfan, a software developer specializing in web development, cloud, and UI/UX design.",
+  title: "Junaid Irfan — Full-Stack & DevSecOps Engineer",
+  description: "Portfolio of Junaid Irfan, Full-Stack & DevSecOps Engineer specializing in cloud-native systems, platform engineering, and AI operations.",
   icons: {
     icon: '/favicon.ico',
     apple: '/apple-icon.png',
@@ -30,30 +19,23 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    // Add suppressHydrationWarning to <html>
-    <html lang="en" className="scroll-smooth" suppressHydrationWarning> 
+    <html lang="en" className="scroll-smooth dark" suppressHydrationWarning> 
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <meta name="theme-color" content="#0a0a0a" />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              try {
-                document.documentElement.classList.add('dark')
-              } catch (_) {}
-            `,
-          }}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=VT323&display=swap"
+          rel="stylesheet"
         />
       </head>
       <body
-        className={`${spaceGrotesk.variable} font-sans antialiased bg-transparent text-foreground min-h-screen`}
+        className="font-sans antialiased bg-background text-foreground min-h-screen selection:bg-zinc-800 selection:text-white"
       >
         <PostHogProvider>
           <SmoothScrolling>
-            <Nav />
-            <LastFmStatus />
             {children}
-            <Availability />
             <Analytics />
           </SmoothScrolling>
         </PostHogProvider>
@@ -61,3 +43,4 @@ export default function RootLayout({
     </html>
   );
 }
+

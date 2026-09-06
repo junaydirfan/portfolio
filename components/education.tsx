@@ -1,142 +1,108 @@
 "use client"
 
-import { motion, useInView } from "framer-motion"
-import { useRef, useState, useEffect } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"; // Import Badge
-import { GraduationCap, BookOpen, Medal, Library, PencilRuler } from "lucide-react"
-import { FloatingIconsBackground } from "./floating-icons-background"
+interface EducationItem {
+  degree: string
+  institution: string
+  location: string
+  period: string
+  gpa?: string
+  coursework?: string[]
+}
+
+const educationData: EducationItem[] = [
+  {
+    degree: "Master of Science, Computer Science",
+    institution: "Bishop's University",
+    location: "Sherbrooke, QC",
+    period: "Sep 2023 – Apr 2025",
+    gpa: "89.79%",
+    coursework: [
+      "Advanced Algorithms",
+      "Software Engineering",
+      "Database Systems",
+      "Network Security",
+      "Distributed Systems",
+      "Big Data Analytics",
+    ],
+  },
+  {
+    degree: "Bachelor of Science, Computer Science",
+    institution: "COMSATS University Islamabad",
+    location: "Islamabad, PK",
+    period: "Sep 2018 – Aug 2022",
+    coursework: [
+      "Data Structures & Algorithms",
+      "Operating Systems",
+      "Database Design",
+      "Computer Networks",
+      "OOP",
+    ],
+  },
+]
 
 export default function Education() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, amount: 0.2 }) // Slightly adjusted amount
-  const [isMounted, setIsMounted] = useState(false)
-
-  useEffect(() => {
-    setIsMounted(true)
-  }, [])
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.06,
-        delayChildren: 0.02,
-      },
-    },
-  }
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 25 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.3, ease: "easeOut" as const },
-    },
-  }
-
-  const courses = [
-    "database software design",
-    "web development patterns",
-    "big data management & analytics",
-    "data visualization",
-    "software engineering",
-    "pattern recognition",
-    "distributed systems",
-    "advanced algorithms", 
-  ]
-
-  const educationIcons = [
-    { icon: GraduationCap, color: "#f59e0b" },
-    { icon: BookOpen, color: "#f59e0b" },
-    { icon: Medal, color: "#f59e0b" },
-    { icon: Library, color: "#f59e0b" },
-    { icon: PencilRuler, color: "#f59e0b" },
-  ];
-
   return (
-    <section id="education" className="py-24 md:py-32 bg-background relative overflow-hidden">
-      <FloatingIconsBackground icons={educationIcons} count={15} accentColor="#f59e0b" />
-      <div className="container px-8 md:px-16 lg:px-24 max-w-6xl mx-auto relative z-10">
-        <motion.div
-          ref={ref}
-          initial="hidden"
-          animate={isMounted && isInView ? "visible" : "hidden"}
-          variants={containerVariants}
-        >
-          <motion.div className="mb-20 md:mb-24" variants={itemVariants}>
-            <h2 className="text-5xl md:text-6xl font-bold mb-5 text-foreground">
-              education
-            </h2>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl leading-relaxed">
-              my academic journey providing a strong foundation in computer science theory and practice.
-            </p>
-          </motion.div>
+    <section id="education" className="py-16 sm:py-20 border-t border-zinc-800/60">
+      <div className="flex flex-col gap-8">
+        {/* Header */}
+        <div className="flex flex-col gap-2">
+          <div className="font-mono text-xs text-zinc-500 uppercase tracking-widest">
+            // 04. education
+          </div>
+          <h2 className="font-pixel text-lg sm:text-xl font-bold tracking-wide text-white uppercase">
+            Academic Background
+          </h2>
+          <p className="text-sm sm:text-base text-zinc-400">
+            Graduate and undergraduate foundations in computer science theory, systems, and security.
+          </p>
+        </div>
 
-          <div className="max-w-5xl space-y-6">
-            <motion.div variants={itemVariants}>
-              <Card className="overflow-hidden border border-border bg-card hover:border-primary/30 hover:shadow-card-hover transition-all duration-300">
-                <CardHeader className="p-6 md:p-8 pb-4">
-                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
-                    <div className="flex items-center gap-3">
-                      <div className="p-2 rounded-lg bg-primary/10">
-                        <GraduationCap className="h-5 w-5 text-primary flex-shrink-0" />
-                      </div>
-                      <CardTitle className="text-xl md:text-2xl text-foreground font-bold">M.Sc. Computer Science</CardTitle>
-                    </div>
-                    <div className="flex flex-col items-start sm:items-end gap-2">
-                      <CardDescription className="text-sm sm:text-right text-muted-foreground">
-                        Bishop&apos;s University · Sherbrooke, QC<br/>
-                        Sep 2023 – Apr 2025
-                      </CardDescription>
-                      <Badge className="text-xs font-semibold bg-primary/15 text-primary border-primary/20">
-                        GPA: 89.79
-                      </Badge>
-                    </div>
+        {/* Education List */}
+        <div className="space-y-8">
+          {educationData.map((edu) => (
+            <div
+              key={edu.degree}
+              className="flex flex-col gap-3 rounded-lg border border-zinc-800/80 bg-zinc-900/30 p-5 sm:p-6"
+            >
+              <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
+                <div>
+                  <h3 className="text-base sm:text-lg font-semibold text-zinc-100">
+                    {edu.degree}
+                  </h3>
+                  <div className="text-sm font-medium text-zinc-400">
+                    {edu.institution} <span className="text-zinc-600">·</span> {edu.location}
                   </div>
-                </CardHeader>
-                <CardContent className="p-6 md:p-8 pt-0">
-                  <div className="flex items-center gap-2 mb-4">
-                    <BookOpen className="h-4 w-4 text-muted-foreground" />
-                    <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Relevant Coursework</p>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {courses.map((course, index) => (
-                      <Badge key={index} variant="outline" className="font-medium text-xs px-3 py-1.5 border-border text-muted-foreground hover:text-foreground transition-colors">
+                </div>
+                <div className="flex items-center gap-2 font-mono text-xs text-zinc-500">
+                  {edu.gpa && (
+                    <span className="px-2 py-0.5 rounded bg-zinc-800 text-zinc-300 border border-zinc-700/60">
+                      GPA: {edu.gpa}
+                    </span>
+                  )}
+                  <span>{edu.period}</span>
+                </div>
+              </div>
+
+              {edu.coursework && (
+                <div className="pt-2">
+                  <span className="font-mono text-xs text-zinc-500 uppercase tracking-wider block mb-2">
+                    Key Coursework:
+                  </span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {edu.coursework.map((course) => (
+                      <span
+                        key={course}
+                        className="font-mono text-xs px-2 py-0.5 rounded bg-zinc-950 text-zinc-400 border border-zinc-800"
+                      >
                         {course}
-                      </Badge>
+                      </span>
                     ))}
                   </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-
-            <motion.div variants={itemVariants}>
-              <Card className="overflow-hidden border border-border bg-card hover:border-primary/30 hover:shadow-card-hover transition-all duration-300">
-                <CardHeader className="p-6 md:p-8 pb-4">
-                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
-                    <div className="flex items-center gap-3">
-                      <div className="p-2 rounded-lg bg-primary/10">
-                        <GraduationCap className="h-5 w-5 text-primary flex-shrink-0" />
-                      </div>
-                      <CardTitle className="text-xl md:text-2xl text-foreground font-bold">B.Sc. Computer Science</CardTitle>
-                    </div>
-                    <CardDescription className="text-sm sm:text-right text-muted-foreground">
-                      COMSATS University · Islamabad, PK<br/>
-                      Sep 2018 – Sep 2022
-                    </CardDescription>
-                  </div>
-                </CardHeader>
-                <CardContent className="p-6 md:p-8 pt-0">
-                  <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
-                    Foundational studies in computer science with emphasis on algorithms, data structures, databases, mobile app development, and software engineering.
-                  </p>
-                </CardContent>
-              </Card>
-            </motion.div>
-          </div>
-        </motion.div>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   )

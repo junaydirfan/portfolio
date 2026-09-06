@@ -9,7 +9,10 @@ const config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-space-grotesk)", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "sans-serif"],
+        sans: ["'Space Mono'", "ui-monospace", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "'Courier New'", "monospace"],
+        mono: ["'Space Mono'", "ui-monospace", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "'Courier New'", "monospace"],
+        pixel: ["'Silkscreen'", "'Press Start 2P'", "monospace"],
+        terminal: ["'VT323'", "monospace"],
       },
       colors: {
         background: "hsl(var(--background))",

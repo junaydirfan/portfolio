@@ -1,42 +1,46 @@
 "use client"
 
-import { Mail } from "lucide-react"
-import { FaGithub, FaLinkedin } from "react-icons/fa"
-import { useState, useEffect } from "react"
-
 export default function Footer() {
-  const [year, setYear] = useState("2024")
-
-  useEffect(() => {
-    setYear(new Date().getFullYear().toString())
-  }, [])
+  const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="border-t border-border py-10 bg-background">
-      <div className="container px-8 md:px-16 lg:px-24 max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-          <p className="text-sm text-muted-foreground">
-            © {year} junaid irfan. built with passion.
-          </p>
-
-          <div className="flex items-center gap-1">
-            {[
-              { href: "https://github.com/junaydirfan", Icon: FaGithub, label: "GitHub" },
-              { href: "https://linkedin.com/in/junaydirfan", Icon: FaLinkedin, label: "LinkedIn" },
-              { href: "mailto:hello@junaidirfan.com", Icon: Mail, label: "Email" },
-            ].map(({ href, Icon, label }) => (
-              <a
-                key={label}
-                href={href}
-                target={href.startsWith("http") ? "_blank" : undefined}
-                rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="flex items-center justify-center w-9 h-9 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-all duration-200"
-              >
-                <Icon className="h-4 w-4" />
-                <span className="sr-only">{label}</span>
-              </a>
-            ))}
-          </div>
+    <footer className="border-t border-zinc-800/60 py-8 text-zinc-500 font-mono text-xs">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div>
+          &copy; {currentYear} Junaid Irfan. All rights reserved.
+        </div>
+        <div className="flex items-center gap-4">
+          <a
+            href="mailto:hello@junaidirfan.com"
+            className="hover:text-zinc-300 transition-colors"
+          >
+            email
+          </a>
+          <span className="text-zinc-700">/</span>
+          <a
+            href="https://github.com/junaydirfan"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-zinc-300 transition-colors"
+          >
+            github
+          </a>
+          <span className="text-zinc-700">/</span>
+          <a
+            href="https://linkedin.com/in/junaydirfan"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-zinc-300 transition-colors"
+          >
+            linkedin
+          </a>
+          <span className="text-zinc-700">/</span>
+          <a
+            href="#about"
+            className="hover:text-zinc-300 transition-colors"
+          >
+            top &uarr;
+          </a>
         </div>
       </div>
     </footer>

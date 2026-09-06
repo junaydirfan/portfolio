@@ -1,415 +1,137 @@
 "use client"
 
-import { motion, useMotionValue, useReducedMotion, useScroll, useTransform, MotionValue } from "framer-motion"
-import { useRef, RefObject, useMemo, useCallback, useEffect } from "react"
-import { IconType } from "react-icons"
-import {
-  SiTypescript,
-  SiJavascript,
-  SiTailwindcss,
-  SiReact,
-  SiNextdotjs,
-  SiPostgresql,
-  SiMongodb,
-  SiGit,
-  SiFigma,
-  SiUnity,
-  SiBlender,
-  SiDocker,
-  SiGithubactions,
-  SiWireshark,
-  SiSqlite,
-  SiWordpress,
-  SiShopify,
-  SiWebflow,
-  SiDavinciresolve,
-  SiOpenai,
-  SiDynatrace,
-  SiKubernetes,
-  SiTerraform,
-  SiJenkins,
-  SiGooglecloud,
-  SiDrizzle,
-  SiPython,
-  SiFastapi,
-  SiFlask,
-  SiSpringboot,
-  SiHuggingface,
-  SiAnthropic,
-  SiPosthog,
-  SiJira,
-} from "react-icons/si"
-import { FaAws, FaJava } from "react-icons/fa"
-import { TbBrandAdobeAfterEffect, TbBrandAdobeIllustrator, TbBrandAdobePhotoshop, TbBrandAdobePremier } from "react-icons/tb"
-import { VscAzure } from "react-icons/vsc"
-import { Server, Database, ChevronLeft, ChevronRight } from "lucide-react"
-import { FloatingIconsBackground } from "./floating-icons-background"
-
-// Custom GSAP Icon Component - Official GSAP Logo
-const SiGsap = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
-  <svg
-    className={className}
-    viewBox="0 0 82 30"
-    fill="currentColor"
-    {...props}
-  >
-    <path fill="currentColor" d="M23.81 14.013v.013l-1.075 4.665c-.058.264-.322.458-.626.458H20.81a.218.218 0 0 0-.208.155c-1.198 4.064-2.82 6.858-4.962 8.535-1.822 1.428-4.068 2.093-7.069 2.093-2.696 0-4.514-.867-6.056-2.578C.478 25.09-.364 21.388.146 16.926 1.065 8.549 5.41.096 13.776.096c2.545-.023 4.543.762 5.933 2.33 1.47 1.657 2.216 4.154 2.22 7.421a.55.55 0 0 1-.549.536h-6.13a.42.42 0 0 1-.407-.41c-.05-2.259-.72-3.36-2.052-3.36-2.35 0-3.736 3.19-4.471 4.959-1.027 2.47-1.55 5.152-1.447 7.824.049 1.244.249 2.994 1.43 3.718 1.047.643 2.541.217 3.446-.495.904-.711 1.632-1.942 1.938-3.065.043-.156.046-.277.005-.332-.043-.055-.162-.068-.253-.068h-1.574a.572.572 0 0 1-.438-.202.42.42 0 0 1-.087-.362l1.076-4.674c.053-.24.27-.42.537-.453v-.011h10.33c.024 0 .049 0 .072.005.268.034.457.284.452.556h.002Z" />
-    <path fill="currentColor" d="M41.594 8.65a.548.548 0 0 1-.548.531H35.4c-.37 0-.679-.3-.679-.665 0-1.648-.57-2.45-1.736-2.45s-1.918.717-1.94 1.968c-.025 1.395.764 2.662 3.01 4.84 2.957 2.774 4.142 5.232 4.085 8.48C38.047 26.605 34.476 30 29.042 30c-2.775 0-4.895-.743-6.305-2.207-1.431-1.486-2.087-3.668-1.95-6.485a.548.548 0 0 1 .549-.53h5.84a.55.55 0 0 1 .422.209.48.48 0 0 1 .106.384c-.065 1.016.112 1.775.512 2.195.256.272.613.41 1.058.41 1.079 0 1.711-.763 1.735-2.09.02-1.148-.343-2.155-2.321-4.19-2.555-2.496-4.846-5.075-4.775-9.13.042-2.351.976-4.502 2.631-6.056C28.294.868 30.687 0 33.465 0c2.783.02 4.892.813 6.269 2.359 1.304 1.466 1.932 3.582 1.862 6.29h-.002Z" />
-    <path fill="currentColor" d="m59.096 29.012.037-27.932a.525.525 0 0 0-.529-.533h-8.738c-.294 0-.423.252-.507.42L36.707 28.842v.005l-.005.006c-.14.343.126.71.497.71h6.108c.33 0 .548-.1.656-.308l1.213-2.915c.149-.388.177-.424.601-.424h5.836c.406 0 .415.008.408.405l-.131 2.71a.525.525 0 0 0 .529.532h6.17a.522.522 0 0 0 .403-.182.458.458 0 0 0 .104-.369Zm-10.81-9.326c-.057 0-.102-.001-.138-.005a.146.146 0 0 1-.13-.183c.012-.041.029-.095.053-.163l4.377-10.827c.038-.107.086-.212.136-.314.071-.145.157-.155.184-.047.023.09-.502 11.118-.502 11.118-.041.413-.06.43-.467.464l-3.509-.041h-.008l.003-.002Z" />
-    <path fill="currentColor" d="M71.545.547h-4.639c-.245 0-.52.13-.585.422l-6.455 28.029a.423.423 0 0 0 .088.364.572.572 0 0 0 .437.202h5.798c.311 0 .525-.153.583-.418 0 0 .703-3.168.704-3.178.05-.247-.036-.439-.258-.555-.105-.054-.209-.108-.312-.163l-1.005-.522-1-.522-.387-.201a.186.186 0 0 1-.102-.17.199.199 0 0 1 .198-.194l3.178.014c.95.005 1.901-.062 2.836-.234 6.58-1.215 10.95-6.485 11.076-13.656.107-6.12-3.309-9.221-10.15-9.221l-.005.003Zm-1.579 16.68h-.124c-.278 0-.328-.03-.337-.04-.004-.007 1.833-8.073 1.834-8.084.047-.233.045-.367-.099-.446-.184-.102-2.866-1.516-2.866-1.516a.188.188 0 0 1-.101-.172.197.197 0 0 1 .197-.192h4.241c1.32.04 2.056 1.221 2.021 3.237-.061 3.492-1.721 7.09-4.766 7.214Z" />
-  </svg>
-)
-
-// Custom n8n Icon Component - n8n workflow automation logo
-const SiN8n = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
-  <svg
-    className={className}
-    viewBox="0 0 24 24"
-    fill="currentColor"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
-    <path d="M7 6 L7 18" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
-    <path d="M17 6 L17 18" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
-    <path d="M7 18 L17 6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
-    <circle cx="7" cy="6" r="2" fill="currentColor"/>
-    <circle cx="7" cy="18" r="2" fill="currentColor"/>
-    <circle cx="17" cy="6" r="2" fill="currentColor"/>
-    <circle cx="17" cy="18" r="2" fill="currentColor"/>
-  </svg>
-)
-
-// Custom NetBird Icon Component
-const SiNetbird = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
-  <svg
-    className={className}
-    viewBox="0 0 24 24"
-    fill="currentColor"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
-    <path d="M12 2L2 7l10 5 10-5-10-5zm0 8.5L4.5 7 12 3.5 19.5 7 12 10.5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-)
-
-// Custom OpenBird Icon Component
-const SiOpenbird = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
-  <svg
-    className={className}
-    viewBox="0 0 24 24"
-    fill="currentColor"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
-    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" />
-  </svg>
-)
-
-// Custom ServiceNow Icon Component
-const SiServicenow = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
-  <svg
-    className={className}
-    viewBox="0 0 24 24"
-    fill="currentColor"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
-    <path d="M12 0C5.373 0 0 5.373 0 12c0 4.14 2.1 7.79 5.31 9.94l2.42-3.13C5.69 17.37 4.5 14.83 4.5 12c0-4.14 3.36-7.5 7.5-7.5s7.5 3.36 7.5 7.5c0 2.83-1.19 5.37-3.23 6.81l2.42 3.13C21.9 19.79 24 16.14 24 12 0-6.63-5.37-12-12-12zm-3.5 12c0-1.93 1.57-3.5 3.5-3.5s3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5-3.5-1.57-3.5-3.5z" />
-  </svg>
-)
-
-// Use OpenAI icon from react-icons for ChatGPT API
-const SiChatgpt = SiOpenai
-
-type CategoryId = 'development' | 'cloud' | 'design'
-
-interface Skill {
-  name: string
-  icon: IconType
-  brandColor: string
+interface SkillGroup {
+  category: string
+  skills: string[]
 }
 
-interface Category {
-  id: CategoryId
-  title: string
-}
+const skillGroups: SkillGroup[] = [
+  {
+    category: "DevOps & Cloud Infrastructure",
+    skills: [
+      "Docker",
+      "Kubernetes",
+      "Terraform",
+      "AWS",
+      "GCP",
+      "Azure",
+      "CI/CD",
+      "GitHub Actions",
+      "Jenkins",
+      "OpenShift",
+      "Ansible",
+      "SonarQube",
+    ],
+  },
+  {
+    category: "Backend & Systems Engineering",
+    skills: [
+      "Node.js",
+      "Express.js",
+      "Java Spring Boot",
+      "Python",
+      "FastAPI",
+      "NestJS",
+      "RESTful APIs",
+      "Microservices",
+      "GraphQL",
+      "POSIX / C",
+    ],
+  },
+  {
+    category: "AI & Platform Engineering",
+    skills: [
+      "MCP (Model Context Protocol)",
+      "LLM Integration",
+      "RAG",
+      "n8n Automation",
+      "Azure AI Foundry",
+      "Ollama",
+      "HuggingFace",
+      "Prompt Engineering",
+    ],
+  },
+  {
+    category: "Frontend Development",
+    skills: [
+      "TypeScript",
+      "JavaScript",
+      "React.js",
+      "Next.js",
+      "Tailwind CSS",
+      "Redux",
+      "Angular",
+      "HTML5 / CSS3",
+      "Responsive UI",
+    ],
+  },
+  {
+    category: "Databases & Storage",
+    skills: [
+      "PostgreSQL",
+      "MongoDB",
+      "Redis",
+      "MySQL",
+      "SQLite",
+      "Oracle SQL",
+      "Neon Postgres",
+      "Drizzle ORM",
+    ],
+  },
+  {
+    category: "Observability, Security & Tooling",
+    skills: [
+      "Dynatrace AI",
+      "PostHog",
+      "Proxmox VE",
+      "NetBird",
+      "Tailscale",
+      "Nginx",
+      "ServiceNow",
+      "Postman",
+      "Kibana",
+      "Figma",
+      "Agile / Scrum",
+    ],
+  },
+]
 
 export default function Skills() {
-
-  // --- Refs ---
-  const containerRefs: Record<CategoryId, RefObject<null>> = {
-    development: useRef(null),
-    cloud: useRef(null),
-    design: useRef(null)
-  }
-
-  const prefersReducedMotion = useReducedMotion()
-  const developmentOffset = useMotionValue(0)
-  const cloudOffset = useMotionValue(0)
-  const designOffset = useMotionValue(0)
-  const manualOffsetByCategory = useMemo<Record<CategoryId, MotionValue<number>>>(() => ({
-    development: developmentOffset,
-    cloud: cloudOffset,
-    design: designOffset,
-  }), [cloudOffset, designOffset, developmentOffset])
-
-  const stepPx = 144
-  const hoverSpeed = 72
-
-  // RAF management for hover-based smooth scrolling per category
-  const rafIdsRef = useRef<Record<CategoryId, number | null>>({ development: null, cloud: null, design: null })
-  const lastTsRef = useRef<Record<CategoryId, number | null>>({ development: null, cloud: null, design: null })
-  const velocityRef = useRef<Record<CategoryId, number>>({ development: 0, cloud: 0, design: 0 })
-
-  // --- Skills Data ---
-  const skills: Record<CategoryId, Skill[]> = useMemo(() => ({
-    development: [
-      { name: "TypeScript", icon: SiTypescript, brandColor: "#3178c6" },
-      { name: "JavaScript", icon: SiJavascript, brandColor: "#f7df1e" },
-      { name: "Python", icon: SiPython, brandColor: "#3776ab" },
-      { name: "Java", icon: FaJava, brandColor: "#007396" },
-      { name: "React", icon: SiReact, brandColor: "#61dafb" },
-      { name: "Next.js", icon: SiNextdotjs, brandColor: "#ffffff" },
-      { name: "FastAPI", icon: SiFastapi, brandColor: "#009688" },
-      { name: "Flask", icon: SiFlask, brandColor: "#ffffff" },
-      { name: "Spring Boot", icon: SiSpringboot, brandColor: "#6db33f" },
-      { name: "Tailwind CSS", icon: SiTailwindcss, brandColor: "#06b6d4" },
-      { name: "GSAP", icon: SiGsap, brandColor: "#88ce02" },
-      { name: "PostgreSQL", icon: SiPostgresql, brandColor: "#336791" },
-      { name: "Neon DB", icon: Database, brandColor: "#00e699" },
-      { name: "Drizzle ORM", icon: SiDrizzle, brandColor: "#c5f74f" },
-      { name: "MongoDB", icon: SiMongodb, brandColor: "#47a248" },
-      { name: "SQLite", icon: SiSqlite, brandColor: "#003b57" },
-      { name: "WordPress", icon: SiWordpress, brandColor: "#21759b" },
-      { name: "Shopify", icon: SiShopify, brandColor: "#7ab55c" },
-      { name: "Webflow", icon: SiWebflow, brandColor: "#4353ff" },
-      { name: "n8n", icon: SiN8n, brandColor: "#ea4b4b" },
-    ],
-    cloud: [
-      { name: "Docker", icon: SiDocker, brandColor: "#2496ed" },
-      { name: "AWS", icon: FaAws, brandColor: "#ff9900" },
-      { name: "Azure", icon: VscAzure, brandColor: "#0078d4" },
-      { name: "Google Cloud", icon: SiGooglecloud, brandColor: "#4285f4" },
-      { name: "Kubernetes", icon: SiKubernetes, brandColor: "#326ce5" },
-      { name: "Terraform", icon: SiTerraform, brandColor: "#844fba" },
-      { name: "Proxmox", icon: Server, brandColor: "#e57000" },
-      { name: "Dynatrace", icon: SiDynatrace, brandColor: "#1496ff" },
-      { name: "GitHub Actions", icon: SiGithubactions, brandColor: "#2088ff" },
-      { name: "Jenkins", icon: SiJenkins, brandColor: "#d24939" },
-      { name: "Git", icon: SiGit, brandColor: "#f05032" },
-      { name: "Claude Code", icon: SiAnthropic, brandColor: "#d97757" },
-      { name: "HuggingFace", icon: SiHuggingface, brandColor: "#ffd21e" },
-      { name: "ChatGPT API", icon: SiChatgpt, brandColor: "#00a67e" },
-      { name: "ServiceNow", icon: SiServicenow, brandColor: "#81b5a1" },
-      { name: "NetBird", icon: SiNetbird, brandColor: "#ff7900" },
-      { name: "OpenBird", icon: SiOpenbird, brandColor: "#38bdf8" },
-      { name: "PostHog", icon: SiPosthog, brandColor: "#f54e00" },
-      { name: "Jira", icon: SiJira, brandColor: "#0052cc" },
-      { name: "Wireshark", icon: SiWireshark, brandColor: "#1679a7" },
-    ],
-    design: [
-      { name: "Figma", icon: SiFigma, brandColor: "#f24e1e" },
-      { name: "After Effects", icon: TbBrandAdobeAfterEffect, brandColor: "#CF96FD" },
-      { name: "Photoshop", icon: TbBrandAdobePhotoshop, brandColor: "#31A8FF" },
-      { name: "Illustrator", icon: TbBrandAdobeIllustrator, brandColor: "#FF7C00" },
-      { name: "Premiere Pro", icon: TbBrandAdobePremier, brandColor: "#9999FF" },
-      { name: "Unity", icon: SiUnity, brandColor: "#ffffff" },
-      { name: "Blender", icon: SiBlender, brandColor: "#f5792a" },
-      { name: "DaVinci Resolve", icon: SiDavinciresolve, brandColor: "#6b46c1" },
-    ]
-  }), [])
-
-  const applyWrappedOffset = useCallback((categoryId: CategoryId, next: number) => {
-    const widthPerSet = Math.max(1, (skills[categoryId]?.length || 1) * stepPx)
-    const wrapped = ((next % widthPerSet) + widthPerSet) % widthPerSet
-    return wrapped === 0 ? 0 : wrapped - widthPerSet
-  }, [stepPx, skills])
-
-  const handleShift = useCallback((categoryId: CategoryId, direction: -1 | 1) => {
-    const current = manualOffsetByCategory[categoryId].get()
-    manualOffsetByCategory[categoryId].set(applyWrappedOffset(categoryId, current + direction * -stepPx))
-  }, [applyWrappedOffset, manualOffsetByCategory, stepPx])
-
-  const tick = useCallback(function tickFrame(categoryId: CategoryId, ts: number) {
-    const last = lastTsRef.current[categoryId]
-    if (last == null) {
-      lastTsRef.current[categoryId] = ts
-      rafIdsRef.current[categoryId] = requestAnimationFrame((t) => tickFrame(categoryId, t))
-      return
-    }
-    const dt = Math.min(0.05, (ts - last) / 1000) // cap dt to avoid jumps
-    lastTsRef.current[categoryId] = ts
-    const v = velocityRef.current[categoryId]
-    if (v === 0) {
-      // stop loop
-      const id = rafIdsRef.current[categoryId]
-      if (id != null) cancelAnimationFrame(id)
-      rafIdsRef.current[categoryId] = null
-      lastTsRef.current[categoryId] = null
-      return
-    }
-    const next = manualOffsetByCategory[categoryId].get() + v * dt
-    manualOffsetByCategory[categoryId].set(applyWrappedOffset(categoryId, next))
-    rafIdsRef.current[categoryId] = requestAnimationFrame((t) => tickFrame(categoryId, t))
-  }, [applyWrappedOffset, manualOffsetByCategory])
-
-  const startHoverScroll = useCallback((categoryId: CategoryId, direction: -1 | 1) => {
-    if (prefersReducedMotion) return
-    velocityRef.current[categoryId] = direction * -hoverSpeed
-    if (rafIdsRef.current[categoryId] == null) {
-      rafIdsRef.current[categoryId] = requestAnimationFrame((t) => tick(categoryId, t))
-    }
-  }, [hoverSpeed, prefersReducedMotion, tick])
-
-  const stopHoverScroll = useCallback((categoryId: CategoryId) => {
-    velocityRef.current[categoryId] = 0
-    // tick will stop itself next frame
-  }, [])
-
-  useEffect(() => {
-    const rafIds = rafIdsRef.current
-    return () => {
-      ; (["development", "cloud", "design"] as CategoryId[]).forEach((cat) => {
-        const id = rafIds[cat]
-        if (id != null) cancelAnimationFrame(id)
-      })
-    }
-  }, [])
-
-  // --- Scroll Progress ---
-  const scrollProgress: Record<CategoryId, { scrollYProgress: MotionValue<number> }> = {
-    development: useScroll({
-      target: containerRefs.development,
-      offset: ["start end", "end start"]
-    }),
-    cloud: useScroll({
-      target: containerRefs.cloud,
-      offset: ["start end", "end start"]
-    }),
-    design: useScroll({
-      target: containerRefs.design,
-      offset: ["start end", "end start"]
-    })
-  }
-
-  // --- Transform ---
-  const x: Record<CategoryId, MotionValue<string>> = {
-    development: useTransform(scrollProgress.development.scrollYProgress, [0, 1], prefersReducedMotion ? ["0%", "0%"] : ["0%", "-24%"]),
-    cloud: useTransform(scrollProgress.cloud.scrollYProgress, [0, 1], prefersReducedMotion ? ["0%", "0%"] : ["-24%", "0%"]),
-    design: useTransform(scrollProgress.design.scrollYProgress, [0, 1], prefersReducedMotion ? ["0%", "0%"] : ["0%", "-24%"])
-  }
-
-
-
-  // --- Categories Data ---
-  const categories: Category[] = [
-    { id: "development", title: "Development & Databases" },
-    { id: "cloud", title: "Cloud & DevOps" },
-    { id: "design", title: "Design & 3D" }
-  ]
-
-  // Flatten all skills to pass to the background
-  const allSkills = useMemo(() => {
-    return [...skills.development, ...skills.cloud, ...skills.design].map(s => ({
-      icon: s.icon,
-      color: s.brandColor
-    }))
-  }, [skills])
-
-  const repeatedSkillsByCategory = useMemo<Record<CategoryId, Skill[]>>(() => {
-    const repeat = 4
-    return {
-      development: Array.from({ length: repeat }, () => skills.development).flat(),
-      cloud: Array.from({ length: repeat }, () => skills.cloud).flat(),
-      design: Array.from({ length: repeat }, () => skills.design).flat(),
-    }
-  }, [skills])
-
   return (
-    <section id="skills" className="py-24 md:py-32 bg-[#030306] overflow-hidden relative">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-background to-transparent" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background to-transparent" />
-      {/* Floating Tech Background */}
-      <FloatingIconsBackground icons={allSkills} count={14} accentColor="#8b5cf6" />
-      
-      <div className="container px-8 md:px-16 lg:px-24 max-w-7xl mx-auto relative z-10">
-        <div className="mb-20 md:mb-24">
-          <h2 className="text-5xl md:text-6xl font-bold mb-5 text-foreground">
-            technical skills
+    <section id="skills" className="py-16 sm:py-20 border-t border-zinc-800/60">
+      <div className="flex flex-col gap-8">
+        {/* Section Header */}
+        <div className="flex flex-col gap-2">
+          <div className="font-mono text-xs text-zinc-500 uppercase tracking-widest">
+            // 03. skills
+          </div>
+          <h2 className="font-pixel text-lg sm:text-xl font-bold tracking-wide text-white uppercase">
+            Core Competencies
           </h2>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl leading-relaxed">
-            my toolkit spans a wide range of technologies — from modern web frameworks to cloud infrastructure and creative tools.
+          <p className="text-sm sm:text-base text-zinc-400">
+            A comprehensive overview of frameworks, cloud technologies, languages, and operational tooling.
           </p>
         </div>
 
-        <div className="space-y-14 md:space-y-18">
-          {categories.map((category) => (
-            <div key={category.id} className="space-y-5">
-              <div className="flex items-center gap-3">
-                <div className="h-px flex-1 bg-border" />
-                <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-widest px-2">{category.title}</h3>
-                <div className="h-px flex-1 bg-border" />
-              </div>
-
-              <div className="relative overflow-visible py-2">
-                <div className="pointer-events-none absolute inset-x-8 top-1/2 h-28 -translate-y-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(139,92,246,0.055),rgba(56,189,248,0.024)_42%,transparent_72%)] blur-2xl" />
-
-                <div
-                  ref={containerRefs[category.id]}
-                  className="relative h-[110px] overflow-hidden"
-                  style={{
-                    contain: "layout paint",
-                    WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)",
-                    maskImage: "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)",
-                  }}
-                >
-                  <motion.div style={{ x: manualOffsetByCategory[category.id] }} className="absolute will-change-transform transform-gpu">
-                    <motion.div
-                      style={{ x: x[category.id] }}
-                      className="flex gap-8 md:gap-10 items-center py-4 will-change-transform transform-gpu"
-                    >
-                      {repeatedSkillsByCategory[category.id].map((skill, index) => (
-                        <div
-                          key={`${skill.name}-${index}`}
-                          className="group relative flex flex-col items-center gap-2"
-                        >
-                          <skill.icon
-                            className="h-10 w-10 md:h-12 md:w-12 opacity-65 transition-[opacity,transform] duration-200 hover:opacity-100 group-hover:scale-105"
-                            style={{ color: skill.brandColor }}
-                            title={skill.name}
-                            aria-label={skill.name}
-                          />
-                          <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md border border-border bg-card/90 backdrop-blur-sm px-2 py-1 text-[10px] leading-none text-foreground opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity pointer-events-none shadow-sm">
-                            {skill.name}
-                          </div>
-                        </div>
-                      ))}
-                    </motion.div>
-                  </motion.div>
-
-                  <div className="pointer-events-none absolute inset-0 flex items-center justify-between z-20">
-                    <button
-                      type="button"
-                      aria-label={`Previous ${category.title}`}
-                      className="pointer-events-auto ml-2 md:ml-4 inline-flex h-9 w-9 items-center justify-center rounded-full border border-border/70 bg-background/70 backdrop-blur-sm hover:bg-card hover:border-border/80 transition-all shadow-sm"
-                      onClick={() => handleShift(category.id, -1)}
-                      onMouseEnter={() => startHoverScroll(category.id, -1)}
-                      onMouseLeave={() => stopHoverScroll(category.id)}
-                    >
-                      <ChevronLeft className="h-4 w-4 text-muted-foreground" />
-                    </button>
-                    <button
-                      type="button"
-                      aria-label={`Next ${category.title}`}
-                      className="pointer-events-auto mr-2 md:mr-4 inline-flex h-9 w-9 items-center justify-center rounded-full border border-border/70 bg-background/70 backdrop-blur-sm hover:bg-card hover:border-border/80 transition-all shadow-sm"
-                      onClick={() => handleShift(category.id, 1)}
-                      onMouseEnter={() => startHoverScroll(category.id, 1)}
-                      onMouseLeave={() => stopHoverScroll(category.id)}
-                    >
-                      <ChevronRight className="h-4 w-4 text-muted-foreground" />
-                    </button>
-                  </div>
-                </div>
+        {/* Skills Matrix */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {skillGroups.map((group) => (
+            <div
+              key={group.category}
+              className="flex flex-col gap-3 rounded-lg border border-zinc-800/70 bg-zinc-900/20 p-5"
+            >
+              <h3 className="font-mono text-xs font-semibold text-zinc-300 uppercase tracking-wider">
+                {group.category}
+              </h3>
+              <div className="flex flex-wrap gap-1.5">
+                {group.skills.map((skill) => (
+                  <span
+                    key={skill}
+                    className="font-mono text-xs px-2.5 py-1 rounded bg-zinc-900 text-zinc-300 border border-zinc-800/80 hover:border-zinc-700 transition-colors"
+                  >
+                    {skill}
+                  </span>
+                ))}
               </div>
             </div>
           ))}

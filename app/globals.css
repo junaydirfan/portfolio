@@ -51,10 +51,10 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-mono;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-family: var(--font-space-grotesk), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: 'Space Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Courier New', monospace;
   }
 
   html {
@@ -66,11 +66,12 @@
     background-color: hsl(var(--background));
   }
 
-  /* Refined typography */
+  /* Retro computing & 8-bit typography */
   h1, h2, h3, h4, h5, h6 {
     @apply font-bold;
-    letter-spacing: -0.025em;
-    line-height: 1.1;
+    font-family: 'Silkscreen', 'VT323', 'Space Mono', monospace;
+    letter-spacing: 0.02em;
+    line-height: 1.25;
   }
 
   h1 {

@@ -1,818 +1,170 @@
 "use client"
 
-import { motion, useInView } from "framer-motion"
-import React, { useRef, useState, useEffect, useCallback, type ElementType } from "react";
-import { Trophy, Server, Lock, Hammer, BarChart3, Workflow, Cpu, Database, Network, Smartphone, Mail, Type, ShieldCheck, Sparkles } from "lucide-react";
-import { ProjectDetailModal } from "./project-detail-modal"
-import type { ProjectType } from "@/types/project"
-import {
-  SiNextdotjs, SiNestjs, SiSolidity, SiC, SiReact, SiJavascript,
-  SiHtml5, SiTypescript, SiTailwindcss, SiRadixui, SiFramer, SiPython,
-  SiPostgresql, SiMongodb, SiMysql, SiRedis, SiSqlite, SiDocker,
-  SiKubernetes, SiTerraform, SiAnsible, SiGithubactions, SiJenkins, SiGit, SiWireshark,
-  SiSocketdotio, SiWordpress, SiVuedotjs, SiSvelte, SiOpenjdk,
-  SiFigma,
-  SiUnity, SiBlender, SiGithubpages, SiVercel, SiSanity, SiWhatsapp, SiResend,
-  SiEthereum, SiLinux, SiCloudflare, SiOpenai, SiStripe, SiGooglegemini,
-  SiDrizzle, SiLatex, SiGooglechrome, SiFirefoxbrowser, SiChromewebstore,
-} from "react-icons/si";
-import { FaAws, FaCss3Alt } from "react-icons/fa";
-import { TbBrandAdobeAfterEffect, TbBrandAdobeIllustrator, TbBrandAdobePhotoshop, TbBrandAdobePremier } from "react-icons/tb";
-import Image from "next/image";
-import { FloatingCodeBackground } from "./floating-code-background"
+import { ArrowUpRight } from "lucide-react"
 
-// Custom GSAP Icon Component - Official GSAP Logo
-const SiGsap = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
-  <svg
-    className={className}
-    viewBox="0 0 82 30"
-    fill="currentColor"
-    {...props}
-  >
-    <path fill="currentColor" d="M23.81 14.013v.013l-1.075 4.665c-.058.264-.322.458-.626.458H20.81a.218.218 0 0 0-.208.155c-1.198 4.064-2.82 6.858-4.962 8.535-1.822 1.428-4.068 2.093-7.069 2.093-2.696 0-4.514-.867-6.056-2.578C.478 25.09-.364 21.388.146 16.926 1.065 8.549 5.41.096 13.776.096c2.545-.023 4.543.762 5.933 2.33 1.47 1.657 2.216 4.154 2.22 7.421a.55.55 0 0 1-.549.536h-6.13a.42.42 0 0 1-.407-.41c-.05-2.259-.72-3.36-2.052-3.36-2.35 0-3.736 3.19-4.471 4.959-1.027 2.47-1.55 5.152-1.447 7.824.049 1.244.249 2.994 1.43 3.718 1.047.643 2.541.217 3.446-.495.904-.711 1.632-1.942 1.938-3.065.043-.156.046-.277.005-.332-.043-.055-.162-.068-.253-.068h-1.574a.572.572 0 0 1-.438-.202.42.42 0 0 1-.087-.362l1.076-4.674c.053-.24.27-.42.537-.453v-.011h10.33c.024 0 .049 0 .072.005.268.034.457.284.452.556h.002Z" />
-    <path fill="currentColor" d="M41.594 8.65a.548.548 0 0 1-.548.531H35.4c-.37 0-.679-.3-.679-.665 0-1.648-.57-2.45-1.736-2.45s-1.918.717-1.94 1.968c-.025 1.395.764 2.662 3.01 4.84 2.957 2.774 4.142 5.232 4.085 8.48C38.047 26.605 34.476 30 29.042 30c-2.775 0-4.895-.743-6.305-2.207-1.431-1.486-2.087-3.668-1.95-6.485a.548.548 0 0 1 .549-.53h5.84a.55.55 0 0 1 .422.209.48.48 0 0 1 .106.384c-.065 1.016.112 1.775.512 2.195.256.272.613.41 1.058.41 1.079 0 1.711-.763 1.735-2.09.02-1.148-.343-2.155-2.321-4.19-2.555-2.496-4.846-5.075-4.775-9.13.042-2.351.976-4.502 2.631-6.056C28.294.868 30.687 0 33.465 0c2.783.02 4.892.813 6.269 2.359 1.304 1.466 1.932 3.582 1.862 6.29h-.002Z" />
-    <path fill="currentColor" d="m59.096 29.012.037-27.932a.525.525 0 0 0-.529-.533h-8.738c-.294 0-.423.252-.507.42L36.707 28.842v.005l-.005.006c-.14.343.126.71.497.71h6.108c.33 0 .548-.1.656-.308l1.213-2.915c.149-.388.177-.424.601-.424h5.836c.406 0 .415.008.408.405l-.131 2.71a.525.525 0 0 0 .529.532h6.17a.522.522 0 0 0 .403-.182.458.458 0 0 0 .104-.369Zm-10.81-9.326c-.057 0-.102-.001-.138-.005a.146.146 0 0 1-.13-.183c.012-.041.029-.095.053-.163l4.377-10.827c.038-.107.086-.212.136-.314.071-.145.157-.155.184-.047.023.09-.502 11.118-.502 11.118-.041.413-.06.43-.467.464l-3.509-.041h-.008l.003-.002Z" />
-    <path fill="currentColor" d="M71.545.547h-4.639c-.245 0-.52.13-.585.422l-6.455 28.029a.423.423 0 0 0 .088.364.572.572 0 0 0 .437.202h5.798c.311 0 .525-.153.583-.418 0 0 .703-3.168.704-3.178.05-.247-.036-.439-.258-.555-.105-.054-.209-.108-.312-.163l-1.005-.522-1-.522-.387-.201a.186.186 0 0 1-.102-.17.199.199 0 0 1 .198-.194l3.178.014c.95.005 1.901-.062 2.836-.234 6.58-1.215 10.95-6.485 11.076-13.656.107-6.12-3.309-9.221-10.15-9.221l-.005.003Zm-1.579 16.68h-.124c-.278 0-.328-.03-.337-.04-.004-.007 1.833-8.073 1.834-8.084.047-.233.045-.367-.099-.446-.184-.102-2.866-1.516-2.866-1.516a.188.188 0 0 1-.101-.172.197.197 0 0 1 .197-.192h4.241c1.32.04 2.056 1.221 2.021 3.237-.061 3.492-1.721 7.09-4.766 7.214Z" />
-  </svg>
-)
+interface ProjectItem {
+  title: string
+  badge?: string
+  description: string
+  details?: string
+  tags: string[]
+  liveUrl?: string
+  githubUrl?: string
+}
 
-// --- Icon Mapping ---
-const techIconMap: Record<string, ElementType> = {
-  // --- Web Frameworks ---
-  'nextjs': SiNextdotjs,
-  'nestjs': SiNestjs,
-  'react': SiReact,
-  'vuejs': SiVuedotjs,
-  'svelte': SiSvelte,
-
-  // --- Languages ---
-  'typescript': SiTypescript,
-  'javascript': SiJavascript,
-  'python': SiPython,
-  'java': SiOpenjdk,
-  'c': SiC,
-  'solidity': SiSolidity,
-
-  // --- Styling ---
-  'tailwindcss': SiTailwindcss,
-  'html': SiHtml5,
-  'htmlcss': SiHtml5,
-  'css': FaCss3Alt,
-  'responsivedesign': Smartphone,       // was SiMaterialdesign (Google's design system ≠ responsive design)
-  'framermotion': SiFramer,
-  'radixui': SiRadixui,
-  'gsap': SiGsap,
-
-  // --- Blockchain / Smart Contracts ---
-  'blockchain': SiEthereum,             // was SiHiveBlockchain (Hive ≠ Ethereum ecosystem)
-  'zkp': ShieldCheck,                   // was SiGnuprivacyguard (GnuPG is email encryption, not ZKP)
-  'hardhat': Hammer,                    // Hardhat = build tool, hammer metaphor is intentional
-  'cerbos': Lock,                       // authorization engine — lock is appropriate
-
-  // --- Systems Programming ---
-  'multithreading': Cpu,                // was SiCodeigniter (CodeIgniter is a PHP framework!)
-  'socketprogramming': SiSocketdotio,
-  'twophasecommit': Database,           // was SiGit (Git is VCS, not a DB commit protocol)
-  'posix': SiLinux,                     // was SiCodeigniter; POSIX = Unix/Linux standard
-  'distributedsystems': Network,        // was SiApachekafka; Kafka is one tool, not the concept
-
-  // --- Databases ---
-  'postgresql': SiPostgresql,
-  'neon': Database,
-  'neondatabase': Database,
-  'drizzleorm': SiDrizzle,
-  'mongodb': SiMongodb,
-  'mysql': SiMysql,
-  'redis': SiRedis,
-  'sqlite': SiSqlite,
-
-  // --- Infrastructure / DevOps ---
-  'docker': SiDocker,
-  'aws': FaAws,
-  'proxmox': Server,
-  'kubernetes': SiKubernetes,
-  'terraform': SiTerraform,
-  'ansible': SiAnsible,
-  'githubactions': SiGithubactions,
-  'jenkins': SiJenkins,
-  'git': SiGit,
-  'wireshark': SiWireshark,
-  'cdn': SiCloudflare,                  // they use Cloudflare CDN
-
-  // --- CMS / Commerce / Hosting ---
-  'contentmanagement': SiWordpress,
-  'webdevelopment': SiHtml5,            // was SiCodeigniter (CodeIgniter is a PHP framework!)
-  'wordpress': SiWordpress,
-  'vercel': SiVercel,
-  'sanity': SiSanity,
-  'groq': SiSanity,                     // GROQ is Sanity's query language
-  'githubpages': SiGithubpages,
-
-  // --- Communication / Email ---
-  'whatsapp': SiWhatsapp,
-  'resend': SiResend,
-  'web3forms': Mail,
-
-  // --- AI ---
-  'openai': SiOpenai,                   // was Bot (generic)
-  'chatgpt': SiOpenai,                  // was Bot (generic)
-  'gemini': SiGooglegemini,
-  'openrouter': Network,
-  'llmapis': SiOpenai,
-  'latex': SiLatex,
-  'ats': BarChart3,
-  'jobboard': Workflow,
-  'outreach': Mail,
-  'manifestv3': SiChromewebstore,
-  'browserextensions': SiChromewebstore,
-  'chromiumextension': SiGooglechrome,
-  'firefoxextension': SiFirefoxbrowser,
-
-  // --- PWA / Privacy ---
-  'pwa': Smartphone,
-  'privacyfirst': ShieldCheck,
-
-  // --- Payments ---
-  'stripe': SiStripe,
-
-  // --- Design Tools ---
-  'figma': SiFigma,
-  'aftereffects': TbBrandAdobeAfterEffect,
-  'photoshop': TbBrandAdobePhotoshop,
-  'illustrator': TbBrandAdobeIllustrator,
-  'premierepro': TbBrandAdobePremier,
-  'unity': SiUnity,
-  'blender': SiBlender,
-  'geistfont': Type,                    // was SiFontforge (FontForge is font editing software, not Geist)
-
-  // --- Misc ---
-  'recharts': BarChart3,
-  'hooks': SiReact,                     // was Hammer; React hooks are a React feature
-  'n8n': Workflow,
-};
-
-const techColorMap: Record<string, string> = {
-  // Web Frameworks
-  'nextjs': '#ffffff',
-  'nestjs': '#e0234e',
-  'react': '#61dafb',
-  'vuejs': '#42b883',
-  'svelte': '#ff3e00',
-  // Languages
-  'typescript': '#3178c6',
-  'javascript': '#f7df1e',
-  'python': '#3776ab',
-  'java': '#f89820',
-  'c': '#a8b9cc',
-  'solidity': '#627eea',
-  // Styling
-  'tailwindcss': '#06b6d4',
-  'html': '#e34f26',
-  'htmlcss': '#e34f26',
-  'css': '#1572b6',
-  'responsivedesign': '#8b5cf6',
-  'framermotion': '#0055ff',
-  'radixui': '#b0b0b0',
-  'gsap': '#88ce02',
-  // Blockchain
-  'blockchain': '#627eea',
-  'zkp': '#818cf8',
-  'hardhat': '#ffd02b',
-  'cerbos': '#818cf8',
-  // Systems
-  'multithreading': '#a78bfa',
-  'socketprogramming': '#ffffff',
-  'twophasecommit': '#336791',
-  'posix': '#fcc624',
-  'distributedsystems': '#38bdf8',
-  // Databases
-  'postgresql': '#336791',
-  'neon': '#00e699',
-  'neondatabase': '#00e699',
-  'drizzleorm': '#c5f74f',
-  'mongodb': '#47a248',
-  'mysql': '#4479a1',
-  'redis': '#dc382d',
-  'sqlite': '#0f80cc',
-  // Infrastructure
-  'docker': '#2496ed',
-  'aws': '#ff9900',
-  'proxmox': '#e57000',
-  'kubernetes': '#326ce5',
-  'terraform': '#7b42bc',
-  'ansible': '#ee0000',
-  'githubactions': '#2088ff',
-  'jenkins': '#d33833',
-  'git': '#f05032',
-  'wireshark': '#1679a7',
-  'cdn': '#f48120',
-  // CMS / Hosting
-  'contentmanagement': '#21759b',
-  'webdevelopment': '#e34f26',
-  'wordpress': '#21759b',
-  'vercel': '#ffffff',
-  'sanity': '#f03e2f',
-  'groq': '#f03e2f',
-  'githubpages': '#c9d1d9',
-  // Comms / Email
-  'whatsapp': '#25d366',
-  'resend': '#c0c0c0',
-  'web3forms': '#22c55e',
-  // AI
-  'openai': '#00a67e',
-  'chatgpt': '#00a67e',
-  'gemini': '#8ab4f8',
-  'openrouter': '#c4b5fd',
-  'llmapis': '#00a67e',
-  'latex': '#008080',
-  'ats': '#22c55e',
-  'jobboard': '#38bdf8',
-  'outreach': '#f97316',
-  'manifestv3': '#4285f4',
-  'browserextensions': '#4285f4',
-  'chromiumextension': '#4285f4',
-  'firefoxextension': '#ff7139',
-  // PWA / Privacy
-  'pwa': '#5a0fc8',
-  'privacyfirst': '#22c55e',
-  // Payments
-  'stripe': '#635bff',
-  // Design
-  'figma': '#f24e1e',
-  'aftereffects': '#cf96fd',
-  'photoshop': '#31a8ff',
-  'illustrator': '#ff7c00',
-  'premierepro': '#9999ff',
-  'unity': '#cccccc',
-  'blender': '#f5792a',
-  'geistfont': '#c0c0c0',
-  // Misc
-  'recharts': '#22c55e',
-  'hooks': '#61dafb',
-  'n8n': '#ea4b4b',
-};
-
-const getTechIcon = (tag: string): ElementType | null => {
-  const normalizedTag = tag.toLowerCase().replace(/[\s./-]/g, '');
-  return techIconMap[normalizedTag] || null;
-};
-
-const getTechColor = (tag: string): string => {
-  const normalizedTag = tag.toLowerCase().replace(/[\s./-]/g, '');
-  return techColorMap[normalizedTag] || 'currentColor';
-};
-
+const projects: ProjectItem[] = [
+  {
+    title: "OneApply — AI-Powered Job Application Manager",
+    badge: "SaaS / Production",
+    description:
+      "A full-stack SaaS platform that streamlines job applications with AI-powered resume tailoring, ATS keyword analysis, role-specific cover letters, and LaTeX document compilation.",
+    details:
+      "Features Manifest V3 browser extensions for Chromium and Firefox for one-click job capture directly from job boards into a unified dashboard. Built with Neon Postgres and Drizzle ORM.",
+    tags: ["Next.js", "TypeScript", "LaTeX", "Neon Postgres", "Drizzle ORM", "Manifest V3", "Stripe", "LLM APIs"],
+    liveUrl: "https://www.oneapply.app",
+  },
+  {
+    title: "SmartBallot — Blockchain Voting System",
+    badge: "Hackathon Winner",
+    description:
+      "A secure, blockchain-based voting application leveraging Zero-Knowledge Proofs (ZKPs) for voter anonymity and system transparency in electoral processes.",
+    details:
+      "Won Bishop’s University SecureVote Hackathon as a solo developer; audited by cybersecurity firm Eviden.",
+    tags: ["NestJS", "React", "Solidity", "Web3.js", "ZKP", "MongoDB", "Hardhat"],
+    githubUrl: "https://github.com/junaydirfan/smartballot",
+  },
+  {
+    title: "Self-Hosted Infrastructure & Homelab",
+    badge: "65+ GitHub Stars",
+    description:
+      "A documented private cloud homelab running Proxmox VE and LXC containers with automated routing, local DNS, and hardened network security.",
+    details:
+      "Configured NetBird for encrypted zero-trust mesh remote access and Nginx Proxy Manager for reverse proxying and automated SSL management.",
+    tags: ["Proxmox", "LXC", "NetBird", "Nginx Proxy Manager", "Linux", "Docker"],
+    githubUrl: "https://github.com/junaydirfan/ultimate-selfhosted-homelab",
+  },
+  {
+    title: "CampusThrive — Student Wellness Tracker",
+    badge: "Hackathon Winner '25",
+    description:
+      "A privacy-focused Progressive Web App for 4-dimensional mood and wellness tracking (Valence, Energy, Focus, Stress) storing 100% of data locally.",
+    details:
+      "Built with client-side analytical trend dashboards, 14-day baseline scoring, and complete offline PWA capability.",
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Recharts", "PWA", "Privacy-First"],
+    liveUrl: "https://junaydirfan.github.io/campus-thrive/",
+    githubUrl: "https://github.com/junaydirfan/campus-thrive",
+  },
+  {
+    title: "Bulletin Board Server",
+    badge: "Distributed Systems",
+    description:
+      "A multi-threaded concurrent server written in C featuring readers-writers locks and thread pools for high-throughput message posting and retrieval.",
+    details:
+      "Implements the two-phase commit protocol for distributed data consistency across multiple server nodes.",
+    tags: ["C", "Multi-Threading", "Socket Programming", "Two-Phase Commit", "POSIX"],
+    githubUrl: "https://github.com/junaydirfan/bbserver",
+  },
+  {
+    title: "Hoor Charms — E-Commerce Storefront",
+    badge: "Live Client Store",
+    description:
+      "A lightweight e-commerce storefront for a handmade jewelry brand, focused on fast load times, automated email receipts, and low operational overhead.",
+    details:
+      "Powered by Sanity CMS for product and order models, Resend for transactional emails, and direct WhatsApp customer handoff.",
+    tags: ["Next.js", "Sanity CMS", "Tailwind CSS", "Resend", "WhatsApp", "Vercel"],
+    liveUrl: "https://www.hoorcharms.com",
+  },
+]
 
 export default function Projects() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, amount: 0.1 })
-  const [selectedProject, setSelectedProject] = useState<ProjectType | null>(null)
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [isMounted, setIsMounted] = useState(false)
-  const [minimizedCards, setMinimizedCards] = useState<Set<string>>(new Set())
-  const [dialogOrigin, setDialogOrigin] = useState({ x: "50%", y: "50%" })
-  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const scrollLockRef = useRef<{ bodyOverflow: string; htmlOverflow: string } | null>(null)
-
-  useEffect(() => {
-    setIsMounted(true)
-  }, [])
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.06, delayChildren: 0.02 },
-    },
-  }
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.3, ease: "easeOut" as const },
-    },
-  }
-
-  // --- Project Data (Keep your existing data here) ---
-  const projects: ProjectType[] = [
-    {
-      id: "pimpmycv",
-      title: "OneApply: LaTeX-powered resume SaaS",
-      shortDescription:
-        "a LaTeX-powered SaaS for resume generation, resume management, ATS analysis, job workflows, and browser-assisted applications in one tool.",
-      fullDescription:
-        "OneApply is a full-stack SaaS app built to make job applications faster, cleaner, and easier to manage. Users maintain a master resume, save role-specific versions, and generate polished LaTeX-powered resumes that are tailored to each job posting. The platform brings resume generation, resume management, ATS scoring, cover letters, job tracking, and outreach workflows into one dashboard. It uses Neon Postgres with Drizzle ORM for structured application data, Stripe for subscriptions, and multiple LLM providers for reliable generation. OneApply also includes Manifest V3 browser extensions for Chromium and Firefox so users can capture job details and start tailoring directly from the pages where they find roles.",
-      image: "/oneapply.webp",
-      tags: ["Next.js", "TypeScript", "LaTeX", "Neon", "Drizzle ORM", "Manifest V3", "Chromium Extension", "Firefox Extension", "Stripe", "Gemini", "OpenRouter", "LLM APIs", "Tailwind CSS", "ATS"],
-      link: "https://www.oneapply.app",
-      keyFeatures: [
-        "LaTeX-powered resume generation for polished, consistent application documents",
-        "Resume management for master resumes, role-specific versions, and generated outputs",
-        "One-click tailoring from a saved resume and job description",
-        "ATS score analysis to highlight role fit and improvement areas",
-        "Role-specific cover letter generation and outreach copy",
-        "Application and job workflow tracking in one dashboard",
-        "Manifest V3 browser extensions for Chromium and Firefox job capture flows",
-        "Monthly subscription billing through Stripe",
-        "Multiple LLM providers with API-level fallbacks"
-      ],
-      technicalDetails: [
-        "Full-stack Next.js SaaS application with dashboard-driven resume and application workflows",
-        "Neon Postgres data layer modeled with Drizzle ORM instead of Sanity",
-        "LaTeX generation pipeline for clean resume layouts and export-ready documents",
-        "Manifest V3 extension architecture with Chromium support and a Firefox-compatible build path",
-        "Gemini and OpenRouter integrations for multi-model generation and fallbacks",
-        "Stripe integration for monthly subscription payment support",
-        "AI orchestration for resume tailoring, cover letters, ATS analysis, and outreach copy",
-        "Responsive, production-focused UI optimized for repeat usage across desktop and mobile"
-      ],
-      architecture:
-        "Full-stack Next.js SaaS architecture organized around payment-gated career workflows. Neon Postgres and Drizzle ORM model resumes, generated versions, jobs, extension captures, and billing-related application state. Stripe handles monthly subscriptions, while Gemini and OpenRouter power the AI layer for LaTeX resume generation, document tailoring, ATS analysis, job matching, and outreach generation. Manifest V3 browser extensions for Chromium and Firefox connect job pages back into the OneApply dashboard so the core application loop stays fast from discovery to tailored output.",
-      challenges: [
-        {
-          title: "Producing precise LaTeX resumes from messy inputs",
-          description: "Raw job descriptions and resume notes vary in quality, while LaTeX output needs strict structure to compile cleanly.",
-          solution: "Built a generation workflow that separates role-signal extraction, content tailoring, and LaTeX document assembly into distinct steps."
-        },
-        {
-          title: "Replacing document-style storage with relational workflows",
-          description: "Resume versions, applications, jobs, and extension captures need relationships that are awkward to manage in a CMS-style data model.",
-          solution: "Moved the product data model to Neon Postgres with Drizzle ORM so resume history, generated files, and application state can stay queryable and consistent."
-        },
-        {
-          title: "Connecting job boards to the SaaS dashboard",
-          description: "Users discover roles across many sites, so forcing every job description through manual copy and paste slows down the workflow.",
-          solution: "Added Manifest V3 browser extension flows for Chromium and Firefox so job details can be captured and sent into OneApply from the browser."
-        }
-      ]
-    },
-    {
-      id: "campusthrive",
-      title: "campusthrive: student wellness tracker",
-      shortDescription:
-        "a completed, comprehensive, privacy-focused student wellness tracking web application built with Next.js, TypeScript, and Tailwind CSS. CampusThrive prioritizes student privacy by storing all data locally in the browser's localStorage.",
-      fullDescription:
-        " a completed, comprehensive, privacy-focused student wellness tracking web application that prioritizes student privacy by storing all data locally in the browser's localStorage. The application features 4-dimensional mood tracking (Valence, Energy, Focus, Stress), intelligent scoring systems with 14-day baseline comparison, AI-powered coaching with 50+ contextual tips, and advanced analytics including trends dashboard, success compass, and power hours heatmap. Built as a Progressive Web App with complete offline capability, CampusThrive ensures no personal information is sent to external servers while providing powerful insights into student wellness patterns.",
-      image: "/images/campusthrive.webp",
-      tags: ["Next.js", "TypeScript", "Tailwind CSS", "Recharts", "PWA", "Privacy-First"],
-      link: "https://junaydirfan.github.io/campus-thrive/",
-      github: "https://github.com/junaydirfan/campus-thrive",
-      keyFeatures: [
-        "🏆 Winner of Bishop's CampusThrive Hackathon '25",
-        "Privacy-first architecture with 100% local storage",
-        "4-Dimensional mood tracking system (Valence, Energy, Focus, Stress)",
-        "AI-powered coaching with 50+ contextual tips",
-        "Advanced analytics dashboard with trends, success compass, and power hours heatmap",
-        "Progressive Web App with complete offline capability"
-      ],
-      technicalDetails: [
-        "Completed project - fully functional and deployed",
-        "Next.js 15+ with App Router and TypeScript",
-        "Tailwind CSS with custom design system",
-        "Recharts for comprehensive data visualizations",
-        "Custom React hooks for state management",
-        "PWA support with offline capability and responsive design"
-      ],
-      challenges: [
-        {
-          title: "🚧 Development challenges to be documented",
-          description: "Currently in development phase",
-          solution: "To be documented as development progresses"
-        },
-        {
-          title: "Implementing complex scoring algorithms",
-          description: "Creating z-score normalization and weighted formulas",
-          solution: "Mathematical implementation with TypeScript type safety"
-        },
-        {
-          title: "Creating intuitive mood tracking interface",
-          description: "Designing user-friendly sliders and real-time feedback",
-          solution: "Custom React components with smooth animations"
-        },
-        {
-          title: "Building analytics without external data collection",
-          description: "Generating insights while maintaining complete privacy",
-          solution: "Client-side processing with localStorage and Recharts"
-        },
-        {
-          title: "Ensuring complete privacy while maintaining functionality",
-          description: "Balancing rich features with zero external data transmission",
-          solution: "Local-first architecture with comprehensive offline capability"
-        }
-      ],
-      gallery: [],
-      architecture: "Client-side architecture with localStorage persistence, no backend services required. All calculations and data processing happen in the browser for complete privacy and offline capability."
-    },
-    {
-      id: "smartballot",
-      title: "smartballot: blockchain voting system",
-      shortDescription:
-        "A modern, blockchain-based voting platform ensuring security, transparency, accessibility, and privacy in electoral processes.",
-      fullDescription:
-        "SmartBallot is a revolutionary blockchain-based voting system that achieved Runner-Up in the Eviden & Bishop's University SecureVote Hackathon 2024. It leverages modern cryptographic and blockchain tools to ensure vote integrity, voter anonymity, and system transparency while keeping the user experience simple and intuitive. The platform is designed to be secure, accessible, scalable, anonymous, and compliant with electoral regulations.",
-      image: "/images/smartballot.webp",
-      tags: ["Next.js", "NestJS", "Solidity", "Blockchain", "ZKP", "Hardhat", "Cerbos"],
-      link: "https://github.com/junaydirfan/smartballot",
-      github: "https://github.com/junaydirfan/smartballot",
-      gallery: [], challenges: [], keyFeatures: [], technicalDetails: [], architecture: ""
-    },
-    {
-      id: "hoor-charms",
-      title: "hoor charms: modern e-commerce for a small brand",
-      shortDescription:
-        "a production-ready e-commerce storefront for a small handmade jewellery brand, focused on fast shopping, simple admin workflows, and a lean, low-cost architecture.",
-      fullDescription:
-        "Hoor Charms is a modern, production-ready e-commerce storefront designed for a small handmade crafts and jewellery business. The goal was to deliver a fast shopping experience, a simple admin workflow, and a zero/low-cost operating model that still feels premium. The storefront is powered by Sanity CMS for products and orders, with Next.js handling the cart, checkout, and order pipeline. Orders are written back into Sanity so the admin has a clean back-office view of every purchase, including uploaded payment proofs. Resend handles transactional emails for both customers and the store owner, and WhatsApp click-to-chat links provide an instant handoff for payment confirmation and order updates. The architecture is intentionally lean and free-tier friendly, combining Vercel hosting, Sanity CDN-backed content, Resend emails, and WhatsApp to deliver a complete small-business solution without heavy infrastructure.",
-      image: "/images/hoorcharms.webp",
-      tags: [
-        "Next.js",
-        "React",
-        "Tailwind CSS",
-        "Vercel",
-        "Sanity",
-        "Resend",
-        "WhatsApp",
-        "CDN"
-      ],
-      link: "https://www.hoorcharms.com",
-      github: "#",
-      keyFeatures: [
-        "Product catalog with variants and image sets managed in Sanity CMS",
-        "Cart and checkout flow in Next.js with shipping calculations and multiple payment paths",
-        "Orders stored in Sanity for a clean back-office view of every purchase",
-        "Support for uploading payment proof files (screenshots or PDFs) attached directly to orders",
-        "Automated transactional emails via Resend for customer confirmations and owner notifications",
-        "Instant WhatsApp handoff using wa.me deep links for payment proof and order updates",
-        "Lean, free-tier friendly stack ideal for small e-commerce brands"
-      ],
-      technicalDetails: [
-        "Next.js App Router with a mix of server and client components for storefront pages and interactive cart/checkout flows",
-        "Sanity CMS with structured content models for products, variants, and orders",
-        "GROQ queries via next-sanity with Sanity CDN enabled for fast, cached reads",
-        "Integration with Resend for reliable transactional email delivery without custom mail servers",
-        "WhatsApp click-to-chat deep links to avoid building a custom messaging backend",
-        "Tailwind CSS-driven design aligned with a modern, premium dark theme",
-        "Vercel deployment pipeline for simple CI/CD and optimized Next.js hosting"
-      ],
-      architecture:
-        "Lean, free-tier optimized architecture using Vercel for hosting, Sanity CMS + CDN for product and order data, Resend for transactional emails, and WhatsApp click-to-chat for customer communication. The storefront reads published content via next-sanity with CDN caching for fast, low-cost reads and writes orders back into Sanity, including attached payment proofs, giving the admin a single, friendly back-office surface."
-    },
-    {
-      id: "bulletin-board",
-      title: "bulletin board server",
-      shortDescription:
-        "A multi-threaded bulletin board server implemented in C that allows clients to write and read messages while ensuring data consistency across multiple instances.",
-      fullDescription:
-        "The Bulletin Board Server (bbserver) is a high-performance, multi-threaded server application designed to handle concurrent message posting and reading. It implements advanced synchronization techniques to ensure data integrity while maximizing throughput for multiple simultaneous users. The project provides a practical example of distributed systems and concurrent programming, with features like thread pools, readers-writers locks, and the two-phase commit protocol for distributed data synchronization.",
-      image: "/images/bbserv.webp",
-      tags: ["C", "Multi-threading", "Socket Programming", "Two-Phase Commit", "POSIX", "Distributed Systems"],
-      link: "https://github.com/junaydirfan/bbserver",
-      github: "https://github.com/junaydirfan/bbserver",
-      gallery: [], challenges: [], keyFeatures: [], technicalDetails: [], architecture: ""
-    },
-    {
-      id: "tayyab-portfolio",
-      title: "GSAP highlight site",
-      shortDescription:
-        "A clean, modern portfolio website built with Next.js and Tailwind CSS, featuring smooth animations and dark theme for a friend's professional showcase.",
-      fullDescription:
-        "A minimalist portfolio website created for a friend, showcasing their professional experience as a Senior Software Engineer. The site features a clean, modern design with strategic use of whitespace and the Geist font. Built with Next.js 15 and TypeScript, it includes responsive layout, seamless dark mode, and smooth scroll-triggered animations powered by GSAP. The website is deployed on GitHub Pages and demonstrates expertise in modern web development practices.",
-      image: "/images/tayyab.webp",
-      tags: ["Next.js", "TypeScript", "GSAP", "GitHub Pages", "Tailwind CSS"],
-      link: "https://junaydirfan.github.io/tayyab-portfolio/",
-      github: "https://github.com/junaydirfan/tayyab-portfolio",
-      keyFeatures: [
-        "Minimalist design with clean typography",
-        "Responsive mobile-first layout",
-        "Seamless dark theme",
-        "Smooth scroll-triggered animations",
-        "Professional portfolio showcase",
-        "GitHub Pages deployment"
-      ],
-      technicalDetails: [
-        "Next.js 15 with TypeScript for type safety",
-        "GSAP for smooth animations and transitions",
-        "Tailwind CSS for responsive styling",
-        "Geist font for modern typography",
-        "GitHub Pages for static site hosting",
-        "Component-based architecture"
-      ]
-    },
-    {
-      id: "this-website",
-      title: "this site",
-      shortDescription:
-        "This website is a showcase of my technical skills and creative problem-solving abilities. It's so meta, it's recursively describing itself!",
-      fullDescription:
-        "This website is a showcase of my technical skills and creative problem-solving abilities. It's so meta, it's recursively describing itself! Like a function that calls itself, this portfolio keeps going deeper into its own description. A true example of recursion in action - the website that describes the website that describes the website... Built with Next.js 15 and Tailwind CSS, this modern, responsive portfolio website features static site generation for optimal performance, component-based architecture for maintainability, and smooth animations powered by Framer Motion.",
-      image: "/images/thisite.webp",
-      tags: ["Next.js", "React", "Tailwind CSS", "Framer Motion", "Radix UI", "Web3Forms"],
-      link: "https://www.junaidirfan.com",
-      github: "https://github.com/junaydirfan/portfolio",
-      gallery: [], challenges: [], keyFeatures: [], technicalDetails: [], architecture: ""
-    },
-    {
-      id: "busrc-website",
-      title: "busrc website",
-      shortDescription:
-        "Served as webmaster for the Bishop's University SRC Website, managing content updates, site maintenance, and implementing new features.",
-      fullDescription:
-        "As the webmaster for the Bishop's University Student Representative Council (SRC) Website, I was responsible for maintaining and updating the site to ensure it effectively served the student body. This role involved collaborating with various teams to incorporate new content, revamping sections of the site, and implementing new features to enhance user experience. I managed the day-to-day operations of the website, ensuring it remained a reliable resource for students seeking information about campus events, services, and opportunities.",
-      image: "/images/busrc1.webp",
-      tags: ["React", "JavaScript", "HTML/CSS", "Content Management", "Web Development"],
-      link: "https://busrc.com/",
-      github: "#",
-      gallery: [], challenges: [], keyFeatures: [], technicalDetails: [], architecture: ""
-    },
-    {
-      id: "socialsight",
-      title: "socialsight",
-      shortDescription:
-        "A modern web application that allows users to preview how their images will appear across different social media platforms.",
-      fullDescription:
-        "SocialSight is a modern web application that allows users to preview how their images will appear across different social media platforms. Built with Next.js and TypeScript, it provides a sleek, responsive interface with dark mode support. The application enables users to upload images and see how they would look on various social media platforms like YouTube, Facebook, Instagram, Twitter, and Reddit, helping them optimize their content for each platform.",
-      image: "/images/socialsight.webp",
-      tags: ["Next.js", "TypeScript", "Tailwind CSS", "Radix UI", "Responsive Design"],
-      link: "https://v0-next-js-social-sight-app.vercel.app/",
-      github: "https://github.com/junaydirfan/SocialSight",
-      gallery: [], challenges: [], keyFeatures: [], technicalDetails: [], architecture: ""
-    },
-    {
-      id: "design-showcase",
-      title: "design stuff",
-      shortDescription:
-        "Explore my creative work in motion graphics, graphic design, and cinematography. Available for freelance projects and full-time opportunities.",
-      fullDescription:
-        "I specialize in creating engaging motion graphics, stunning visual designs, and compelling cinematography. My work spans across various mediums including logo animations, brand identity design, and video production. With a keen eye for detail and a passion for storytelling, I help brands and individuals bring their vision to life through creative design solutions.",
-      image: "/images/designstuff.webp",
-      tags: ["figma", "aftereffects", "photoshop", "illustrator", "premierepro", "unity", "blender"],
-      link: "https://www.behance.net/junaydirfan",
-      github: "https://www.fiverr.com/junaydirfan95",
-      keyFeatures: [
-        "Professional motion graphics and animations",
-        "Brand identity and logo design",
-        "Video editing and production",
-        "Social media content creation",
-        "Creative direction and consultation"
-      ],
-      technicalDetails: [
-        "Adobe Creative Suite (After Effects, Photoshop, Illustrator, Premiere Pro)",
-        "Motion graphics and animation techniques",
-        "Color grading and visual effects",
-        "Typography and layout design",
-        "Video production and post-production"
-      ]
-    },
-  ]
-  // -------------------------------------------------
-
-
-  const setProjectModalScrollLock = useCallback((locked: boolean) => {
-    if (typeof window === "undefined") return
-
-    const html = document.documentElement
-    const body = document.body
-
-    if (locked) {
-      if (!scrollLockRef.current) {
-        scrollLockRef.current = {
-          bodyOverflow: body.style.overflow,
-          htmlOverflow: html.style.overflow,
-        }
-      }
-
-      html.dataset.projectModalOpen = "true"
-      body.style.overflow = "hidden"
-      html.style.overflow = "hidden"
-      window.dispatchEvent(new CustomEvent("project-modal-scroll-lock", { detail: { open: true } }))
-      return
-    }
-
-    delete html.dataset.projectModalOpen
-
-    if (scrollLockRef.current) {
-      body.style.overflow = scrollLockRef.current.bodyOverflow
-      html.style.overflow = scrollLockRef.current.htmlOverflow
-      scrollLockRef.current = null
-    } else {
-      body.style.overflow = ""
-      html.style.overflow = ""
-    }
-
-    window.dispatchEvent(new CustomEvent("project-modal-scroll-lock", { detail: { open: false } }))
-  }, [])
-
-  const handleOpenModal = (project: ProjectType, originElement?: HTMLElement) => {
-    if (closeTimerRef.current) {
-      clearTimeout(closeTimerRef.current)
-      closeTimerRef.current = null
-    }
-
-    if (originElement && typeof window !== "undefined") {
-      const rect = originElement.getBoundingClientRect()
-      setDialogOrigin({
-        x: `${((rect.left + rect.width / 2) / window.innerWidth) * 100}%`,
-        y: `${((rect.top + rect.height / 2) / window.innerHeight) * 100}%`,
-      })
-    } else {
-      setDialogOrigin({ x: "50%", y: "50%" })
-    }
-
-    setSelectedProject(project)
-    setIsModalOpen(true)
-    setProjectModalScrollLock(true)
-  }
-
-  const handleMinimize = (projectId: string) => {
-    setMinimizedCards(prev => {
-      const newSet = new Set(prev)
-      if (newSet.has(projectId)) {
-        newSet.delete(projectId)
-      } else {
-        newSet.add(projectId)
-      }
-      return newSet
-    })
-  }
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false)
-    if (closeTimerRef.current) {
-      clearTimeout(closeTimerRef.current)
-    }
-    closeTimerRef.current = setTimeout(() => {
-      setSelectedProject(null)
-      closeTimerRef.current = null
-      setProjectModalScrollLock(false)
-    }, 360)
-  }
-
-  useEffect(() => {
-    return () => {
-      if (closeTimerRef.current) {
-        clearTimeout(closeTimerRef.current)
-      }
-      setProjectModalScrollLock(false)
-    };
-  }, [setProjectModalScrollLock]);
-
-  // Helper function to get the appropriate image
-  const getImageSource = (imagePath: string) => {
-    if (!imagePath) return "/placeholder.svg";
-    return imagePath;
-  };
-
   return (
-    <section id="projects" className="py-24 md:py-32 bg-background relative overflow-hidden">
-      <FloatingCodeBackground />
-      <div className="container px-8 md:px-16 lg:px-24 max-w-7xl mx-auto relative z-10">
-        <motion.div
-          ref={ref}
-          initial="hidden"
-          animate={isMounted && isInView ? "visible" : "hidden"}
-          variants={containerVariants}
-        >
-          <motion.div className="mb-20 md:mb-24" variants={itemVariants}>
-            <h2 className="text-5xl md:text-6xl font-bold mb-5 text-foreground">
-              featured projects
-            </h2>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl leading-relaxed">
-              a showcase of projects demonstrating key skills and problem-solving approaches.
-            </p>
-          </motion.div>
+    <section id="projects" className="py-16 sm:py-20 border-t border-zinc-800/60">
+      <div className="flex flex-col gap-10">
+        {/* Header */}
+        <div className="flex flex-col gap-2">
+          <div className="font-mono text-xs text-zinc-500 uppercase tracking-widest">
+            // 02. projects
+          </div>
+          <h2 className="font-pixel text-lg sm:text-xl font-bold tracking-wide text-white uppercase">
+            Selected Work
+          </h2>
+          <p className="text-sm sm:text-base text-zinc-400">
+            Systems engineering, SaaS products, hackathon winners, and open-source infrastructure.
+          </p>
+        </div>
 
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8"
-            variants={containerVariants}
-          >
-            {projects.map((project) => (
-              <motion.div key={project.id} variants={itemVariants} className="group flex">
-                <div
-                  data-project-card
-                  className="h-full w-full flex flex-col rounded-xl bg-card border border-border hover:border-primary/40 transition-all duration-300 z-10 cursor-pointer hover:shadow-card-hover overflow-hidden motion-safe:active:scale-[0.992]"
-                  onClick={(event) => handleOpenModal(project, event.currentTarget)}
-                >
-                  {/* Window chrome header */}
-                  <div className="flex items-center justify-between px-4 py-3 bg-muted/40 border-b border-border">
-                    <div className="flex items-center space-x-1.5" onClick={(e) => e.stopPropagation()}>
-                      <button
-                        className="w-3 h-3 rounded-full bg-red-500/80 hover:bg-red-500 cursor-pointer transition-colors"
-                        onClick={() => handleMinimize(project.id)}
-                        title="Minimize"
-                      />
-                      <button
-                        className="w-3 h-3 rounded-full bg-yellow-500/80 hover:bg-yellow-500 cursor-pointer transition-colors"
-                        onClick={(event) => {
-                          handleOpenModal(project, event.currentTarget.closest("[data-project-card]") as HTMLElement | undefined)
-                        }}
-                        title="Expand"
-                      />
-                      <button
-                        className="w-3 h-3 rounded-full bg-green-500/80 hover:bg-green-500 cursor-pointer transition-colors"
-                        onClick={() => {}}
-                        title="Maximize"
-                      />
-                    </div>
-                    <div className="ml-4 flex-1">
-                      <p className="text-muted-foreground text-xs font-medium truncate">{project.title.toLowerCase()}</p>
-                    </div>
-                  </div>
-
-                  {/* Minimized State */}
-                  {minimizedCards.has(project.id) ? (
-                    <div className="p-6">
-                      <p className="text-muted-foreground text-sm">minimized — click red button to restore</p>
-                    </div>
-                  ) : (
-                    <>
-                      {/* Image */}
-                      <div className="relative">
-                        {isMounted ? (
-                          <div className="relative w-full h-44 overflow-hidden">
-                            <Image
-                              src={getImageSource(project.image || "/placeholder.svg")}
-                              alt={`${project.title} preview`}
-                              fill
-                              className="transition-transform duration-500 group-hover:scale-105 object-cover"
-                              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                              loading="lazy"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-card/60 to-transparent" />
-                          </div>
-                        ) : (
-                          <div className="w-full h-44 bg-muted animate-pulse" />
-                        )}
-                      </div>
-
-                      {/* Content */}
-                      <div className="flex flex-col flex-grow p-5">
-                        <div className="mb-4">
-                          <h3 className="text-foreground text-lg font-bold mb-2 leading-snug">{project.title.toLowerCase()}</h3>
-
-                          {project.id === "smartballot" && (
-                            <div className="flex items-center gap-1.5 text-xs text-primary mb-3 bg-primary/10 border border-primary/20 rounded-md px-2.5 py-1.5 w-fit">
-                              <Trophy className="h-3.5 w-3.5 flex-shrink-0" />
-                              <span className="font-semibold">BU Eviden SecureVote Hackathon &apos;24</span>
-                            </div>
-                          )}
-                          {project.id === "campusthrive" && (
-                            <div className="flex items-center gap-1.5 text-xs text-primary mb-3 bg-primary/10 border border-primary/20 rounded-md px-2.5 py-1.5 w-fit">
-                              <Trophy className="h-3.5 w-3.5 flex-shrink-0" />
-                              <span className="font-semibold">BU CampusThrive Hackathon &apos;25</span>
-                            </div>
-                          )}
-                          {project.id === "pimpmycv" && (
-                            <div className="flex items-center gap-1.5 text-xs text-violet-200 mb-3 bg-violet-500/10 border border-violet-400/20 rounded-md px-2.5 py-1.5 w-fit">
-                              <Sparkles className="h-3.5 w-3.5 flex-shrink-0" />
-                              <span className="font-semibold">AI SaaS product</span>
-                            </div>
-                          )}
-
-                          <p className="text-muted-foreground text-sm leading-relaxed line-clamp-3">
-                            {project.shortDescription}
-                          </p>
-                        </div>
-
-                        {/* Tech icons */}
-                        <div className="mt-auto pt-4 border-t border-border">
-                          <p className="text-xs font-medium text-muted-foreground mb-2.5 uppercase tracking-wider">stack</p>
-                          <div className="flex flex-wrap items-center gap-3">
-                            {project.tags.map((tag) => {
-                              const IconComponent = getTechIcon(tag)
-                              if (IconComponent) {
-                                return (
-                                  <div key={tag} title={tag} className="relative flex items-center justify-center">
-                                    <IconComponent
-                                      className="h-5 w-5 transition-opacity opacity-75 hover:opacity-100"
-                                      style={{ color: getTechColor(tag) }}
-                                    />
-                                  </div>
-                                )
-                              }
-                              return null
-                            })}
-                          </div>
-                        </div>
-                      </div>
-                    </>
+        {/* Project List (Text-first, no images) */}
+        <div className="grid grid-cols-1 gap-6">
+          {projects.map((project) => (
+            <div
+              key={project.title}
+              className="group flex flex-col gap-3 rounded-lg border border-zinc-800/80 bg-zinc-900/30 p-5 sm:p-6 transition-all hover:border-zinc-700 hover:bg-zinc-900/50"
+            >
+              {/* Title, Badge, and Action Links */}
+              <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2">
+                <div className="flex flex-wrap items-center gap-2.5">
+                  <h3 className="text-base sm:text-lg font-semibold text-zinc-100 group-hover:text-white transition-colors">
+                    {project.title}
+                  </h3>
+                  {project.badge && (
+                    <span className="font-mono text-[11px] px-2 py-0.5 rounded bg-zinc-800 text-zinc-300 border border-zinc-700/60">
+                      {project.badge}
+                    </span>
                   )}
                 </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </motion.div>
-      </div>
 
-      <ProjectDetailModal
-        project={selectedProject}
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        getTechIcon={getTechIcon}
-        getTechColor={getTechColor}
-        dialogOrigin={dialogOrigin}
-      />
+                {/* External Links */}
+                <div className="flex items-center gap-4 font-mono text-xs pt-1 sm:pt-0">
+                  {project.liveUrl && (
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-zinc-300 hover:text-white transition-colors"
+                    >
+                      <span>Live</span>
+                      <ArrowUpRight className="h-3 w-3 text-zinc-500 group-hover:text-white" />
+                    </a>
+                  )}
+                  {project.githubUrl && (
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-zinc-400 hover:text-zinc-200 transition-colors"
+                    >
+                      <span>GitHub</span>
+                      <ArrowUpRight className="h-3 w-3 text-zinc-500 group-hover:text-zinc-200" />
+                    </a>
+                  )}
+                </div>
+              </div>
+
+              {/* Descriptions */}
+              <p className="text-sm sm:text-base text-zinc-300 leading-relaxed">
+                {project.description}
+              </p>
+              {project.details && (
+                <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+                  {project.details}
+                </p>
+              )}
+
+              {/* Tags */}
+              <div className="flex flex-wrap gap-1.5 pt-2">
+                {project.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="font-mono text-xs px-2 py-0.5 rounded bg-zinc-950 text-zinc-400 border border-zinc-800"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </section>
   )
 }
