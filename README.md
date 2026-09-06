@@ -31,8 +31,7 @@ Visit the live site: [junaidirfan.com](https://junaidirfan.com)
 - Skills: Technical competencies matrix
 - Education: Academic credentials
 - Certifications: Industry certifications with verification links
-- Contact: Direct connection links
-- Footer: Minimal status footer
+- Footer: Social links and navigation jump
 
 ## 🚀 Getting Started
 

@@ -185,7 +185,7 @@ export default function About() {
         {/* Location line */}
         <p className="flex items-center gap-2 text-xs text-zinc-500 font-mono -mt-2">
           <MapPin className="h-3.5 w-3.5 text-zinc-400" />
-          <span>Based in Toronto, ON · Authorized to work in Canada</span>
+          <span>Based in Toronto, ON</span>
         </p>
       </div>
     </section>

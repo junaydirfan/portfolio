@@ -5,7 +5,6 @@ import Projects from "@/components/projects"
 import Skills from "@/components/skills"
 import Education from "@/components/education"
 import Certifications from "@/components/certifications"
-import Contact from "@/components/contact"
 import Footer from "@/components/footer"
 
 export const metadata: Metadata = {
@@ -23,7 +22,6 @@ export default function Home() {
       <Skills />
       <Education />
       <Certifications />
-      <Contact />
       <Footer />
     </main>
   )
