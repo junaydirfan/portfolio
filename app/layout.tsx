@@ -5,7 +5,7 @@ import SmoothScrolling from "@/components/smooth-scrolling";
 import { PostHogProvider } from "@/components/posthog-provider";
 
 export const metadata: Metadata = {
-  title: "Junaid Irfan — Full-Stack & DevSecOps Engineer",
+  title: "Junaid Irfan",
   description: "Portfolio of Junaid Irfan, Full-Stack & DevSecOps Engineer specializing in cloud-native systems, platform engineering, and AI operations.",
   icons: {
     icon: '/favicon.ico',

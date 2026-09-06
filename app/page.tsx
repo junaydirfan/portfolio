@@ -8,7 +8,7 @@ import Certifications from "@/components/certifications"
 import Footer from "@/components/footer"
 
 export const metadata: Metadata = {
-  title: "Junaid Irfan — Full-Stack & DevSecOps Engineer",
+  title: "Junaid Irfan",
   description:
     "Portfolio of Junaid Irfan, Full-Stack & DevSecOps Engineer specializing in cloud infrastructure, Kubernetes, platform engineering, and AI operations.",
 }
