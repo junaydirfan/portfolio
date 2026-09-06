@@ -7,7 +7,7 @@ export default function Footer() {
     <footer className="border-t border-zinc-800/60 py-8 text-zinc-500 font-mono text-xs">
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
         <div>
-          &copy; {currentYear} Junaid Irfan
+          J.I. {currentYear}
         </div>
         <div className="flex items-center gap-4">
           <a
