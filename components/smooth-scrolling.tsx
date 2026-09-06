@@ -20,8 +20,7 @@ export default function SmoothScrolling({ children }: { children: React.ReactNod
       gestureOrientation: 'vertical',
       smoothWheel: true,
       wheelMultiplier: 1,
-      prevent: (node) => Boolean(node.closest("[data-lenis-prevent], [data-project-dialog-scroll]")),
-      virtualScroll: () => document.documentElement.dataset.projectModalOpen !== "true",
+      prevent: (node) => Boolean(node.closest("[data-lenis-prevent]")),
     });
 
     let rafId: number | null = null;
@@ -46,7 +45,7 @@ export default function SmoothScrolling({ children }: { children: React.ReactNod
     startRaf();
 
     const resumeIfAllowed = () => {
-      if (document.hidden || document.documentElement.dataset.projectModalOpen === "true") {
+      if (document.hidden) {
         lenis.stop();
         stopRaf();
         return;
@@ -55,25 +54,13 @@ export default function SmoothScrolling({ children }: { children: React.ReactNod
       startRaf();
     };
 
-    const handleProjectModalScrollLock = (event: Event) => {
-      const isOpen = event instanceof CustomEvent && Boolean(event.detail?.open);
-      if (isOpen) {
-        lenis.stop();
-        stopRaf();
-      } else {
-        resumeIfAllowed();
-      }
-    };
-
     const handleVisibilityChange = () => {
       resumeIfAllowed();
     };
 
-    window.addEventListener("project-modal-scroll-lock", handleProjectModalScrollLock);
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
     return () => {
-      window.removeEventListener("project-modal-scroll-lock", handleProjectModalScrollLock);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       stopRaf();
       lenis.destroy();

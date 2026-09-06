@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: "Portfolio of Junaid Irfan, Full-Stack & DevSecOps Engineer specializing in cloud-native systems, platform engineering, and AI operations.",
   icons: {
     icon: '/favicon.ico',
-    apple: '/apple-icon.png',
+    apple: '/apple-touch-icon.png',
   },
 };
 

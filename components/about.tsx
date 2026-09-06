@@ -30,17 +30,6 @@ export default function About() {
   return (
     <section id="about" className="pt-20 sm:pt-28 pb-14 sm:pb-18">
       <div className="flex flex-col gap-6">
-        {/* Top Status Bar */}
-        <div className="flex items-center justify-between">
-          <div className="font-mono text-xs text-zinc-500">
-            // session: active · shell: zsh
-          </div>
-          <div className="flex items-center gap-2 rounded border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-1 text-[11px] text-emerald-400 font-mono">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span>ONLINE // AVAILABLE</span>
-          </div>
-        </div>
-
         {/* Central Terminal Window */}
         <div className="rounded-lg border border-zinc-800 bg-zinc-950/95 shadow-2xl overflow-hidden">
           {/* Terminal Window Controls Bar */}
@@ -61,15 +50,15 @@ export default function About() {
                 <span className="text-emerald-400">junaid@root:~$</span> whoami
               </p>
 
-              {/* Fully visible, seamless stacked ASCII banner */}
-              <div className="overflow-x-auto custom-scrollbar space-y-1 py-1">
+              {/* Fully visible, seamless stacked ASCII banner - Centralized */}
+              <div className="flex flex-col items-center justify-center py-2 overflow-x-auto custom-scrollbar w-full text-center">
                 <pre
                   style={{
                     fontFamily: "Consolas, Monaco, 'Courier New', Courier, monospace",
                     letterSpacing: "0px",
                     lineHeight: "1.05",
                   }}
-                  className="text-[8px] sm:text-[10px] md:text-[11px] text-white whitespace-pre select-none"
+                  className="text-[8px] sm:text-[10px] md:text-[11px] text-white whitespace-pre select-none inline-block text-left"
                 >
                   {asciiJunaid}
                 </pre>
@@ -79,16 +68,19 @@ export default function About() {
                     letterSpacing: "0px",
                     lineHeight: "1.05",
                   }}
-                  className="text-[8px] sm:text-[10px] md:text-[11px] text-white whitespace-pre select-none"
+                  className="text-[8px] sm:text-[10px] md:text-[11px] text-white whitespace-pre select-none inline-block text-left mt-1"
                 >
                   {asciiIrfan}
                 </pre>
               </div>
 
-              {/* Role Title inside the terminal directly under whoami */}
-              <p className="text-zinc-200 font-mono text-sm sm:text-base font-semibold pt-1">
-                <span className="text-emerald-400">&gt;</span> Full-Stack &amp; DevSecOps Engineer
-              </p>
+              {/* Role Title inside the terminal directly under whoami - Left-aligned */}
+              <div className="w-full text-left pt-1">
+                <p className="text-zinc-200 font-mono text-sm sm:text-base font-semibold">
+                  <span className="text-emerald-400 mr-2">&gt;</span>
+                  Full-Stack &amp; DevSecOps Engineer
+                </p>
+              </div>
             </div>
 
             {/* Command: grep expertise */}

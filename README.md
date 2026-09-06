@@ -16,25 +16,23 @@ Visit the live site: [junaidirfan.com](https://junaidirfan.com)
 
 ## 🛠️ Tech Stack
 
-- Framework: Next.js 15
+- Framework: Next.js (App Router, Static Export)
 - Styling: Tailwind CSS
-- Typography: Geist Font
-- Icons: React Icons
-- UI Components: Custom components built with Radix UI
-- Animations: Framer Motion
-- Form Handling: EmailJS
+- Typography: Space Mono & Silkscreen (Google Fonts)
+- Icons: Lucide React
+- Smooth Scrolling: Lenis
+- Analytics: PostHog & Vercel Analytics
 
 ## 📋 Sections
 
-- Hero: Introduction and call-to-action
-- About: Personal bio and professional summary
-- Skills: Technical competencies and tools
-- Infrastructure: Technical infrastructure knowledge
-- Projects: Showcase of recent work with descriptions and links
-- Experience: Professional work history and achievements
-- Education: Academic background and certifications
-- Contact: Form for reaching out and connection options
-- Footer: Social links and additional navigation
+- Terminal Hero: Terminal window with ASCII banner, role, system stats, and live GitHub contribution graph
+- Experience: Career history and accomplishments
+- Projects: Text-first engineering projects with live links and repository references
+- Skills: Technical competencies matrix
+- Education: Academic credentials
+- Certifications: Industry certifications with verification links
+- Contact: Direct connection links
+- Footer: Minimal status footer
 
 ## 🚀 Getting Started
 
