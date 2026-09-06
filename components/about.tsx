@@ -12,7 +12,7 @@ const asciiJunaid = [
   "    ███ ███    ███ ███   ███   ███    ███ ███  ███   ▄███  ",
   "█▄ ▄███ ████████▀   ▀█   █▀    ███    █▀  █▀   ████████▀   ",
   "▀▀▀▀▀▀                                                     ",
-].join("\n")
+]
 
 const asciiIrfan = [
   "     ▄█     ▄████████    ▄████████    ▄████████ ███▄▄▄▄   ",
@@ -24,7 +24,33 @@ const asciiIrfan = [
   "    ███    ███    ███   ███          ███    ███ ███   ███ ",
   "    █▀     ███    ███   ███          ███    █▀   ▀█   █▀  ",
   "           ███    ███                                     ",
-].join("\n")
+]
+
+// Convert block characters to exact vector paths once at module load
+// Guarantees 100% pixel-perfect rendering across all OS/devices (Android, iOS, PC, CJK locales)
+function buildAsciiSvgPath(lines: string[], startX = 0, startY = 0, cellW = 6, cellH = 10) {
+  const parts: string[] = []
+  lines.forEach((line, row) => {
+    const y = startY + row * cellH
+    for (let col = 0; col < line.length; col++) {
+      const char = line[col]
+      const x = startX + col * cellW
+      if (char === "█") {
+        parts.push(`M${x} ${y}h${cellW}v${cellH}h-${cellW}z`)
+      } else if (char === "▄") {
+        parts.push(`M${x} ${y + cellH / 2}h${cellW}v${cellH / 2}h-${cellW}z`)
+      } else if (char === "▀") {
+        parts.push(`M${x} ${y}h${cellW}v${cellH / 2}h-${cellW}z`)
+      } else if (char === "▌") {
+        parts.push(`M${x} ${y}h${cellW / 2}v${cellH}h-${cellW / 2}z`)
+      }
+    }
+  })
+  return parts.join("")
+}
+
+const asciiJunaidPath = buildAsciiSvgPath(asciiJunaid, 0, 0, 6, 10)
+const asciiIrfanPath = buildAsciiSvgPath(asciiIrfan, 3, 98, 6, 10)
 
 export default function About() {
   return (
@@ -90,28 +116,21 @@ export default function About() {
                 <span className="text-emerald-400">junaid@root:~$</span> whoami
               </p>
 
-              {/* Fully visible, seamless stacked ASCII banner - Centralized */}
-              <div className="flex flex-col items-center justify-center py-2 overflow-x-auto custom-scrollbar w-full text-center">
-                <pre
-                  style={{
-                    fontFamily: "Consolas, Monaco, 'Courier New', Courier, monospace",
-                    letterSpacing: "0px",
-                    lineHeight: "1.05",
-                  }}
-                  className="text-[8px] sm:text-[10px] md:text-[11px] text-white whitespace-pre select-none inline-block text-left"
+              {/* Responsive & 100% Cross-Device Pixel-Perfect ASCII Art Banner */}
+              <div className="flex flex-col items-center justify-center py-2 w-full text-center">
+                <svg
+                  viewBox="0 0 354 190"
+                  className="w-full max-w-[320px] sm:max-w-[400px] md:max-w-[440px] h-auto text-white fill-current select-none pointer-events-none"
+                  shapeRendering="crispEdges"
+                  role="img"
+                  aria-label="JUNAID IRFAN"
                 >
-                  {asciiJunaid}
-                </pre>
-                <pre
-                  style={{
-                    fontFamily: "Consolas, Monaco, 'Courier New', Courier, monospace",
-                    letterSpacing: "0px",
-                    lineHeight: "1.05",
-                  }}
-                  className="text-[8px] sm:text-[10px] md:text-[11px] text-white whitespace-pre select-none inline-block text-left mt-1"
-                >
-                  {asciiIrfan}
-                </pre>
+                  <title>JUNAID IRFAN</title>
+                  <path d={asciiJunaidPath} />
+                  <path d={asciiIrfanPath} />
+                </svg>
+                {/* Accessible text fallback for SEO and screen readers */}
+                <span className="sr-only">JUNAID IRFAN</span>
               </div>
 
               {/* Role Title inside the terminal directly under whoami - Left-aligned */}
@@ -166,9 +185,10 @@ export default function About() {
                   href="https://github.com/junaydirfan"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-zinc-400 hover:text-white transition-colors"
+                  className="inline-flex items-center gap-1 text-zinc-400 hover:text-white transition-colors shrink-0"
                 >
-                  <span>github.com/junaydirfan</span>
+                  <span className="hidden sm:inline">github.com/junaydirfan</span>
+                  <span className="sm:hidden">github</span>
                   <ArrowUpRight className="h-3.5 w-3.5" />
                 </a>
               </div>
@@ -179,7 +199,7 @@ export default function About() {
                   src="https://ghchart.rshah.org/4ade80/junaydirfan"
                   alt="GitHub contribution heatmap for junaydirfan"
                   loading="lazy"
-                  className="block h-auto w-full min-w-[500px] opacity-85 hover:opacity-100 transition-opacity"
+                  className="block h-auto w-full max-w-full opacity-85 hover:opacity-100 transition-opacity"
                 />
               </div>
             </div>
