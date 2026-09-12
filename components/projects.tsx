@@ -15,6 +15,30 @@ interface ProjectItem {
 
 const projects: ProjectItem[] = [
   {
+    title: "Flicket — Enterprise Multi-Agent & Operations Platform",
+    badge: "Enterprise",
+    description:
+      "An enterprise-grade internal platform developed at FDM Group to automate operational workflows and ticketing through multi-agent orchestration, MCP server integrations, and containerized services.",
+    details:
+      "Served as Lead DevSecOps Engineer and Scrum Master: maintained automated CI/CD pipelines in Azure DevOps, orchestrated container workloads on Kubernetes, maintained user stories and sprints in Microsoft Planner, integrated full-stack observability with Dynatrace, Prometheus, and Grafana, and delivered technical presentations to clients and stakeholders.",
+    tags: [
+      "Flask",
+      "Python",
+      "Kubernetes",
+      "Docker",
+      "Azure AI Foundry",
+      "MCP Servers",
+      "Multi-Agent Systems",
+      "Azure DevOps",
+      "CI/CD",
+      "Dynatrace",
+      "Prometheus",
+      "Grafana",
+      "Microsoft Planner",
+      "Scrum Master",
+    ],
+  },
+  {
     title: "OneApply — AI-Powered Job Application Manager",
     badge: "SaaS / Production",
     description:

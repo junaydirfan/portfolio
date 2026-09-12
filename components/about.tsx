@@ -148,7 +148,7 @@ export default function About() {
                 <span className="text-emerald-400">$</span> grep -r &quot;expertise&quot; /var/log/career.log
               </p>
               <p className="pl-3 text-zinc-300 text-xs sm:text-sm">
-                TypeScript · React · Next.js · Docker · AWS · Proxmox · LLM APIs
+                TypeScript · Next.js · Python · Java · Docker · Kubernetes · Terraform · Jenkins · AWS · Azure AI Foundry · Proxmox · MCP Servers · ServiceNow
               </p>
             </div>
 
@@ -158,7 +158,7 @@ export default function About() {
                 <span className="text-emerald-400">&gt;</span> cat /etc/tech-ecosystem.conf
               </p>
               <p className="pl-3 text-zinc-300 font-mono text-xs">
-                web=true cloud=true automation=true self_hosted=true
+                web=true cloud=true automation=true infrastructure=true ai=true
               </p>
             </div>
 

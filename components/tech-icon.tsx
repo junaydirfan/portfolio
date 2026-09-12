@@ -51,9 +51,12 @@ import {
   SiStripe,
   SiSolidity,
   SiSanity,
+  SiFlask,
+  SiGrafana,
+  SiPrometheus,
 } from "react-icons/si"
 import { FaAws } from "react-icons/fa6"
-import { VscAzure } from "react-icons/vsc"
+import { VscAzure, VscAzureDevops } from "react-icons/vsc"
 import { GrOracle } from "react-icons/gr"
 import {
   Boxes,
@@ -82,6 +85,7 @@ const techIconMap: Record<string, React.ComponentType<{ className?: string }>> =
   aws: FaAws,
   gcp: SiGooglecloud,
   azure: VscAzure,
+  "azure devops": VscAzureDevops,
   "azure ai foundry": VscAzure,
   "ci/cd": GitBranch,
   "github actions": SiGithubactions,
@@ -102,6 +106,7 @@ const techIconMap: Record<string, React.ComponentType<{ className?: string }>> =
   "java spring boot": SiSpringboot,
   "spring boot": SiSpringboot,
   python: SiPython,
+  flask: SiFlask,
   fastapi: SiFastapi,
   nestjs: SiNestjs,
   "restful apis": Network,
@@ -115,8 +120,11 @@ const techIconMap: Record<string, React.ComponentType<{ className?: string }>> =
 
   // AI & Platform Engineering
   "mcp (model context protocol)": SiAnthropic,
+  "mcp servers": SiAnthropic,
   "ai / mcp": SiAnthropic,
   mcp: SiAnthropic,
+  "multi-agent systems": Sparkles,
+  "multi-agents": Sparkles,
   "llm integration": Sparkles,
   "llm apis": SiOpenai,
   rag: Database,
@@ -165,6 +173,8 @@ const techIconMap: Record<string, React.ComponentType<{ className?: string }>> =
   // Observability, Security & Tooling
   "dynatrace ai": SiDynatrace,
   dynatrace: SiDynatrace,
+  grafana: SiGrafana,
+  prometheus: SiPrometheus,
   posthog: SiPosthog,
   netbird: ShieldCheck,
   tailscale: SiTailscale,
@@ -172,6 +182,9 @@ const techIconMap: Record<string, React.ComponentType<{ className?: string }>> =
   servicenow: Workflow,
   postman: SiPostman,
   kibana: SiKibana,
+  "microsoft planner": Kanban,
+  "scrum master": Kanban,
+  scrum: Kanban,
   "agile / scrum": Kanban,
   devsecops: ShieldCheck,
   sre: Activity,
