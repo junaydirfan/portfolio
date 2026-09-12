@@ -168,6 +168,7 @@ export default function About() {
                 <span className="text-emerald-400">$</span> ./products --list
               </p>
               <div className="pl-3 space-y-1 text-xs text-zinc-300">
+                <p>&gt; <span className="text-white font-medium">Flicket</span> &mdash; enterprise operations platform with multi-agent orchestration, MCP servers, and Kubernetes CI/CD.</p>
                 <p>&gt; <span className="text-white font-medium">OneApply</span> &mdash; LaTeX resume generation, management, ATS analysis, and browser-assisted applications.</p>
                 <p>&gt; <span className="text-white font-medium">CampusThrive</span> &mdash; privacy-first student wellness tracker.</p>
                 <p>&gt; <span className="text-white font-medium">ultimate-selfhosted-homelab</span> &mdash; documented home server stack and services.</p>
