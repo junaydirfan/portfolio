@@ -15,7 +15,7 @@ interface ProjectItem {
 
 const projects: ProjectItem[] = [
   {
-    title: "Flicket — Enterprise Multi-Agent & Operations Platform",
+    title: "Flicket: Enterprise Multi-Agent & Operations Platform",
     badge: "Enterprise",
     description:
       "An enterprise-grade internal platform developed at FDM Group to automate operational workflows and ticketing through multi-agent orchestration, MCP server integrations, and containerized services.",
@@ -39,7 +39,7 @@ const projects: ProjectItem[] = [
     ],
   },
   {
-    title: "OneApply — AI-Powered Job Application Manager",
+    title: "OneApply: AI-Powered Job Application Manager",
     badge: "SaaS / Production",
     description:
       "A full-stack SaaS platform that streamlines job applications with AI-powered resume tailoring, ATS keyword analysis, role-specific cover letters, and LaTeX document compilation.",
@@ -49,7 +49,7 @@ const projects: ProjectItem[] = [
     liveUrl: "https://www.oneapply.app",
   },
   {
-    title: "SmartBallot — Blockchain Voting System",
+    title: "SmartBallot: Blockchain Voting System",
     badge: "Hackathon Winner",
     description:
       "A secure, blockchain-based voting application leveraging Zero-Knowledge Proofs (ZKPs) for voter anonymity and system transparency in electoral processes.",
@@ -59,7 +59,7 @@ const projects: ProjectItem[] = [
     githubUrl: "https://github.com/junaydirfan/smartballot",
   },
   {
-    title: "Self-Hosted Infrastructure & Homelab",
+    title: "Self-Hosted Infrastructure Homelab",
     badge: "65+ GitHub Stars",
     description:
       "A documented private cloud homelab running Proxmox VE and LXC containers with automated routing, local DNS, and hardened network security.",
@@ -69,7 +69,7 @@ const projects: ProjectItem[] = [
     githubUrl: "https://github.com/junaydirfan/ultimate-selfhosted-homelab",
   },
   {
-    title: "CampusThrive — Student Wellness Tracker",
+    title: "CampusThrive: Student Wellness Tracker",
     badge: "Hackathon Winner '25",
     description:
       "A privacy-focused Progressive Web App for 4-dimensional mood and wellness tracking (Valence, Energy, Focus, Stress) storing 100% of data locally.",
@@ -90,7 +90,7 @@ const projects: ProjectItem[] = [
     githubUrl: "https://github.com/junaydirfan/bbserver",
   },
   {
-    title: "Hoor Charms — E-Commerce Storefront",
+    title: "Hoor Charms: E-Commerce Storefront",
     badge: "Live Client Store",
     description:
       "A lightweight e-commerce storefront for a handmade jewelry brand, focused on fast load times, automated email receipts, and low operational overhead.",
